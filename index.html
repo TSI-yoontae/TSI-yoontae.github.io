@@ -70,123 +70,15 @@
         );
 
         const ResearchTopicsSection = () => {
-            const researchTopicsData = [
-                { 
-                    id: 1, 
-                    icon: <FinanceIcon />, 
-                    title: "Quantitative Finance", 
-                    content: [ 
-                        { topic: "Asset Management", subtopics: [ "Decision-focused learning", "Portfolio optimization", "Goal-based investing", "Trading strategy*", "Household Finance", ] }, 
-                        { topic: "Financial Modeling", subtopics: [ "Investor behavior modeling", "Asset pricing", "Market making", "Order flow analysis", ] },
-                        { topic: "Time-Series for Finance", subtopics: [ "Volatility forecasting", "Regime-switching models", "Lead-lag detection", "Learning strategy", ] } 
-                    ] 
-                },
-                { 
-                    id: 2, 
-                    icon: <ScienceIcon />, 
-                    title: "Science", 
-                    content: [ 
-                        { topic: "Physics & Climate Modeling", subtopics: [ "Physics-Informed Neural Networks", "Climate Dynamics Forecasting", ] },
-                        { topic: "General Scientific Applications", subtopics: [ "GPS Free Autonomous Navigation*", "Magnetic Object Detection*", ] },
-                        { topic: "Sport Science", subtopics: [ "Player Performance Modeling & Tracking", "Sports Betting", ] }
-                    ]
-                },
-                { 
-                    id: 3, 
-                    icon: <ModelIcon />, 
-                    title: "Foundation Model", 
-                    content: [ 
-                        { topic: "Model Architecture & Representation", subtopics: [ "Foundation Models for Financial Time Series", ] },
-                        { topic: "Advanced Learning Paradigms", subtopics: [ "Temporal Domain Generalization", ] }
-                    ] 
-                }
-            ];
+            const researchTopicsData = [ { id: 1, icon: <FinanceIcon />, title: "Quantitative Finance", content: [ { topic: "Asset Management", subtopics: [ "Decision-focused learning", "Portfolio optimization", "Goal-based investing", "Trading strategy*", "Household Finance", ] }, { topic: "Financial Modeling", subtopics: [ "Investor behavior modeling", "Asset pricing", "Market making", "Order flow analysis", ] }, { topic: "Time-Series for Finance", subtopics: [ "Volatility forecasting", "Regime-switching models", "Lead-lag detection", "Learning strategy", ] } ] }, { id: 2, icon: <ScienceIcon />, title: "Science", content: [ { topic: "Physics & Climate Modeling", subtopics: [ "Physics-Informed Neural Networks", "Climate Dynamics Forecasting", ] }, { topic: "General Scientific Applications", subtopics: [ "GPS Free Autonomous Navigation*", "Magnetic Object Detection*", ] }, { topic: "Sport Science", subtopics: [ "Player Performance Modeling & Tracking", "Sports Betting", ] } ] }, { id: 3, icon: <ModelIcon />, title: "Foundation Model", content: [ { topic: "Model Architecture & Representation", subtopics: [ "Foundation Models for Financial Time Series", ] }, { topic: "Advanced Learning Paradigms", subtopics: [ "Temporal Domain Generalization", ] } ] } ];
             const [openAccordionId, setOpenAccordionId] = useState(null);
-            
-            return (
-                <section>
-                    <h2 className="text-2xl font-semibold">Research interests (AI in Time-Series)</h2>
-                    <p className="mt-2 text-sm text-gray-600">
-                        Our research focuses on advancing AI for time-series across various domains. Key topics under intensive study are marked with an asterisk (*).
-                    </p>
-                    <div className="mt-4 border rounded-lg shadow-md bg-white">
-                        {researchTopicsData.map(item => (
-                            <AccordionItem 
-                                key={item.id} 
-                                item={item} 
-                                isOpen={item.id === openAccordionId} 
-                                onClick={() => setOpenAccordionId(openAccordionId === item.id ? null : item.id)}
-                            />
-                        ))}
-                    </div>
-                </section>
-            );
+            return ( <section><h2 className="text-2xl font-semibold">Research interests (AI in Time-Series)</h2><p className="mt-2 text-sm text-gray-600">Our research focuses on advancing AI for time-series across various domains. Key topics under intensive study are marked with an asterisk (*).</p><div className="mt-4 border rounded-lg shadow-md bg-white">{researchTopicsData.map(item => ( <AccordionItem key={item.id} item={item} isOpen={item.id === openAccordionId} onClick={() => setOpenAccordionId(openAccordionId === item.id ? null : item.id)}/> ))}</div></section> );
         };
 
         // --- 메인: Home 탭 ---
         const HomeTabContent = () => {
-            const selectedPapers = [
-                {
-                    title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization",
-                    links: [
-                        { text: "paper", href: "https://arxiv.org/abs/2502.00828" },
-                        { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }
-                    ]
-                },
-                {
-                    title: "Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset",
-                    links: [
-                        { text: "paper", href: "https://arxiv.org/abs/2412.12864" },
-                        { text: "code", href: "https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset" },
-                        { text: "seminar@UNIST", href: "ppt/GFTab_UNIST.pdf" }
-                    ]
-                },
-                {
-                    title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management",
-                    links: [
-                        { text: "paper", href: "https://arxiv.org/abs/2407.13751" },
-                        { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" },
-                        { text: "seminar@SKKU", href: "ppt/SimStock_SKKU.pdf" }
-                    ]
-                }
-            ];
-
-            return (
-                <div className="space-y-12">
-                    <section>
-                        <h2 className="text-2xl font-semibold">Latest News</h2>
-                        <ul className="list-disc list-inside text-gray-700 space-y-1 mt-2">
-                            <li>📢 [2025.08] The Time Series Intelligence Lab (TSI Lab) has been officially launched.</li>
-                        </ul>
-                    </section>
-                    
-                    <ResearchTopicsSection />
-                    
-                    <section>
-                        <h2 className="text-2xl font-semibold">Selected Papers</h2>
-                        <ul className="mt-2 space-y-4">
-                            {selectedPapers.map((paper, index) => (
-                                <li key={index} className="border-b pb-3 last:border-b-0 last:pb-0">
-                                    <p className="font-semibold text-gray-800">{paper.title}</p>
-                                    <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1">
-                                        {paper.links.map((link) => (
-                                            <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                                                [{link.text}]
-                                            </a>
-                                        ))}
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
-
-                    <div className="pt-10 border-t border-gray-200">
-                        <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
-                        <p className="text-gray-700"><strong>Email:</strong> yoontaeResearch@gmail.com</p>
-                        <p className="text-gray-700"><strong>Address:</strong> 123 AI Research Blvd, Data City, TS 45678, Republic of Korea</p>
-                    </div>
-                </div>
-            );
+            const selectedPapers = [ { title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization", links: [ { text: "paper", href: "https://arxiv.org/abs/2502.00828" }, { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" } ] }, { title: "Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset", links: [ { text: "paper", href: "https://arxiv.org/abs/2412.12864" }, { text: "code", href: "https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset" }, { text: "seminar@UNIST", href: "ppt/GFTab_UNIST.pdf" } ] }, { title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", links: [ { text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, { text: "seminar@SKKU", href: "ppt/SimStock_SKKU.pdf" } ] } ];
+            return ( <div className="space-y-12"><section><h2 className="text-2xl font-semibold">Latest News</h2><ul className="list-disc list-inside text-gray-700 space-y-1 mt-2"><li>📢 The Time Series Intelligence Lab (TSI Lab) will launch in September 2025.</li></ul></section><ResearchTopicsSection /><section><h2 className="text-2xl font-semibold">Selected Papers</h2><ul className="mt-2 space-y-4">{selectedPapers.map((paper, index) => ( <li key={index} className="border-b pb-3 last:border-b-0 last:pb-0"><p className="font-semibold text-gray-800">{paper.title}</p><div className="flex flex-wrap gap-x-4 gap-y-1 mt-1">{paper.links.map((link) => ( <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">[{link.text}]</a> ))}</div></li> ))}</ul></section><div className="pt-10 border-t border-gray-200"><h2 className="text-2xl font-semibold mb-4">Contact Information</h2><p className="text-gray-700"><strong>Email:</strong> yoontae.hwang@pusan.ac.kr</p><p className="text-gray-700"><strong>Address:</strong> Pusan National University, Busan, South Korea</p></div></div> );
         };
         
         //======================================================================
@@ -199,24 +91,14 @@
                     <div className="flex flex-col sm:flex-row items-start gap-4 mt-4">
                         <img src="https://placehold.co/150x150/E2E8F0/4A5568?text=Y.H" alt="Prof. Yoontae Hwang" className="w-24 h-24 sm:w-32 sm:h-32 rounded-full mt-1 shadow-md" />
                         <div className="mt-1">
-                            <span className="text-xl font-medium">Prof. Yoontae Hwang (황윤태)</span>
+                            <span className="text-xl font-medium">Yoontae Hwang (황윤태)</span>
                             <div className="text-sm text-blue-600 space-x-3 mt-1">
                                 <a href="https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ" target="_blank" rel="noopener noreferrer" className="hover:underline">Google Scholar</a>
                                 <a href="https://www.linkedin.com/in/yoontae-hwang" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
                             </div>
-                            <div className="text-sm text-gray-700 mt-4 space-y-3">
+                            <div className="text-sm text-gray-700 mt-4 leading-relaxed">
                                 <p>
-                                    <strong>University of Oxford</strong>, Oxford, United Kingdom<br />
-                                    Postdoctoral Researcher (Sejong Science Fellowship), 2024.09 – Present
-                                </p>
-                                <p>
-                                    <strong>Ulsan National Institute of Science and Technology (UNIST)</strong>, Ulsan, South Korea<br />
-                                    Ph.D in Industrial Engineering, 2020.03 – 2024.08<br />
-                                    Advisor: Yongjae Lee
-                                </p>
-                                <p>
-                                    <strong>Sangmyung University</strong>, Seoul, South Korea<br />
-                                    B.S. in Economics & Mathematics (Double Major), 2014.03 – 2020.02
+                                    I am an Assistant Professor at Pusan National University, South Korea, starting from September 2025. Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee.
                                 </p>
                             </div>
                         </div>
@@ -228,20 +110,13 @@
                         <div>
                             <p className="font-semibold text-lg">PhD Students</p>
                             <ul className="list-disc list-inside ml-2">
-                                <li>Alice Kim</li>
-                                <li>Bob Lee</li>
+                                <li>TBD</li>
                             </ul>
                         </div>
                         <div>
                             <p className="font-semibold text-lg mt-2">MS Students</p>
                             <ul className="list-disc list-inside ml-2">
-                                <li>Charlie Park</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <p className="font-semibold text-lg mt-2">Interns</p>
-                            <ul className="list-disc list-inside ml-2">
-                                <li>Daniel Choi</li>
+                                <li>TBD</li>
                             </ul>
                         </div>
                     </div>
@@ -252,248 +127,38 @@
         //======================================================================
         // 📚 PUBLICATIONS 탭 컴포넌트 및 데이터
         //======================================================================
-        const PublicationItem = ({ item }) => (
-            <li className="space-y-1 py-4 border-b last:border-b-0">
-                <p className="text-lg font-semibold text-gray-800">{item.id} {item.title}</p>
-                <div className="text-gray-600">
-                    {item.authors.map((author, index) => (
-                        <Fragment key={index}>
-                            {author.href ? (
-                                <a href={author.href} target="_blank" rel="noopener noreferrer" className={`hover:underline ${author.isHighlight ? 'font-bold text-purple-600' : ''}`}>{author.name}</a>
-                            ) : (
-                                <span className={`${author.isHighlight ? 'font-bold text-purple-600' : ''}`}>{author.name}</span>
-                            )}
-                            {index < item.authors.length - 1 && ', '}
-                        </Fragment>
-                    ))}
-                </div>
-                <p className="text-gray-500 text-sm">{item.venue}</p>
-                {item.award && (<p className="text-sm italic" style={{ color: item.awardColor || 'red' }}>{item.award}</p>)}
-                <div className="flex flex-wrap gap-x-4 gap-y-1 text-blue-600">
-                    {item.links.map((link, index) => (
-                        <a key={index} href={link.href} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                            [{link.text}]
-                        </a>
-                    ))}
-                </div>
-            </li>
-        );
-
+        const PublicationItem = ({ item }) => ( <li className="space-y-1 py-4 border-b last:border-b-0"><p className="text-lg font-semibold text-gray-800">{item.id} {item.title}</p><div className="text-gray-600">{item.authors.map((author, index) => ( <Fragment key={index}>{author.href ? ( <a href={author.href} target="_blank" rel="noopener noreferrer" className={`hover:underline ${author.isHighlight ? 'font-bold text-purple-600' : ''}`}>{author.name}</a> ) : ( <span className={`${author.isHighlight ? 'font-bold text-purple-600' : ''}`}>{author.name}</span> )}{index < item.authors.length - 1 && ', '}</Fragment> ))}</div><p className="text-gray-500 text-sm">{item.venue}</p>{item.award && (<p className="text-sm italic" style={{ color: item.awardColor || 'red' }}>{item.award}</p>)}<div className="flex flex-wrap gap-x-4 gap-y-1 text-blue-600">{item.links.map((link, index) => ( <a key={index} href={link.href} target="_blank" rel="noopener noreferrer" className="hover:underline">[{link.text}]</a> ))}</div></li> );
         const PublicationsTabContent = () => {
-            const publications = [
-                { id: "[C4]", title: "Time-MQA: Time Series Multi-Task Question Answering with Context Enhancement", authors: [ { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Yiyuan Yang*", href: "https://scholar.google.co.kr/citations?user=FUuGvZIAAAAJ&hl=en" }, { name: "Yoontae Hwang", isHighlight: true }, { name: "Wenjie Du", href: "https://scholar.google.com/citations?user=j9qvUg0AAAAJ&hl=en" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Zhangyang Wang", href: "https://scholar.google.com/citations?user=pxFyKAIAAAAJ&hl=en" }, { name: "Ming Jin", href: "https://scholar.google.com/citations?user=I2xvKaIAAAAJ&hl=en" }, { name: "Qingsong Wen", href: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" }, ], venue: "Annual Meeting of the Association for Computational Linguistics (ACL), 2025, Acceptance rate 23%, Main Track", links: [ { text: "paper", href: "https://arxiv.org/abs/2503.01875" }, { text: "code", href: "https://huggingface.co/Time-QA" }, ], },
-                { id: "[C3]", title: "Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "AAAI Conference on Artificial Intelligence (AAAI), 2025, Acceptance rate 24%, Main Track", links: [ { text: "paper", href: "https://arxiv.org/abs/2412.12864" }, { text: "code", href: "https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset" }, { text: "seminar@UNIST", href: "ppt/GFTab_UNIST.pdf" }, ], },
-                { id: "[C2]", title: "CAFO: Feature-Centric Explanation on Time Series Classification", authors: [ { name: "Jaeho Kim", href: "https://sites.google.com/view/jaeho-kim" }, { name: "Seok-ju Hanhn", href: "https://vaseline555.github.io/" }, { name: "Yoontae Hwang", isHighlight: true }, { name: "Junghye Lee", href: "https://d3mlab.snu.ac.kr/members/principal-investigator" }, { name: "Seulki Lee", href: "https://scholar.google.com/citations?hl=en&user=qhI7uVMAAAAJ" }, ], venue: "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), 2024, Acceptance rate 20%, Main Track", award: "Best Poster Award, @UNIST AI Tech Workshop 2024", links: [ { text: "paper", href: "https://arxiv.org/abs/2406.01833" }, { text: "code", href: "https://github.com/eai-lab/CAFO" }, ], },
-                { id: "[C1]", title: "SimStock : Representation Model for Stock Similarities", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Junhyeong Lee", href: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" }, { name: "Daham Kim", href: "https://www.linkedin.com/in/daham-kim/" }, { name: "Seunghwan Noh" }, { name: "Joohwan Hong", href: "https://www.notion.so/unist-felab/Joohwan-Hong-Ph-D-a93266780e6a407a866e8b7ec7d47129" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "ACM International Conference on AI in Finance (ICAIF), 2023, Acceptance rate 21%", award: "Oral Presentation", awardColor: "red", links: [ { text: "paper", href: "https://dl.acm.org/doi/10.1145/3604237.3626888" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, { text: "seminar@SKKU", href: "ppt/SimStock_SKKU.pdf" }, ], },
-                { id: "[J5]", title: "Heterogeneous Trading Behaviors of Individual Investors", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Junpyo Park", href: "https://www.notion.so/unist-felab/Junpyo-Park-187b74eaaae847a98175664018bebea8" }, { name: "Jang Ho Kim", href: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" }, ], venue: "Finance Research Letters (FRL), 2023, Acceptance rate 28%", links: [{ text: "paper", href: "https://www.sciencedirect.com/science/article/abs/pii/S1544612324005117" }], },
-                { id: "[J4]", title: "Identifying household finance heterogeneity via deep clustering", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" }, ], venue: "Annals of Operations Research (ANOR), 2023, Acceptance rate 23%", links: [{ text: "paper", href: "https://link.springer.com/article/10.1007/s10479-022-04900-3" }], },
-                { id: "[J3]", title: "Household Financial Health: A Machine Learning Approach for Data-Driven Diagnosis and Prescription", authors: [ { name: "Kyeongbin Kim*", href: "https://www.linkedin.com/in/kimkyle95/" }, { name: "Yoontae Hwang*", isHighlight: true, isUnderlined: false }, { name: "Dongcheol Lim", href: "https://www.linkedin.com/in/dongclim0613/" }, { name: "Suhyeon Kim", href: "https://www.linkedin.com/in/sh-kim1026/" }, { name: "Junghye Lee", href: "https://d3mlab.snu.ac.kr/members/principal-investigator" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Quantitative Finance (QF), 2023, Acceptance rate 23%", award: "Commendation Award, @Commissioner of Statistics Korea 2020", links: [{ text: "paper", href: "https://www.tandfonline.com/doi/full/10.1080/14697688.2023.2254335" }], },
-                { id: "[J2]", title: "Stop-loss adjusted labels for machine learning-based trading of risky assets", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Junpyo Park", href: "https://www.notion.so/unist-felab/Junpyo-Park-187b74eaaae847a98175664018bebea8" }, { name: "Dong-Young Lim", href: "https://sites.google.com/view/dlim/group?authuser=0" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Research Letters (FRL), 2023, Acceptance rate 28%", links: [ { text: "paper", href: "https://www.sciencedirect.com/science/article/abs/pii/S1544612323006578" }, { text: "code", href: "https://github.com/Yoontae6719/Stop-loss-adjusted-labels" }, ], },
-                { id: "[J1]", title: "A Study on the Estimation of Apartment Price Index: Focused on the Machine Learning Algorithm", authors: [{ name: "Yoontae Hwang", isHighlight: true }], venue: "Journal of Money & Finance (KMFA), 2019, Acceptance rate 45.71%, Domestic journal (South Korea)", links: [{ text: "paper", href: "https://kiss.kstudy.com/Detail/Ar?key=3707638" }], },
-            ];
-            const workingPapers = [
-                { id: "[S]", title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yaxuan Kong", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2025.01 (intended), Acceptance rate 13%", links: [ { text: "paper", href: "https://arxiv.org/abs/2502.00828" }, { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }, ], },
-                { id: "[S]", title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2024.12, Acceptance rate 23%", award: "Best Paper Award @the Korean Academic Society of Business Administration 2024", links: [ { text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, ], },
-                { id: "[W]", title: "Neural Networks and Deep Learning for Asset Management", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Junhyeong Lee", href: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Jang Ho Kim", href: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=en" }, { name: "Woo Chang Kim", href: "https://scholar.google.co.kr/citations?user=7NmBs1kAAAAJ&hl=en" }, { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" }, ], venue: "Survey paper", links: [], },
-            ];
-            
-            return (
-                <section className="space-y-8">
-                    <div>
-                        <h2 className="text-2xl font-semibold">Publications</h2>
-                        <p className="mt-2 text-sm text-gray-600">
-                            <strong>J</strong>: Journal / <strong>C</strong>: Conference / <strong>*</strong>: equal contribution
-                        </p>
-                        <ul className="mt-4">
-                            {publications.map((item, index) => <PublicationItem key={index} item={item} />)}
-                        </ul>
-                    </div>
-                    <div className="pt-4">
-                        <h2 className="text-2xl font-semibold">Working Paper</h2>
-                        <p className="mt-2 text-sm text-gray-600">
-                            <strong>S</strong>: Submitted / <strong>W</strong>: Work in progress / <strong>*</strong>: equal contribution
-                        </p>
-                        <ul className="mt-4">
-                            {workingPapers.map((item, index) => <PublicationItem key={index} item={item} />)}
-                        </ul>
-                    </div>
-                </section>
-            );
+            const publications = [ { id: "[C4]", title: "Time-MQA: Time Series Multi-Task Question Answering with Context Enhancement", authors: [ { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Yiyuan Yang*", href: "https://scholar.google.co.kr/citations?user=FUuGvZIAAAAJ&hl=en" }, { name: "Yoontae Hwang", isHighlight: true }, { name: "Wenjie Du", href: "https://scholar.google.com/citations?user=j9qvUg0AAAAJ&hl=en" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Zhangyang Wang", href: "https://scholar.google.com/citations?user=pxFyKAIAAAAJ&hl=en" }, { name: "Ming Jin", href: "https://scholar.google.com/citations?user=I2xvKaIAAAAJ&hl=en" }, { name: "Qingsong Wen", href: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" }, ], venue: "Annual Meeting of the Association for Computational Linguistics (ACL), 2025, Acceptance rate 23%, Main Track", links: [ { text: "paper", href: "https://arxiv.org/abs/2503.01875" }, { text: "code", href: "https://huggingface.co/Time-QA" }, ], }, { id: "[C3]", title: "Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "AAAI Conference on Artificial Intelligence (AAAI), 2025, Acceptance rate 24%, Main Track", links: [ { text: "paper", href: "https://arxiv.org/abs/2412.12864" }, { text: "code", href: "https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset" }, { text: "seminar@UNIST", href: "ppt/GFTab_UNIST.pdf" }, ], }, { id: "[C2]", title: "CAFO: Feature-Centric Explanation on Time Series Classification", authors: [ { name: "Jaeho Kim", href: "https://sites.google.com/view/jaeho-kim" }, { name: "Seok-ju Hanhn", href: "https://vaseline555.github.io/" }, { name: "Yoontae Hwang", isHighlight: true }, { name: "Junghye Lee", href: "https://d3mlab.snu.ac.kr/members/principal-investigator" }, { name: "Seulki Lee", href: "https://scholar.google.com/citations?hl=en&user=qhI7uVMAAAAJ" }, ], venue: "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), 2024, Acceptance rate 20%, Main Track", award: "Best Poster Award, @UNIST AI Tech Workshop 2024", links: [ { text: "paper", href: "https://arxiv.org/abs/2406.01833" }, { text: "code", href: "https://github.com/eai-lab/CAFO" }, ], }, { id: "[C1]", title: "SimStock : Representation Model for Stock Similarities", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Junhyeong Lee", href: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" }, { name: "Daham Kim", href: "https://www.linkedin.com/in/daham-kim/" }, { name: "Seunghwan Noh" }, { name: "Joohwan Hong", href: "https://www.notion.so/unist-felab/Joohwan-Hong-Ph-D-a93266780e6a407a866e8b7ec7d47129" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "ACM International Conference on AI in Finance (ICAIF), 2023, Acceptance rate 21%", award: "Oral Presentation", awardColor: "red", links: [ { text: "paper", href: "https://dl.acm.org/doi/10.1145/3604237.3626888" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, { text: "seminar@SKKU", href: "ppt/SimStock_SKKU.pdf" }, ], }, { id: "[J5]", title: "Heterogeneous Trading Behaviors of Individual Investors", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Junpyo Park", href: "https://www.notion.so/unist-felab/Junpyo-Park-187b74eaaae847a98175664018bebea8" }, { name: "Jang Ho Kim", href: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" }, ], venue: "Finance Research Letters (FRL), 2023, Acceptance rate 28%", links: [{ text: "paper", href: "https://www.sciencedirect.com/science/article/abs/pii/S1544612324005117" }], }, { id: "[J4]", title: "Identifying household finance heterogeneity via deep clustering", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" }, ], venue: "Annals of Operations Research (ANOR), 2023, Acceptance rate 23%", links: [{ text: "paper", href: "https://link.springer.com/article/10.1007/s10479-022-04900-3" }], }, { id: "[J3]", title: "Household Financial Health: A Machine Learning Approach for Data-Driven Diagnosis and Prescription", authors: [ { name: "Kyeongbin Kim*", href: "https://www.linkedin.com/in/kimkyle95/" }, { name: "Yoontae Hwang*", isHighlight: true, isUnderlined: false }, { name: "Dongcheol Lim", href: "https://www.linkedin.com/in/dongclim0613/" }, { name: "Suhyeon Kim", href: "https://www.linkedin.com/in/sh-kim1026/" }, { name: "Junghye Lee", href: "https://d3mlab.snu.ac.kr/members/principal-investigator" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Quantitative Finance (QF), 2023, Acceptance rate 23%", award: "Commendation Award, @Commissioner of Statistics Korea 2020", links: [{ text: "paper", href: "https://www.tandfonline.com/doi/full/10.1080/14697688.2023.2254335" }], }, { id: "[J2]", title: "Stop-loss adjusted labels for machine learning-based trading of risky assets", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Junpyo Park", href: "https://www.notion.so/unist-felab/Junpyo-Park-187b74eaaae847a98175664018bebea8" }, { name: "Dong-Young Lim", href: "https://sites.google.com/view/dlim/group?authuser=0" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Research Letters (FRL), 2023, Acceptance rate 28%", links: [ { text: "paper", href: "https://www.sciencedirect.com/science/article/abs/pii/S1544612323006578" }, { text: "code", href: "https://github.com/Yoontae6719/Stop-loss-adjusted-labels" }, ], }, { id: "[J1]", title: "A Study on the Estimation of Apartment Price Index: Focused on the Machine Learning Algorithm", authors: [{ name: "Yoontae Hwang", isHighlight: true }], venue: "Journal of Money & Finance (KMFA), 2019, Acceptance rate 45.71%, Domestic journal (South Korea)", links: [{ text: "paper", href: "https://kiss.kstudy.com/Detail/Ar?key=3707638" }], }, ];
+            const workingPapers = [ { id: "[S]", title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yaxuan Kong", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2025.01 (intended), Acceptance rate 13%", links: [ { text: "paper", href: "https://arxiv.org/abs/2502.00828" }, { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }, ], }, { id: "[S]", title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2024.12, Acceptance rate 23%", award: "Best Paper Award @the Korean Academic Society of Business Administration 2024", links: [ { text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, ], }, { id: "[W]", title: "Neural Networks and Deep Learning for Asset Management", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Junhyeong Lee", href: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Jang Ho Kim", href: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=en" }, { name: "Woo Chang Kim", href: "https://scholar.google.co.kr/citations?user=7NmBs1kAAAAJ&hl=en" }, { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" }, ], venue: "Survey paper", links: [], }, ];
+            return ( <section className="space-y-8"><div><h2 className="text-2xl font-semibold">Publications</h2><p className="mt-2 text-sm text-gray-600"><strong>J</strong>: Journal / <strong>C</strong>: Conference / <strong>*</strong>: equal contribution</p><ul className="mt-4">{publications.map((item, index) => <PublicationItem key={index} item={item} />)}</ul></div><div className="pt-4"><h2 className="text-2xl font-semibold">Working Paper</h2><p className="mt-2 text-sm text-gray-600"><strong>S</strong>: Submitted / <strong>W</strong>: Work in progress / <strong>*</strong>: equal contribution</p><ul className="mt-4">{workingPapers.map((item, index) => <PublicationItem key={index} item={item} />)}</ul></div></section> );
         };
 
         //======================================================================
         // 🎓 TEACHING 탭 컴포넌트
         //======================================================================
-        const TeachingTabContent = () => (
-            <section className="space-y-6">
-                <h2 className="text-2xl font-semibold">Teaching</h2>
-                <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    <li>
-                        <strong>Time Series Analysis and Forecasting (Graduate)</strong><br />
-                        Covers ARIMA, state-space models, and deep learning approaches for time series.
-                    </li>
-                    <li>
-                        <strong>Machine Learning for Sequential Data</strong><br />
-                        Focuses on RNNs, Transformers, and applications in finance and science.
-                    </li>
-                    <li>
-                        <strong>Introduction to Data Science</strong><br />
-                        Python-based undergraduate course on data handling, visualization, and analysis.
-                    </li>
-                </ul>
-            </section>
-        );
+        const TeachingTabContent = () => ( <section className="space-y-6"><h2 className="text-2xl font-semibold">Teaching</h2><ul className="list-disc list-inside text-gray-700 space-y-2"><li><strong>Time Series Analysis and Forecasting (Graduate)</strong><br />Covers ARIMA, state-space models, and deep learning approaches for time series.</li><li><strong>Machine Learning for Sequential Data</strong><br />Focuses on RNNs, Transformers, and applications in finance and science.</li><li><strong>Introduction to Data Science</strong><br />Python-based undergraduate course on data handling, visualization, and analysis.</li></ul></section> );
         
         //======================================================================
         // 🏗️ PROJECTS 탭 컴포넌트
         //======================================================================
         const ProjectTabContent = () => {
-            const projects = [
-                {
-                    title: "Sejong Science Fellowship (Oversea Track)",
-                    year: 2024,
-                    organization: "National Research Foundation of Korea (NRF)",
-                    funding: "70,000,000 KRW",
-                    period: "2024.09.01 to 2025.08.31"
-                },
-                {
-                    title: "Ph.D. Fellowship",
-                    year: 2022,
-                    organization: "National Research Foundation of Korea (NRF)",
-                    funding: "40,000,000 KRW",
-                    period: "2022.06.01 to 2024.05.31"
-                }
-            ];
-            return (
-                <section>
-                    <h2 className="text-2xl font-semibold">Funded Projects</h2>
-                    <ul className="mt-4 space-y-4">
-                        {projects.map(project => (
-                            <li key={project.title} className="pb-4 border-b last:border-b-0">
-                                <h3 className="text-lg font-semibold text-gray-800">{project.title}</h3>
-                                <p className="text-gray-600">{project.organization}, {project.year}</p>
-                                <ul className="list-disc list-inside ml-4 mt-1 text-sm text-gray-700">
-                                    <li><strong>Funding:</strong> {project.funding}</li>
-                                    <li><strong>Period:</strong> {project.period}</li>
-                                </ul>
-                            </li>
-                        ))}
-                    </ul>
-                </section>
-            );
+            const projects = [ { title: "Sejong Science Fellowship (Oversea Track)", year: 2024, organization: "National Research Foundation of Korea (NRF)", funding: "70,000,000 KRW", period: "2024.09.01 to 2025.08.31" }, { title: "Ph.D. Fellowship", year: 2022, organization: "National Research Foundation of Korea (NRF)", funding: "40,000,000 KRW", period: "2022.06.01 to 2024.05.31" } ];
+            return ( <section><h2 className="text-2xl font-semibold">Funded Projects</h2><ul className="mt-4 space-y-4">{projects.map(project => ( <li key={project.title} className="pb-4 border-b last:border-b-0"><h3 className="text-lg font-semibold text-gray-800">{project.title}</h3><p className="text-gray-600">{project.organization}, {project.year}</p><ul className="list-disc list-inside ml-4 mt-1 text-sm text-gray-700"><li><strong>Funding:</strong> {project.funding}</li><li><strong>Period:</strong> {project.period}</li></ul></li> ))}</ul></section> );
         };
 
         //======================================================================
         // ✨ RANDOM STUFF 탭 컴포넌트 및 데이터
         //======================================================================
-        const AcademicActivitiesSection = () => {
-            const academicActivities = { legend: "R: Reviewer / P: Program Committee", activities: [ { category: "Conferences", items: [ { role: "P", name: "ICAIF 2024", links: [{ text: "link", href: "https://ai-finance.org/icaif-24-program-committee/" }] }, ], }, { category: "Conference Workshops", items: [ { role: "P", name: "AAAI 2025", links: [{ text: "link", href: "https://sites.google.com/view/aaai-2025-ai-si/organizers?authuser=0/" }] }, { role: "P", name: "ICLR 2025", links: [{ text: "link", href: "https://openreview.net/forum?id=aoD1sie2OW" }, { text: "pdf", href: "https://openreview.net/pdf?id=aoD1sie2OW" }] }, ], }, { category: "Journals", items: [ { role: "R", name: "Finance Research Letters" }, { role: "R", name: "TMLR" }, ], }, ], };
-            return (
-                <div>
-                    <h3 className="text-xl font-semibold">Academic Activities</h3>
-                    <p className="mt-2 text-sm text-gray-600"><strong>{academicActivities.legend}</strong></p>
-                    <ul className="mt-2 space-y-2">
-                        {academicActivities.activities.map(activity => (
-                            <li key={activity.category}>
-                                <strong>{activity.category}:</strong>
-                                <span className="ml-2 text-gray-700">
-                                    {activity.items.map((item, index) => (
-                                        <Fragment key={item.name}>
-                                            <span>
-                                                <strong>[{item.role}]</strong> {item.name}
-                                                {item.links && item.links.map(link => (
-                                                    <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline ml-1">
-                                                        [{link.text}]
-                                                    </a>
-                                                ))}
-                                            </span>
-                                            {index < activity.items.length - 1 && '; '}
-                                        </Fragment>
-                                    ))}
-                                </span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            );
-        };
-        const AwardsSection = () => {
-            const awards = [
-                { title: "Best Paper Award", year: 2024, organization: "Korean Academic Society of Business Administration" },
-                { title: "Sejong Science Fellowship (Oversea Track)", year: 2024, organization: "National Research Foundation of Korea (NRF)", details: ["70,000,000 KRW"] },
-                { title: "Ph.D. Fellowship", year: 2022, organization: "National Research Foundation of Korea (NRF)", details: ["40,000,000 KRW"] },
-            ];
-            return (
-                <div>
-                    <h3 className="text-xl font-semibold">Awards</h3>
-                    <ul className="mt-2 list-disc list-inside text-gray-700 space-y-2">
-                        {awards.map(award => (
-                            <li key={award.title}>
-                                <strong>{award.title}</strong>, {award.year}, {award.organization}
-                                {award.details && (
-                                    <ul className="list-['-_'] list-inside ml-4 text-sm">
-                                        {award.details.map(detail => <li key={detail}>{detail}</li>)}
-                                    </ul>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            );
-        };
-        const RecommendationsSection = () => {
-            const recommendations = [ { category: "Time-Series analysis", items: [{ text: "Time Series Analysis by James D. Hamilton", href: "https://www.jstor.org/stable/j.ctv14jx6sm" }] }, { category: "Optimization", items: [ { text: "Convex Optimization by Stephen Boyd and Lieven Vandenberghe", href: "https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" }, { text: "Optimization Methods in Finance by Gerard Cornuejols and Reha Tütüncü", href: "https://www.andrew.cmu.edu/user/gc0v/webpub/book.pdf" }, { text: "Introduction to Stochastic Programming by John R. Birge , François Louveaux", href: "https://link.springer.com/book/10.1007/978-1-4614-0237-4" }, { text: "Reinforcement Learning and Stochastic Optimization: A Unified Framework for Sequential Decisions by Warren B. Powell", href: "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119815068" }, ], }, { category: "ML/DL", items: [ { text: "Mathematical Engineering of Deep Learning by Benoit Liquet, Sarat Moka and Yoni Nazarathy", href: "https://deeplearningmath.org/" }, { text: "Alice's Adventures in a Differentiable Wonderland -- Volume I, A Tour of the Land by Simone Scardapane", href: "https://arxiv.org/abs/2404.17625" }, ], }, { category: "Fundamental Books", items: [ { text: "Linear Algebra for Data Science by Wanmo Kang and Kyunghyun Cho", href: "https://kyunghyuncho.me/linear-algebra-for-data-science/" }, { text: "Introduction to Mathematical Statistics by Robert Hogg, Joseph McKean, Allen Craig", href: "https://minerva.it.manchester.ac.uk/~saralees/statbook2.pdf" }, { text: "Probability: Theory and Examples by Rick Durrett", href: "https://services.math.duke.edu/~rtd/PTE/PTE5_011119.pdf" }, { text: "Principles of Mathematical Analysis by Walter Rudin", href: "https://www.amazon.co.uk/Principles-Mathematical-Analysis-International-Mathematics/dp/0070856133/" }, { text: "Elements of Information Theory by Thomas M. Cover and Joy A. Thomas", href: "http://staff.ustc.edu.cn/~cgong821/Wiley.Interscience.Elements.of.Information.Theory.Jul.2006.eBook-DDU.pdf" }, ], }, { category: "Finance", items: [ { text: "Introduction to Risk Parity and Budgeting by Thierry Roncalli", href: "http://www.thierry-roncalli.com/RiskParityBook.html" }, { text: "Quantitative Equity Portfolio Management by Ludwig B. Chincarini and Daehwan Kim", href: "https://www.amazon.com/Quantitative-Equity-Portfolio-Management-Second/dp/1264268920" }, { text: "Investment Science by David G. Luenberger", href: "https://www.amazon.com/Investment-Science-David-G-Luenberger/dp/0199740089" }, { text: "Are markets efficient? (Video) by Eugene Fama and Richard Thaler", href: "#" }, { text: "In Pursuit of the Perfect Portfolio (Video) by Harry M. Markowitz", href: "#" }, ], }, { category: "Writing", items: [ { text: "How to ML Paper - A brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-ml-paper" }, { text: "How to ML Rebuttal – A Brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-rebuttal-ml-paper" }, { text: "How to ML Review — A brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-review-ml-paper" }, { text: "Latex & Poster formatting Tips for Writing a Research Paper using LaTeX", href: "https://github.com/guanyingc/latex_paper_writing_tips" }, ], }, { category: "Useful website", items: [ { text: "Paper Copilot: Whether the score received at the AI conference is relatively good or bad", href: "https://papercopilot.com/" }, { text: "Cite.GG: Find recent papers that reference the paper you're reading", href: "https://cite.gg/#/" }, { text: "AI Conference Deadline: Countdowns to top CV/NLP/ML/Robotics/AI conference deadlines", href: "https://huggingface.co/spaces/huggingface/ai-deadlines" }, { text: "Operation Research (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_operationsresearch" }, { text: "Data Mining & Analysis (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_datamininganalysis" }, { text: "Artificial Inteligence (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_artificialintelligence" }, { text: "Finance (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=bus_finance" }, ], }, ];
-            return (
-                <div>
-                    <h3 className="text-xl font-semibold">Recommended Books and Guides</h3>
-                    <div className="mt-2 space-y-4">
-                        {recommendations.map(rec => (
-                            <div key={rec.category}>
-                                <h4 className="font-semibold text-gray-800">{rec.category}</h4>
-                                <ul className="list-disc list-inside text-gray-700 ml-4 space-y-1 mt-1">
-                                    {rec.items.map(item => (
-                                        <li key={item.text}>
-                                            <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                                                {item.text}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            );
-        };
-        
-        const RandomStuffTabContent = () => (
-            <section className="space-y-8">
-                <AcademicActivitiesSection />
-                <AwardsSection />
-                <RecommendationsSection />
-            </section>
-        );
+        const AcademicActivitiesSection = () => { const academicActivities = { legend: "R: Reviewer / P: Program Committee", activities: [ { category: "Conferences", items: [ { role: "P", name: "ICAIF 2024", links: [{ text: "link", href: "https://ai-finance.org/icaif-24-program-committee/" }] }, ], }, { category: "Conference Workshops", items: [ { role: "P", name: "AAAI 2025", links: [{ text: "link", href: "https://sites.google.com/view/aaai-2025-ai-si/organizers?authuser=0/" }] }, { role: "P", name: "ICLR 2025", links: [{ text: "link", href: "https://openreview.net/forum?id=aoD1sie2OW" }, { text: "pdf", href: "https://openreview.net/pdf?id=aoD1sie2OW" }] }, ], }, { category: "Journals", items: [ { role: "R", name: "Finance Research Letters" }, { role: "R", name: "TMLR" }, ], }, ], }; return ( <div><h3 className="text-xl font-semibold">Academic Activities</h3><p className="mt-2 text-sm text-gray-600"><strong>{academicActivities.legend}</strong></p><ul className="mt-2 space-y-2">{academicActivities.activities.map(activity => ( <li key={activity.category}><strong>{activity.category}:</strong><span className="ml-2 text-gray-700">{activity.items.map((item, index) => ( <Fragment key={item.name}><span><strong>[{item.role}]</strong> {item.name}{item.links && item.links.map(link => ( <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline ml-1">[{link.text}]</a> ))}{index < activity.items.length - 1 && '; '}</span></Fragment> ))}</span></li> ))}</ul></div> ); };
+        const AwardsSection = () => { const awards = [ { title: "Best Paper Award", year: 2024, organization: "Korean Academic Society of Business Administration" }, { title: "Sejong Science Fellowship (Oversea Track)", year: 2024, organization: "National Research Foundation of Korea (NRF)", details: ["70,000,000 KRW"] }, { title: "Ph.D. Fellowship", year: 2022, organization: "National Research Foundation of Korea (NRF)", details: ["40,000,000 KRW"] }, ]; return ( <div><h3 className="text-xl font-semibold">Awards</h3><ul className="mt-2 list-disc list-inside text-gray-700 space-y-2">{awards.map(award => ( <li key={award.title}><strong>{award.title}</strong>, {award.year}, {award.organization}{award.details && ( <ul className="list-['-_'] list-inside ml-4 text-sm">{award.details.map(detail => <li key={detail}>{detail}</li>)}</ul> )}</li> ))}</ul></div> ); };
+        const RecommendationsSection = () => { const recommendations = [ { category: "Time-Series analysis", items: [{ text: "Time Series Analysis by James D. Hamilton", href: "https://www.jstor.org/stable/j.ctv14jx6sm" }] }, { category: "Optimization", items: [ { text: "Convex Optimization by Stephen Boyd and Lieven Vandenberghe", href: "https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" }, { text: "Optimization Methods in Finance by Gerard Cornuejols and Reha Tütüncü", href: "https://www.andrew.cmu.edu/user/gc0v/webpub/book.pdf" }, { text: "Introduction to Stochastic Programming by John R. Birge , François Louveaux", href: "https://link.springer.com/book/10.1007/978-1-4614-0237-4" }, { text: "Reinforcement Learning and Stochastic Optimization: A Unified Framework for Sequential Decisions by Warren B. Powell", href: "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119815068" }, ], }, { category: "ML/DL", items: [ { text: "Mathematical Engineering of Deep Learning by Benoit Liquet, Sarat Moka and Yoni Nazarathy", href: "https://deeplearningmath.org/" }, { text: "Alice's Adventures in a Differentiable Wonderland -- Volume I, A Tour of the Land by Simone Scardapane", href: "https://arxiv.org/abs/2404.17625" }, ], }, { category: "Fundamental Books", items: [ { text: "Linear Algebra for Data Science by Wanmo Kang and Kyunghyun Cho", href: "https://kyunghyuncho.me/linear-algebra-for-data-science/" }, { text: "Introduction to Mathematical Statistics by Robert Hogg, Joseph McKean, Allen Craig", href: "https://minerva.it.manchester.ac.uk/~saralees/statbook2.pdf" }, { text: "Probability: Theory and Examples by Rick Durrett", href: "https://services.math.duke.edu/~rtd/PTE/PTE5_011119.pdf" }, { text: "Principles of Mathematical Analysis by Walter Rudin", href: "https://www.amazon.co.uk/Principles-Mathematical-Analysis-International-Mathematics/dp/0070856133/" }, { text: "Elements of Information Theory by Thomas M. Cover and Joy A. Thomas", href: "http://staff.ustc.edu.cn/~cgong821/Wiley.Interscience.Elements.of.Information.Theory.Jul.2006.eBook-DDU.pdf" }, ], }, { category: "Finance", items: [ { text: "Introduction to Risk Parity and Budgeting by Thierry Roncalli", href: "http://www.thierry-roncalli.com/RiskParityBook.html" }, { text: "Quantitative Equity Portfolio Management by Ludwig B. Chincarini and Daehwan Kim", href: "https://www.amazon.com/Quantitative-Equity-Portfolio-Management-Second/dp/1264268920" }, { text: "Investment Science by David G. Luenberger", href: "https://www.amazon.com/Investment-Science-David-G-Luenberger/dp/0199740089" }, { text: "Are markets efficient? (Video) by Eugene Fama and Richard Thaler", href: "#" }, { text: "In Pursuit of the Perfect Portfolio (Video) by Harry M. Markowitz", href: "#" }, ], }, { category: "Writing", items: [ { text: "How to ML Paper - A brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-ml-paper" }, { text: "How to ML Rebuttal – A Brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-rebuttal-ml-paper" }, { text: "How to ML Review — A brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-review-ml-paper" }, { text: "Latex & Poster formatting Tips for Writing a Research Paper using LaTeX", href: "https://github.com/guanyingc/latex_paper_writing_tips" }, ], }, { category: "Useful website", items: [ { text: "Paper Copilot: Whether the score received at the AI conference is relatively good or bad", href: "https://papercopilot.com/" }, { text: "Cite.GG: Find recent papers that reference the paper you're reading", href: "https://cite.gg/#/" }, { text: "AI Conference Deadline: Countdowns to top CV/NLP/ML/Robotics/AI conference deadlines", href: "https://huggingface.co/spaces/huggingface/ai-deadlines" }, { text: "Operation Research (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_operationsresearch" }, { text: "Data Mining & Analysis (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_datamininganalysis" }, { text: "Artificial Inteligence (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_artificialintelligence" }, { text: "Finance (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=bus_finance" }, ], }, ]; return ( <div><h3 className="text-xl font-semibold">Recommended Books and Guides</h3><div className="mt-2 space-y-4">{recommendations.map(rec => ( <div key={rec.category}><h4 className="font-semibold text-gray-800">{rec.category}</h4><ul className="list-disc list-inside text-gray-700 ml-4 space-y-1 mt-1">{rec.items.map(item => ( <li key={item.text}><a href={item.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{item.text}</a></li> ))}</ul></div> ))}</div></div> ); };
+        const RandomStuffTabContent = () => ( <section className="space-y-8"><AcademicActivitiesSection /><AwardsSection /><RecommendationsSection /></section> );
         
         //======================================================================
         // 🎯 VACANT POSITIONS 탭 컴포넌트
         //======================================================================
-        const VacantPositionsTabContent = () => (
-            <section className="space-y-6">
-                <h2 className="text-2xl font-semibold">Vacant Positions</h2>
-                <p className="text-gray-700">
-                    TSI Lab is actively recruiting passionate researchers and students!<br />
-                    We welcome applicants for:
-                </p>
-                <ul className="list-disc list-inside text-gray-700">
-                    <li>PhD Students (Fall 2026, Spring 2027)</li>
-                    <li>MS Students with research interest in AI & Time Series</li>
-                    <li>Interns (Undergraduate or Master's level)</li>
-                </ul>
-                <p className="pt-2 text-gray-700">
-                    If you're interested in joining, please send your CV and a short statement of interest to <a href="mailto:yoontaeResearch@gmail.com" className="text-blue-600 hover:underline">yoontaeResearch@gmail.com</a>.
-                </p>
-            </section>
-        );
+        const VacantPositionsTabContent = () => ( <section className="space-y-6"><h2 className="text-2xl font-semibold">Vacant Positions</h2><p className="text-gray-700">TSI Lab is actively recruiting passionate researchers and students!<br />We welcome applicants for:</p><ul className="list-disc list-inside text-gray-700"><li>PhD Students (Fall 2026, Spring 2027)</li><li>MS Students with research interest in AI & Time Series</li><li>Interns (Undergraduate or Master's level)</li></ul><p className="pt-2 text-gray-700">If you're interested in joining, please send your CV and a short statement of interest to <a href="mailto:yoontae.hwang@pusan.ac.kr" className="text-blue-600 hover:underline">yoontae.hwang@pusan.ac.kr</a>.</p></section> );
 
         //======================================================================
         // 🚀 메인 앱 로직 (탭 전체를 관리)
@@ -522,12 +187,8 @@
 
             return (
                 <div className="p-4 sm:p-8 space-y-10 max-w-6xl mx-auto font-sans bg-gray-50">
-                    <h1 className="text-3xl sm:text-4xl font-bold text-center text-gray-800">
-                        Time Series Intelligence Lab (TSI Lab)
-                    </h1>
-                    <p className="text-md sm:text-lg text-center text-gray-600">
-                        Advancing AI-driven Time Series Research in Finance, Science, and Sports
-                    </p>
+                    <h1 className="text-3xl sm:text-4xl font-bold text-center text-gray-800">Time Series Intelligence Lab (TSI Lab)</h1>
+                    <p className="text-md sm:text-lg text-center text-gray-600">Advancing AI-driven Time Series Research in Finance, Science, and Sports</p>
                     <div className="w-full">
                         <div className="flex justify-center flex-wrap gap-2 bg-gray-100 p-1 rounded-lg">
                             <TabButton value="home">Home</TabButton>
@@ -538,9 +199,7 @@
                             <TabButton value="random">Random Stuff</TabButton>
                             <TabButton value="vacant">Vacant Positions</TabButton>
                         </div>
-                        <div className="mt-6">
-                            {renderContent()}
-                        </div>
+                        <div className="mt-6">{renderContent()}</div>
                     </div>
                 </div>
             );

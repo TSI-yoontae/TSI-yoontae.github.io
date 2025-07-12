@@ -157,7 +157,48 @@
         //======================================================================
         // 🎯 VACANT POSITIONS 탭 컴포넌트
         //======================================================================
-        const VacantPositionsTabContent = () => ( <section className="space-y-6"><h2 className="text-2xl font-semibold">Vacant Positions</h2><p className="text-gray-700">TSI Lab is actively recruiting passionate researchers and students!<br />We welcome applicants for:</p><ul className="list-disc list-inside text-gray-700"><li>PhD Students (Fall 2026, Spring 2027)</li><li>MS Students with research interest in AI & Time Series</li><li>Interns (Undergraduate or Master's level)</li></ul><p className="pt-2 text-gray-700">If you're interested in joining, please send your CV and a short statement of interest to <a href="mailto:yoontae.hwang@pusan.ac.kr" className="text-blue-600 hover:underline">yoontae.hwang@pusan.ac.kr</a>.</p></section> );
+        const VacantPositionsTabContent = () => (
+            <section className="space-y-6">
+                <h2 className="text-2xl font-semibold">Vacant Positions</h2>
+                <p className="text-gray-700">TSI Lab is actively recruiting passionate researchers and students!<br />We welcome applicants for:</p>
+                <ul className="list-disc list-inside text-gray-700">
+                    <li>PhD Students (Fall 2026, Spring 2027)</li>
+                    <li>MS Students with research interest in AI & Time Series</li>
+                    <li>Interns (Undergraduate or Master's level)</li>
+                </ul>
+                <p className="pt-2 text-gray-700">If you're interested in joining, please send your CV and a short statement of interest to <a href="mailto:yoontae.hwang@pusan.ac.kr" className="text-blue-600 hover:underline">yoontae.hwang@pusan.ac.kr</a>.</p>
+                
+                <div className="pt-4 border-t border-gray-200">
+                    <h3 className="text-xl font-semibold">Preferred profile</h3>
+                    <p className="mt-2 text-gray-700">
+                        Students with strong mathematics & programming skills and an outstanding track record in data-science competitions (e.g., Kaggle).
+                    </p>
+                </div>
+
+                <div>
+                    <h3 className="text-xl font-semibold">(Mainly) Target Journals & Conference</h3>
+                    <div className="mt-2 space-y-3 text-gray-700 text-sm">
+                        <div>
+                            <h4 className="font-semibold text-gray-800">OR Journals</h4>
+                            <p>Management Science, Operations Research, European Journal of Operational Research, Annals of Operation Research</p>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold text-gray-800">Finance Journals</h4>
+                            <p>Quantitative Finance, Journal of Portfolio Management, Journal of Financial and Quantitative Analysis, Finance Research Letters, Journal of Banking and Finance</p>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold text-gray-800">Other Journals</h4>
+                            <p>Neural Networks, Knowledge-Based Systems, Pattern Recognition, TMLR, Nature Machine Intelligence, Information Sciences, International Journal of Forecasting</p>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold text-gray-800">Conference</h4>
+                            <p>KDD, NeurIPS, ICLR, ICML, EMNLP, ACL, AAAI, AISTAT, ICAIF</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
 
         //======================================================================
         // 🚀 메인 앱 로직 (탭 전체를 관리)

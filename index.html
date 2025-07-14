@@ -201,70 +201,64 @@
                 </div> 
             );
         };
-       //======================================================================
-      // 👨‍👩‍👧‍👦 MEMBERS 탭 컴포넌트
-      //======================================================================
-      const MembersTabContent = () => (
-          <section className="space-y-8">
-              <div>
-                  <h2 className="text-2xl font-semibold">Principal Investigator</h2>
-                  <div className="flex flex-col sm:flex-row items-start gap-4 mt-4">
-                      <img src="/image_yoontae.png" alt="Prof. Yoontae Hwang" className="w-24 h-24 sm:w-32 sm:h-32 rounded-full mt-1 shadow-md" />
-                      <div className="mt-1">
-                          <span className="text-xl font-medium">Prof. Yoontae Hwang (황윤태)</span>
-                          <div className="text-sm text-blue-600 space-x-3 mt-1">
-                              <a href="https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl" target="_blank" rel="noopener noreferrer" className="hover:underline">
-                                  Google Scholar
-                              </a>
-                              <a href="https://www.linkedin.com/in/yoontae" target="_blank" rel="noopener noreferrer" className="hover:underline">
-                                  LinkedIn
-                              </a>
-                          </div>
-                          <div className="text-sm text-gray-700 mt-4 leading-relaxed">
-                              <p>
-                                  I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025.
-                                  Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. 
-                                  I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee.
-                              </p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div>
-                  <h2 className="text-2xl font-semibold mt-8">Students</h2>
-                  <div className="mt-4 pl-4 space-y-4">
-                      <div>
-                          <p className="font-semibold text-lg">PhD Students</p>
-                          <ul className="list-disc list-inside ml-2">
-                              <li>TBD</li>
-                          </ul>
-                      </div>
-                      <div>
-                          <p className="font-semibold text-lg mt-2">MS Students</p>
-                          <ul className="list-disc list-inside ml-2">
-                              <li>TBD</li>
-                          </ul>
-                      </div>
-                  </div>
-              </div>
-              <div>
-                  <h2 className="text-2xl font-semibold mt-8">Mentoring</h2>
-                  <div className="mt-4 pl-4 space-y-4">
-                      {/* --- Youngbin Lee 섹션 시작 --- */}
-                      <div className="flex items-center gap-4">
-                          <img src="youngbin.png" alt="Youngbin Lee" className="w-20 h-20 rounded-full shadow-md" />
-                          <div>
-                              <a href="https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" target="_blank" rel="noopener noreferrer" className="text-md font-semibold text-blue-600 hover:underline">
-                                Youngbin Lee (Elice)
-                              </a>
-                              <p className="text-sm text-gray-600">AI Researcher</p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </section>
-      );
-     
+       
+        //======================================================================
+        // 👨‍👩‍👧‍👦 MEMBERS 탭 컴포넌트
+        //======================================================================
+        const MembersTabContent = () => (
+            <section className="space-y-8">
+                <div>
+                    <h2 className="text-2xl font-semibold">Principal Investigator</h2>
+                    <div className="flex flex-col sm:flex-row items-start gap-4 mt-4">
+                        <img src="/image_yoontae.png" alt="Prof. Yoontae Hwang" className="w-24 h-24 sm:w-32 sm:h-32 rounded-full mt-1 shadow-md" />
+                        <div className="mt-1">
+                            <span className="text-xl font-medium">Prof. Yoontae Hwang (황윤태)</span>
+                            <div className="text-sm text-blue-600 space-x-3 mt-1">
+                                <a href="https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                                    Google Scholar
+                                </a>
+                                <a href="https://www.linkedin.com/in/yoontae" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                                    LinkedIn
+                                </a>
+                            </div>
+                            <div className="text-sm text-gray-700 mt-4 leading-relaxed">
+                                <p>
+                                    I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025.
+                                    Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. 
+                                    I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h2 className="text-2xl font-semibold mt-8">Students</h2>
+                    <div className="mt-4 pl-4 space-y-4">
+                        <div>
+                            <p className="font-semibold text-lg">PhD Students</p>
+                            <ul className="list-disc list-inside ml-2">
+                                <li>TBD</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p className="font-semibold text-lg mt-2">MS Students</p>
+                            <ul className="list-disc list-inside ml-2">
+                                <li>TBD</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h2 className="text-2xl font-semibold mt-8">Mentoring</h2>
+                    <div className="mt-4 pl-4 space-y-4">
+                        <ul className="list-disc list-inside ml-2">
+                            <li><a href="https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Youngbin Lee (Elice)</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        );
+
         //======================================================================
         // 📚 PUBLICATIONS 탭 컴포넌트 및 데이터
         //======================================================================

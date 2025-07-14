@@ -52,7 +52,7 @@
                 <path d="M12 2.15c1.5 0 2.75-1.06 4-1.06a4.5 4.5 0 0 1 4.5 4.5c0 4.5-3 12.5-6 12.5s-2.5 1.06-4 1.06-2.75-1.06-4-1.06A4.5 4.5 0 0 1 3 5.5c0-4.5 3-12.5 6-12.5s2.5 1.06 4 1.06z"></path>
             </svg>
         );
-        
+       
         // --- 헬퍼 컴포넌트: 아코디언 ---
         const AccordionItem = ({ item, isOpen, onClick }) => (
             <div className="border-b last:border-b-0">
@@ -201,7 +201,7 @@
                 </div> 
             );
         };
-        
+       
         //======================================================================
         // 👨‍👩‍👧‍👦 MEMBERS 탭 컴포넌트
         //======================================================================
@@ -246,6 +246,14 @@
                                 <li>TBD</li>
                             </ul>
                         </div>
+                    </div>
+                </div>
+                <div>
+                    <h2 className="text-2xl font-semibold mt-8">Mentoring</h2>
+                    <div className="mt-4 pl-4 space-y-4">
+                        <ul className="list-disc list-inside ml-2">
+                            <li><a href="https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Youngbin Lee(Elice)</a></li>
+                        </ul>
                     </div>
                 </div>
             </section>
@@ -507,7 +515,7 @@
                 </ul>
             </section>
         );
-        
+       
         //======================================================================
         // 🏗️ PROJECTS 탭 컴포넌트
         //======================================================================
@@ -665,7 +673,7 @@
                 <RecommendationsSection />
             </section>
         );
-        
+       
         //======================================================================
         // 🎯 VACANT POSITIONS 탭 컴포넌트
         //======================================================================
@@ -687,7 +695,7 @@
                         yoontaeResearch@gmail.com
                     </a>.
                 </p>
-                
+               
                 <div className="pt-4 border-t border-gray-200">
                     <h3 className="text-xl font-semibold">Preferred profile</h3>
                     <p className="mt-2 text-gray-700">
@@ -749,7 +757,7 @@
                     default: return <HomeTabContent />;
                 }
             };
-            
+           
             const TabButton = ({ value, children }) => {
                 const isActive = activeTab === value;
                 const classes = `px-4 py-2 text-sm font-medium rounded-md cursor-pointer transition-colors ${isActive ? 'bg-white text-gray-900 shadow' : 'text-gray-600 hover:bg-gray-200'}`;
@@ -779,7 +787,7 @@
                 </div>
             );
         }
-        
+       
         // --- React 앱을 페이지에 렌더링 ---
         const container = document.getElementById('root');
         const root = ReactDOM.createRoot(container);

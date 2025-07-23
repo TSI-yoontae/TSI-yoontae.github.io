@@ -181,7 +181,7 @@
                 if (!container) return;
                 
                 const width = container.clientWidth;
-                const height = 600;
+                const height = 800;
                 const affiliationColor = d3.scaleOrdinal(d3.schemeTableau10).domain(Array.from(affiliations).sort());
                 
                 setLegendData(affiliationColor.domain().map(d => ({ color: affiliationColor(d), name: d })));
@@ -306,7 +306,7 @@
                         />
                     </div>
 
-                    <div ref={containerRef} className="w-full h-[600px] bg-white rounded-lg shadow-md graph-container overflow-hidden relative">
+                    <div ref={containerRef} className="w-full h-[800px] bg-white rounded-lg shadow-md graph-container overflow-hidden relative">
                         <svg ref={svgRef} className="w-full h-full"></svg>
                     </div>
 

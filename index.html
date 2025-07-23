@@ -134,13 +134,24 @@
             };
 
             useEffect(() => {
+                const allowedNames = new Set([
+                    "Yoontae Hwang", "Yaxuan Kong", "Yiyuan Yang", "Stefan Zohren",
+                    "Wenjie Du", "Zhangyang Wang", "Ming Jin", "Qingsong Wen", "Yongjae Lee", 
+                    "Seulki Lee", "Dong-Young Lim", "Junhyeong Lee", "Joohwan Hong", 
+                    "Frank J Fabozzi", "Jang Ho Kim", "Jaeho Kim", "Seok-ju Hanhn", 
+                    "Suhyeon Kim", "Junghye Lee"
+                ]);
+
                 const authorPhotos = { "Yoontae Hwang": "/image_yoontae.png", "Youngbin Lee": "/youngbin.jpg" };
                 let nodes = {};
                 let links = {};
                 const affiliations = new Set();
 
                 allPapers.forEach(paper => {
-                    const authors = paper.authors.map(a => a.name.replace('*', '').trim());
+                    const authors = paper.authors
+                        .map(a => a.name.replace('*', '').trim())
+                        .filter(name => allowedNames.has(name));
+
                     for (let i = 0; i < authors.length; i++) {
                         for (let j = i + 1; j < authors.length; j++) {
                             const sourceName = authors[i];
@@ -179,7 +190,7 @@
                     .force("link", d3.forceLink(graphData.links).id(d => d.id).distance(120))
                     .force("charge", d3.forceManyBody().strength(-300))
                     .force("center", d3.forceCenter(width / 2, height / 2))
-                    .force("collide", d3.forceCollide().radius(d => (d.id === "Yoontae Hwang" ? 25 : 5 + Math.sqrt(d.collaborations) * 3) + 5));
+                    .force("collide", d3.forceCollide().radius(d => (d.id === "Yoontae Hwang" ? 25 : 5 + Math.sqrt(d.collaborations) * 3) + 10)); // 겹침 방지 강화
 
                 const svg = d3.select(svgRef.current)
                     .attr("viewBox", [0, 0, width, height])
@@ -221,7 +232,7 @@
                     .text(d => d.id)
                     .attr("x", d => (d.id === "Yoontae Hwang" ? 25 : 5 + Math.sqrt(d.collaborations) * 3) + 5)
                     .attr("y", 4)
-                    .style("opacity", 1); // 모든 라벨이 보이도록 수정
+                    .style("opacity", 1);
 
                 d3Graph.current.node.append("title").text(d => `${d.id}\nAffiliation: ${d.affiliation}`);
 
@@ -237,7 +248,7 @@
                 }).on("mouseout", function () {
                     d3Graph.current.node.style("opacity", 1);
                     d3Graph.current.link.style("stroke-opacity", 0.6);
-                    d3Graph.current.labels.style("opacity", 1); // 모든 라벨이 보이도록 수정
+                    d3Graph.current.labels.style("opacity", 1);
                 });
 
                 simulation.on("tick", () => {
@@ -265,7 +276,7 @@
                 if (term === "") {
                     d3Graph.current.node.style("opacity", 1);
                     d3Graph.current.link.style("stroke-opacity", 0.6);
-                    d3Graph.current.labels.style("opacity", 1); // 모든 라벨이 보이도록 수정
+                    d3Graph.current.labels.style("opacity", 1);
                     return;
                 }
 

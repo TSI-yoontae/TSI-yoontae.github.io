@@ -12,51 +12,43 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
-<body>
+<body class="bg-gray-50">
     <div id="root"></div>
 
     <script type="text/babel">
         // --- React 기본 기능 가져오기 ---
-        const { useState, Fragment } = React;
+        const { useState, useEffect, useMemo, Fragment } = React;
 
         //======================================================================
-        // 🏠 HOME 탭 컴포넌트 및 데이터
+        // 🏠 HOME 탭 컴포넌트 및 데이터 (변경 없음)
         //======================================================================
 
         // --- 아이콘 ---
         const FinanceIcon = () => (
-            <svg 
-                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" 
-                fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" 
-                strokeLinejoin="round" className="inline-block mr-2"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block mr-2">
                 <line x1="12" y1="1" x2="12" y2="23"></line>
                 <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
             </svg>
         );
         const ModelIcon = () => (
-            <svg 
-                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" 
-                fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" 
-                strokeLinejoin="round" className="inline-block mr-2"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block mr-2">
                 <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
                 <polyline points="14 2 14 8 20 8"></polyline><path d="M12 18v-6"></path>
                 <path d="M9 15h6"></path>
             </svg>
         );
         const ScienceIcon = () => (
-            <svg 
-                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" 
-                fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" 
-                strokeLinejoin="round" className="inline-block mr-2"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block mr-2">
                 <path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.5A4.5 4.5 0 0 0 18 5c-1.25 0-2.5 1-4 1-1.5 0-2.75-1-4-1a4.5 4.5 0 0 0-4.5 4.5c0 4.5 3 12.5 6 12.5s2.5-1.06 4-1.06z"></path>
                 <path d="M12 2.15c1.5 0 2.75-1.06 4-1.06a4.5 4.5 0 0 1 4.5 4.5c0 4.5-3 12.5-6 12.5s-2.5 1.06-4 1.06-2.75-1.06-4-1.06A4.5 4.5 0 0 1 3 5.5c0-4.5 3-12.5 6-12.5s2.5 1.06 4 1.06z"></path>
             </svg>
         );
-       
+        
         // --- 헬퍼 컴포넌트: 아코디언 ---
         const AccordionItem = ({ item, isOpen, onClick }) => (
             <div className="border-b last:border-b-0">
@@ -92,35 +84,9 @@
 
         const ResearchTopicsSection = () => {
             const researchTopicsData = [
-                { 
-                    id: 1, 
-                    icon: <FinanceIcon />, 
-                    title: "AI in Quantitative Finance", 
-                    content: [ 
-                        { topic: "Asset Management", subtopics: [ "Decision-focused learning", "Portfolio optimization", "Goal-based investing", "Trading strategy*", "Household Finance", ] }, 
-                        { topic: "Financial Modeling", subtopics: [ "Investor behavior modeling", "Asset pricing", "Market making", "Order flow analysis", ] }, 
-                        { topic: "Time-Series for Finance", subtopics: [ "Volatility forecasting", "Regime-switching models", "Lead-lag detection", "Return Forecasting", ] } 
-                    ] 
-                }, 
-                { 
-                    id: 2, 
-                    icon: <ScienceIcon />, 
-                    title: "AI in Science", 
-                    content: [ 
-                        { topic: "Physics & Climate Modeling", subtopics: [ "Physics-Informed Neural Networks", "Climate Dynamics Forecasting", ] }, 
-                        { topic: "General Scientific Applications", subtopics: [ "GPS Free Autonomous Navigation*", "Magnetic Object Detection*", ] }, 
-                        { topic: "Sport Science", subtopics: [ "Player Performance Modeling & Tracking", "Sports Betting", ] } 
-                    ] 
-                }, 
-                { 
-                    id: 3, 
-                    icon: <ModelIcon />, 
-                    title: "Foundation Model", 
-                    content: [ 
-                        { topic: "Model Architecture & Representation", subtopics: [ "Foundation Models for Financial Time Series", "Foundation Models for Sports Analytics"] }, 
-                        { topic: "Advanced Learning Paradigms", subtopics: [ "Temporal Domain Generalization", "Learning Strategy", "Tokenizer",] } 
-                    ] 
-                }
+                { id: 1, icon: <FinanceIcon />, title: "AI in Quantitative Finance", content: [ { topic: "Asset Management", subtopics: [ "Decision-focused learning", "Portfolio optimization", "Goal-based investing", "Trading strategy*", "Household Finance", ] }, { topic: "Financial Modeling", subtopics: [ "Investor behavior modeling", "Asset pricing", "Market making", "Order flow analysis", ] }, { topic: "Time-Series for Finance", subtopics: [ "Volatility forecasting", "Regime-switching models", "Lead-lag detection", "Return Forecasting", ] } ] }, 
+                { id: 2, icon: <ScienceIcon />, title: "AI in Science", content: [ { topic: "Physics & Climate Modeling", subtopics: [ "Physics-Informed Neural Networks", "Climate Dynamics Forecasting", ] }, { topic: "General Scientific Applications", subtopics: [ "GPS Free Autonomous Navigation*", "Magnetic Object Detection*", ] }, { topic: "Sport Science", subtopics: [ "Player Performance Modeling & Tracking", "Sports Betting", ] } ] }, 
+                { id: 3, icon: <ModelIcon />, title: "Foundation Model", content: [ { topic: "Model Architecture & Representation", subtopics: [ "Foundation Models for Financial Time Series", "Foundation Models for Sports Analytics"] }, { topic: "Advanced Learning Paradigms", subtopics: [ "Temporal Domain Generalization", "Learning Strategy", "Tokenizer",] } ] }
             ];
             const [openAccordionId, setOpenAccordionId] = useState(null);
             return (
@@ -147,29 +113,9 @@
         // --- 메인: Home 탭 ---
         const HomeTabContent = () => {
             const selectedPapers = [
-                { 
-                    title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization", 
-                    links: [ 
-                        { text: "paper", href: "https://arxiv.org/abs/2502.00828" }, 
-                        { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" } 
-                    ] 
-                }, 
-                { 
-                    title: "Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset", 
-                    links: [ 
-                        { text: "paper", href: "https://arxiv.org/abs/2412.12864" }, 
-                        { text: "code", href: "https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset" }, 
-                        { text: "seminar@UNIST", href: "ppt/GFTab_UNIST.pdf" } 
-                    ] 
-                }, 
-                { 
-                    title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", 
-                    links: [ 
-                        { text: "paper", href: "https://arxiv.org/abs/2407.13751" }, 
-                        { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, 
-                        { text: "seminar@SKKU", href: "ppt/SimStock_SKKU.pdf" } 
-                    ] 
-                }
+                { title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization", links: [ { text: "paper", href: "https://arxiv.org/abs/2502.00828" }, { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" } ] }, 
+                { title: "Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset", links: [ { text: "paper", href: "https://arxiv.org/abs/2412.12864" }, { text: "code", href: "https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset" }, { text: "seminar@UNIST", href: "ppt/GFTab_UNIST.pdf" } ] }, 
+                { title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", links: [ { text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, { text: "seminar@SKKU", href: "ppt/SimStock_SKKU.pdf" } ] }
             ];
             return (
                 <div className="space-y-12">
@@ -205,68 +151,127 @@
                 </div> 
             );
         };
-       
+        
         //======================================================================
-        // 👨‍👩‍👧‍👦 MEMBERS 탭 컴포넌트
+        // 👨‍👩‍👧‍👦 MEMBERS 탭 컴포넌트 (요청사항 반영)
         //======================================================================
-        const MembersTabContent = () => (
-            <section className="space-y-8">
-                <div>
-                    <h2 className="text-2xl font-semibold">Principal Investigator</h2>
-                    <div className="flex flex-col sm:flex-row items-start gap-4 mt-4">
-                        <img src="/image_yoontae.png" alt="Prof. Yoontae Hwang" className="w-24 h-24 sm:w-32 sm:h-32 rounded-full mt-1 shadow-md" />
-                        <div className="mt-1">
-                            <span className="text-xl font-medium">Prof. Yoontae Hwang (황윤태)</span>
-                            <div className="text-sm text-blue-600 space-x-3 mt-1">
-                                <a href="https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl" target="_blank" rel="noopener noreferrer" className="hover:underline">
-                                    Google Scholar
-                                </a>
-                                <a href="https://www.linkedin.com/in/yoontae" target="_blank" rel="noopener noreferrer" className="hover:underline">
-                                    LinkedIn
-                                </a>
-    
+        const membersData = [
+            {
+                name: "Prof. Yoontae Hwang",
+                koreanName: "황윤태",
+                status: "Principal Investigator",
+                image: "/image_yoontae.png",
+                email: "yoontaeResearch@gmail.com",
+                bio: `I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025. Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee. Guided by the belief that “Research is meaningful only when its insights leave the lab and change the world,” our laboratory not only submits its findings to the most prestigious journals and conferences but also pursues research capable of driving substantial real-world impact.`,
+                links: {
+                    scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl",
+                    linkedin: "https://www.linkedin.com/in/yoontae",
+                }
+            },
+            {
+                name: "TBD",
+                koreanName: "미정",
+                status: "PhD Student",
+                image: "https://placehold.co/200x200/E2E8F0/4A5568?text=TBD",
+                email: "tbd@pusan.ac.kr",
+                bio: "Joining in Fall 2025. Interested in developing next-generation foundation models for financial time-series.",
+                interests: ["Foundation Models", "Asset Pricing"],
+                links: {}
+            },
+            {
+                name: "TBD",
+                koreanName: "미정",
+                status: "MS Student",
+                image: "https://placehold.co/200x200/E2E8F0/4A5568?text=TBD",
+                email: "tbd@pusan.ac.kr",
+                bio: "Joining in Fall 2025. Focusing on reinforcement learning for portfolio optimization.",
+                interests: ["Reinforcement Learning", "Portfolio Optimization"],
+                links: {}
+            },
+            {
+                name: "Youngbin Lee",
+                koreanName: "이영빈",
+                status: "Mentee",
+                image: "/youngbin.jpg",
+                currentPosition: "AI Researcher @ Elice",
+                links: {
+                    scholar: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko",
+                }
+            }
+        ];
+
+        const MemberCard = ({ member }) => (
+            <div className="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row items-start gap-6">
+                <img 
+                    src={member.image} 
+                    alt={member.name} 
+                    className="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg flex-shrink-0"
+                    onError={(e) => { e.target.onerror = null; e.target.src='https://placehold.co/200x200/E2E8F0/4A5568?text=Error'; }}
+                />
+                <div className="flex-grow">
+                    <h3 className="text-xl font-bold text-gray-900">{member.name} <span className="text-lg font-medium text-gray-600">({member.koreanName})</span></h3>
+                    {member.currentPosition && <p className="text-md font-semibold text-purple-600">{member.currentPosition}</p>}
+                    
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 my-2">
+                        {member.links.scholar && <a href={member.links.scholar} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">Google Scholar</a>}
+                        {member.links.linkedin && <a href={member.links.linkedin} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">LinkedIn</a>}
+                        
+                        {/* 교수님 Email은 텍스트로, 그 외에는 mailto 링크로 처리 */}
+                        {member.status === 'Principal Investigator' && member.email && (
+                            <span className="text-sm text-gray-600">Email: {member.email}</span>
+                        )}
+                        {member.status !== 'Principal Investigator' && member.email && (
+                            <a href={`mailto:${member.email}`} className="text-sm text-blue-600 hover:underline">Email</a>
+                        )}
+                    </div>
+
+                    {member.bio && <p className="text-sm text-gray-700 mt-2 leading-relaxed">{member.bio}</p>}
+                    
+                    {member.interests && member.interests.length > 0 && (
+                        <div className="mt-3">
+                            <h4 className="text-sm font-semibold text-gray-800">Interests:</h4>
+                            <div className="flex flex-wrap gap-2 mt-1">
+                                {member.interests.map(interest => (
+                                    <span key={interest} className="px-2 py-1 bg-gray-200 text-gray-800 text-xs font-medium rounded-full">{interest}</span>
+                                ))}
                             </div>
-                            <div className="text-sm text-gray-700 mt-4 leading-relaxed">
-                                <p>
-                                    I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025.
-                                    Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. 
-                                    I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee.
-                                    Guided by the belief that <em>“Research is meaningful only when its insights leave the lab and change the world,”</em>{" "} our laboratory not only submits its findings to the most prestigious journals and conferences but also pursues research capable of driving substantial real-world impact.
-                                </p>
-                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
-                <div>
-                    <h2 className="text-2xl font-semibold mt-8">Students</h2>
-                    <div className="mt-4 pl-4 space-y-4">
-                        <div>
-                            <p className="font-semibold text-lg">PhD Students</p>
-                            <ul className="list-disc list-inside ml-2">
-                                <li>TBD</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <p className="font-semibold text-lg mt-2">MS Students</p>
-                            <ul className="list-disc list-inside ml-2">
-                                <li>TBD</li>
-                            </ul>
-                        </div>
+            </div>
+        );
+
+        const MembersTabContent = () => {
+            const pi = membersData.filter(m => m.status === 'Principal Investigator');
+            const phdStudents = membersData.filter(m => m.status === 'PhD Student');
+            const msStudents = membersData.filter(m => m.status === 'MS Student');
+            const alumni = membersData.filter(m => m.status.includes('Alumni'));
+
+            return (
+                <section className="space-y-12">
+                    <MemberSection title="Principal Investigator" members={pi} />
+                    <MemberSection title="PhD Students" members={phdStudents} />
+                    <MemberSection title="MS Students" members={msStudents} />
+                    <MemberSection title="Alumni & Mentees" members={alumni} />
+                </section>
+            );
+        };
+        
+        const MemberSection = ({ title, members }) => (
+            <div>
+                <h2 className="text-2xl font-semibold border-b pb-2 mb-4">{title}</h2>
+                {members.length > 0 && members[0].name !== "TBD" ? (
+                    <div className="space-y-6">
+                        {members.map(member => <MemberCard key={member.name} member={member} />)}
                     </div>
-                </div>
-                <div>
-                    <h2 className="text-2xl font-semibold mt-8">Mentoring</h2>
-                    <div className="mt-4 pl-4 space-y-4">
-                        <ul className="list-disc list-inside ml-2">
-                            <li><a href="https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Youngbin Lee</a> (Elice) </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
+                ) : (
+                    <p className="text-gray-500 italic">To be determined.</p>
+                )}
+            </div>
         );
 
         //======================================================================
-        // 📚 PUBLICATIONS 탭 컴포넌트 및 데이터
+        // 📚 PUBLICATIONS 탭 컴포넌트 (변경 없음)
         //======================================================================
         const PublicationItem = ({ item }) => (
             <li className="space-y-1 py-4 border-b last:border-b-0">
@@ -293,223 +298,154 @@
                         {item.award}
                     </p>
                 )}
-                <div className="flex flex-wrap gap-x-4 gap-y-1 text-blue-600">
-                    {item.links.map((link, index) => (
-                        <a key={index} href={link.href} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                            [{link.text}]
-                        </a>
-                    ))}
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-2">
+                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-blue-600">
+                        {item.links.map((link, index) => (
+                            <a key={index} href={link.href} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                                [{link.text}]
+                            </a>
+                        ))}
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                        {item.topics.map(topic => (
+                            <span key={topic} className="px-2 py-0.5 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">{topic}</span>
+                        ))}
+                    </div>
                 </div>
             </li>
         );
 
         const PublicationsTabContent = () => {
             const publications = [
-                {
-                    id: "[C4]",
-                    title: "Time-MQA: Time Series Multi-Task Question Answering with Context Enhancement",
-                    authors: [
-                        { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" },
-                        { name: "Yiyuan Yang*", href: "https://scholar.google.co.kr/citations?user=FUuGvZIAAAAJ&hl=en" },
-                        { name: "Yoontae Hwang", isHighlight: true },
-                        { name: "Wenjie Du", href: "https://scholar.google.com/citations?user=j9qvUg0AAAAJ&hl=en" },
-                        { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
-                        { name: "Zhangyang Wang", href: "https://scholar.google.com/citations?user=pxFyKAIAAAAJ&hl=en" },
-                        { name: "Ming Jin", href: "https://scholar.google.com/citations?user=I2xvKaIAAAAJ&hl=en" },
-                        { name: "Qingsong Wen", href: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" },
-                    ],
-                    venue: "Annual Meeting of the Association for Computational Linguistics (ACL), 2025, Acceptance rate 23%, Main Track",
-                    links: [
-                        { text: "paper", href: "https://arxiv.org/abs/2503.01875" },
-                        { text: "code", href: "https://huggingface.co/Time-QA" },
-                    ],
-                },
-                {
-                    id: "[C3]",
-                    title: "Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset",
-                    authors: [
-                        { name: "Yoontae Hwang", isHighlight: true },
-                        { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
-                    ],
-                    venue: "AAAI Conference on Artificial Intelligence (AAAI), 2025, Acceptance rate 24%, Main Track",
-                    links: [
-                        { text: "paper", href: "https://arxiv.org/abs/2412.12864" },
-                        { text: "code", href: "https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset" },
-                        { text: "seminar@UNIST", href: "ppt/GFTab_UNIST.pdf" },
-                    ],
-                },
-                {
-                    id: "[C2]",
-                    title: "CAFO: Feature-Centric Explanation on Time Series Classification",
-                    authors: [
-                        { name: "Jaeho Kim", href: "https://sites.google.com/view/jaeho-kim" },
-                        { name: "Seok-ju Hanhn", href: "https://vaseline555.github.io/" },
-                        { name: "Yoontae Hwang", isHighlight: true },
-                        { name: "Junghye Lee", href: "https://d3mlab.snu.ac.kr/members/principal-investigator" },
-                        { name: "Seulki Lee", href: "https://scholar.google.com/citations?hl=en&user=qhI7uVMAAAAJ" },
-                    ],
-                    venue: "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), 2024, Acceptance rate 20%, Main Track",
-                    award: "Best Poster Award, @UNIST AI Tech Workshop 2024",
-                    links: [
-                        { text: "paper", href: "https://arxiv.org/abs/2406.01833" },
-                        { text: "code", href: "https://github.com/eai-lab/CAFO" },
-                    ],
-                },
-                {
-                    id: "[C1]",
-                    title: "SimStock : Representation Model for Stock Similarities",
-                    authors: [
-                        { name: "Yoontae Hwang", isHighlight: true },
-                        { name: "Junhyeong Lee", href: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" },
-                        { name: "Daham Kim", href: "https://www.linkedin.com/in/daham-kim/" },
-                        { name: "Seunghwan Noh" },
-                        { name: "Joohwan Hong", href: "https://www.notion.so/unist-felab/Joohwan-Hong-Ph-D-a93266780e6a407a866e8b7ec7d47129" },
-                        { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
-                    ],
-                    venue: "ACM International Conference on AI in Finance (ICAIF), 2023, Acceptance rate 21%",
-                    award: "Oral Presentation",
-                    awardColor: "red",
-                    links: [
-                        { text: "paper", href: "https://dl.acm.org/doi/10.1145/3604237.3626888" },
-                        { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" },
-                        { text: "seminar@SKKU", href: "ppt/SimStock_SKKU.pdf" },
-                    ],
-                },
-                {
-                    id: "[J5]",
-                    title: "Heterogeneous Trading Behaviors of Individual Investors",
-                    authors: [
-                        { name: "Yoontae Hwang", isHighlight: true },
-                        { name: "Junpyo Park", href: "https://www.notion.so/unist-felab/Junpyo-Park-187b74eaaae847a98175664018bebea8" },
-                        { name: "Jang Ho Kim", href: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" },
-                        { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
-                        { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" },
-                    ],
-                    venue: "Finance Research Letters (FRL), 2023, Acceptance rate 28%",
-                    links: [{ text: "paper", href: "https://www.sciencedirect.com/science/article/abs/pii/S1544612324005117" }],
-                },
-                {
-                    id: "[J4]",
-                    title: "Identifying household finance heterogeneity via deep clustering",
-                    authors: [
-                        { name: "Yoontae Hwang", isHighlight: true },
-                        { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
-                        { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" },
-                    ],
-                    venue: "Annals of Operations Research (ANOR), 2023, Acceptance rate 23%",
-                    links: [{ text: "paper", href: "https://link.springer.com/article/10.1007/s10479-022-04900-3" }],
-                },
-                {
-                    id: "[J3]",
-                    title: "Household Financial Health: A Machine Learning Approach for Data-Driven Diagnosis and Prescription",
-                    authors: [
-                        { name: "Kyeongbin Kim*", href: "https://www.linkedin.com/in/kimkyle95/" },
-                        { name: "Yoontae Hwang*", isHighlight: true, isUnderlined: false },
-                        { name: "Dongcheol Lim", href: "https://www.linkedin.com/in/dongclim0613/" },
-                        { name: "Suhyeon Kim", href: "https://www.linkedin.com/in/sh-kim1026/" },
-                        { name: "Junghye Lee", href: "https://d3mlab.snu.ac.kr/members/principal-investigator" },
-                        { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
-                    ],
-                    venue: "Quantitative Finance (QF), 2023, Acceptance rate 23%",
-                    award: "Commendation Award, @Commissioner of Statistics Korea 2020",
-                    links: [{ text: "paper", href: "https://www.tandfonline.com/doi/full/10.1080/14697688.2023.2254335" }],
-                },
-                {
-                    id: "[J2]",
-                    title: "Stop-loss adjusted labels for machine learning-based trading of risky assets",
-                    authors: [
-                        { name: "Yoontae Hwang", isHighlight: true },
-                        { name: "Junpyo Park", href: "https://www.notion.so/unist-felab/Junpyo-Park-187b74eaaae847a98175664018bebea8" },
-                        { name: "Dong-Young Lim", href: "https://sites.google.com/view/dlim/group?authuser=0" },
-                        { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
-                    ],
-                    venue: "Finance Research Letters (FRL), 2023, Acceptance rate 28%",
-                    links: [
-                        { text: "paper", href: "https://www.sciencedirect.com/science/article/abs/pii/S1544612323006578" },
-                        { text: "code", href: "https://github.com/Yoontae6719/Stop-loss-adjusted-labels" },
-                    ],
-                },
-                {
-                    id: "[J1]",
-                    title: "A Study on the Estimation of Apartment Price Index: Focused on the Machine Learning Algorithm",
-                    authors: [{ name: "Yoontae Hwang", isHighlight: true }],
-                    venue: "Journal of Money & Finance (KMFA), 2019, Acceptance rate 45.71%, Domestic journal (South Korea)",
-                    links: [{ text: "paper", href: "https://kiss.kstudy.com/Detail/Ar?key=3707638" }],
-                },
+                { id: "[C4]", title: "Time-MQA: Time Series Multi-Task Question Answering with Context Enhancement", authors: [ { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Yiyuan Yang*", href: "https://scholar.google.co.kr/citations?user=FUuGvZIAAAAJ&hl=en" }, { name: "Yoontae Hwang", isHighlight: true }, { name: "Wenjie Du", href: "https://scholar.google.com/citations?user=j9qvUg0AAAAJ&hl=en" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Zhangyang Wang", href: "https://scholar.google.com/citations?user=pxFyKAIAAAAJ&hl=en" }, { name: "Ming Jin", href: "https://scholar.google.com/citations?user=I2xvKaIAAAAJ&hl=en" }, { name: "Qingsong Wen", href: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" }, ], venue: "Annual Meeting of the Association for Computational Linguistics (ACL), 2025, Acceptance rate 23%, Main Track", links: [ { text: "paper", href: "https://arxiv.org/abs/2503.01875" }, { text: "code", href: "https://huggingface.co/Time-QA" }, ], topics: ["Time-Series Analysis", "Deep Learning"] },
+                { id: "[C3]", title: "Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "AAAI Conference on Artificial Intelligence (AAAI), 2025, Acceptance rate 24%, Main Track", links: [ { text: "paper", href: "https://arxiv.org/abs/2412.12864" }, { text: "code", href: "https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset" }, { text: "seminar@UNIST", href: "ppt/GFTab_UNIST.pdf" }, ], topics: ["Tabular Modeling", "Deep Learning"] },
+                { id: "[C2]", title: "CAFO: Feature-Centric Explanation on Time Series Classification", authors: [ { name: "Jaeho Kim", href: "https://sites.google.com/view/jaeho-kim" }, { name: "Seok-ju Hanhn", href: "https://vaseline555.github.io/" }, { name: "Yoontae Hwang", isHighlight: true }, { name: "Junghye Lee", href: "https://d3mlab.snu.ac.kr/members/principal-investigator" }, { name: "Seulki Lee", href: "https://scholar.google.com/citations?hl=en&user=qhI7uVMAAAAJ" }, ], venue: "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), 2024, Acceptance rate 20%, Main Track", award: "Best Poster Award, @UNIST AI Tech Workshop 2024", links: [ { text: "paper", href: "https://arxiv.org/abs/2406.01833" }, { text: "code", href: "https://github.com/eai-lab/CAFO" }, ], topics: ["Time-Series Analysis", "Deep Learning"] },
+                { id: "[C1]", title: "SimStock : Representation Model for Stock Similarities", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Junhyeong Lee", href: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" }, { name: "Daham Kim", href: "https://www.linkedin.com/in/daham-kim/" }, { name: "Seunghwan Noh" }, { name: "Joohwan Hong", href: "https://www.notion.so/unist-felab/Joohwan-Hong-Ph-D-a93266780e6a407a866e8b7ec7d47129" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "ACM International Conference on AI in Finance (ICAIF), 2023, Acceptance rate 21%", award: "Oral Presentation", awardColor: "red", links: [ { text: "paper", href: "https://dl.acm.org/doi/10.1145/3604237.3626888" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, { text: "seminar@SKKU", href: "ppt/SimStock_SKKU.pdf" }, ], topics: ["Trading", "Deep Learning"] },
+                { id: "[J5]", title: "Heterogeneous Trading Behaviors of Individual Investors", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Junpyo Park", href: "https://www.notion.so/unist-felab/Junpyo-Park-187b74eaaae847a98175664018bebea8" }, { name: "Jang Ho Kim", href: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" }, ], venue: "Finance Research Letters (FRL), 2023, Acceptance rate 28%", links: [{ text: "paper", href: "https://www.sciencedirect.com/science/article/abs/pii/S1544612324005117" }], topics: ["Trading", "Deep Learning"] },
+                { id: "[J4]", title: "Identifying household finance heterogeneity via deep clustering", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" }, ], venue: "Annals of Operations Research (ANOR), 2023, Acceptance rate 23%", links: [{ text: "paper", href: "https://link.springer.com/article/10.1007/s10479-022-04900-3" }], topics: ["Household Finance", "Deep Learning"] },
+                { id: "[J3]", title: "Household Financial Health: A Machine Learning Approach for Data-Driven Diagnosis and Prescription", authors: [ { name: "Kyeongbin Kim*", href: "https://www.linkedin.com/in/kimkyle95/" }, { name: "Yoontae Hwang*", isHighlight: true, isUnderlined: false }, { name: "Dongcheol Lim", href: "https://www.linkedin.com/in/dongclim0613/" }, { name: "Suhyeon Kim", href: "https://www.linkedin.com/in/sh-kim1026/" }, { name: "Junghye Lee", href: "https://d3mlab.snu.ac.kr/members/principal-investigator" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Quantitative Finance (QF), 2023, Acceptance rate 23%", award: "Commendation Award, @Commissioner of Statistics Korea 2020", links: [{ text: "paper", href: "https://www.tandfonline.com/doi/full/10.1080/14697688.2023.2254335" }], topics: ["Household Finance", "Deep Learning"] },
+                { id: "[J2]", title: "Stop-loss adjusted labels for machine learning-based trading of risky assets", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Junpyo Park", href: "https://www.notion.so/unist-felab/Junpyo-Park-187b74eaaae847a98175664018bebea8" }, { name: "Dong-Young Lim", href: "https://sites.google.com/view/dlim/group?authuser=0" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Research Letters (FRL), 2023, Acceptance rate 28%", links: [ { text: "paper", href: "https://www.sciencedirect.com/science/article/abs/pii/S1544612323006578" }, { text: "code", href: "https://github.com/Yoontae6719/Stop-loss-adjusted-labels" }, ], topics: ["Trading", "Deep Learning"] },
+                { id: "[J1]", title: "A Study on the Estimation of Apartment Price Index: Focused on the Machine Learning Algorithm", authors: [{ name: "Yoontae Hwang", isHighlight: true }], venue: "Journal of Money & Finance (KMFA), 2019, Acceptance rate 45.71%, Domestic journal (South Korea)", links: [{ text: "paper", href: "https://kiss.kstudy.com/Detail/Ar?key=3707638" }], topics: ["Household Finance", "Time-Series Analysis", "Deep Learning"] },
             ];
             const workingPapers = [
-                {
-                    id: "[S]",
-                    title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization",
-                    authors: [
-                        { name: "Yoontae Hwang", isHighlight: true },
-                        { name: "Yaxuan Kong", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" },
-                        { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
-                        { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
-                    ],
-                    venue: "Finance Journal, 2025.01 (intended), Acceptance rate 13%",
-                    links: [
-                        { text: "paper", href: "https://arxiv.org/abs/2502.00828" },
-                        { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" },
-                    ],
-                },
-                {
-                    id: "[S]",
-                    title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management",
-                    authors: [
-                        { name: "Yoontae Hwang", isHighlight: true },
-                        { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
-                        { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
-                    ],
-                    venue: "Finance Journal, 2024.12, Acceptance rate 23%",
-                    award: "Best Paper Award @the Korean Academic Society of Business Administration 2024",
-                    links: [
-                        { text: "paper", href: "https://arxiv.org/abs/2407.13751" },
-                        { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" },
-                    ],
-                },
-                {
-                    id: "[W]",
-                    title: "Neural Networks and Deep Learning for Asset Management",
-                    authors: [
-                        { name: "Yoontae Hwang", isHighlight: true },
-                        { name: "Junhyeong Lee", href: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" },
-                        { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
-                        { name: "Jang Ho Kim", href: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" },
-                        { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=en" },
-                        { name: "Woo Chang Kim", href: "https://scholar.google.co.kr/citations?user=7NmBs1kAAAAJ&hl=en" },
-                        { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" },
-                    ],
-                    venue: "Survey paper",
-                    links: [],
-                },
+                { id: "[S]", title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yaxuan Kong", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2025.01 (intended), Acceptance rate 13%", links: [ { text: "paper", href: "https://arxiv.org/abs/2502.00828" }, { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }, ], topics: ["Portfolio Theory", "Deep Learning"] },
+                { id: "[S]", title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2024.12, Acceptance rate 23%", award: "Best Paper Award @the Korean Academic Society of Business Administration 2024", links: [ { text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
+                { id: "[W]", title: "Neural Networks and Deep Learning for Asset Management", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Junhyeong Lee", href: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Jang Ho Kim", href: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=en" }, { name: "Woo Chang Kim", href: "https://scholar.google.co.kr/citations?user=7NmBs1kAAAAJ&hl=en" }, { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" }, ], venue: "Survey paper", links: [], topics: ["Portfolio Theory", "Deep Learning", "Survey"] },
             ];
+            
+            const allPapers = [...publications, ...workingPapers];
+            const allTopics = useMemo(() => {
+                // 요청하신 주제 목록을 고정적으로 사용합니다.
+                return [
+                    "Time-Series Analysis", "Deep Learning", "Tabular Modeling", 
+                    "AI in Science", "Trading", "Portfolio Theory", 
+                    "Household Finance", "Survey"
+                ];
+            }, []);
+
+            const [searchQuery, setSearchQuery] = useState('');
+            const [activeTopics, setActiveTopics] = useState([]);
+
+            const filteredPapers = useMemo(() => {
+                return allPapers.filter(paper => {
+                    const query = searchQuery.toLowerCase();
+                    const matchesQuery = query === '' ||
+                        paper.title.toLowerCase().includes(query) ||
+                        paper.authors.some(a => a.name.toLowerCase().includes(query)) ||
+                        paper.venue.toLowerCase().includes(query);
+
+                    const matchesTopics = activeTopics.length === 0 ||
+                        activeTopics.every(topic => paper.topics.includes(topic));
+                    
+                    return matchesQuery && matchesTopics;
+                });
+            }, [searchQuery, activeTopics, allPapers]);
+
+            const toggleTopic = (topic) => {
+                setActiveTopics(prev => 
+                    prev.includes(topic) ? prev.filter(t => t !== topic) : [...prev, topic]
+                );
+            };
+
+            const filteredPublications = filteredPapers.filter(p => publications.includes(p));
+            const filteredWorkingPapers = filteredPapers.filter(p => workingPapers.includes(p));
+
             return (
                 <section className="space-y-8">
-                    <div>
-                        <h2 className="text-2xl font-semibold">Publications</h2>
-                        <p className="mt-2 text-sm text-gray-600">
-                            <strong>J</strong>: Journal / <strong>C</strong>: Conference / <strong>*</strong>: equal contribution
-                        </p>
-                        <ul className="mt-4">
-                            {publications.map((item, index) => <PublicationItem key={index} item={item} />)}
-                        </ul>
+                    {/* --- 필터 및 검색 UI --- */}
+                    <div className="p-4 bg-white rounded-lg shadow-md sticky top-0 z-10">
+                        <div className="flex flex-col md:flex-row gap-4">
+                            <div className="relative flex-grow">
+                                <input
+                                    type="text"
+                                    placeholder="Search by title, author, venue..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-full p-2 pl-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                    <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </div>
+                            <button onClick={() => { setSearchQuery(''); setActiveTopics([]); }} className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors">
+                                Reset Filters
+                            </button>
+                        </div>
+                        <div className="mt-4">
+                            <p className="text-sm font-semibold text-gray-700 mb-2">Filter by Topic:</p>
+                            <div className="flex flex-wrap gap-2">
+                                {allTopics.map(topic => {
+                                    const isActive = activeTopics.includes(topic);
+                                    return (
+                                        <button 
+                                            key={topic} 
+                                            onClick={() => toggleTopic(topic)}
+                                            className={`px-3 py-1 text-xs font-medium rounded-full transition-colors ${isActive ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                                        >
+                                            {topic}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
                     </div>
-                    <div className="pt-4">
-                        <h2 className="text-2xl font-semibold">Working Paper</h2>
-                        <p className="mt-2 text-sm text-gray-600">
-                            <strong>S</strong>: Submitted / <strong>W</strong>: Work in progress / <strong>*</strong>: equal contribution
-                        </p>
-                        <ul className="mt-4">
-                            {workingPapers.map((item, index) => <PublicationItem key={index} item={item} />)}
-                        </ul>
-                    </div>
+
+                    {/* --- 논문 목록 --- */}
+                    {filteredPublications.length > 0 && (
+                        <div>
+                            <h2 className="text-2xl font-semibold">Publications</h2>
+                            <p className="mt-2 text-sm text-gray-600">
+                                <strong>J</strong>: Journal / <strong>C</strong>: Conference / <strong>*</strong>: equal contribution
+                            </p>
+                            <ul className="mt-4">
+                                {filteredPublications.map((item, index) => <PublicationItem key={index} item={item} />)}
+                            </ul>
+                        </div>
+                    )}
+                    
+                    {filteredWorkingPapers.length > 0 && (
+                        <div className="pt-4">
+                            <h2 className="text-2xl font-semibold">Working Paper</h2>
+                            <p className="mt-2 text-sm text-gray-600">
+                                <strong>S</strong>: Submitted / <strong>W</strong>: Work in progress / <strong>*</strong>: equal contribution
+                            </p>
+                            <ul className="mt-4">
+                                {filteredWorkingPapers.map((item, index) => <PublicationItem key={index} item={item} />)}
+                            </ul>
+                        </div>
+                    )}
+                    
+                    {filteredPapers.length === 0 && (
+                        <div className="text-center py-10">
+                            <p className="text-gray-500">No publications match your criteria.</p>
+                        </div>
+                    )}
                 </section>
             );
         };
 
         //======================================================================
-        // 🎓 TEACHING 탭 컴포넌트
+        // 🎓 TEACHING 탭 컴포넌트 (변경 없음)
         //======================================================================
         const TeachingTabContent = () => (
             <section className="space-y-6">
@@ -521,27 +457,12 @@
                 </ul>
             </section>
         );
-       
+        
         //======================================================================
-        // 🏗️ PROJECTS 탭 컴포넌트
+        // 🏗️ PROJECTS 탭 컴포넌트 (변경 없음)
         //======================================================================
         const ProjectTabContent = () => {
-            const projects = [
-                {
-                    title: "Sejong Science Fellowship (Oversea Track)",
-                    year: 2024,
-                    organization: "National Research Foundation of Korea (NRF)",
-                    funding: "70,000,000 KRW",
-                    period: "2024.09.01 to 2025.08.31"
-                },
-                {
-                    title: "Ph.D. Fellowship",
-                    year: 2022,
-                    organization: "National Research Foundation of Korea (NRF)",
-                    funding: "40,000,000 KRW",
-                    period: "2022.06.01 to 2024.05.31"
-                }
-            ];
+            const projects = [ { title: "Sejong Science Fellowship (Oversea Track)", year: 2024, organization: "National Research Foundation of Korea (NRF)", funding: "70,000,000 KRW", period: "2024.09.01 to 2025.08.31" }, { title: "Ph.D. Fellowship", year: 2022, organization: "National Research Foundation of Korea (NRF)", funding: "40,000,000 KRW", period: "2022.06.01 to 2024.05.31" } ];
             return (
                 <section>
                     <h2 className="text-2xl font-semibold">Funded Projects</h2>
@@ -562,16 +483,10 @@
         };
 
         //======================================================================
-        // ✨ RANDOM STUFF 탭 컴포넌트 및 데이터
+        // ✨ RANDOM STUFF 탭 컴포넌트 (변경 없음)
         //======================================================================
         const AwardsSection = () => {
-            const awards = [
-                {
-                    title: "Best Paper Award",
-                    year: 2024,
-                    organization: "Korean Academic Society of Business Administration"
-                },
-            ];
+            const awards = [ { title: "Best Paper Award", year: 2024, organization: "Korean Academic Society of Business Administration" } ];
             return (
                 <div>
                     <h3 className="text-xl font-semibold">Awards</h3>
@@ -591,65 +506,7 @@
             );
         };
         const RecommendationsSection = () => {
-            const recommendations = [
-                { category: "Time-Series analysis", items: [{ text: "Time Series Analysis by James D. Hamilton", href: "https://www.jstor.org/stable/j.ctv14jx6sm" }] },
-                {
-                    category: "Optimization",
-                    items: [
-                        { text: "Convex Optimization by Stephen Boyd and Lieven Vandenberghe", href: "https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" },
-                        { text: "Optimization Methods in Finance by Gerard Cornuejols and Reha Tütüncü", href: "https://www.andrew.cmu.edu/user/gc0v/webpub/book.pdf" },
-                        { text: "Introduction to Stochastic Programming by John R. Birge , François Louveaux", href: "https://link.springer.com/book/10.1007/978-1-4614-0237-4" },
-                        { text: "Reinforcement Learning and Stochastic Optimization: A Unified Framework for Sequential Decisions by Warren B. Powell", href: "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119815068" },
-                    ],
-                },
-                {
-                    category: "ML/DL",
-                    items: [
-                        { text: "Mathematical Engineering of Deep Learning by Benoit Liquet, Sarat Moka and Yoni Nazarathy", href: "https://deeplearningmath.org/" },
-                        { text: "Alice's Adventures in a Differentiable Wonderland -- Volume I, A Tour of the Land by Simone Scardapane", href: "https://arxiv.org/abs/2404.17625" },
-                    ],
-                },
-                {
-                    category: "Fundamental Books",
-                    items: [
-                        { text: "Linear Algebra for Data Science by Wanmo Kang and Kyunghyun Cho", href: "https://kyunghyuncho.me/linear-algebra-for-data-science/" },
-                        { text: "Introduction to Mathematical Statistics by Robert Hogg, Joseph McKean, Allen Craig", href: "https://minerva.it.manchester.ac.uk/~saralees/statbook2.pdf" },
-                        { text: "Probability: Theory and Examples by Rick Durrett", href: "https://services.math.duke.edu/~rtd/PTE/PTE5_011119.pdf" },
-                        { text: "Principles of Mathematical Analysis by Walter Rudin", href: "https://www.amazon.co.uk/Principles-Mathematical-Analysis-International-Mathematics/dp/0070856133/" },
-                        { text: "Elements of Information Theory by Thomas M. Cover and Joy A. Thomas", href: "http://staff.ustc.edu.cn/~cgong821/Wiley.Interscience.Elements.of.Information.Theory.Jul.2006.eBook-DDU.pdf" },
-                    ],
-                },
-                {
-                    category: "Finance",
-                    items: [
-                        { text: "Introduction to Risk Parity and Budgeting by Thierry Roncalli", href: "http://www.thierry-roncalli.com/RiskParityBook.html" },
-                        { text: "Quantitative Equity Portfolio Management by Ludwig B. Chincarini and Daehwan Kim", href: "https://www.amazon.com/Quantitative-Equity-Portfolio-Management-Second/dp/1264268920" },
-                        { text: "Investment Science by David G. Luenberger", href: "https://www.amazon.com/Investment-Science-David-G-Luenberger/dp/0199740089" },
-                        { text: "Are markets efficient? (Video) by Eugene Fama and Richard Thaler", href: "#" },
-                        { text: "In Pursuit of the Perfect Portfolio (Video) by Harry M. Markowitz", href: "#" },
-                    ],
-                },
-                {
-                    category: "Writing",
-                    items: [
-                        { text: "How to ML Paper - A brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-ml-paper" },
-                        { text: "How to ML Rebuttal – A Brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-rebuttal-ml-paper" },
-                        { text: "How to ML Review — A brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-review-ml-paper" },
-                        { text: "Latex & Poster formatting Tips for Writing a Research Paper using LaTeX", href: "https://github.com/guanyingc/latex_paper_writing_tips" },
-                    ],
-                },
-                {
-                    category: "Useful website",
-                    items: [
-                        { text: "Paper Copilot: Whether the score received at the AI conference is relatively good or bad", href: "https://papercopilot.com/" },
-                        { text: "Cite.GG: Find recent papers that reference the paper you're reading", href: "https://cite.gg/#/" },
-                        { text: "AI Conference Deadline: Countdowns to top CV/NLP/ML/Robotics/AI conference deadlines", href: "https://huggingface.co/spaces/huggingface/ai-deadlines" },
-                        { text: "Operation Research (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_operationsresearch" },
-                        { text: "Data Mining & Analysis (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_datamininganalysis" },
-                        { text: "Artificial Inteligence (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_artificialintelligence" },
-                        { text: "Finance (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=bus_finance" },
-                    ],
-                },
+            const recommendations = [ { category: "Time-Series analysis", items: [{ text: "Time Series Analysis by James D. Hamilton", href: "https://www.jstor.org/stable/j.ctv14jx6sm" }] }, { category: "Optimization", items: [ { text: "Convex Optimization by Stephen Boyd and Lieven Vandenberghe", href: "https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" }, { text: "Optimization Methods in Finance by Gerard Cornuejols and Reha Tütüncü", href: "https://www.andrew.cmu.edu/user/gc0v/webpub/book.pdf" }, { text: "Introduction to Stochastic Programming by John R. Birge , François Louveaux", href: "https://link.springer.com/book/10.1007/978-1-4614-0237-4" }, { text: "Reinforcement Learning and Stochastic Optimization: A Unified Framework for Sequential Decisions by Warren B. Powell", href: "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119815068" }, ], }, { category: "ML/DL", items: [ { text: "Mathematical Engineering of Deep Learning by Benoit Liquet, Sarat Moka and Yoni Nazarathy", href: "https://deeplearningmath.org/" }, { text: "Alice's Adventures in a Differentiable Wonderland -- Volume I, A Tour of the Land by Simone Scardapane", href: "https://arxiv.org/abs/2404.17625" }, ], }, { category: "Fundamental Books", items: [ { text: "Linear Algebra for Data Science by Wanmo Kang and Kyunghyun Cho", href: "https://kyunghyuncho.me/linear-algebra-for-data-science/" }, { text: "Introduction to Mathematical Statistics by Robert Hogg, Joseph McKean, Allen Craig", href: "https://minerva.it.manchester.ac.uk/~saralees/statbook2.pdf" }, { text: "Probability: Theory and Examples by Rick Durrett", href: "https://services.math.duke.edu/~rtd/PTE/PTE5_011119.pdf" }, { text: "Principles of Mathematical Analysis by Walter Rudin", href: "https://www.amazon.co.uk/Principles-Mathematical-Analysis-International-Mathematics/dp/0070856133/" }, { text: "Elements of Information Theory by Thomas M. Cover and Joy A. Thomas", href: "http://staff.ustc.edu.cn/~cgong821/Wiley.Interscience.Elements.of.Information.Theory.Jul.2006.eBook-DDU.pdf" }, ], }, { category: "Finance", items: [ { text: "Introduction to Risk Parity and Budgeting by Thierry Roncalli", href: "http://www.thierry-roncalli.com/RiskParityBook.html" }, { text: "Quantitative Equity Portfolio Management by Ludwig B. Chincarini and Daehwan Kim", href: "https://www.amazon.com/Quantitative-Equity-Portfolio-Management-Second/dp/1264268920" }, { text: "Investment Science by David G. Luenberger", href: "https://www.amazon.com/Investment-Science-David-G-Luenberger/dp/0199740089" }, { text: "Are markets efficient? (Video) by Eugene Fama and Richard Thaler", href: "#" }, { text: "In Pursuit of the Perfect Portfolio (Video) by Harry M. Markowitz", href: "#" }, ], }, { category: "Writing", items: [ { text: "How to ML Paper - A brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-ml-paper" }, { text: "How to ML Rebuttal – A Brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-rebuttal-ml-paper" }, { text: "How to ML Review — A brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-review-ml-paper" }, { text: "Latex & Poster formatting Tips for Writing a Research Paper using LaTeX", href: "https://github.com/guanyingc/latex_paper_writing_tips" }, ], }, { category: "Useful website", items: [ { text: "Paper Copilot: Whether the score received at the AI conference is relatively good or bad", href: "https://papercopilot.com/" }, { text: "Cite.GG: Find recent papers that reference the paper you're reading", href: "https://cite.gg/#/" }, { text: "AI Conference Deadline: Countdowns to top CV/NLP/ML/Robotics/AI conference deadlines", href: "https://huggingface.co/spaces/huggingface/ai-deadlines" }, { text: "Operation Research (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_operationsresearch" }, { text: "Data Mining & Analysis (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_datamininganalysis" }, { text: "Artificial Inteligence (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_artificialintelligence" }, { text: "Finance (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=bus_finance" }, ], },
             ];
             return (
                 <div>
@@ -679,9 +536,9 @@
                 <RecommendationsSection />
             </section>
         );
-       
+        
         //======================================================================
-        // 🎯 VACANT POSITIONS 탭 컴포넌트
+        // 🎯 VACANT POSITIONS 탭 컴포넌트 (변경 없음)
         //======================================================================
         const VacantPositionsTabContent = () => (
             <section className="space-y-6">
@@ -701,7 +558,7 @@
                         yoontaeResearch@gmail.com
                     </a>.
                 </p>
-               
+                
                 <div className="pt-4 border-t border-gray-200">
                     <h3 className="text-xl font-semibold">Preferred Profile</h3>
                     <p className="mt-2 text-gray-700">
@@ -746,10 +603,35 @@
 
 
         //======================================================================
-        // 🚀 메인 앱 로직 (탭 전체를 관리)
+        // 🚀 메인 앱 로직 (탭 전체를 관리, URL 라우팅 추가)
         //======================================================================
-        function HomePage() {
-            const [activeTab, setActiveTab] = useState('home');
+        function App() {
+            const validTabs = ['home', 'members', 'publications', 'teaching', 'project', 'random', 'vacant'];
+            
+            // 1. URL 해시에서 초기 탭 상태를 설정합니다.
+            const getTabFromHash = () => {
+                const hash = window.location.hash.replace('#', '');
+                return validTabs.includes(hash) ? hash : 'home';
+            };
+            
+            const [activeTab, setActiveTab] = useState(getTabFromHash());
+
+            // 2. 탭 상태가 변경될 때 URL 해시를 업데이트합니다.
+            useEffect(() => {
+                window.location.hash = activeTab;
+            }, [activeTab]);
+
+            // 3. 사용자가 브라우저의 뒤로가기/앞으로가기 버튼을 사용할 때 탭을 동기화합니다.
+            useEffect(() => {
+                const handleHashChange = () => {
+                    setActiveTab(getTabFromHash());
+                };
+                window.addEventListener('hashchange', handleHashChange);
+                return () => {
+                    window.removeEventListener('hashchange', handleHashChange);
+                };
+            }, []);
+
 
             const renderContent = () => {
                 switch(activeTab) {
@@ -763,28 +645,30 @@
                     default: return <HomeTabContent />;
                 }
             };
-           
+            
             const TabButton = ({ value, children }) => {
                 const isActive = activeTab === value;
-                const classes = `px-4 py-2 text-sm font-medium rounded-md cursor-pointer transition-colors ${isActive ? 'bg-white text-gray-900 shadow' : 'text-gray-600 hover:bg-gray-200'}`;
+                const classes = `px-3 sm:px-4 py-2 text-sm font-medium rounded-md cursor-pointer transition-all duration-200 ${isActive ? 'bg-white text-gray-900 shadow-md' : 'text-gray-600 hover:bg-gray-200 hover:text-gray-800'}`;
+                // setActiveTab을 호출하면 useEffect 훅이 URL을 업데이트합니다.
                 return <button onClick={() => setActiveTab(value)} className={classes}>{children}</button>;
             };
 
             return (
-                <div className="p-4 sm:p-8 space-y-10 max-w-6xl mx-auto font-sans bg-gray-50">
-                    <h1 className="text-3xl sm:text-4xl font-bold text-center text-gray-800">
-                        Time Series Intelligence Lab (TSI Lab)
-                    </h1>
-                    <p className="text-md sm:text-lg text-center text-gray-600">
-                        Advancing AI-driven Time Series Research
-                        <br />
-                        <p className="mt-1 text-xs sm:text-sm">
-                            📩Contact: yoontaeResearch@gmail.com
+                <div className="p-4 sm:p-8 space-y-10 max-w-6xl mx-auto">
+                    <header className="text-center">
+                        <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">
+                            Time Series Intelligence Lab (TSI Lab)
+                        </h1>
+                        <p className="text-md sm:text-lg text-center text-gray-600 mt-2">
+                            Advancing AI-driven Time Series Research
                         </p>
-                        
-                    </p>
-                    <div className="w-full">
-                        <div className="flex justify-center flex-wrap gap-2 bg-gray-100 p-1 rounded-lg">
+                        <p className="mt-1 text-xs sm:text-sm text-gray-500">
+                            <a href="mailto:yoontaeResearch@gmail.com" className="hover:underline">📩 Contact: yoontaeResearch@gmail.com</a>
+                        </p>
+                    </header>
+                    
+                    <nav className="w-full">
+                        <div className="flex justify-center flex-wrap gap-1 sm:gap-2 bg-gray-100 p-1 rounded-lg shadow-inner">
                             <TabButton value="home">Home</TabButton>
                             <TabButton value="members">Members</TabButton>
                             <TabButton value="publications">Publications</TabButton>
@@ -793,16 +677,19 @@
                             <TabButton value="random">Random Stuff</TabButton>
                             <TabButton value="vacant">Vacant Positions</TabButton>
                         </div>
-                        <div className="mt-6">{renderContent()}</div>
-                    </div>
+                    </nav>
+
+                    <main className="mt-6 bg-white p-4 sm:p-6 rounded-lg shadow-lg">
+                        {renderContent()}
+                    </main>
                 </div>
             );
         }
-       
+        
         // --- React 앱을 페이지에 렌더링 ---
         const container = document.getElementById('root');
         const root = ReactDOM.createRoot(container);
-        root.render(<HomePage />);
+        root.render(<App />);
     </script>
 </body>
 </html>

@@ -42,12 +42,11 @@
             /* The main visible part of the node */
             stroke: #020617; /* slate-950 for a crisp edge */
             stroke-width: 1.5px;
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
         .graph-container .nodes:hover .main-circle {
             transform: scale(1.1);
         }
-        /* UPDATED: Corrected selector for node labels */
         .graph-container .nodes .node-label {
             /* Labels readable on a dark background */
             pointer-events: none;
@@ -280,10 +279,10 @@
             const koreanNameSize = isPI ? 'text-lg' : 'text-base';
 
             return (
-                <div className="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row items-start gap-6 h-full">
+                <div className="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row items-start gap-6 h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                     <img 
                         src={member.image} 
-                        alt={member.name} 
+                        alt={`${member.name} 프로필 사진`}
                         className="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg flex-shrink-0 mx-auto sm:mx-0"
                         onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/200x200/E2E8F0/4A5568?text=Error'; }}
                     />
@@ -334,16 +333,13 @@
 
         const MemberSection = ({ title, members }) => {
             const isGridSection = title !== 'Principal Investigator';
-            // Check if the section should be a 2-column grid
             const isTwoColumnGrid = title.includes('Students') || title.includes('Alumni');
 
             let className = "space-y-6"; // Default for PI section
             if (isGridSection) {
                 if (isTwoColumnGrid) {
-                    // Use 2 columns for students and alumni
                     className = "grid grid-cols-1 md:grid-cols-2 gap-6";
                 } else {
-                    // Fallback for any other potential grid sections
                     className = "grid grid-cols-1 md:grid-cols-3 gap-6";
                 }
             }
@@ -529,11 +525,12 @@
             const containerRef = useRef();
             const [legendData, setLegendData] = useState([]);
             const [searchTerm, setSearchTerm] = useState('');
+            const [highlightedAffiliation, setHighlightedAffiliation] = useState(null); // ADDED: State for legend interaction
             const d3Graph = useRef({}); // To hold D3 selections
 
-            // Effect for D3 Graph Setup & Updates
+            // Effect for D3 Graph Setup
             useEffect(() => {
-                // 1. Data Processing
+                // ... (Data processing logic is unchanged) ...
                 const allowedNames = new Set([
                     "Yoontae Hwang", "Yaxuan Kong", "Yiyuan Yang", "Stefan Zohren",
                     "Wenjie Du", "Zhangyang Wang", "Ming Jin", "Qingsong Wen", "Yongjae Lee", 
@@ -545,18 +542,13 @@
                 let nodes = {};
                 let links = {};
                 const affiliations = new Set();
-
                 allPapers.forEach(paper => {
-                    const authors = paper.authors
-                        .map(a => a.name.replace('*', '').trim())
-                        .filter(name => allowedNames.has(name));
-
+                    const authors = paper.authors.map(a => a.name.replace('*', '').trim()).filter(name => allowedNames.has(name));
                     for (let i = 0; i < authors.length; i++) {
                         for (let j = i + 1; j < authors.length; j++) {
                             const sourceName = authors[i];
                             const targetName = authors[j];
                             const key = [sourceName, targetName].sort().join("-");
-
                             [sourceName, targetName].forEach(name => {
                                 if (!nodes[name]) {
                                     const info = collaboratorInfo[name] || { affiliation: "Unknown", scholar: null };
@@ -565,7 +557,6 @@
                                 }
                                 nodes[name].collaborations++;
                             });
-
                             if (links[key]) {
                                 links[key].value++;
                             } else {
@@ -574,10 +565,9 @@
                         }
                     }
                 });
-                
                 const graphData = { nodes: Object.values(nodes), links: Object.values(links) };
                 
-                // 2. D3 Setup
+                // D3 Setup
                 const container = containerRef.current;
                 if (!container) return;
                 
@@ -586,14 +576,7 @@
                 const width = container.clientWidth || 800;
                 const height = 600;
                 
-                // New diverse and visually distinct color palette
-                const customColors = [
-                    '#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', 
-                    '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#aec7e8', '#ffbb78', 
-                    '#98df8a', '#ff9896', '#c5b0d5', '#c49c94', '#f7b6d2', '#c7c7c7', 
-                    '#dbdb8d', '#9edae5'
-                ];
-
+                const customColors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#aec7e8', '#ffbb78', '#98df8a', '#ff9896', '#c5b0d5', '#c49c94', '#f7b6d2', '#c7c7c7', '#dbdb8d', '#9edae5'];
                 const affiliationColor = d3.scaleOrdinal(customColors).domain(Array.from(affiliations).sort());
                 setLegendData(affiliationColor.domain().map(d => ({ color: affiliationColor(d), name: d })));
 
@@ -607,25 +590,9 @@
                     .attr("viewBox", [0, 0, width, height])
                     .attr("preserveAspectRatio", "xMidYMid meet");
 
-                // Add starfield background
-                const stars = d3.range(250).map(() => ({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    r: Math.random() * 1.2,
-                    delay: Math.random() * 5 + 's'
-                }));
+                const stars = d3.range(250).map(() => ({ x: Math.random() * width, y: Math.random() * height, r: Math.random() * 1.2, delay: Math.random() * 5 + 's' }));
+                svg.append("g").attr("class", "star-group").selectAll("circle").data(stars).join("circle").attr("class", "star").attr("cx", d => d.x).attr("cy", d => d.y).attr("r", d => d.r).style("animation-delay", d => d.delay);
 
-                svg.append("g").attr("class", "star-group")
-                    .selectAll("circle")
-                    .data(stars)
-                    .join("circle")
-                    .attr("class", "star")
-                    .attr("cx", d => d.x)
-                    .attr("cy", d => d.y)
-                    .attr("r", d => d.r)
-                    .style("animation-delay", d => d.delay);
-
-                // Define image patterns for nodes with photos
                 const defs = svg.append('defs');
                 graphData.nodes.forEach(node => {
                     if (node.photo) {
@@ -635,97 +602,52 @@
                     }
                 });
 
-                // 3. Create SVG Elements
-                d3Graph.current.link = svg.append("g").attr("class", "links")
-                    .selectAll("line").data(graphData.links).join("line")
-                    .attr("stroke-width", d => 1 + Math.sqrt(d.value));
-
-                d3Graph.current.node = svg.append("g").attr("class", "nodes")
-                    .selectAll("g").data(graphData.nodes).join("g")
-                    .call(drag(simulation));
+                d3Graph.current.link = svg.append("g").attr("class", "links").selectAll("line").data(graphData.links).join("line").attr("stroke-width", d => 1 + Math.sqrt(d.value));
+                d3Graph.current.node = svg.append("g").attr("class", "nodes").selectAll("g").data(graphData.nodes).join("g").call(drag(simulation));
                 
-                // Add glow effect circle (behind main circle)
-                d3Graph.current.node.append("circle")
-                    .attr("class", "glow")
-                    .attr("r", d => (d.id === "Yoontae Hwang" ? 30 : (5 + Math.sqrt(d.collaborations) * 3) + 4))
-                    .attr("fill", d => d.id === "Yoontae Hwang" ? "#f59e0b" : affiliationColor(d.affiliation))
-                    .attr("stroke", d => d.id === "Yoontae Hwang" ? "#f59e0b" : affiliationColor(d.affiliation));
-
-                d3Graph.current.node.append("circle")
-                    .attr("class", "main-circle")
-                    .attr("r", d => d.id === "Yoontae Hwang" ? 25 : 5 + Math.sqrt(d.collaborations) * 3)
-                    .attr("fill", d => d.photo ? `url(#img-${d.id.replace(/\s+/g, '-')})` : affiliationColor(d.affiliation))
-                    .style("cursor", d => d.scholar ? "pointer" : "default")
-                    .on("click", (event, d) => {
-                        if (d.scholar) {
-                            window.open(d.scholar, "_blank", "noopener,noreferrer");
-                        }
-                    });
+                d3Graph.current.node.append("circle").attr("class", "glow").attr("r", d => (d.id === "Yoontae Hwang" ? 30 : (5 + Math.sqrt(d.collaborations) * 3) + 4)).attr("fill", d => d.id === "Yoontae Hwang" ? "#f59e0b" : affiliationColor(d.affiliation)).attr("stroke", d => d.id === "Yoontae Hwang" ? "#f59e0b" : affiliationColor(d.affiliation));
+                d3Graph.current.node.append("circle").attr("class", "main-circle").attr("r", d => d.id === "Yoontae Hwang" ? 25 : 5 + Math.sqrt(d.collaborations) * 3).attr("fill", d => d.photo ? `url(#img-${d.id.replace(/\s+/g, '-')})` : affiliationColor(d.affiliation)).style("cursor", d => d.scholar ? "pointer" : "default").on("click", (event, d) => { if (d.scholar) { window.open(d.scholar, "_blank", "noopener,noreferrer"); } });
                 
-                d3Graph.current.labels = d3Graph.current.node.append("text")
-                    .attr("class", "node-label")
-                    .text(d => d.id)
-                    .attr("x", d => (d.id === "Yoontae Hwang" ? 25 : 5 + Math.sqrt(d.collaborations) * 3) + 5)
-                    .attr("y", 4);
-
+                d3Graph.current.labels = d3Graph.current.node.append("text").attr("class", "node-label").text(d => d.id).attr("x", d => (d.id === "Yoontae Hwang" ? 25 : 5 + Math.sqrt(d.collaborations) * 3) + 5).attr("y", 4);
                 d3Graph.current.node.append("title").text(d => `${d.id}\nAffiliation: ${d.affiliation}`);
 
-                // 4. Interactivity
                 const linkedByIndex = {};
                 graphData.links.forEach(d => { linkedByIndex[`${d.source.index},${d.target.index}`] = 1; });
                 const isConnected = (a, b) => linkedByIndex[`${a.index},${b.index}`] || linkedByIndex[`${b.index},${a.index}`] || a.index === b.index;
 
                 d3Graph.current.node.on("mouseover", function (event, d) {
-                    if (searchTerm) return; // Disable hover during search
+                    if (searchTerm || highlightedAffiliation) return; // MODIFIED: Disable hover during search or highlight
                     d3Graph.current.node.style("opacity", o => isConnected(d, o) ? 1 : 0.15);
-                    d3Graph.current.link
-                        .style("stroke-opacity", o => o.source === d || o.target === d ? 0.9 : 0.1)
-                        .style("stroke", o => o.source === d || o.target === d ? "#f1f5f9" : "rgba(156, 163, 175, 0.4)");
+                    d3Graph.current.link.style("stroke-opacity", o => o.source === d || o.target === d ? 0.9 : 0.1).style("stroke", o => o.source === d || o.target === d ? "#f1f5f9" : "rgba(156, 163, 175, 0.4)");
                     d3Graph.current.labels.style("opacity", o => isConnected(d, o) ? 1 : 0.15);
                     d3.select(this).style("opacity", 1);
                 }).on("mouseout", () => {
-                    if (searchTerm) return; // Disable hover during search
+                    if (searchTerm || highlightedAffiliation) return; // MODIFIED: Disable hover during search or highlight
                     d3Graph.current.node.style("opacity", 1);
-                    d3Graph.current.link
-                        .style("stroke-opacity", 1)
-                        .style("stroke", "rgba(156, 163, 175, 0.4)");
+                    d3Graph.current.link.style("stroke-opacity", 1).style("stroke", "rgba(156, 163, 175, 0.4)");
                     d3Graph.current.labels.style("opacity", 1);
                 });
 
-                // 5. Simulation Ticks
                 simulation.on("tick", () => {
                     d3Graph.current.link.attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y);
                     d3Graph.current.node.attr("transform", d => `translate(${d.x},${d.y})`);
                 });
 
-                function drag(simulation) {
+                function drag(simulation) { /* ... (unchanged) ... */ 
                     function dragstarted(event) { if (!event.active) simulation.alphaTarget(0.3).restart(); event.subject.fx = event.subject.x; event.subject.fy = event.subject.y; }
                     function dragged(event) { event.subject.fx = event.x; event.subject.fy = event.y; }
                     function dragended(event) { if (!event.active) simulation.alphaTarget(0); event.subject.fx = null; event.subject.fy = null; }
                     return d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended);
                 }
 
-                // 6. Resize Handling & Cleanup
-                const handleResize = () => {
+                const handleResize = () => { /* ... (unchanged) ... */ 
                     if (containerRef.current) {
                         const newWidth = containerRef.current.clientWidth;
                         if (newWidth > 0) {
                             svg.attr("viewBox", [0, 0, newWidth, height]);
                             svg.selectAll(".star-group").remove();
-                            const newStars = d3.range(250).map(() => ({
-                                x: Math.random() * newWidth,
-                                y: Math.random() * height,
-                                r: Math.random() * 1.2,
-                                delay: Math.random() * 5 + 's'
-                            }));
-                            svg.insert("g", ":first-child").attr("class", "star-group")
-                                .selectAll("circle")
-                                .data(newStars)
-                                .join("circle")
-                                .attr("class", "star")
-                                .attr("cx", d => d.x).attr("cy", d => d.y).attr("r", d => d.r)
-                                .style("animation-delay", d => d.delay);
-                            
+                            const newStars = d3.range(250).map(() => ({ x: Math.random() * newWidth, y: Math.random() * height, r: Math.random() * 1.2, delay: Math.random() * 5 + 's'}));
+                            svg.insert("g", ":first-child").attr("class", "star-group").selectAll("circle").data(newStars).join("circle").attr("class", "star").attr("cx", d => d.x).attr("cy", d => d.y).attr("r", d => d.r).style("animation-delay", d => d.delay);
                             simulation.force("center", d3.forceCenter(newWidth / 2, height / 2));
                             simulation.alpha(0.3).restart();
                         }
@@ -739,7 +661,7 @@
                     window.removeEventListener('resize', handleResize);
                     simulation.stop();
                 };
-            }, []); // Empty dependency array means this runs once on mount
+            }, []);
 
             // Effect for Search Functionality
             useEffect(() => {
@@ -748,9 +670,12 @@
                 const term = searchTerm.toLowerCase();
 
                 if (term === "") {
-                    d3Graph.current.node.style("opacity", 1);
-                    d3Graph.current.link.style("stroke-opacity", 1).style("stroke", "rgba(156, 163, 175, 0.4)");
-                    d3Graph.current.labels.style("opacity", 1);
+                    // If search is cleared, restore opacity based on legend highlight (if any)
+                    if (!highlightedAffiliation) {
+                        d3Graph.current.node.style("opacity", 1);
+                        d3Graph.current.link.style("stroke-opacity", 1).style("stroke", "rgba(156, 163, 175, 0.4)");
+                        d3Graph.current.labels.style("opacity", 1);
+                    }
                     return;
                 }
 
@@ -765,11 +690,39 @@
 
             }, [searchTerm]);
 
+            // ADDED: Effect for Legend Highlighting
+            useEffect(() => {
+                if (!d3Graph.current.node || searchTerm) return; // Do not run if graph not ready or if searching
+
+                if (!highlightedAffiliation) {
+                    // Reset styles if no affiliation is selected
+                    d3Graph.current.node.style("opacity", 1);
+                    d3Graph.current.link.style("stroke-opacity", 1).style("stroke", "rgba(156, 163, 175, 0.4)");
+                    d3Graph.current.labels.style("opacity", 1);
+                    return;
+                }
+
+                const isAffiliationHighlighted = (d) => d.affiliation === highlightedAffiliation;
+
+                d3Graph.current.node.style("opacity", d => isAffiliationHighlighted(d) ? 1 : 0.1);
+                d3Graph.current.labels.style("opacity", d => isAffiliationHighlighted(d) ? 1 : 0.1);
+                d3Graph.current.link
+                    .style("stroke-opacity", d => (isAffiliationHighlighted(d.source) || isAffiliationHighlighted(d.target)) ? 0.9 : 0.05)
+                    .style("stroke", d => (isAffiliationHighlighted(d.source) || isAffiliationHighlighted(d.target)) ? "#f1f5f9" : "rgba(156, 163, 175, 0.4)");
+
+            }, [highlightedAffiliation, searchTerm]);
+
+            // ADDED: Click handler for legend items
+            const handleLegendClick = (affiliation) => {
+                setSearchTerm(''); // Clear search when a legend item is clicked
+                setHighlightedAffiliation(prev => prev === affiliation ? null : affiliation);
+            };
+
             return (
                 <section>
                     <h2 className="text-2xl font-semibold">Collaboration Network (Ph.D Level)</h2>
                     <p className="mt-2 text-sm text-gray-600">
-                        This graph visualizes the collaboration network based on my publications (Note: The network includes collaborators at the Ph.D. level and above). Each node represents a co-author, and its color indicates their affiliation. The size of the node corresponds to the number of collaborations. Click on a collaborator's node to view their profile.
+                        This graph visualizes the collaboration network based on my publications (Note: The network includes collaborators at the Ph.D. level and above). Each node represents a co-author, and its color indicates their affiliation. The size of the node corresponds to the number of collaborations. Click on a collaborator's node to view their profile. You can also click on a legend item to highlight an affiliation.
                     </p>
                     
                     <div className="my-4">
@@ -777,7 +730,10 @@
                             type="text"
                             placeholder="Search collaborator by name..."
                             value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onChange={(e) => {
+                                setSearchTerm(e.target.value);
+                                setHighlightedAffiliation(null); // MODIFIED: Reset legend highlight on search
+                            }}
                             className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
                         />
                     </div>
@@ -786,13 +742,30 @@
                         <svg ref={svgRef} className="w-full h-full"></svg>
                     </div>
 
-                    <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 mt-4 p-2 bg-gray-100 rounded-lg">
+                    {/* MODIFIED: Interactive Legend */}
+                    <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-2 mt-4 p-2 bg-gray-100 rounded-lg">
                         {legendData.map(item => (
-                            <div key={item.name} className="flex items-center text-xs">
-                                <div className="w-3 h-3 rounded-full mr-1.5 shadow-inner" style={{ backgroundColor: item.color }}></div>
+                            <button
+                                key={item.name}
+                                onClick={() => handleLegendClick(item.name)}
+                                className={`flex items-center text-xs transition-all duration-300 rounded-full px-3 py-1 cursor-pointer ${
+                                    highlightedAffiliation === item.name ? 'bg-white ring-2 ring-purple-500 shadow-lg' : 'bg-gray-200'
+                                } ${
+                                    highlightedAffiliation && highlightedAffiliation !== item.name ? 'opacity-40 hover:opacity-100' : 'opacity-100 hover:bg-gray-300'
+                                }`}
+                            >
+                                <div className="w-3 h-3 rounded-full mr-1.5 shadow-inner flex-shrink-0" style={{ backgroundColor: item.color }}></div>
                                 <span>{item.name}</span>
-                            </div>
+                            </button>
                         ))}
+                        {highlightedAffiliation && (
+                            <button
+                                onClick={() => setHighlightedAffiliation(null)}
+                                className="text-xs text-purple-600 font-semibold hover:underline ml-2"
+                            >
+                                Reset View
+                            </button>
+                        )}
                     </div>
                 </section>
             );
@@ -938,7 +911,6 @@
         function App() {
             const validTabs = ['home', 'members', 'collaborators', 'publications', 'teaching', 'project', 'random', 'vacant'];
             
-            // Function to get a valid tab from the URL hash
             const getTabFromHash = () => {
                 const hash = window.location.hash.replace('#', '');
                 return validTabs.includes(hash) ? hash : 'home';
@@ -946,12 +918,10 @@
             
             const [activeTab, setActiveTab] = useState(getTabFromHash());
 
-            // Effect to update URL hash when tab changes
             useEffect(() => {
                 window.location.hash = activeTab;
             }, [activeTab]);
 
-            // Effect to listen for hash changes (e.g., browser back/forward buttons)
             useEffect(() => {
                 const handleHashChange = () => {
                     setActiveTab(getTabFromHash());
@@ -962,7 +932,6 @@
                 };
             }, []);
 
-            // Renders the content based on the active tab
             const renderContent = () => {
                 switch(activeTab) {
                     case 'home': return <HomeTabContent />;
@@ -977,7 +946,6 @@
                 }
             };
             
-            // Reusable button component for tabs
             const TabButton = ({ value, children }) => {
                 const isActive = activeTab === value;
                 const classes = `px-3 sm:px-4 py-2 text-sm font-medium rounded-md cursor-pointer transition-all duration-200 ${

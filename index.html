@@ -248,7 +248,7 @@
             );
         };
 
-        // --- 👨‍👩‍👧‍👦 MEMBERS Tab (MODIFIED) ---
+        // --- 👨‍👩‍👧‍👦 MEMBERS Tab ---
         const MemberCard = ({ member }) => {
             const isPI = member.status === 'Principal Investigator';
             const nameSize = isPI ? 'text-xl' : 'text-lg';
@@ -309,12 +309,25 @@
 
         const MemberSection = ({ title, members }) => {
             const isGridSection = title !== 'Principal Investigator';
+            // Check if the section should be a 2-column grid
+            const isTwoColumnGrid = title.includes('Students') || title.includes('Alumni');
+
+            let className = "space-y-6"; // Default for PI section
+            if (isGridSection) {
+                if (isTwoColumnGrid) {
+                    // Use 2 columns for students and alumni
+                    className = "grid grid-cols-1 md:grid-cols-2 gap-6";
+                } else {
+                    // Fallback for any other potential grid sections
+                    className = "grid grid-cols-1 md:grid-cols-3 gap-6";
+                }
+            }
 
             return (
                 <div>
                     <h2 className="text-2xl font-semibold border-b pb-2 mb-4">{title}</h2>
                     {members.length > 0 && members[0].name !== "TBD" ? (
-                        <div className={isGridSection ? "grid grid-cols-1 md:grid-cols-3 gap-6" : "space-y-6"}>
+                        <div className={className}>
                             {members.map(member => <MemberCard key={member.name} member={member} />)}
                         </div>
                     ) : (
@@ -485,7 +498,7 @@
             );
         };
 
-        // --- 🤝 COLLABORATORS Tab (FIXED) ---
+        // --- 🤝 COLLABORATORS Tab ---
         const CollaboratorTabContent = () => {
             const svgRef = useRef();
             const containerRef = useRef();
@@ -544,10 +557,16 @@
                 if (!container) return;
                 
                 // Use a fallback width initially to prevent errors if clientWidth is 0.
-                // The handleResize function, called after a timeout, will correct this.
                 const width = container.clientWidth || 800;
                 const height = 600;
-                const affiliationColor = d3.scaleOrdinal(d3.schemeCategory10).domain(Array.from(affiliations).sort());
+                
+                // Using a more diverse color scheme
+                const customColors = [
+                    '#3366cc', '#dc3912', '#ff9900', '#109618', '#990099', '#0099c6', '#dd4477',
+                    '#66aa00', '#b82e2e', '#316395', '#994499', '#22aa99', '#aaaa11', '#6633cc',
+                    '#e67300', '#8b0707', '#651067', '#329262', '#5574a6', '#3b3eac'
+                ];
+                const affiliationColor = d3.scaleOrdinal(customColors).domain(Array.from(affiliations).sort());
                 
                 setLegendData(affiliationColor.domain().map(d => ({ color: affiliationColor(d), name: d })));
 
@@ -639,7 +658,6 @@
                         const newWidth = containerRef.current.clientWidth;
                         if (newWidth > 0) { // Guard against zero width
                             svg.attr("viewBox", [0, 0, newWidth, height]);
-                            // Re-center and "re-heat" the simulation to adapt to the new size
                             simulation.force("center", d3.forceCenter(newWidth / 2, height / 2));
                             simulation.alpha(0.3).restart();
                         }
@@ -647,7 +665,6 @@
                 };
                 window.addEventListener('resize', handleResize);
                 
-                // Call resize after a short delay to ensure the container is sized correctly.
                 const initTimer = setTimeout(handleResize, 100);
 
                 return () => {

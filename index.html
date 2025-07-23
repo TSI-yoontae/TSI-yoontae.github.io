@@ -47,12 +47,13 @@
         .graph-container .nodes:hover .main-circle {
             transform: scale(1.1);
         }
-        .graph-container .node-labels text {
+        /* UPDATED: Corrected selector for node labels */
+        .graph-container .nodes .node-label {
             /* Labels readable on a dark background */
             pointer-events: none;
             font-size: 9px; /* Slightly larger for readability */
             font-weight: 600;
-            fill: #ffffff; /* Changed to white */
+            fill: #ffffff; /* White text color */
             paint-order: stroke;
             stroke: #020617; /* slate-950 for halo effect */
             stroke-width: 3px; /* Adjusted for new font size */

@@ -4,19 +4,24 @@
     <meta charset="UTF-8">
     <title>TSI Lab | Time Series Intelligence</title>
     
+    <!-- SEO and Metadata -->
     <meta name="description" content="Pusan National University's Time Series Intelligence (TSI) Lab, led by Prof. Yoontae Hwang. We research AI for time-series in quantitative finance, science, sports and foundation models.">
     <meta name="google-site-verification" content="zUXBoVvnNd_fLXqOcAivCHm6VXk-5CU29wTHpFs13Ow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- External Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Fonts and Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
-        /* D3 그래프 스타일 */
+        
+        /* D3 Graph Specific Styles */
         .graph-container .links line {
             stroke: #999;
             stroke-opacity: 0.6;
@@ -32,7 +37,7 @@
         }
         .graph-container .node-labels text {
             pointer-events: none;
-            font-size: 8px; /* 폰트 크기 추가 조정 */
+            font-size: 8px;
             font-weight: 500;
             paint-order: stroke;
             stroke: #fff;
@@ -47,10 +52,12 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        // --- React 기본 기능 가져오기 ---
+        // --- React Hooks ---
         const { useState, useEffect, useMemo, useRef, Fragment } = React;
 
-        // --- 데이터 정의 (논문, 멤버 등) ---
+        //======================================================================
+        // 1. DATA DEFINITIONS
+        //======================================================================
         const publications = [
             { id: "[C4]", title: "Time-MQA: Time Series Multi-Task Question Answering with Context Enhancement", authors: [ { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Yiyuan Yang*", href: "https://scholar.google.co.kr/citations?user=FUuGvZIAAAAJ&hl=en" }, { name: "Yoontae Hwang", isHighlight: true }, { name: "Wenjie Du", href: "https://scholar.google.com/citations?user=j9qvUg0AAAAJ&hl=en" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Zhangyang Wang", href: "https://scholar.google.com/citations?user=pxFyKAIAAAAJ&hl=en" }, { name: "Ming Jin", href: "https://scholar.google.com/citations?user=I2xvKaIAAAAJ&hl=en" }, { name: "Qingsong Wen", href: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" }, ], venue: "Annual Meeting of the Association for Computational Linguistics (ACL), 2025, Acceptance rate 23%, Main Track", links: [ { text: "paper", href: "https://arxiv.org/abs/2503.01875" }, { text: "code", href: "https://huggingface.co/Time-QA" }, ], topics: ["Time-Series Analysis", "Deep Learning"] },
             { id: "[C3]", title: "Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "AAAI Conference on Artificial Intelligence (AAAI), 2025, Acceptance rate 24%, Main Track", links: [ { text: "paper", href: "https://arxiv.org/abs/2412.12864" }, { text: "code", href: "https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset" }, { text: "seminar@UNIST", href: "ppt/GFTab_UNIST.pdf" }, ], topics: ["Tabular Modeling", "Deep Learning"] },
@@ -69,71 +76,427 @@
         ];
         const allPapers = [...publications, ...workingPapers];
 
-        //======================================================================
-        // 🏠 HOME 탭 컴포넌트 (변경 없음)
-        //======================================================================
-        const FinanceIcon=()=>(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block mr-2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>);
-        const ModelIcon=()=>(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block mr-2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M12 18v-6"></path><path d="M9 15h6"></path></svg>);
-        const ScienceIcon=()=>(<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block mr-2"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.5A4.5 4.5 0 0 0 18 5c-1.25 0-2.5 1-4 1-1.5 0-2.75-1-4-1a4.5 4.5 0 0 0-4.5 4.5c0 4.5 3 12.5 6 12.5s2.5-1.06 4-1.06z"></path><path d="M12 2.15c1.5 0 2.75-1.06 4-1.06a4.5 4.5 0 0 1 4.5 4.5c0 4.5-3 12.5-6 12.5s-2.5 1.06-4 1.06-2.75-1.06-4-1.06A4.5 4.5 0 0 1 3 5.5c0-4.5 3-12.5 6-12.5s2.5 1.06 4 1.06z"></path></svg>);
-        const AccordionItem=({item,isOpen,onClick})=>(<div className="border-b last:border-b-0"><header onClick={onClick} className="flex justify-between items-center p-4 cursor-pointer"><h3 className="text-lg font-semibold text-gray-800 flex items-center">{item.icon} {item.title}</h3><div style={{transform:isOpen?'rotate(180deg)':'rotate(0deg)',transition:'transform 0.2s'}}><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 7.5L10 12.5L15 7.5" stroke="#4A5568" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></div></header>{isOpen&&(
-        <section className="overflow-hidden p-4 pt-0"><div className="space-y-4 text-gray-700">{item.content.map((section,index)=>(<div key={index}><h4 className="font-semibold text-md text-gray-800">{section.topic}</h4><ul className="list-disc list-inside mt-2 ml-4 space-y-1 text-sm">{section.subtopics.map((sub,subIndex)=>(<li key={subIndex} dangerouslySetInnerHTML={{__html:sub.replace(/\*/g,' <span class="text-gray-500 italic text-xs">(work in progress)</span>')}}/>))}</ul></div>))}</div></section>)}</div>);
-        const ResearchTopicsSection=()=>{const researchTopicsData=[{id:1,icon:<FinanceIcon/>,title:"AI in Quantitative Finance",content:[{topic:"Asset Management",subtopics:["Decision-focused learning","Portfolio optimization","Goal-based investing","Trading strategy*","Household Finance",]},{topic:"Financial Modeling",subtopics:["Investor behavior modeling","Asset pricing","Market making","Order flow analysis",]},{topic:"Time-Series for Finance",subtopics:["Volatility forecasting","Regime-switching models","Lead-lag detection","Return Forecasting",]}]},{id:2,icon:<ScienceIcon/>,title:"AI in Science",content:[{topic:"Physics & Climate Modeling",subtopics:["Physics-Informed Neural Networks","Climate Dynamics Forecasting",]},{topic:"General Scientific Applications",subtopics:["GPS Free Autonomous Navigation*","Magnetic Object Detection*",]},{topic:"Sport Science",subtopics:["Player Performance Modeling & Tracking","Sports Betting",]}]},{id:3,icon:<ModelIcon/>,title:"Foundation Model",content:[{topic:"Model Architecture & Representation",subtopics:["Foundation Models for Financial Time Series","Foundation Models for Sports Analytics"]},{topic:"Advanced Learning Paradigms",subtopics:["Temporal Domain Generalization","Learning Strategy","Tokenizer",]}]}];const [openAccordionId,setOpenAccordionId]=useState(null);return(<section><h2 className="text-2xl font-semibold">Research interests (AI in Time-Series)</h2><p className="mt-2 text-sm text-gray-600">Our research focuses on advancing AI for time-series across various domains. Key topics under intensive study are marked with a (work in progress).</p><div className="mt-4 border rounded-lg shadow-md bg-white">{researchTopicsData.map(item=>(<AccordionItem key={item.id} item={item} isOpen={item.id===openAccordionId} onClick={()=>setOpenAccordionId(openAccordionId===item.id?null:item.id)}/>))}</div></section>);};
-        const HomeTabContent=()=>{const selectedPapers=[{title:"Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization",links:[{text:"paper",href:"https://arxiv.org/abs/2502.00828"},{text:"code",href:"https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main"}]},{title:"Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset",links:[{text:"paper",href:"https://arxiv.org/abs/2412.12864"},{text:"code",href:"https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset"},{text:"seminar@UNIST",href:"ppt/GFTab_UNIST.pdf"}]},{title:"Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management",links:[{text:"paper",href:"https://arxiv.org/abs/2407.13751"},{text:"code",href:"https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities"},{text:"seminar@SKKU",href:"ppt/SimStock_SKKU.pdf"}]}];return(<div className="space-y-12"><section><h2 className="text-2xl font-semibold">Latest News</h2><ul className="list-disc list-inside text-gray-700 space-y-1 mt-2"><li>📢 The Time Series Intelligence Lab (TSI Lab) will launch in September 2025.</li></ul></section><ResearchTopicsSection/><section><h2 className="text-2xl font-semibold">Selected Papers</h2><ul className="mt-2 space-y-4">{selectedPapers.map((paper,index)=>(<li key={index} className="border-b pb-3 last:border-b-0 last:pb-0"><p className="font-semibold text-gray-800">{paper.title}</p><div className="flex flex-wrap gap-x-4 gap-y-1 mt-1">{paper.links.map((link)=>(<a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">[{link.text}]</a>))}</div></li>))}</ul></section><div className="pt-10 border-t border-gray-200"><h2 className="text-2xl font-semibold mb-4">Contact Information</h2><p className="text-gray-700"><strong>Email:</strong> yoontaeResearch@gmail.com</p><p className="text-gray-700"><strong>Address:</strong> Pusan National University, Busan, South Korea</p></div></div>);};
+        const membersData = [
+            { name: "Prof. Yoontae Hwang", koreanName: "황윤태", status: "Principal Investigator", image: "/image_yoontae.png", email: "yoontaeResearch@gmail.com", bio: `I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025. Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee. Guided by the belief that “Research is meaningful only when its insights leave the lab and change the world,” our laboratory not only submits its findings to the most prestigious journals and conferences but also pursues research capable of driving substantial real-world impact.`, links: { scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl", linkedin: "https://www.linkedin.com/in/yoontae", } },
+            { name: "TBD", koreanName: "미정", status: "PhD Student", image: "https://placehold.co/200x200/E2E8F0/4A5568?text=TBD", email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025. Interested in developing next-generation foundation models for financial time-series.", interests: ["Foundation Models", "Asset Pricing"], links: {} },
+            { name: "TBD", koreanName: "미정", status: "MS Student", image: "https://placehold.co/200x200/E2E8F0/4A5568?text=TBD", email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025. Focusing on reinforcement learning for portfolio optimization.", interests: ["Reinforcement Learning", "Portfolio Optimization"], links: {} },
+            { name: "Youngbin Lee", koreanName: "이영빈", status: "Mentee", image: "/youngbin.jpg", currentPosition: "AI Researcher @ Elice", links: { scholar: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko", } },
+        ];
+
+        const collaboratorInfo = {
+            "Yaxuan Kong": { affiliation: "University of Oxford", scholar: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" },
+            "Yiyuan Yang": { affiliation: "University of Oxford", scholar: "https://scholar.google.co.kr/citations?user=FUuGvZIAAAAJ&hl=en" },
+            "Stefan Zohren": { affiliation: "University of Oxford", scholar: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
+            "Wenjie Du": { affiliation: "TimeSeries-AI", scholar: "https://scholar.google.com/citations?user=j9qvUg0AAAAJ&hl=en" },
+            "Zhangyang Wang": { affiliation: "University of Texas at Austin", scholar: "https://scholar.google.com/citations?user=pxFyKAIAAAAJ&hl=en" },
+            "Ming Jin": { affiliation: "Griffith University", scholar: "https://scholar.google.com/citations?user=I2xvKaIAAAAJ&hl=en" },
+            "Qingsong Wen": { affiliation: "Squirrel AI Learning", scholar: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" },
+            "Yongjae Lee": { affiliation: "UNIST", scholar: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
+            "Seulki Lee": { affiliation: "UNIST", scholar: "https://scholar.google.com/citations?hl=en&user=qhI7uVMAAAAJ" },
+            "Dong-Young Lim": { affiliation: "UNIST", scholar: "https://sites.google.com/view/dlim/group?authuser=0" },
+            "Junhyeong Lee": { affiliation: "UNIST", scholar: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" },
+            "Joohwan Hong": { affiliation: "Hana Institute of Technology", scholar: "https://www.notion.so/unist-felab/Joohwan-Hong-Ph-D-a93266780e6a407a866e8b7ec7d47129" },
+            "Frank J Fabozzi": { affiliation: "Johns Hopkins University", scholar: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" },
+            "Jang Ho Kim": { affiliation: "Korea University", scholar: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" },
+            "Jaeho Kim": { affiliation: "Korea University", scholar: "https://sites.google.com/view/jaeho-kim" },
+            "Seok-ju Hanhn": { affiliation: "Argonne National Laboratory", scholar: "https://vaseline555.github.io/" },
+            "Suhyeon Kim": { affiliation: "Kyungpook National University", scholar: "https://www.linkedin.com/in/sh-kim1026/" },
+            "Junghye Lee": { affiliation: "Seoul National University", scholar: "https://d3mlab.snu.ac.kr/members/principal-investigator" },
+            "Daham Kim": { affiliation: "UNIST", scholar: "https://www.linkedin.com/in/daham-kim/" },
+            "Seunghwan Noh": { affiliation: "UNIST", scholar: null },
+            "Junpyo Park": { affiliation: "UNIST", scholar: "https://www.notion.so/unist-felab/Junpyo-Park-187b74eaaae847a98175664018bebea8" },
+            "Kyeongbin Kim": { affiliation: "UNIST", scholar: "https://www.linkedin.com/in/kimkyle95/" },
+            "Dongcheol Lim": { affiliation: "UNIST", scholar: "https://www.linkedin.com/in/dongclim0613/" },
+            "Woo Chang Kim": { affiliation: "KAIST", scholar: "https://scholar.google.co.kr/citations?user=7NmBs1kAAAAJ&hl=en" },
+            "Yoontae Hwang": { affiliation: "Pusan National University", scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl" }
+        };
 
         //======================================================================
-        // 👨‍👩‍👧‍👦 MEMBERS 탭 컴포넌트 (변경 없음)
+        // 2. REUSABLE & HELPER COMPONENTS
         //======================================================================
-        const membersData=[{name:"Prof. Yoontae Hwang",koreanName:"황윤태",status:"Principal Investigator",image:"/image_yoontae.png",email:"yoontaeResearch@gmail.com",bio:`I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025. Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee. Guided by the belief that “Research is meaningful only when its insights leave the lab and change the world,” our laboratory not only submits its findings to the most prestigious journals and conferences but also pursues research capable of driving substantial real-world impact.`,links:{scholar:"https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl",linkedin:"https://www.linkedin.com/in/yoontae",}},{name:"TBD",koreanName:"미정",status:"PhD Student",image:"https://placehold.co/200x200/E2E8F0/4A5568?text=TBD",email:"tbd@pusan.ac.kr",bio:"Joining in Fall 2025. Interested in developing next-generation foundation models for financial time-series.",interests:["Foundation Models","Asset Pricing"],links:{}},{name:"TBD",koreanName:"미정",status:"MS Student",image:"https://placehold.co/200x200/E2E8F0/4A5568?text=TBD",email:"tbd@pusan.ac.kr",bio:"Joining in Fall 2025. Focusing on reinforcement learning for portfolio optimization.",interests:["Reinforcement Learning","Portfolio Optimization"],links:{}},{name:"Youngbin Lee",koreanName:"이영빈",status:"Alumni (Mentee)",image:"/youngbin.jpg",currentPosition:"AI Researcher @ Elice",links:{scholar:"https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko",}}];
-        const MemberCard=({member})=>(<div className="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row items-start gap-6"><img src={member.image} alt={member.name} className="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg flex-shrink-0" onError={(e)=>{e.target.onerror=null;e.target.src='https://placehold.co/200x200/E2E8F0/4A5568?text=Error';}}/><div className="flex-grow"><h3 className="text-xl font-bold text-gray-900">{member.name} <span className="text-lg font-medium text-gray-600">({member.koreanName})</span></h3>{member.currentPosition&&<p className="text-md font-semibold text-purple-600">{member.currentPosition}</p>}<div className="flex flex-wrap items-center gap-x-4 gap-y-1 my-2">{member.links.scholar&&<a href={member.links.scholar} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">Google Scholar</a>}{member.links.linkedin&&<a href={member.links.linkedin} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">LinkedIn</a>}{member.status==='Principal Investigator'&&member.email&&(<span className="text-sm text-gray-600">Email: {member.email}</span>)}{member.status!=='Principal Investigator'&&member.email&&(<a href={`mailto:${member.email}`} className="text-sm text-blue-600 hover:underline">Email</a>)}</div>{member.bio&&<p className="text-sm text-gray-700 mt-2 leading-relaxed">{member.bio}</p>}{member.interests&&member.interests.length>0&&(<div className="mt-3"><h4 className="text-sm font-semibold text-gray-800">Interests:</h4><div className="flex flex-wrap gap-2 mt-1">{member.interests.map(interest=>(<span key={interest} className="px-2 py-1 bg-gray-200 text-gray-800 text-xs font-medium rounded-full">{interest}</span>))}</div></div>)}</div></div>);
-        const MembersTabContent=()=>{const pi=membersData.filter(m=>m.status==='Principal Investigator');const phdStudents=membersData.filter(m=>m.status==='PhD Student');const msStudents=membersData.filter(m=>m.status==='MS Student');const alumni=membersData.filter(m=>m.status.includes('Alumni'));return(<section className="space-y-12"><MemberSection title="Principal Investigator" members={pi}/><MemberSection title="PhD Students" members={phdStudents}/><MemberSection title="MS Students" members={msStudents}/><MemberSection title="Alumni & Mentees" members={alumni}/></section>);};
-        const MemberSection=({title,members})=>(<div><h2 className="text-2xl font-semibold border-b pb-2 mb-4">{title}</h2>{members.length>0&&members[0].name!=="TBD"?(<div className="space-y-6">{members.map(member=><MemberCard key={member.name} member={member}/>)}</div>):(<p className="text-gray-500 italic">To be determined.</p>)}</div>);
+
+        // --- Icon Components ---
+        const FinanceIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block mr-2">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+        );
+
+        const ModelIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block mr-2">
+                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <path d="M12 18v-6"></path><path d="M9 15h6"></path>
+            </svg>
+        );
+
+        const ScienceIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block mr-2">
+                <path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.5A4.5 4.5 0 0 0 18 5c-1.25 0-2.5 1-4 1-1.5 0-2.75-1-4-1a4.5 4.5 0 0 0-4.5 4.5c0 4.5 3 12.5 6 12.5s2.5-1.06 4-1.06z"></path>
+                <path d="M12 2.15c1.5 0 2.75-1.06 4-1.06a4.5 4.5 0 0 1 4.5 4.5c0 4.5-3 12.5-6 12.5s-2.5 1.06-4 1.06-2.75-1.06-4-1.06A4.5 4.5 0 0 1 3 5.5c0-4.5 3-12.5 6-12.5s2.5 1.06 4 1.06z"></path>
+            </svg>
+        );
+
+        // --- Accordion Component for Research Topics ---
+        const AccordionItem = ({ item, isOpen, onClick }) => (
+            <div className="border-b last:border-b-0">
+                <header onClick={onClick} className="flex justify-between items-center p-4 cursor-pointer">
+                    <h3 className="text-lg font-semibold text-gray-800 flex items-center">
+                        {item.icon} {item.title}
+                    </h3>
+                    <div style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 7.5L10 12.5L15 7.5" stroke="#4A5568" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </div>
+                </header>
+                {isOpen && (
+                    <section className="overflow-hidden p-4 pt-0">
+                        <div className="space-y-4 text-gray-700">
+                            {item.content.map((section, index) => (
+                                <div key={index}>
+                                    <h4 className="font-semibold text-md text-gray-800">{section.topic}</h4>
+                                    <ul className="list-disc list-inside mt-2 ml-4 space-y-1 text-sm">
+                                        {section.subtopics.map((sub, subIndex) => (
+                                            <li key={subIndex} dangerouslySetInnerHTML={{ __html: sub.replace(/\*/g, ' <span class="text-gray-500 italic text-xs">(work in progress)</span>') }} />
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )}
+            </div>
+        );
 
         //======================================================================
-        // 📚 PUBLICATIONS 탭 컴포넌트 (변경 없음)
+        // 3. TAB CONTENT COMPONENTS
         //======================================================================
-        const PublicationItem=({item})=>(<li className="space-y-1 py-4 border-b last:border-b-0"><p className="text-lg font-semibold text-gray-800">{item.id} {item.title}</p><div className="text-gray-600">{item.authors.map((author,index)=>(<Fragment key={index}>{author.href?(<a href={author.href} target="_blank" rel="noopener noreferrer" className={`hover:underline ${author.isHighlight?'font-bold text-purple-600':''}`}>{author.name}</a>):(<span className={`${author.isHighlight?'font-bold text-purple-600':''}`}>{author.name}</span>)}{index<item.authors.length-1&&', '}</Fragment>))}</div><p className="text-gray-500 text-sm">{item.venue}</p>{item.award&&(<p className="text-sm italic" style={{color:item.awardColor||'red'}}>{item.award}</p>)}<div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-2"><div className="flex flex-wrap gap-x-4 gap-y-1 text-blue-600">{item.links.map((link,index)=>(<a key={index} href={link.href} target="_blank" rel="noopener noreferrer" className="hover:underline">[{link.text}]</a>))}</div><div className="flex flex-wrap gap-2">{item.topics.map(topic=>(<span key={topic} className="px-2 py-0.5 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">{topic}</span>))}</div></div></li>);
-        const PublicationsTabContent=()=>{const allTopics=useMemo(()=>["Time-Series Analysis","Deep Learning","Tabular Modeling","AI in Science","Trading","Portfolio Theory","Household Finance","Survey",],[]);const [searchQuery,setSearchQuery]=useState('');const [activeTopics,setActiveTopics]=useState([]);const filteredPapers=useMemo(()=>allPapers.filter(paper=>{const query=searchQuery.toLowerCase();const matchesQuery=query===''||paper.title.toLowerCase().includes(query)||paper.authors.some(a=>a.name.toLowerCase().includes(query))||paper.venue.toLowerCase().includes(query);const matchesTopics=activeTopics.length===0||activeTopics.every(topic=>paper.topics.includes(topic));return matchesQuery&&matchesTopics;}),[searchQuery,activeTopics,allPapers]);const toggleTopic=(topic)=>{setActiveTopics(prev=>prev.includes(topic)?prev.filter(t=>t!==topic):[...prev,topic]);};const filteredPublications=filteredPapers.filter(p=>publications.includes(p));const filteredWorkingPapers=filteredPapers.filter(p=>workingPapers.includes(p));return(<section className="space-y-8"><div className="p-4 bg-white rounded-lg shadow-md sticky top-0 z-10"><div className="flex flex-col md:flex-row gap-4"><div className="relative flex-grow"><input type="text" placeholder="Search by title, author, venue..." value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} className="w-full p-2 pl-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"/><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></div><button onClick={()=>{setSearchQuery('');setActiveTopics([]);}} className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors">Reset Filters</button></div><div className="mt-4"><p className="text-sm font-semibold text-gray-700 mb-2">Filter by Topic:</p><div className="flex flex-wrap gap-2">{allTopics.map(topic=>{const isActive=activeTopics.includes(topic);return(<button key={topic} onClick={()=>toggleTopic(topic)} className={`px-3 py-1 text-xs font-medium rounded-full transition-colors ${isActive?'bg-blue-600 text-white':'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}>{topic}</button>);})}</div></div></div>{filteredPublications.length>0&&(<div><h2 className="text-2xl font-semibold">Publications</h2><p className="mt-2 text-sm text-gray-600"><strong>J</strong>: Journal / <strong>C</strong>: Conference / <strong>*</strong>: equal contribution</p><ul className="mt-4">{filteredPublications.map((item,index)=><PublicationItem key={index} item={item}/>)}</ul></div>)}{filteredWorkingPapers.length>0&&(<div className="pt-4"><h2 className="text-2xl font-semibold">Working Paper</h2><p className="mt-2 text-sm text-gray-600"><strong>S</strong>: Submitted / <strong>W</strong>: Work in progress / <strong>*</strong>: equal contribution</p><ul className="mt-4">{filteredWorkingPapers.map((item,index)=><PublicationItem key={index} item={item}/>)}</ul></div>)}{filteredPapers.length===0&&(<div className="text-center py-10"><p className="text-gray-500">No publications match your criteria.</p></div>)}</section>);};
 
-        //======================================================================
-        // 🤝 COLLABORATORS 탭 컴포넌트 (요청사항 반영하여 최종 수정)
-        //======================================================================
+        // --- 🏠 HOME Tab ---
+        const ResearchTopicsSection = () => {
+            const researchTopicsData = [
+                { id: 1, icon: <FinanceIcon />, title: "AI in Quantitative Finance", content: [{ topic: "Asset Management", subtopics: ["Decision-focused learning", "Portfolio optimization", "Goal-based investing", "Trading strategy*", "Household Finance",] }, { topic: "Financial Modeling", subtopics: ["Investor behavior modeling", "Asset pricing", "Market making", "Order flow analysis",] }, { topic: "Time-Series for Finance", subtopics: ["Volatility forecasting", "Regime-switching models", "Lead-lag detection", "Return Forecasting",] }] },
+                { id: 2, icon: <ScienceIcon />, title: "AI in Science", content: [{ topic: "Physics & Climate Modeling", subtopics: ["Physics-Informed Neural Networks", "Climate Dynamics Forecasting",] }, { topic: "General Scientific Applications", subtopics: ["GPS Free Autonomous Navigation*", "Magnetic Object Detection*",] }, { topic: "Sport Science", subtopics: ["Player Performance Modeling & Tracking", "Sports Betting",] }] },
+                { id: 3, icon: <ModelIcon />, title: "Foundation Model", content: [{ topic: "Model Architecture & Representation", subtopics: ["Foundation Models for Financial Time Series", "Foundation Models for Sports Analytics"] }, { topic: "Advanced Learning Paradigms", subtopics: ["Temporal Domain Generalization", "Learning Strategy", "Tokenizer",] }] }
+            ];
+            const [openAccordionId, setOpenAccordionId] = useState(null);
+
+            return (
+                <section>
+                    <h2 className="text-2xl font-semibold">Research interests (AI in Time-Series)</h2>
+                    <p className="mt-2 text-sm text-gray-600">
+                        Our research focuses on advancing AI for time-series across various domains. Key topics under intensive study are marked with a (work in progress).
+                    </p>
+                    <div className="mt-4 border rounded-lg shadow-md bg-white">
+                        {researchTopicsData.map(item => (
+                            <AccordionItem
+                                key={item.id}
+                                item={item}
+                                isOpen={item.id === openAccordionId}
+                                onClick={() => setOpenAccordionId(openAccordionId === item.id ? null : item.id)}
+                            />
+                        ))}
+                    </div>
+                </section>
+            );
+        };
+
+        const HomeTabContent = () => {
+            const selectedPapers = [
+                { title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization", links: [{ text: "paper", href: "https://arxiv.org/abs/2502.00828" }, { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }] },
+                { title: "Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset", links: [{ text: "paper", href: "https://arxiv.org/abs/2412.12864" }, { text: "code", href: "https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset" }, { text: "seminar@UNIST", href: "ppt/GFTab_UNIST.pdf" }] },
+                { title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", links: [{ text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, { text: "seminar@SKKU", href: "ppt/SimStock_SKKU.pdf" }] }
+            ];
+
+            return (
+                <div className="space-y-12">
+                    <section>
+                        <h2 className="text-2xl font-semibold">Latest News</h2>
+                        <ul className="list-disc list-inside text-gray-700 space-y-1 mt-2">
+                            <li>📢 The Time Series Intelligence Lab (TSI Lab) will launch in September 2025.</li>
+                        </ul>
+                    </section>
+
+                    <ResearchTopicsSection />
+
+                    <section>
+                        <h2 className="text-2xl font-semibold">Selected Papers</h2>
+                        <ul className="mt-2 space-y-4">
+                            {selectedPapers.map((paper, index) => (
+                                <li key={index} className="border-b pb-3 last:border-b-0 last:pb-0">
+                                    <p className="font-semibold text-gray-800">{paper.title}</p>
+                                    <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1">
+                                        {paper.links.map((link) => (
+                                            <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                                                [{link.text}]
+                                            </a>
+                                        ))}
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+
+                    <div className="pt-10 border-t border-gray-200">
+                        <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
+                        <p className="text-gray-700"><strong>Email:</strong> yoontaeResearch@gmail.com</p>
+                        <p className="text-gray-700"><strong>Address:</strong> Pusan National University, Busan, South Korea</p>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- 👨‍👩‍👧‍👦 MEMBERS Tab (MODIFIED) ---
+        const MemberCard = ({ member }) => {
+            const isPI = member.status === 'Principal Investigator';
+            const nameSize = isPI ? 'text-xl' : 'text-lg';
+            const koreanNameSize = isPI ? 'text-lg' : 'text-base';
+
+            return (
+                <div className="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row items-start gap-6 h-full">
+                    <img 
+                        src={member.image} 
+                        alt={member.name} 
+                        className="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg flex-shrink-0 mx-auto sm:mx-0"
+                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/200x200/E2E8F0/4A5568?text=Error'; }}
+                    />
+                    <div className="flex-grow flex flex-col">
+                        <div>
+                            <h3 className={`${nameSize} font-bold text-gray-900`}>
+                                {member.name} <span className={`${koreanNameSize} font-medium text-gray-600`}>({member.koreanName})</span>
+                            </h3>
+                            {member.currentPosition && <p className="text-md font-semibold text-purple-600">{member.currentPosition}</p>}
+                            
+                            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 my-2">
+                                {member.links.scholar && <a href={member.links.scholar} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">Google Scholar</a>}
+                                {member.links.linkedin && <a href={member.links.linkedin} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">LinkedIn</a>}
+                                {member.status === 'Principal Investigator' && member.email && (<span className="text-sm text-gray-600">Email: {member.email}</span>)}
+                                {member.status !== 'Principal Investigator' && member.email && (<a href={`mailto:${member.email}`} className="text-sm text-blue-600 hover:underline">Email</a>)}
+                                
+                                {member.status.includes('Alumni') && (
+                                    <span className="px-2 py-0.5 bg-indigo-100 text-indigo-800 text-xs font-semibold rounded-full">
+                                        Alumni
+                                    </span>
+                                )}
+                                {member.status.includes('Mentee') && (
+                                    <span className="px-2 py-0.5 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
+                                        Mentee
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="flex-grow">
+                            {member.bio && <p className="text-sm text-gray-700 mt-2 leading-relaxed">{member.bio}</p>}
+                        </div>
+
+                        {member.interests && member.interests.length > 0 && (
+                            <div className="mt-auto pt-3">
+                                <h4 className="text-sm font-semibold text-gray-800">Interests:</h4>
+                                <div className="flex flex-wrap gap-2 mt-1">
+                                    {member.interests.map(interest => (
+                                        <span key={interest} className="px-2 py-1 bg-gray-200 text-gray-800 text-xs font-medium rounded-full">{interest}</span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        const MemberSection = ({ title, members }) => {
+            // MODIFIED: Apply n*3 grid layout
+            const isGridSection = title !== 'Principal Investigator';
+
+            return (
+                <div>
+                    <h2 className="text-2xl font-semibold border-b pb-2 mb-4">{title}</h2>
+                    {members.length > 0 && members[0].name !== "TBD" ? (
+                        <div className={isGridSection ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-6"}>
+                            {members.map(member => <MemberCard key={member.name} member={member} />)}
+                        </div>
+                    ) : (
+                        <p className="text-gray-500 italic">To be determined.</p>
+                    )}
+                </div>
+            );
+        };
+
+        const MembersTabContent = () => {
+            const pi = membersData.filter(m => m.status === 'Principal Investigator');
+            const phdStudents = membersData.filter(m => m.status === 'PhD Student');
+            const msStudents = membersData.filter(m => m.status === 'MS Student');
+            const alumni = membersData.filter(m => m.status.includes('Alumni') || m.status.includes('Mentee'));
+
+            return (
+                <section className="space-y-12">
+                    <MemberSection title="Principal Investigator" members={pi} />
+                    <MemberSection title="PhD Students" members={phdStudents} />
+                    <MemberSection title="MS Students" members={msStudents} />
+                    <MemberSection title="Alumni & Mentees" members={alumni} />
+                </section>
+            );
+        };
+
+        // --- 📚 PUBLICATIONS Tab ---
+        const PublicationItem = ({ item }) => (
+            <li className="space-y-1 py-4 border-b last:border-b-0">
+                <p className="text-lg font-semibold text-gray-800">{item.id} {item.title}</p>
+                <div className="text-gray-600">
+                    {item.authors.map((author, index) => (
+                        <Fragment key={index}>
+                            {author.href ? (
+                                <a href={author.href} target="_blank" rel="noopener noreferrer" className={`hover:underline ${author.isHighlight ? 'font-bold text-purple-600' : ''}`}>
+                                    {author.name}
+                                </a>
+                            ) : (
+                                <span className={`${author.isHighlight ? 'font-bold text-purple-600' : ''}`}>{author.name}</span>
+                            )}
+                            {index < item.authors.length - 1 && ', '}
+                        </Fragment>
+                    ))}
+                </div>
+                <p className="text-gray-500 text-sm">{item.venue}</p>
+                {item.award && (
+                    <p className="text-sm italic" style={{ color: item.awardColor || 'red' }}>
+                        {item.award}
+                    </p>
+                )}
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-2">
+                    <div className="flex flex-wrap gap-x-4 gap-y-1 text-blue-600">
+                        {item.links.map((link, index) => (
+                            <a key={index} href={link.href} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                                [{link.text}]
+                            </a>
+                        ))}
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                        {item.topics.map(topic => (
+                            <span key={topic} className="px-2 py-0.5 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
+                                {topic}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            </li>
+        );
+
+        const PublicationsTabContent = () => {
+            const allTopics = useMemo(() => [
+                "Time-Series Analysis", "Deep Learning", "Tabular Modeling", "AI in Science",
+                "Trading", "Portfolio Theory", "Household Finance", "Survey",
+            ], []);
+
+            const [searchQuery, setSearchQuery] = useState('');
+            const [activeTopics, setActiveTopics] = useState([]);
+
+            const filteredPapers = useMemo(() => {
+                return allPapers.filter(paper => {
+                    const query = searchQuery.toLowerCase();
+                    const matchesQuery = query === '' ||
+                        paper.title.toLowerCase().includes(query) ||
+                        paper.authors.some(a => a.name.toLowerCase().includes(query)) ||
+                        paper.venue.toLowerCase().includes(query);
+                    
+                    const matchesTopics = activeTopics.length === 0 ||
+                        activeTopics.every(topic => paper.topics.includes(topic));
+
+                    return matchesQuery && matchesTopics;
+                });
+            }, [searchQuery, activeTopics, allPapers]);
+
+            const toggleTopic = (topic) => {
+                setActiveTopics(prev =>
+                    prev.includes(topic) ? prev.filter(t => t !== topic) : [...prev, topic]
+                );
+            };
+
+            const filteredPublications = filteredPapers.filter(p => publications.includes(p));
+            const filteredWorkingPapers = filteredPapers.filter(p => workingPapers.includes(p));
+
+            return (
+                <section className="space-y-8">
+                    <div className="p-4 bg-white rounded-lg shadow-md sticky top-0 z-10">
+                        <div className="flex flex-col md:flex-row gap-4">
+                            <div className="relative flex-grow">
+                                <input
+                                    type="text"
+                                    placeholder="Search by title, author, venue..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="w-full p-2 pl-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </div>
+                            <button onClick={() => { setSearchQuery(''); setActiveTopics([]); }} className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors">
+                                Reset Filters
+                            </button>
+                        </div>
+                        <div className="mt-4">
+                            <p className="text-sm font-semibold text-gray-700 mb-2">Filter by Topic:</p>
+                            <div className="flex flex-wrap gap-2">
+                                {allTopics.map(topic => {
+                                    const isActive = activeTopics.includes(topic);
+                                    return (
+                                        <button
+                                            key={topic}
+                                            onClick={() => toggleTopic(topic)}
+                                            className={`px-3 py-1 text-xs font-medium rounded-full transition-colors ${isActive ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
+                                        >
+                                            {topic}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </div>
+
+                    {filteredPublications.length > 0 && (
+                        <div>
+                            <h2 className="text-2xl font-semibold">Publications</h2>
+                            <p className="mt-2 text-sm text-gray-600"><strong>J</strong>: Journal / <strong>C</strong>: Conference / <strong>*</strong>: equal contribution</p>
+                            <ul className="mt-4">
+                                {filteredPublications.map((item, index) => <PublicationItem key={index} item={item} />)}
+                            </ul>
+                        </div>
+                    )}
+
+                    {filteredWorkingPapers.length > 0 && (
+                        <div className="pt-4">
+                            <h2 className="text-2xl font-semibold">Working Paper</h2>
+                            <p className="mt-2 text-sm text-gray-600"><strong>S</strong>: Submitted / <strong>W</strong>: Work in progress / <strong>*</strong>: equal contribution</p>
+                            <ul className="mt-4">
+                                {filteredWorkingPapers.map((item, index) => <PublicationItem key={index} item={item} />)}
+                            </ul>
+                        </div>
+                    )}
+
+                    {filteredPapers.length === 0 && (
+                        <div className="text-center py-10">
+                            <p className="text-gray-500">No publications match your criteria.</p>
+                        </div>
+                    )}
+                </section>
+            );
+        };
+
+        // --- 🤝 COLLABORATORS Tab ---
         const CollaboratorTabContent = () => {
             const svgRef = useRef();
             const containerRef = useRef();
             const [legendData, setLegendData] = useState([]);
             const [searchTerm, setSearchTerm] = useState('');
-            
-            const d3Graph = useRef({});
+            const d3Graph = useRef({}); // To hold D3 selections
 
-            const collaboratorInfo = {
-                "Yaxuan Kong": { affiliation: "University of Oxford", scholar: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" },
-                "Yiyuan Yang": { affiliation: "University of Oxford", scholar: "https://scholar.google.co.kr/citations?user=FUuGvZIAAAAJ&hl=en" },
-                "Stefan Zohren": { affiliation: "University of Oxford", scholar: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
-                "Wenjie Du": { affiliation: "TimeSeries-AI", scholar: "https://scholar.google.com/citations?user=j9qvUg0AAAAJ&hl=en" },
-                "Zhangyang Wang": { affiliation: "University of Texas at Austin", scholar: "https://scholar.google.com/citations?user=pxFyKAIAAAAJ&hl=en" },
-                "Ming Jin": { affiliation: "Griffith University", scholar: "https://scholar.google.com/citations?user=I2xvKaIAAAAJ&hl=en" },
-                "Qingsong Wen": { affiliation: "Squirrel AI Learning", scholar: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" },
-                "Yongjae Lee": { affiliation: "UNIST", scholar: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
-                "Seulki Lee": { affiliation: "UNIST", scholar: "https://scholar.google.com/citations?hl=en&user=qhI7uVMAAAAJ" },
-                "Dong-Young Lim": { affiliation: "UNIST", scholar: "https://sites.google.com/view/dlim/group?authuser=0" },
-                "Junhyeong Lee": { affiliation: "UNIST", scholar: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" },
-                "Joohwan Hong": { affiliation: "Hana Institute of Technology", scholar: "https://www.notion.so/unist-felab/Joohwan-Hong-Ph-D-a93266780e6a407a866e8b7ec7d47129" },
-                "Frank J Fabozzi": { affiliation: "Johns Hopkins University", scholar: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" },
-                "Jang Ho Kim": { affiliation: "Korea University", scholar: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" },
-                "Jaeho Kim": { affiliation: "Korea University", scholar: "https://sites.google.com/view/jaeho-kim" },
-                "Seok-ju Hanhn": { affiliation: "Argonne National Laboratory", scholar: "https://vaseline555.github.io/" },
-                "Suhyeon Kim": { affiliation: "Kyungpook National University", scholar: "https://www.linkedin.com/in/sh-kim1026/" },
-                "Junghye Lee": { affiliation: "Seoul National University", scholar: "https://d3mlab.snu.ac.kr/members/principal-investigator" },
-                "Daham Kim": { affiliation: "UNIST", scholar: "https://www.linkedin.com/in/daham-kim/" },
-                "Seunghwan Noh": { affiliation: "UNIST", scholar: null },
-                "Junpyo Park": { affiliation: "UNIST", scholar: "https://www.notion.so/unist-felab/Junpyo-Park-187b74eaaae847a98175664018bebea8" },
-                "Kyeongbin Kim": { affiliation: "UNIST", scholar: "https://www.linkedin.com/in/kimkyle95/" },
-                "Dongcheol Lim": { affiliation: "UNIST", scholar: "https://www.linkedin.com/in/dongclim0613/" },
-                "Woo Chang Kim": { affiliation: "KAIST", scholar: "https://scholar.google.co.kr/citations?user=7NmBs1kAAAAJ&hl=en" },
-                "Yoontae Hwang": { affiliation: "Pusan National University", scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl" }
-            };
-
+            // Effect for Initial D3 Graph Setup
             useEffect(() => {
+                // 1. Data Processing
                 const allowedNames = new Set([
                     "Yoontae Hwang", "Yaxuan Kong", "Yiyuan Yang", "Stefan Zohren",
                     "Wenjie Du", "Zhangyang Wang", "Ming Jin", "Qingsong Wen", "Yongjae Lee", 
@@ -141,7 +504,6 @@
                     "Frank J Fabozzi", "Jang Ho Kim", "Jaeho Kim", "Seok-ju Hanhn", 
                     "Suhyeon Kim", "Junghye Lee"
                 ]);
-
                 const authorPhotos = { "Yoontae Hwang": "/image_yoontae.png", "Youngbin Lee": "/youngbin.jpg" };
                 let nodes = {};
                 let links = {};
@@ -177,12 +539,14 @@
                 });
                 
                 const graphData = { nodes: Object.values(nodes), links: Object.values(links) };
+                
+                // 2. D3 Setup
                 const container = containerRef.current;
                 if (!container) return;
                 
                 const width = container.clientWidth;
-                const height = 800;
-                const affiliationColor = d3.scaleOrdinal(d3.schemeTableau10).domain(Array.from(affiliations).sort());
+                const height = 600;
+                const affiliationColor = d3.scaleOrdinal(d3.schemeCategory10).domain(Array.from(affiliations).sort());
                 
                 setLegendData(affiliationColor.domain().map(d => ({ color: affiliationColor(d), name: d })));
 
@@ -190,14 +554,15 @@
                     .force("link", d3.forceLink(graphData.links).id(d => d.id).distance(120))
                     .force("charge", d3.forceManyBody().strength(-300))
                     .force("center", d3.forceCenter(width / 2, height / 2))
-                    .force("collide", d3.forceCollide().radius(d => (d.id === "Yoontae Hwang" ? 25 : 5 + Math.sqrt(d.collaborations) * 3) + 10)); // 겹침 방지 강화
+                    .force("collide", d3.forceCollide().radius(d => (d.id === "Yoontae Hwang" ? 25 : 5 + Math.sqrt(d.collaborations) * 3) + 10));
 
                 const svg = d3.select(svgRef.current)
                     .attr("viewBox", [0, 0, width, height])
                     .attr("preserveAspectRatio", "xMidYMid meet");
 
-                svg.selectAll("*").remove();
+                svg.selectAll("*").remove(); // Clear previous render
                 
+                // Define image patterns for nodes
                 const defs = svg.append('defs');
                 graphData.nodes.forEach(node => {
                     if (node.photo) {
@@ -207,6 +572,7 @@
                     }
                 });
 
+                // 3. Create SVG Elements
                 d3Graph.current.link = svg.append("g").attr("class", "links")
                     .selectAll("line").data(graphData.links).join("line")
                     .attr("stroke-width", d => Math.sqrt(d.value) * 2.5);
@@ -236,26 +602,29 @@
 
                 d3Graph.current.node.append("title").text(d => `${d.id}\nAffiliation: ${d.affiliation}`);
 
+                // 4. Interactivity
                 const linkedByIndex = {};
                 graphData.links.forEach(d => { linkedByIndex[`${d.source.index},${d.target.index}`] = 1; });
-                function isConnected(a, b) { return linkedByIndex[`${a.index},${b.index}`] || linkedByIndex[`${b.index},${a.index}`] || a.index === b.index; }
+                const isConnected = (a, b) => linkedByIndex[`${a.index},${b.index}`] || linkedByIndex[`${b.index},${a.index}`] || a.index === b.index;
 
                 d3Graph.current.node.on("mouseover", function (event, d) {
                     d3Graph.current.node.style("opacity", o => isConnected(d, o) ? 1 : 0.2);
                     d3Graph.current.link.style("stroke-opacity", o => o.source === d || o.target === d ? 1 : 0.2);
                     d3Graph.current.labels.style("opacity", o => isConnected(d, o) ? 1 : 0.2);
                     d3.select(this).select(".node-label").style("opacity", 1);
-                }).on("mouseout", function () {
+                }).on("mouseout", () => {
                     d3Graph.current.node.style("opacity", 1);
                     d3Graph.current.link.style("stroke-opacity", 0.6);
                     d3Graph.current.labels.style("opacity", 1);
                 });
 
+                // 5. Simulation Ticks
                 simulation.on("tick", () => {
                     d3Graph.current.link.attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y);
                     d3Graph.current.node.attr("transform", d => `translate(${d.x},${d.y})`);
                 });
 
+                // Drag functionality
                 function drag(simulation) {
                     function dragstarted(event) { if (!event.active) simulation.alphaTarget(0.3).restart(); event.subject.fx = event.subject.x; event.subject.fy = event.subject.y; }
                     function dragged(event) { event.subject.fx = event.x; event.subject.fy = event.y; }
@@ -263,11 +632,22 @@
                     return d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended);
                 }
 
-                const handleResize = () => { if(containerRef.current) { const newWidth = containerRef.current.clientWidth; svg.attr("viewBox", [0, 0, newWidth, height]); simulation.force("center", d3.forceCenter(newWidth / 2, height / 2)).restart(); } };
+                // 6. Resize Handling & Cleanup
+                const handleResize = () => {
+                    if (containerRef.current) {
+                        const newWidth = containerRef.current.clientWidth;
+                        svg.attr("viewBox", [0, 0, newWidth, height]);
+                        simulation.force("center", d3.forceCenter(newWidth / 2, height / 2)).restart();
+                    }
+                };
                 window.addEventListener('resize', handleResize);
-                return () => { window.removeEventListener('resize', handleResize); simulation.stop(); };
-            }, []);
+                return () => {
+                    window.removeEventListener('resize', handleResize);
+                    simulation.stop();
+                };
+            }, []); // Empty dependency array means this runs once on mount
 
+            // Effect for Search Functionality
             useEffect(() => {
                 if (!d3Graph.current.node) return;
                 
@@ -306,13 +686,13 @@
                         />
                     </div>
 
-                    <div ref={containerRef} className="w-full h-[800px] bg-white rounded-lg shadow-md graph-container overflow-hidden relative">
+                    <div ref={containerRef} className="w-full h-[600px] bg-white rounded-lg shadow-md graph-container overflow-hidden relative">
                         <svg ref={svgRef} className="w-full h-full"></svg>
                     </div>
 
                     <div className="flex flex-wrap justify-center items-center gap-x-4 gap-y-2 mt-4 p-2 bg-gray-50 rounded-lg">
                         {legendData.map(item => (
-                             <div key={item.name} className="flex items-center text-xs">
+                            <div key={item.name} className="flex items-center text-xs">
                                 <div className="w-3 h-3 rounded-full mr-1.5 shadow-inner" style={{ backgroundColor: item.color }}></div>
                                 <span>{item.name}</span>
                             </div>
@@ -322,34 +702,147 @@
             );
         };
 
-        //======================================================================
-        // 🎓 TEACHING 탭 컴포넌트 (변경 없음)
-        //======================================================================
-        const TeachingTabContent=()=>(<section className="space-y-6"><h2 className="text-2xl font-semibold">Teaching</h2><ul className="list-disc list-inside text-gray-700 space-y-2"><li><strong> TBD </strong><br/> TBD </li><li><strong>TBD </strong><br/>TBD</li><li><strong>TBD</strong><br/>TBD</li></ul></section>);
+        // --- 🎓 TEACHING Tab ---
+        const TeachingTabContent = () => (
+            <section className="space-y-6">
+                <h2 className="text-2xl font-semibold">Teaching</h2>
+                <ul className="list-disc list-inside text-gray-700 space-y-2">
+                    <li><strong> TBD </strong><br/> TBD </li>
+                    <li><strong>TBD </strong><br/>TBD</li>
+                    <li><strong>TBD</strong><br/>TBD</li>
+                </ul>
+            </section>
+        );
+
+        // --- 🏗️ PROJECTS Tab ---
+        const ProjectTabContent = () => {
+            const projects = [
+                { title: "Sejong Science Fellowship (Oversea Track)", year: 2024, organization: "National Research Foundation of Korea (NRF)", funding: "70,000,000 KRW", period: "2024.09.01 to 2025.08.31" },
+                { title: "Ph.D. Fellowship", year: 2022, organization: "National Research Foundation of Korea (NRF)", funding: "40,000,000 KRW", period: "2022.06.01 to 2024.05.31" }
+            ];
+            return (
+                <section>
+                    <h2 className="text-2xl font-semibold">Funded Projects</h2>
+                    <ul className="mt-4 space-y-4">
+                        {projects.map(project => (
+                            <li key={project.title} className="pb-4 border-b last:border-b-0">
+                                <h3 className="text-lg font-semibold text-gray-800">{project.title}</h3>
+                                <p className="text-gray-600">{project.organization}, {project.year}</p>
+                                <ul className="list-disc list-inside ml-4 mt-1 text-sm text-gray-700">
+                                    <li><strong>Funding:</strong> {project.funding}</li>
+                                    <li><strong>Period:</strong> {project.period}</li>
+                                </ul>
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+            );
+        };
+
+        // --- ✨ RANDOM STUFF Tab ---
+        const AwardsSection = () => {
+            const awards = [
+                { title: "Best Paper Award", year: 2024, organization: "Korean Academic Society of Business Administration" }
+            ];
+            return (
+                <div>
+                    <h3 className="text-xl font-semibold">Awards</h3>
+                    <ul className="mt-2 list-disc list-inside text-gray-700 space-y-2">
+                        {awards.map(award => (
+                            <li key={award.title}>
+                                <strong>{award.title}</strong>, {award.year}, {award.organization}
+                                {award.details && (
+                                    <ul className="list-['-_'] list-inside ml-4 text-sm">
+                                        {award.details.map(detail => <li key={detail}>{detail}</li>)}
+                                    </ul>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            );
+        };
+
+        const RecommendationsSection = () => {
+            const recommendations = [
+                { category: "Time-Series analysis", items: [{ text: "Time Series Analysis by James D. Hamilton", href: "https://www.jstor.org/stable/j.ctv14jx6sm" }] },
+                { category: "Optimization", items: [{ text: "Convex Optimization by Stephen Boyd and Lieven Vandenberghe", href: "https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" }, { text: "Optimization Methods in Finance by Gerard Cornuejols and Reha Tütüncü", href: "https://www.andrew.cmu.edu/user/gc0v/webpub/book.pdf" }, { text: "Introduction to Stochastic Programming by John R. Birge , François Louveaux", href: "https://link.springer.com/book/10.1007/978-1-4614-0237-4" }, { text: "Reinforcement Learning and Stochastic Optimization: A Unified Framework for Sequential Decisions by Warren B. Powell", href: "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119815068" },] },
+                { category: "ML/DL", items: [{ text: "Mathematical Engineering of Deep Learning by Benoit Liquet, Sarat Moka and Yoni Nazarathy", href: "https://deeplearningmath.org/" }, { text: "Alice's Adventures in a Differentiable Wonderland -- Volume I, A Tour of the Land by Simone Scardapane", href: "https://arxiv.org/abs/2404.17625" },] },
+                { category: "Fundamental Books", items: [{ text: "Linear Algebra for Data Science by Wanmo Kang and Kyunghyun Cho", href: "https://kyunghyuncho.me/linear-algebra-for-data-science/" }, { text: "Introduction to Mathematical Statistics by Robert Hogg, Joseph McKean, Allen Craig", href: "https://minerva.it.manchester.ac.uk/~saralees/statbook2.pdf" }, { text: "Probability: Theory and Examples by Rick Durrett", href: "https://services.math.duke.edu/~rtd/PTE/PTE5_011119.pdf" }, { text: "Principles of Mathematical Analysis by Walter Rudin", href: "https://www.amazon.co.uk/Principles-Mathematical-Analysis-International-Mathematics/dp/0070856133/" }, { text: "Elements of Information Theory by Thomas M. Cover and Joy A. Thomas", href: "http://staff.ustc.edu.cn/~cgong821/Wiley.Interscience.Elements.of.Information.Theory.Jul.2006.eBook-DDU.pdf" },] },
+                { category: "Finance", items: [{ text: "Introduction to Risk Parity and Budgeting by Thierry Roncalli", href: "http://www.thierry-roncalli.com/RiskParityBook.html" }, { text: "Quantitative Equity Portfolio Management by Ludwig B. Chincarini and Daehwan Kim", href: "https://www.amazon.com/Quantitative-Equity-Portfolio-Management-Second/dp/1264268920" }, { text: "Investment Science by David G. Luenberger", href: "https://www.amazon.com/Investment-Science-David-G-Luenberger/dp/0199740089" }, { text: "Are markets efficient? (Video) by Eugene Fama and Richard Thaler", href: "#" }, { text: "In Pursuit of the Perfect Portfolio (Video) by Harry M. Markowitz", href: "#" },] },
+                { category: "Writing", items: [{ text: "How to ML Paper - A brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-ml-paper" }, { text: "How to ML Rebuttal – A Brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-rebuttal-ml-paper" }, { text: "How to ML Review — A brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-review-ml-paper" }, { text: "Latex & Poster formatting Tips for Writing a Research Paper using LaTeX", href: "https://github.com/guanyingc/latex_paper_writing_tips" },] },
+                { category: "Useful website", items: [{ text: "Paper Copilot: Whether the score received at the AI conference is relatively good or bad", href: "https://papercopilot.com/" }, { text: "Cite.GG: Find recent papers that reference the paper you're reading", href: "https://cite.gg/#/" }, { text: "AI Conference Deadline: Countdowns to top CV/NLP/ML/Robotics/AI conference deadlines", href: "https://huggingface.co/spaces/huggingface/ai-deadlines" }, { text: "Operation Research (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_operationsresearch" }, { text: "Data Mining & Analysis (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_datamininganalysis" }, { text: "Artificial Inteligence (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_artificialintelligence" }, { text: "Finance (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=bus_finance" },], },
+            ];
+            return (
+                <div>
+                    <h3 className="text-xl font-semibold">Recommended Books and Guides</h3>
+                    <div className="mt-2 space-y-4">
+                        {recommendations.map(rec => (
+                            <div key={rec.category}>
+                                <h4 className="font-semibold text-gray-800">{rec.category}</h4>
+                                <ul className="list-disc list-inside text-gray-700 ml-4 space-y-1 mt-1">
+                                    {rec.items.map(item => (
+                                        <li key={item.text}>
+                                            <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{item.text}</a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        const RandomStuffTabContent = () => (
+            <section className="space-y-8">
+                <AwardsSection />
+                <RecommendationsSection />
+            </section>
+        );
+
+        // --- 🎯 VACANT POSITIONS Tab ---
+        const VacantPositionsTabContent = () => (
+            <section className="space-y-6">
+                <h2 className="text-2xl font-semibold">Vacant Positions</h2>
+                <p className="text-gray-700">
+                    TSI Lab is actively recruiting passionate researchers and students!<br />
+                    We welcome applicants for:
+                </p>
+                <ul className="list-disc list-inside text-gray-700">
+                    <li>PhD Students</li>
+                    <li>MS Students</li>
+                    <li>Interns (Undergraduate)</li>
+                </ul>
+                <p className="pt-2 text-gray-700">
+                    If you're interested in joining, please send your CV and a short statement of interest to
+                    <a href="mailto:yoontaeResearch@gmail.com" className="text-blue-600 hover:underline ml-1">yoontaeResearch@gmail.com</a>.
+                </p>
+                <div className="pt-4 border-t border-gray-200">
+                    <h3 className="text-xl font-semibold">Preferred Profile</h3>
+                    <p className="mt-2 text-gray-700">
+                        We are looking for students with solid mathematics and programming skills. Demonstrated excellence or active participation in data-science competitions (e.g., Kaggle) is highly valued.
+                    </p>
+                </div>
+                <div>
+                    <h3 className="text-xl font-semibold">(Mainly) Target Journals & Conference</h3>
+                    <div className="mt-2 space-y-3 text-gray-700 text-sm">
+                        <div><h4 className="font-semibold text-gray-800">OR Journals</h4><p>Management Science, Operations Research, European Journal of Operational Research, Annals of Operation Research, INFORMS Journal on Computing</p></div>
+                        <div><h4 className="font-semibold text-gray-800">Finance Journals</h4><p>Quantitative Finance, Journal of Portfolio Management, Journal of Financial and Quantitative Analysis, Finance Research Letters, Journal of Banking and Finance</p></div>
+                        <div><h4 className="font-semibold text-gray-800">Other Journals</h4><p>Neural Networks, Knowledge-Based Systems, Pattern Recognition, TMLR, Nature Machine Intelligence, Machine Learning, Information Sciences, International Journal of Forecasting</p></div>
+                        <div><h4 className="font-semibold text-gray-800">Conference</h4><p>KDD, NeurIPS, ICLR, ICML, EMNLP, ACL, AAAI, AISTAT, ICAIF</p></div>
+                    </div>
+                </div>
+            </section>
+        );
 
         //======================================================================
-        // 🏗️ PROJECTS 탭 컴포넌트 (변경 없음)
-        //======================================================================
-        const ProjectTabContent=()=>{const projects=[{title:"Sejong Science Fellowship (Oversea Track)",year:2024,organization:"National Research Foundation of Korea (NRF)",funding:"70,000,000 KRW",period:"2024.09.01 to 2025.08.31"},{title:"Ph.D. Fellowship",year:2022,organization:"National Research Foundation of Korea (NRF)",funding:"40,000,000 KRW",period:"2022.06.01 to 2024.05.31"}];return(<section><h2 className="text-2xl font-semibold">Funded Projects</h2><ul className="mt-4 space-y-4">{projects.map(project=>(<li key={project.title} className="pb-4 border-b last:border-b-0"><h3 className="text-lg font-semibold text-gray-800">{project.title}</h3><p className="text-gray-600">{project.organization}, {project.year}</p><ul className="list-disc list-inside ml-4 mt-1 text-sm text-gray-700"><li><strong>Funding:</strong> {project.funding}</li><li><strong>Period:</strong> {project.period}</li></ul></li>))}</ul></section>);};
-
-        //======================================================================
-        // ✨ RANDOM STUFF 탭 컴포넌트 (변경 없음)
-        //======================================================================
-        const AwardsSection=()=>{const awards=[{title:"Best Paper Award",year:2024,organization:"Korean Academic Society of Business Administration"}];return(<div><h3 className="text-xl font-semibold">Awards</h3><ul className="mt-2 list-disc list-inside text-gray-700 space-y-2">{awards.map(award=>(<li key={award.title}><strong>{award.title}</strong>, {award.year}, {award.organization}{award.details&&(<ul className="list-['-_'] list-inside ml-4 text-sm">{award.details.map(detail=><li key={detail}>{detail}</li>)}</ul>)}</li>))}</ul></div>);};
-        const RecommendationsSection=()=>{const recommendations=[{category:"Time-Series analysis",items:[{text:"Time Series Analysis by James D. Hamilton",href:"https://www.jstor.org/stable/j.ctv14jx6sm"}]},{category:"Optimization",items:[{text:"Convex Optimization by Stephen Boyd and Lieven Vandenberghe",href:"https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf"},{text:"Optimization Methods in Finance by Gerard Cornuejols and Reha Tütüncü",href:"https://www.andrew.cmu.edu/user/gc0v/webpub/book.pdf"},{text:"Introduction to Stochastic Programming by John R. Birge , François Louveaux",href:"https://link.springer.com/book/10.1007/978-1-4614-0237-4"},{text:"Reinforcement Learning and Stochastic Optimization: A Unified Framework for Sequential Decisions by Warren B. Powell",href:"https://onlinelibrary.wiley.com/doi/book/10.1002/9781119815068"},]},{category:"ML/DL",items:[{text:"Mathematical Engineering of Deep Learning by Benoit Liquet, Sarat Moka and Yoni Nazarathy",href:"https://deeplearningmath.org/"},{text:"Alice's Adventures in a Differentiable Wonderland -- Volume I, A Tour of the Land by Simone Scardapane",href:"https://arxiv.org/abs/2404.17625"},]},{category:"Fundamental Books",items:[{text:"Linear Algebra for Data Science by Wanmo Kang and Kyunghyun Cho",href:"https://kyunghyuncho.me/linear-algebra-for-data-science/"},{text:"Introduction to Mathematical Statistics by Robert Hogg, Joseph McKean, Allen Craig",href:"https://minerva.it.manchester.ac.uk/~saralees/statbook2.pdf"},{text:"Probability: Theory and Examples by Rick Durrett",href:"https://services.math.duke.edu/~rtd/PTE/PTE5_011119.pdf"},{text:"Principles of Mathematical Analysis by Walter Rudin",href:"https://www.amazon.co.uk/Principles-Mathematical-Analysis-International-Mathematics/dp/0070856133/"},{text:"Elements of Information Theory by Thomas M. Cover and Joy A. Thomas",href:"http://staff.ustc.edu.cn/~cgong821/Wiley.Interscience.Elements.of.Information.Theory.Jul.2006.eBook-DDU.pdf"},]},{category:"Finance",items:[{text:"Introduction to Risk Parity and Budgeting by Thierry Roncalli",href:"http://www.thierry-roncalli.com/RiskParityBook.html"},{text:"Quantitative Equity Portfolio Management by Ludwig B. Chincarini and Daehwan Kim",href:"https://www.amazon.com/Quantitative-Equity-Portfolio-Management-Second/dp/1264268920"},{text:"Investment Science by David G. Luenberger",href:"https://www.amazon.com/Investment-Science-David-G-Luenberger/dp/0199740089"},{text:"Are markets efficient? (Video) by Eugene Fama and Richard Thaler",href:"#"},{text:"In Pursuit of the Perfect Portfolio (Video) by Harry M. Markowitz",href:"#"},]},{category:"Writing",items:[{text:"How to ML Paper - A brief Guide by Jakob N. Foerster",href:"https://www.jakobfoerster.com/how-to-ml-paper"},{text:"How to ML Rebuttal – A Brief Guide by Jakob N. Foerster",href:"https://www.jakobfoerster.com/how-to-rebuttal-ml-paper"},{text:"How to ML Review — A brief Guide by Jakob N. Foerster",href:"https://www.jakobfoerster.com/how-to-review-ml-paper"},{text:"Latex & Poster formatting Tips for Writing a Research Paper using LaTeX",href:"https://github.com/guanyingc/latex_paper_writing_tips"},]},{category:"Useful website",items:[{text:"Paper Copilot: Whether the score received at the AI conference is relatively good or bad",href:"https://papercopilot.com/"},{text:"Cite.GG: Find recent papers that reference the paper you're reading",href:"https://cite.gg/#/"},{text:"AI Conference Deadline: Countdowns to top CV/NLP/ML/Robotics/AI conference deadlines",href:"https://huggingface.co/spaces/huggingface/ai-deadlines"},{text:"Operation Research (Top publication): Google Scholar Metrics",href:"https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_operationsresearch"},{text:"Data Mining & Analysis (Top publication): Google Scholar Metrics",href:"https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_datamininganalysis"},{text:"Artificial Inteligence (Top publication): Google Scholar Metrics",href:"https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_artificialintelligence"},{text:"Finance (Top publication): Google Scholar Metrics",href:"https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=bus_finance"},],},];return(<div><h3 className="text-xl font-semibold">Recommended Books and Guides</h3><div className="mt-2 space-y-4">{recommendations.map(rec=>(<div key={rec.category}><h4 className="font-semibold text-gray-800">{rec.category}</h4><ul className="list-disc list-inside text-gray-700 ml-4 space-y-1 mt-1">{rec.items.map(item=>(<li key={item.text}><a href={item.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{item.text}</a></li>))}</ul></div>))}</div></div>);};
-        const RandomStuffTabContent=()=>(<section className="space-y-8"><AwardsSection/><RecommendationsSection/></section>);
-
-        //======================================================================
-        // 🎯 VACANT POSITIONS 탭 컴포넌트 (변경 없음)
-        //======================================================================
-        const VacantPositionsTabContent=()=>(<section className="space-y-6"><h2 className="text-2xl font-semibold">Vacant Positions</h2><p className="text-gray-700">TSI Lab is actively recruiting passionate researchers and students!<br/>We welcome applicants for:</p><ul className="list-disc list-inside text-gray-700"><li>PhD Students</li><li>MS Students</li><li>Interns (Undergraduate)</li></ul><p className="pt-2 text-gray-700">If you're interested in joining, please send your CV and a short statement of interest to <a href="mailto:yoontae.hwang@pusan.ac.kr" className="text-blue-600 hover:underline ml-1">yoontaeResearch@gmail.com</a>.</p><div className="pt-4 border-t border-gray-200"><h3 className="text-xl font-semibold">Preferred Profile</h3><p className="mt-2 text-gray-700">We are looking for students with solid mathematics and programming skills. Demonstrated excellence or active participation in data-science competitions (e.g., Kaggle) is highly valued.</p></div><div><h3 className="text-xl font-semibold">(Mainly) Target Journals & Conference</h3><div className="mt-2 space-y-3 text-gray-700 text-sm"><div><h4 className="font-semibold text-gray-800">OR Journals</h4><p>Management Science, Operations Research, European Journal of Operational Research, Annals of Operation Research, INFORMS Journal on Computing</p></div><div><h4 className="font-semibold text-gray-800">Finance Journals</h4><p>Quantitative Finance, Journal of Portfolio Management, Journal of Financial and Quantitative Analysis, Finance Research Letters, Journal of Banking and Finance</p></div><div><h4 className="font-semibold text-gray-800">Other Journals</h4><p>Neural Networks, Knowledge-Based Systems, Pattern Recognition, TMLR, Nature Machine Intelligence, Machine Learning, Information Sciences, International Journal of Forecasting</p></div><div><h4 className="font-semibold text-gray-800">Conference</h4><p>KDD, NeurIPS, ICLR, ICML, EMNLP, ACL, AAAI, AISTAT, ICAIF</p></div></div></div></section>);
-
-        //======================================================================
-        // 🚀 메인 앱 로직 (탭 전체를 관리, URL 라우팅 추가)
+        // 4. MAIN APP COMPONENT
         //======================================================================
         function App() {
             const validTabs = ['home', 'members', 'collaborators', 'publications', 'teaching', 'project', 'random', 'vacant'];
             
+            // Function to get a valid tab from the URL hash
             const getTabFromHash = () => {
                 const hash = window.location.hash.replace('#', '');
                 return validTabs.includes(hash) ? hash : 'home';
@@ -357,10 +850,12 @@
             
             const [activeTab, setActiveTab] = useState(getTabFromHash());
 
+            // Effect to update URL hash when tab changes
             useEffect(() => {
                 window.location.hash = activeTab;
             }, [activeTab]);
 
+            // Effect to listen for hash changes (e.g., browser back/forward buttons)
             useEffect(() => {
                 const handleHashChange = () => {
                     setActiveTab(getTabFromHash());
@@ -371,7 +866,7 @@
                 };
             }, []);
 
-
+            // Renders the content based on the active tab
             const renderContent = () => {
                 switch(activeTab) {
                     case 'home': return <HomeTabContent />;
@@ -386,9 +881,12 @@
                 }
             };
             
+            // Reusable button component for tabs
             const TabButton = ({ value, children }) => {
                 const isActive = activeTab === value;
-                const classes = `px-3 sm:px-4 py-2 text-sm font-medium rounded-md cursor-pointer transition-all duration-200 ${isActive ? 'bg-white text-gray-900 shadow-md' : 'text-gray-600 hover:bg-gray-200 hover:text-gray-800'}`;
+                const classes = `px-3 sm:px-4 py-2 text-sm font-medium rounded-md cursor-pointer transition-all duration-200 ${
+                    isActive ? 'bg-white text-gray-900 shadow-md' : 'text-gray-600 hover:bg-gray-200 hover:text-gray-800'
+                }`;
                 return <button onClick={() => setActiveTab(value)} className={classes}>{children}</button>;
             };
 
@@ -402,7 +900,9 @@
                             Advancing AI-driven Time Series Research
                         </p>
                         <p className="mt-1 text-xs sm:text-sm text-gray-500">
-                            <a href="mailto:yoontaeResearch@gmail.com" className="hover:underline">📩 Contact: yoontaeResearch@gmail.com</a>
+                            <a href="mailto:yoontaeResearch@gmail.com" className="hover:underline">
+                                📩 Contact: yoontaeResearch@gmail.com
+                            </a>
                         </p>
                     </header>
                     
@@ -426,7 +926,9 @@
             );
         }
         
-        // --- React 앱을 페이지에 렌더링 ---
+        //======================================================================
+        // 5. RENDER THE APP
+        //======================================================================
         const container = document.getElementById('root');
         const root = ReactDOM.createRoot(container);
         root.render(<App />);

@@ -308,14 +308,13 @@
         };
 
         const MemberSection = ({ title, members }) => {
-            // MODIFIED: Apply n*3 grid layout
             const isGridSection = title !== 'Principal Investigator';
 
             return (
                 <div>
                     <h2 className="text-2xl font-semibold border-b pb-2 mb-4">{title}</h2>
                     {members.length > 0 && members[0].name !== "TBD" ? (
-                        <div className={isGridSection ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-6"}>
+                        <div className={isGridSection ? "grid grid-cols-1 md:grid-cols-3 gap-6" : "space-y-6"}>
                             {members.map(member => <MemberCard key={member.name} member={member} />)}
                         </div>
                     ) : (
@@ -486,7 +485,7 @@
             );
         };
 
-        // --- 🤝 COLLABORATORS Tab ---
+        // --- 🤝 COLLABORATORS Tab (FIXED) ---
         const CollaboratorTabContent = () => {
             const svgRef = useRef();
             const containerRef = useRef();
@@ -544,7 +543,9 @@
                 const container = containerRef.current;
                 if (!container) return;
                 
-                const width = container.clientWidth;
+                // Use a fallback width initially to prevent errors if clientWidth is 0.
+                // The handleResize function, called after a timeout, will correct this.
+                const width = container.clientWidth || 800;
                 const height = 600;
                 const affiliationColor = d3.scaleOrdinal(d3.schemeCategory10).domain(Array.from(affiliations).sort());
                 
@@ -636,12 +637,21 @@
                 const handleResize = () => {
                     if (containerRef.current) {
                         const newWidth = containerRef.current.clientWidth;
-                        svg.attr("viewBox", [0, 0, newWidth, height]);
-                        simulation.force("center", d3.forceCenter(newWidth / 2, height / 2)).restart();
+                        if (newWidth > 0) { // Guard against zero width
+                            svg.attr("viewBox", [0, 0, newWidth, height]);
+                            // Re-center and "re-heat" the simulation to adapt to the new size
+                            simulation.force("center", d3.forceCenter(newWidth / 2, height / 2));
+                            simulation.alpha(0.3).restart();
+                        }
                     }
                 };
                 window.addEventListener('resize', handleResize);
+                
+                // Call resize after a short delay to ensure the container is sized correctly.
+                const initTimer = setTimeout(handleResize, 100);
+
                 return () => {
+                    clearTimeout(initTimer);
                     window.removeEventListener('resize', handleResize);
                     simulation.stop();
                 };

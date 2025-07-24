@@ -104,7 +104,8 @@
             { name: "Prof. Yoontae Hwang", koreanName: "황윤태", status: "Principal Investigator", image: "/image_yoontae.png", email: "yoontaeResearch@gmail.com", bio: `I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025. Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee. Guided by the belief that “Research is meaningful only when its insights leave the lab and change the world,” our laboratory not only submits its findings to the most prestigious journals and conferences but also pursues research capable of driving substantial real-world impact.`, links: { scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl", linkedin: "https://www.linkedin.com/in/yoontae", } },
             { name: "TBD", koreanName: "미정", status: "PhD Student", image: "https://placehold.co/200x200/E2E8F0/4A5568?text=TBD", email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025. Interested in developing next-generation foundation models for financial time-series.", interests: ["Foundation Models", "Asset Pricing"], links: {} },
             { name: "TBD", koreanName: "미정", status: "MS Student", image: "https://placehold.co/200x200/E2E8F0/4A5568?text=TBD", email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025. Focusing on reinforcement learning for portfolio optimization.", interests: ["Reinforcement Learning", "Portfolio Optimization"], links: {} },
-            { name: "Youngbin Lee", koreanName: "이영빈", status: "Mentee", image: "/youngbin.jpg", currentPosition: "AI Researcher @ Elice", links: { scholar: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko", } },
+            { name: "Youngbin Lee", koreanName: "이영빈", status: "Industry Mentor", image: "/youngbin.jpg", currentPosition: "AI Researcher @ Elice", links: { scholar: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko", } },
+            // --- MODIFIED: Removed placeholder alumni. The section will now show "To be determined." ---
         ];
 
         const collaboratorInfo = {
@@ -161,7 +162,7 @@
                 <path d="M12 2.15c1.5 0 2.75-1.06 4-1.06a4.5 4.5 0 0 1 4.5 4.5c0 4.5-3 12.5-6 12.5s-2.5 1.06-4 1.06-2.75-1.06-4-1.06A4.5 4.5 0 0 1 3 5.5c0-4.5 3-12.5 6-12.5s2.5 1.06 4 1.06z"></path>
             </svg>
         );
-
+        
         // --- Accordion Component for Research Topics ---
         const AccordionItem = ({ item, isOpen, onClick }) => (
             <div className="border-b last:border-b-0">
@@ -169,7 +170,7 @@
                     <h3 className="text-lg font-semibold text-gray-800 flex items-center">
                         {item.icon} {item.title}
                     </h3>
-                    <div style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
+                    <div className={`transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 7.5L10 12.5L15 7.5" stroke="#4A5568" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
@@ -199,6 +200,25 @@
         //======================================================================
 
         // --- 🏠 HOME Tab ---
+        const ResearchPhilosophySection = () => {
+             return (
+                <section>
+                    <h2 className="text-2xl font-semibold">Research Philosophy</h2>
+                    <div className="mt-4 space-y-3 text-gray-700 leading-relaxed bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                        <blockquote className="text-gray-800 italic border-l-4 border-purple-400 pl-4 py-2 bg-purple-50 rounded-r-md text-base">
+                            "Research is meaningful only when its insights leave the lab and change the world."
+                        </blockquote>
+                        <p className="pt-2">Our lab's philosophy is built on three core principles:</p>
+                        <ul className="list-disc list-inside ml-4 space-y-2 text-gray-800">
+                            <li><strong>Impact-Driven Inquiry:</strong> We start our research from real-world challenges in finance and science, ensuring our work has practical relevance and can make a tangible impact.</li>
+                            <li><strong>Academic Rigor:</strong> We pursue academic excellence by publishing our findings in top-tier venues, contributing novel theories and robust methodologies to the scientific community.</li>
+                            <li><strong>Open & Collaborative Spirit:</strong> We believe the best ideas emerge from collaboration. We actively work with partners worldwide and share our code and findings to accelerate collective progress.</li>
+                        </ul>
+                    </div>
+                </section>
+            );
+        };
+
         const ResearchTopicsSection = () => {
             const researchTopicsData = [
                 { id: 1, icon: <FinanceIcon />, title: "AI in Quantitative Finance", content: [{ topic: "Asset Management", subtopics: ["Decision-focused learning", "Portfolio optimization", "Goal-based investing", "Trading strategy*", "Household Finance",] }, { topic: "Financial Modeling", subtopics: ["Investor behavior modeling", "Asset pricing", "Market making", "Order flow analysis",] }, { topic: "Time-Series for Finance", subtopics: ["Volatility forecasting", "Regime-switching models", "Lead-lag detection", "Return Forecasting",] }] },
@@ -242,8 +262,9 @@
                             <li>📢 The Time Series Intelligence Lab (TSI Lab) will launch in September 2025.</li>
                         </ul>
                     </section>
-
+                    
                     <ResearchTopicsSection />
+                    <ResearchPhilosophySection />
 
                     <section>
                         <h2 className="text-2xl font-semibold">Selected Papers</h2>
@@ -299,14 +320,14 @@
                                 {member.status === 'Principal Investigator' && member.email && (<span className="text-sm text-gray-600">Email: {member.email}</span>)}
                                 {member.status !== 'Principal Investigator' && member.email && (<a href={`mailto:${member.email}`} className="text-sm text-blue-600 hover:underline">Email</a>)}
                                 
-                                {member.status.includes('Alumni') && (
+                                {member.status === 'Alumni' && (
                                     <span className="px-2 py-0.5 bg-indigo-100 text-indigo-800 text-xs font-semibold rounded-full">
                                         Alumni
                                     </span>
                                 )}
-                                {member.status.includes('Mentee') && (
+                                {member.status === 'Industry Mentor' && (
                                     <span className="px-2 py-0.5 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
-                                        Mentee
+                                        Industry Mentor
                                     </span>
                                 )}
                             </div>
@@ -332,8 +353,11 @@
         };
 
         const MemberSection = ({ title, members }) => {
+            // --- MODIFIED: Logic to show "To be determined." for empty or placeholder sections ---
+            const showTBD = members.length === 0 || members.every(m => m.name === "TBD");
+
             const isGridSection = title !== 'Principal Investigator';
-            const isTwoColumnGrid = title.includes('Students') || title.includes('Alumni');
+            const isTwoColumnGrid = title.includes('Students') || title.includes('Alumni') || title.includes('Mentoring');
 
             let className = "space-y-6"; // Default for PI section
             if (isGridSection) {
@@ -347,12 +371,12 @@
             return (
                 <div>
                     <h2 className="text-2xl font-semibold border-b pb-2 mb-4">{title}</h2>
-                    {members.length > 0 && members[0].name !== "TBD" ? (
+                    {showTBD ? (
+                        <p className="text-gray-500 italic">To be determined.</p>
+                    ) : (
                         <div className={className}>
                             {members.map(member => <MemberCard key={member.name} member={member} />)}
                         </div>
-                    ) : (
-                        <p className="text-gray-500 italic">To be determined.</p>
                     )}
                 </div>
             );
@@ -362,14 +386,16 @@
             const pi = membersData.filter(m => m.status === 'Principal Investigator');
             const phdStudents = membersData.filter(m => m.status === 'PhD Student');
             const msStudents = membersData.filter(m => m.status === 'MS Student');
-            const alumni = membersData.filter(m => m.status.includes('Alumni') || m.status.includes('Mentee'));
+            const industryMentors = membersData.filter(m => m.status === 'Industry Mentor');
+            const alumni = membersData.filter(m => m.status === 'Alumni');
 
             return (
                 <section className="space-y-12">
                     <MemberSection title="Principal Investigator" members={pi} />
                     <MemberSection title="PhD Students" members={phdStudents} />
                     <MemberSection title="MS Students" members={msStudents} />
-                    <MemberSection title="Alumni & Mentees" members={alumni} />
+                    <MemberSection title="Industry Mentoring" members={industryMentors} />
+                    <MemberSection title="Alumni" members={alumni} />
                 </section>
             );
         };

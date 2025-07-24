@@ -105,7 +105,6 @@
             { name: "TBD", koreanName: "미정", status: "PhD Student", image: "https://placehold.co/200x200/E2E8F0/4A5568?text=TBD", email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025. Interested in developing next-generation foundation models for financial time-series.", interests: ["Foundation Models", "Asset Pricing"], links: {} },
             { name: "TBD", koreanName: "미정", status: "MS Student", image: "https://placehold.co/200x200/E2E8F0/4A5568?text=TBD", email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025. Focusing on reinforcement learning for portfolio optimization.", interests: ["Reinforcement Learning", "Portfolio Optimization"], links: {} },
             { name: "Youngbin Lee", koreanName: "이영빈", status: "Industry Mentor", image: "/youngbin.jpg", currentPosition: "AI Researcher @ Elice", links: { scholar: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko", } },
-            // --- MODIFIED: Removed placeholder alumni. The section will now show "To be determined." ---
         ];
 
         const collaboratorInfo = {
@@ -352,8 +351,7 @@
             );
         };
 
-        const MemberSection = ({ title, members }) => {
-            // --- MODIFIED: Logic to show "To be determined." for empty or placeholder sections ---
+        const MemberSection = ({ title, members, description }) => {
             const showTBD = members.length === 0 || members.every(m => m.name === "TBD");
 
             const isGridSection = title !== 'Principal Investigator';
@@ -370,14 +368,19 @@
 
             return (
                 <div>
-                    <h2 className="text-2xl font-semibold border-b pb-2 mb-4">{title}</h2>
-                    {showTBD ? (
-                        <p className="text-gray-500 italic">To be determined.</p>
-                    ) : (
-                        <div className={className}>
-                            {members.map(member => <MemberCard key={member.name} member={member} />)}
-                        </div>
+                    <h2 className="text-2xl font-semibold border-b pb-2">{title}</h2>
+                    {description && (
+                        <p className="mt-3 mb-4 text-sm text-gray-600">{description}</p>
                     )}
+                    <div className={showTBD ? 'mt-4' : 'mt-6'}>
+                        {showTBD ? (
+                            <p className="text-gray-500 italic">To be determined.</p>
+                        ) : (
+                            <div className={className}>
+                                {members.map(member => <MemberCard key={member.name} member={member} />)}
+                            </div>
+                        )}
+                    </div>
                 </div>
             );
         };
@@ -394,7 +397,11 @@
                     <MemberSection title="Principal Investigator" members={pi} />
                     <MemberSection title="PhD Students" members={phdStudents} />
                     <MemberSection title="MS Students" members={msStudents} />
-                    <MemberSection title="Industry Mentoring" members={industryMentors} />
+                    <MemberSection 
+                        title="Mentoring" 
+                        members={industryMentors} 
+                        description="Our mentors are experts who can provide guidance to students on various career paths in industry and academia."
+                    />
                     <MemberSection title="Alumni" members={alumni} />
                 </section>
             );

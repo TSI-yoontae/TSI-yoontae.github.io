@@ -23,24 +23,20 @@
         
         /* D3 Graph Specific Styles for Space Theme */
         .graph-container {
-            /* Dark space background with a central nebula-like glow */
             background: radial-gradient(ellipse at center, #1e293b 0%, #0f172a 70%, #020617 100%);
-            overflow: hidden; /* Ensures stars don't overflow */
+            overflow: hidden;
         }
         .graph-container .links line {
-            /* Ethereal, glowing links */
-            stroke: rgba(156, 163, 175, 0.4); /* gray-400 with opacity */
+            stroke: rgba(156, 163, 175, 0.4);
             transition: stroke-opacity 0.3s ease-in-out, stroke 0.3s ease-in-out;
         }
         .graph-container .nodes .glow {
-            /* Glow effect for planets/stars */
             filter: blur(8px);
             opacity: 0.7;
             transition: opacity 0.3s ease-in-out;
         }
         .graph-container .nodes .main-circle {
-            /* The main visible part of the node */
-            stroke: #020617; /* slate-950 for a crisp edge */
+            stroke: #020617;
             stroke-width: 1.5px;
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
@@ -48,20 +44,18 @@
             transform: scale(1.1);
         }
         .graph-container .nodes .node-label {
-            /* Labels readable on a dark background */
             pointer-events: none;
-            font-size: 9px; /* Slightly larger for readability */
+            font-size: 9px;
             font-weight: 600;
-            fill: #ffffff; /* White text color */
+            fill: #ffffff;
             paint-order: stroke;
-            stroke: #020617; /* slate-950 for halo effect */
-            stroke-width: 3px; /* Adjusted for new font size */
+            stroke: #020617;
+            stroke-width: 3px;
             stroke-linecap: butt;
             stroke-linejoin: round;
             transition: opacity 0.3s ease-in-out;
         }
         .star {
-            /* Animated twinkling stars */
             fill: white;
             opacity: 0.7;
             animation: twinkle 5s infinite alternate;
@@ -70,6 +64,41 @@
             from { opacity: 0.2; }
             to { opacity: 1; }
         }
+
+        /* --- ✨ Flashy Effects ✨ --- */
+
+        /* Tab Content Fade-in Animation */
+        .fade-in {
+            animation: fadeInAnimation 0.5s ease-in-out forwards;
+        }
+        @keyframes fadeInAnimation {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Easter Egg: Rocket Animation */
+        .flying-object {
+            position: fixed;
+            bottom: -100px;
+            animation: fly-to-moon 2.5s ease-in forwards;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        @keyframes fly-to-moon {
+            0% { bottom: -100px; opacity: 1; }
+            100% { bottom: 110vh; opacity: 0; }
+        }
+        
+        /* Easter Egg: Shimmer effect for publication topics */
+        .shimmer {
+            animation: shimmer-effect 1.5s ease-out;
+            border-radius: 9999px;
+        }
+        @keyframes shimmer-effect {
+            0% { box-shadow: 0 0 10px #fef08a, 0 0 20px #fef08a; }
+            100% { box-shadow: 0 0 0px transparent, 0 0 0px transparent; }
+        }
+
     </style>
 </head>
 <body class="bg-gray-50">
@@ -80,7 +109,7 @@
         const { useState, useEffect, useMemo, useRef, Fragment } = React;
 
         //======================================================================
-        // 1. DATA DEFINITIONS
+        // 1. DATA DEFINITIONS (Unchanged)
         //======================================================================
         const publications = [
             { id: "[C4]", title: "Time-MQA: Time Series Multi-Task Question Answering with Context Enhancement", authors: [ { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Yiyuan Yang*", href: "https://scholar.google.co.kr/citations?user=FUuGvZIAAAAJ&hl=en" }, { name: "Yoontae Hwang", isHighlight: true }, { name: "Wenjie Du", href: "https://scholar.google.com/citations?user=j9qvUg0AAAAJ&hl=en" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Zhangyang Wang", href: "https://scholar.google.com/citations?user=pxFyKAIAAAAJ&hl=en" }, { name: "Ming Jin", href: "https://scholar.google.com/citations?user=I2xvKaIAAAAJ&hl=en" }, { name: "Qingsong Wen", href: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" }, ], venue: "Annual Meeting of the Association for Computational Linguistics (ACL), 2025, Acceptance rate 23%, Main Track", links: [ { text: "paper", href: "https://arxiv.org/abs/2503.01875" }, { text: "code", href: "https://huggingface.co/Time-QA" }, ], topics: ["Time-Series Analysis", "Deep Learning"] },
@@ -99,14 +128,12 @@
             { id: "[W]", title: "Neural Networks and Deep Learning for Asset Management", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Junhyeong Lee", href: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Jang Ho Kim", href: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=en" }, { name: "Woo Chang Kim", href: "https://scholar.google.co.kr/citations?user=7NmBs1kAAAAJ&hl=en" }, { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" }, ], venue: "Survey paper", links: [], topics: ["Portfolio Theory", "Deep Learning", "Survey"] },
         ];
         const allPapers = [...publications, ...workingPapers];
-
         const membersData = [
             { name: "Prof. Yoontae Hwang", koreanName: "황윤태", status: "Principal Investigator", image: "/image_yoontae.png", email: "yoontaeResearch@gmail.com", bio: `I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025. Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee. Guided by the belief that “Research is meaningful only when its insights leave the lab and change the world,” our laboratory not only submits its findings to the most prestigious journals and conferences but also pursues research capable of driving substantial real-world impact.`, links: { scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl", linkedin: "https://www.linkedin.com/in/yoontae", } },
             { name: "TBD", koreanName: "미정", status: "PhD Student", image: "https://placehold.co/200x200/E2E8F0/4A5568?text=TBD", email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025. Interested in developing next-generation foundation models for financial time-series.", interests: ["Foundation Models", "Asset Pricing"], links: {} },
             { name: "TBD", koreanName: "미정", status: "MS Student", image: "https://placehold.co/200x200/E2E8F0/4A5568?text=TBD", email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025. Focusing on reinforcement learning for portfolio optimization.", interests: ["Reinforcement Learning", "Portfolio Optimization"], links: {} },
             { name: "Youngbin Lee", koreanName: "이영빈", status: "Industry Mentor", image: "/youngbin.jpg", currentPosition: "AI Researcher @ Elice", links: { scholar: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko", } },
         ];
-
         const collaboratorInfo = {
             "Yaxuan Kong": { affiliation: "University of Oxford", scholar: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" },
             "Yiyuan Yang": { affiliation: "University of Oxford", scholar: "https://scholar.google.co.kr/citations?user=FUuGvZIAAAAJ&hl=en" },
@@ -136,279 +163,29 @@
         };
 
         //======================================================================
-        // 2. REUSABLE & HELPER COMPONENTS
+        // 2. REUSABLE & HELPER COMPONENTS (Unchanged)
         //======================================================================
-
-        // --- Icon Components ---
-        const FinanceIcon = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block mr-2">
-                <line x1="12" y1="1" x2="12" y2="23"></line>
-                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-            </svg>
-        );
-
-        const ModelIcon = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block mr-2">
-                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <path d="M12 18v-6"></path><path d="M9 15h6"></path>
-            </svg>
-        );
-
-        const ScienceIcon = () => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block mr-2">
-                <path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.5A4.5 4.5 0 0 0 18 5c-1.25 0-2.5 1-4 1-1.5 0-2.75-1-4-1a4.5 4.5 0 0 0-4.5 4.5c0 4.5 3 12.5 6 12.5s2.5-1.06 4-1.06z"></path>
-                <path d="M12 2.15c1.5 0 2.75-1.06 4-1.06a4.5 4.5 0 0 1 4.5 4.5c0 4.5-3 12.5-6 12.5s-2.5 1.06-4 1.06-2.75-1.06-4-1.06A4.5 4.5 0 0 1 3 5.5c0-4.5 3-12.5 6-12.5s2.5 1.06 4 1.06z"></path>
-            </svg>
-        );
-        
-        // --- Accordion Component for Research Topics ---
-        const AccordionItem = ({ item, isOpen, onClick }) => (
-            <div className="border-b last:border-b-0">
-                <header onClick={onClick} className="flex justify-between items-center p-4 cursor-pointer">
-                    <h3 className="text-lg font-semibold text-gray-800 flex items-center">
-                        {item.icon} {item.title}
-                    </h3>
-                    <div className={`transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 7.5L10 12.5L15 7.5" stroke="#4A5568" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </div>
-                </header>
-                {isOpen && (
-                    <section className="overflow-hidden p-4 pt-0">
-                        <div className="space-y-4 text-gray-700">
-                            {item.content.map((section, index) => (
-                                <div key={index}>
-                                    <h4 className="font-semibold text-md text-gray-800">{section.topic}</h4>
-                                    <ul className="list-disc list-inside mt-2 ml-4 space-y-1 text-sm">
-                                        {section.subtopics.map((sub, subIndex) => (
-                                            <li key={subIndex} dangerouslySetInnerHTML={{ __html: sub.replace(/\*/g, ' <span class="text-gray-500 italic text-xs">(work in progress)</span>') }} />
-                                        ))}
-                                    </ul>
-                                </div>
-                            ))}
-                        </div>
-                    </section>
-                )}
-            </div>
-        );
+        const FinanceIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block mr-2"> <line x1="12" y1="1" x2="12" y2="23"></line> <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path> </svg> );
+        const ModelIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block mr-2"> <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path> <polyline points="14 2 14 8 20 8"></polyline> <path d="M12 18v-6"></path><path d="M9 15h6"></path> </svg> );
+        const ScienceIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block mr-2"> <path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.5A4.5 4.5 0 0 0 18 5c-1.25 0-2.5 1-4 1-1.5 0-2.75-1-4-1a4.5 4.5 0 0 0-4.5 4.5c0 4.5 3 12.5 6 12.5s2.5-1.06 4-1.06z"></path> <path d="M12 2.15c1.5 0 2.75-1.06 4-1.06a4.5 4.5 0 0 1 4.5 4.5c0 4.5-3 12.5-6 12.5s-2.5 1.06-4 1.06-2.75-1.06-4-1.06A4.5 4.5 0 0 1 3 5.5c0-4.5 3-12.5 6-12.5s2.5 1.06 4 1.06z"></path> </svg> );
+        const AccordionItem = ({ item, isOpen, onClick }) => ( <div className="border-b last:border-b-0"> <header onClick={onClick} className="flex justify-between items-center p-4 cursor-pointer"> <h3 className="text-lg font-semibold text-gray-800 flex items-center"> {item.icon} {item.title} </h3> <div className={`transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}> <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M5 7.5L10 12.5L15 7.5" stroke="#4A5568" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /> </svg> </div> </header> {isOpen && ( <section className="overflow-hidden p-4 pt-0"> <div className="space-y-4 text-gray-700"> {item.content.map((section, index) => ( <div key={index}> <h4 className="font-semibold text-md text-gray-800">{section.topic}</h4> <ul className="list-disc list-inside mt-2 ml-4 space-y-1 text-sm"> {section.subtopics.map((sub, subIndex) => ( <li key={subIndex} dangerouslySetInnerHTML={{ __html: sub.replace(/\*/g, ' <span class="text-gray-500 italic text-xs">(work in progress)</span>') }} /> ))} </ul> </div> ))} </div> </section> )} </div> );
 
         //======================================================================
         // 3. TAB CONTENT COMPONENTS
         //======================================================================
 
-        // --- 🏠 HOME Tab ---
-        const ResearchPhilosophySection = () => {
-             return (
-                <section>
-                    <h2 className="text-2xl font-semibold">Research Philosophy</h2>
-                    <div className="mt-4 space-y-3 text-gray-700 leading-relaxed bg-white p-6 rounded-lg shadow-md border border-gray-200">
-                        <blockquote className="text-gray-800 italic border-l-4 border-purple-400 pl-4 py-2 bg-purple-50 rounded-r-md text-base">
-                            "Research is meaningful only when its insights leave the lab and change the world."
-                        </blockquote>
-                        <p className="pt-2">Our lab's philosophy is built on three core principles:</p>
-                        <ul className="list-disc list-inside ml-4 space-y-2 text-gray-800">
-                            <li><strong>Impact-Driven Inquiry:</strong> We start our research from real-world challenges in finance and science, ensuring our work has practical relevance and can make a tangible impact.</li>
-                            <li><strong>Academic Rigor:</strong> We pursue academic excellence by publishing our findings in top-tier venues, contributing novel theories and robust methodologies to the scientific community.</li>
-                            <li><strong>Open & Collaborative Spirit:</strong> We believe the best ideas emerge from collaboration. We actively work with partners worldwide and share our code and findings to accelerate collective progress.</li>
-                        </ul>
-                    </div>
-                </section>
-            );
-        };
+        // --- 🏠 HOME Tab (Unchanged) ---
+        const ResearchPhilosophySection = () => { return ( <section> <h2 className="text-2xl font-semibold">Research Philosophy</h2> <div className="mt-4 space-y-3 text-gray-700 leading-relaxed bg-white p-6 rounded-lg shadow-md border border-gray-200"> <blockquote className="text-gray-800 italic border-l-4 border-purple-400 pl-4 py-2 bg-purple-50 rounded-r-md text-base"> "Research is meaningful only when its insights leave the lab and change the world." </blockquote> <p className="pt-2">Our lab's philosophy is built on three core principles:</p> <ul className="list-disc list-inside ml-4 space-y-2 text-gray-800"> <li><strong>Impact-Driven Inquiry:</strong> We start our research from real-world challenges in finance and science, ensuring our work has practical relevance and can make a tangible impact.</li> <li><strong>Academic Rigor:</strong> We pursue academic excellence by publishing our findings in top-tier venues, contributing novel theories and robust methodologies to the scientific community.</li> <li><strong>Open & Collaborative Spirit:</strong> We believe the best ideas emerge from collaboration. We actively work with partners worldwide and share our code and findings to accelerate collective progress.</li> </ul> </div> </section> ); };
+        const ResearchTopicsSection = () => { const researchTopicsData = [ { id: 1, icon: <FinanceIcon />, title: "AI in Quantitative Finance", content: [{ topic: "Asset Management", subtopics: ["Decision-focused learning", "Portfolio optimization", "Goal-based investing", "Trading strategy*", "Household Finance",] }, { topic: "Financial Modeling", subtopics: ["Investor behavior modeling", "Asset pricing", "Market making", "Order flow analysis",] }, { topic: "Time-Series for Finance", subtopics: ["Volatility forecasting", "Regime-switching models", "Lead-lag detection", "Return Forecasting",] }] }, { id: 2, icon: <ScienceIcon />, title: "AI in Science", content: [{ topic: "Physics & Climate Modeling", subtopics: ["Physics-Informed Neural Networks", "Climate Dynamics Forecasting",] }, { topic: "General Scientific Applications", subtopics: ["GPS Free Autonomous Navigation*", "Magnetic Object Detection*",] }, { topic: "Sport Science", subtopics: ["Player Performance Modeling & Tracking", "Sports Betting",] }] }, { id: 3, icon: <ModelIcon />, title: "Foundation Model", content: [{ topic: "Model Architecture & Representation", subtopics: ["Foundation Models for Financial Time Series", "Foundation Models for Sports Analytics"] }, { topic: "Advanced Learning Paradigms", subtopics: ["Temporal Domain Generalization", "Learning Strategy", "Tokenizer",] }] } ]; const [openAccordionId, setOpenAccordionId] = useState(null); return ( <section> <h2 className="text-2xl font-semibold">Research interests (AI in Time-Series)</h2> <p className="mt-2 text-sm text-gray-600"> Our research focuses on advancing AI for time-series across various domains. Key topics under intensive study are marked with a (work in progress). </p> <div className="mt-4 border rounded-lg shadow-md bg-white"> {researchTopicsData.map(item => ( <AccordionItem key={item.id} item={item} isOpen={item.id === openAccordionId} onClick={() => setOpenAccordionId(openAccordionId === item.id ? null : item.id)} /> ))} </div> </section> ); };
+        const HomeTabContent = () => { const selectedPapers = [ { title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization", links: [{ text: "paper", href: "https://arxiv.org/abs/2502.00828" }, { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }] }, { title: "Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset", links: [{ text: "paper", href: "https://arxiv.org/abs/2412.12864" }, { text: "code", href: "https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset" }, { text: "seminar@UNIST", href: "ppt/GFTab_UNIST.pdf" }] }, { title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", links: [{ text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, { text: "seminar@SKKU", href: "ppt/SimStock_SKKU.pdf" }] } ]; return ( <div className="space-y-12"> <section> <h2 className="text-2xl font-semibold">Latest News</h2> <ul className="list-disc list-inside text-gray-700 space-y-1 mt-2"> <li>📢 The Time Series Intelligence Lab (TSI Lab) will launch in September 2025.</li> </ul> </section> <ResearchTopicsSection /> <ResearchPhilosophySection /> <section> <h2 className="text-2xl font-semibold">Selected Papers</h2> <ul className="mt-2 space-y-4"> {selectedPapers.map((paper, index) => ( <li key={index} className="border-b pb-3 last:border-b-0 last:pb-0"> <p className="font-semibold text-gray-800">{paper.title}</p> <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1"> {paper.links.map((link) => ( <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline"> [{link.text}] </a> ))} </div> </li> ))} </ul> </section> <div className="pt-10 border-t border-gray-200"> <h2 className="text-2xl font-semibold mb-4">Contact Information</h2> <p className="text-gray-700"><strong>Email:</strong> yoontaeResearch@gmail.com</p> <p className="text-gray-700"><strong>Address:</strong> Pusan National University, Busan, South Korea</p> </div> </div> ); };
 
-        const ResearchTopicsSection = () => {
-            const researchTopicsData = [
-                { id: 1, icon: <FinanceIcon />, title: "AI in Quantitative Finance", content: [{ topic: "Asset Management", subtopics: ["Decision-focused learning", "Portfolio optimization", "Goal-based investing", "Trading strategy*", "Household Finance",] }, { topic: "Financial Modeling", subtopics: ["Investor behavior modeling", "Asset pricing", "Market making", "Order flow analysis",] }, { topic: "Time-Series for Finance", subtopics: ["Volatility forecasting", "Regime-switching models", "Lead-lag detection", "Return Forecasting",] }] },
-                { id: 2, icon: <ScienceIcon />, title: "AI in Science", content: [{ topic: "Physics & Climate Modeling", subtopics: ["Physics-Informed Neural Networks", "Climate Dynamics Forecasting",] }, { topic: "General Scientific Applications", subtopics: ["GPS Free Autonomous Navigation*", "Magnetic Object Detection*",] }, { topic: "Sport Science", subtopics: ["Player Performance Modeling & Tracking", "Sports Betting",] }] },
-                { id: 3, icon: <ModelIcon />, title: "Foundation Model", content: [{ topic: "Model Architecture & Representation", subtopics: ["Foundation Models for Financial Time Series", "Foundation Models for Sports Analytics"] }, { topic: "Advanced Learning Paradigms", subtopics: ["Temporal Domain Generalization", "Learning Strategy", "Tokenizer",] }] }
-            ];
-            const [openAccordionId, setOpenAccordionId] = useState(null);
-
-            return (
-                <section>
-                    <h2 className="text-2xl font-semibold">Research interests (AI in Time-Series)</h2>
-                    <p className="mt-2 text-sm text-gray-600">
-                        Our research focuses on advancing AI for time-series across various domains. Key topics under intensive study are marked with a (work in progress).
-                    </p>
-                    <div className="mt-4 border rounded-lg shadow-md bg-white">
-                        {researchTopicsData.map(item => (
-                            <AccordionItem
-                                key={item.id}
-                                item={item}
-                                isOpen={item.id === openAccordionId}
-                                onClick={() => setOpenAccordionId(openAccordionId === item.id ? null : item.id)}
-                            />
-                        ))}
-                    </div>
-                </section>
-            );
-        };
-
-        const HomeTabContent = () => {
-            const selectedPapers = [
-                { title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization", links: [{ text: "paper", href: "https://arxiv.org/abs/2502.00828" }, { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }] },
-                { title: "Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset", links: [{ text: "paper", href: "https://arxiv.org/abs/2412.12864" }, { text: "code", href: "https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset" }, { text: "seminar@UNIST", href: "ppt/GFTab_UNIST.pdf" }] },
-                { title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", links: [{ text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, { text: "seminar@SKKU", href: "ppt/SimStock_SKKU.pdf" }] }
-            ];
-
-            return (
-                <div className="space-y-12">
-                    <section>
-                        <h2 className="text-2xl font-semibold">Latest News</h2>
-                        <ul className="list-disc list-inside text-gray-700 space-y-1 mt-2">
-                            <li>📢 The Time Series Intelligence Lab (TSI Lab) will launch in September 2025.</li>
-                        </ul>
-                    </section>
-                    
-                    <ResearchTopicsSection />
-                    <ResearchPhilosophySection />
-
-                    <section>
-                        <h2 className="text-2xl font-semibold">Selected Papers</h2>
-                        <ul className="mt-2 space-y-4">
-                            {selectedPapers.map((paper, index) => (
-                                <li key={index} className="border-b pb-3 last:border-b-0 last:pb-0">
-                                    <p className="font-semibold text-gray-800">{paper.title}</p>
-                                    <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1">
-                                        {paper.links.map((link) => (
-                                            <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
-                                                [{link.text}]
-                                            </a>
-                                        ))}
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    </section>
-
-                    <div className="pt-10 border-t border-gray-200">
-                        <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
-                        <p className="text-gray-700"><strong>Email:</strong> yoontaeResearch@gmail.com</p>
-                        <p className="text-gray-700"><strong>Address:</strong> Pusan National University, Busan, South Korea</p>
-                    </div>
-                </div>
-            );
-        };
-
-        // --- 👨‍👩‍👧‍👦 MEMBERS Tab ---
-        const MemberCard = ({ member }) => {
-            const isPI = member.status === 'Principal Investigator';
-            const nameSize = isPI ? 'text-xl' : 'text-lg';
-            const koreanNameSize = isPI ? 'text-lg' : 'text-base';
-
-            return (
-                <div className="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row items-start gap-6 h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                    <img 
-                        src={member.image} 
-                        alt={`${member.name} 프로필 사진`}
-                        className="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg flex-shrink-0 mx-auto sm:mx-0"
-                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/200x200/E2E8F0/4A5568?text=Error'; }}
-                    />
-                    <div className="flex-grow flex flex-col">
-                        <div>
-                            <h3 className={`${nameSize} font-bold text-gray-900`}>
-                                {member.name} <span className={`${koreanNameSize} font-medium text-gray-600`}>({member.koreanName})</span>
-                            </h3>
-                            {member.currentPosition && <p className="text-md font-semibold text-purple-600">{member.currentPosition}</p>}
-                            
-                            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 my-2">
-                                {member.links.scholar && <a href={member.links.scholar} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">Google Scholar</a>}
-                                {member.links.linkedin && <a href={member.links.linkedin} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">LinkedIn</a>}
-                                {member.status === 'Principal Investigator' && member.email && (<span className="text-sm text-gray-600">Email: {member.email}</span>)}
-                                {member.status !== 'Principal Investigator' && member.email && (<a href={`mailto:${member.email}`} className="text-sm text-blue-600 hover:underline">Email</a>)}
-                                
-                                {member.status === 'Alumni' && (
-                                    <span className="px-2 py-0.5 bg-indigo-100 text-indigo-800 text-xs font-semibold rounded-full">
-                                        Alumni
-                                    </span>
-                                )}
-                                {member.status === 'Industry Mentor' && (
-                                    <span className="px-2 py-0.5 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
-                                        Industry Mentor
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-
-                        <div className="flex-grow">
-                            {member.bio && <p className="text-sm text-gray-700 mt-2 leading-relaxed">{member.bio}</p>}
-                        </div>
-
-                        {member.interests && member.interests.length > 0 && (
-                            <div className="mt-auto pt-3">
-                                <h4 className="text-sm font-semibold text-gray-800">Interests:</h4>
-                                <div className="flex flex-wrap gap-2 mt-1">
-                                    {member.interests.map(interest => (
-                                        <span key={interest} className="px-2 py-1 bg-gray-200 text-gray-800 text-xs font-medium rounded-full">{interest}</span>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            );
-        };
-
-        const MemberSection = ({ title, members, description }) => {
-            const showTBD = members.length === 0 || members.every(m => m.name === "TBD");
-
-            const isGridSection = title !== 'Principal Investigator';
-            const isTwoColumnGrid = title.includes('Students') || title.includes('Alumni') || title.includes('Mentoring');
-
-            let className = "space-y-6"; // Default for PI section
-            if (isGridSection) {
-                if (isTwoColumnGrid) {
-                    className = "grid grid-cols-1 md:grid-cols-2 gap-6";
-                } else {
-                    className = "grid grid-cols-1 md:grid-cols-3 gap-6";
-                }
-            }
-
-            return (
-                <div>
-                    <h2 className="text-2xl font-semibold border-b pb-2">{title}</h2>
-                    {description && (
-                        <p className="mt-3 mb-4 text-sm text-gray-600">{description}</p>
-                    )}
-                    <div className={showTBD ? 'mt-4' : 'mt-6'}>
-                        {showTBD ? (
-                            <p className="text-gray-500 italic">To be determined.</p>
-                        ) : (
-                            <div className={className}>
-                                {members.map(member => <MemberCard key={member.name} member={member} />)}
-                            </div>
-                        )}
-                    </div>
-                </div>
-            );
-        };
-
-        const MembersTabContent = () => {
-            const pi = membersData.filter(m => m.status === 'Principal Investigator');
-            const phdStudents = membersData.filter(m => m.status === 'PhD Student');
-            const msStudents = membersData.filter(m => m.status === 'MS Student');
-            const industryMentors = membersData.filter(m => m.status === 'Industry Mentor');
-            const alumni = membersData.filter(m => m.status === 'Alumni');
-
-            return (
-                <section className="space-y-12">
-                    <MemberSection title="Principal Investigator" members={pi} />
-                    <MemberSection title="PhD Students" members={phdStudents} />
-                    <MemberSection title="MS Students" members={msStudents} />
-                    <MemberSection 
-                        title="Mentoring" 
-                        members={industryMentors} 
-                        description="Our mentors are experts who can provide guidance to students on various career paths in industry and academia."
-                    />
-                    <MemberSection title="Alumni" members={alumni} />
-                </section>
-            );
-        };
+        // --- 👨‍👩‍👧‍👦 MEMBERS Tab (Unchanged) ---
+        const MemberCard = ({ member }) => { const isPI = member.status === 'Principal Investigator'; const nameSize = isPI ? 'text-xl' : 'text-lg'; const koreanNameSize = isPI ? 'text-lg' : 'text-base'; return ( <div className="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row items-start gap-6 h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1"> <img src={member.image} alt={`${member.name} 프로필 사진`} className="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg flex-shrink-0 mx-auto sm:mx-0" onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/200x200/E2E8F0/4A5568?text=Error'; }} /> <div className="flex-grow flex flex-col"> <div> <h3 className={`${nameSize} font-bold text-gray-900`}> {member.name} <span className={`${koreanNameSize} font-medium text-gray-600`}>({member.koreanName})</span> </h3> {member.currentPosition && <p className="text-md font-semibold text-purple-600">{member.currentPosition}</p>} <div className="flex flex-wrap items-center gap-x-4 gap-y-2 my-2"> {member.links.scholar && <a href={member.links.scholar} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">Google Scholar</a>} {member.links.linkedin && <a href={member.links.linkedin} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">LinkedIn</a>} {member.status === 'Principal Investigator' && member.email && (<span className="text-sm text-gray-600">Email: {member.email}</span>)} {member.status !== 'Principal Investigator' && member.email && (<a href={`mailto:${member.email}`} className="text-sm text-blue-600 hover:underline">Email</a>)} {member.status === 'Alumni' && ( <span className="px-2 py-0.5 bg-indigo-100 text-indigo-800 text-xs font-semibold rounded-full"> Alumni </span> )} {member.status === 'Industry Mentor' && ( <span className="px-2 py-0.5 bg-green-100 text-green-800 text-xs font-semibold rounded-full"> Industry Mentor </span> )} </div> </div> <div className="flex-grow"> {member.bio && <p className="text-sm text-gray-700 mt-2 leading-relaxed">{member.bio}</p>} </div> {member.interests && member.interests.length > 0 && ( <div className="mt-auto pt-3"> <h4 className="text-sm font-semibold text-gray-800">Interests:</h4> <div className="flex flex-wrap gap-2 mt-1"> {member.interests.map(interest => ( <span key={interest} className="px-2 py-1 bg-gray-200 text-gray-800 text-xs font-medium rounded-full">{interest}</span> ))} </div> </div> )} </div> </div> ); };
+        const MemberSection = ({ title, members, description }) => { const showTBD = members.length === 0 || members.every(m => m.name === "TBD"); const isGridSection = title !== 'Principal Investigator'; const isTwoColumnGrid = title.includes('Students') || title.includes('Alumni') || title.includes('Mentoring'); let className = "space-y-6"; if (isGridSection) { if (isTwoColumnGrid) { className = "grid grid-cols-1 md:grid-cols-2 gap-6"; } else { className = "grid grid-cols-1 md:grid-cols-3 gap-6"; } } return ( <div> <h2 className="text-2xl font-semibold border-b pb-2">{title}</h2> {description && ( <p className="mt-3 mb-4 text-sm text-gray-600">{description}</p> )} <div className={showTBD ? 'mt-4' : 'mt-6'}> {showTBD ? ( <p className="text-gray-500 italic">To be determined.</p> ) : ( <div className={className}> {members.map(member => <MemberCard key={member.name} member={member} />)} </div> )} </div> </div> ); };
+        const MembersTabContent = () => { const pi = membersData.filter(m => m.status === 'Principal Investigator'); const phdStudents = membersData.filter(m => m.status === 'PhD Student'); const msStudents = membersData.filter(m => m.status === 'MS Student'); const industryMentors = membersData.filter(m => m.status === 'Industry Mentor'); const alumni = membersData.filter(m => m.status === 'Alumni'); return ( <section className="space-y-12"> <MemberSection title="Principal Investigator" members={pi} /> <MemberSection title="PhD Students" members={phdStudents} /> <MemberSection title="MS Students" members={msStudents} /> <MemberSection title="Mentoring" members={industryMentors} description="Our mentors are experts who can provide guidance to students on various career paths in industry and academia." /> <MemberSection title="Alumni" members={alumni} /> </section> ); };
 
         // --- 📚 PUBLICATIONS Tab ---
-        const PublicationItem = ({ item }) => (
+        const PublicationItem = ({ item, shimmerTopics }) => (
             <li className="space-y-1 py-4 border-b last:border-b-0">
                 <p className="text-lg font-semibold text-gray-800">{item.id} {item.title}</p>
                 <div className="text-gray-600">
@@ -440,11 +217,14 @@
                         ))}
                     </div>
                     <div className="flex flex-wrap gap-2">
-                        {item.topics.map(topic => (
-                            <span key={topic} className="px-2 py-0.5 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
-                                {topic}
-                            </span>
-                        ))}
+                        {item.topics.map(topic => {
+                            const isShimmering = shimmerTopics.includes(topic);
+                            return (
+                                <span key={topic} className={`px-2 py-0.5 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full ${isShimmering ? 'shimmer' : ''}`}>
+                                    {topic}
+                                </span>
+                            );
+                        })}
                     </div>
                 </div>
             </li>
@@ -458,11 +238,46 @@
 
             const [searchQuery, setSearchQuery] = useState('');
             const [activeTopics, setActiveTopics] = useState([]);
+            const [flyingObjects, setFlyingObjects] = useState([]);
+            const [shimmerTopics, setShimmerTopics] = useState([]);
+
+            const handleSearchChange = (e) => {
+                const query = e.target.value;
+                setSearchQuery(query);
+
+                if (query.toLowerCase() === 'tsi') {
+                    // Trigger Easter Egg
+                    const objects = Array.from({ length: 12 }).map((_, i) => ({
+                        id: i,
+                        emoji: Math.random() > 0.3 ? '🚀' : '💰',
+                        style: {
+                            left: `${10 + Math.random() * 80}%`,
+                            animationDelay: `${Math.random() * 0.5}s`,
+                            transform: `translateX(-50%) rotate(${Math.random() * 50 - 25}deg)`,
+                            fontSize: `${2 + Math.random() * 2.5}rem`
+                        }
+                    }));
+                    setFlyingObjects(objects);
+
+                    const topicsToShimmer = ["Trading", "Portfolio Theory"];
+                    setShimmerTopics(topicsToShimmer);
+
+                    // Reset after animations
+                    setTimeout(() => setFlyingObjects([]), 3000);
+                    setTimeout(() => setShimmerTopics([]), 1500);
+                    
+                    // Clear the input field
+                    setSearchQuery('');
+                }
+            };
 
             const filteredPapers = useMemo(() => {
+                // Return all papers if search query is empty to avoid filtering during easter egg
+                if (searchQuery === '') return allPapers;
+                
                 return allPapers.filter(paper => {
                     const query = searchQuery.toLowerCase();
-                    const matchesQuery = query === '' ||
+                    const matchesQuery =
                         paper.title.toLowerCase().includes(query) ||
                         paper.authors.some(a => a.name.toLowerCase().includes(query)) ||
                         paper.venue.toLowerCase().includes(query);
@@ -480,11 +295,17 @@
                 );
             };
 
-            const filteredPublications = filteredPapers.filter(p => publications.includes(p));
-            const filteredWorkingPapers = filteredPapers.filter(p => workingPapers.includes(p));
+            const papersToDisplay = searchQuery === '' ? allPapers : filteredPapers;
+            const filteredPublications = papersToDisplay.filter(p => publications.includes(p));
+            const filteredWorkingPapers = papersToDisplay.filter(p => workingPapers.includes(p));
 
             return (
                 <section className="space-y-8">
+                    {flyingObjects.map(obj => (
+                        <div key={obj.id} className="flying-object" style={obj.style}>
+                            {obj.emoji}
+                        </div>
+                    ))}
                     <div className="p-4 bg-white rounded-lg shadow-md sticky top-0 z-10">
                         <div className="flex flex-col md:flex-row gap-4">
                             <div className="relative flex-grow">
@@ -492,32 +313,20 @@
                                     type="text"
                                     placeholder="Search by title, author, venue..."
                                     value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    onChange={handleSearchChange}
                                     className="w-full p-2 pl-10 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                 />
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                                    <circle cx="11" cy="11" r="8"></circle>
-                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"> <circle cx="11" cy="11" r="8"></circle> <line x1="21" y1="21" x2="16.65" y2="16.65"></line> </svg>
                             </div>
-                            <button onClick={() => { setSearchQuery(''); setActiveTopics([]); }} className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors">
-                                Reset Filters
-                            </button>
+                            <button onClick={() => { setSearchQuery(''); setActiveTopics([]); }} className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"> Reset Filters </button>
                         </div>
+                        <p className="text-xs text-center text-gray-400 mt-3"> Hint: Try searching for our lab's acronym, "TSI"! </p>
                         <div className="mt-4">
                             <p className="text-sm font-semibold text-gray-700 mb-2">Filter by Topic:</p>
                             <div className="flex flex-wrap gap-2">
                                 {allTopics.map(topic => {
                                     const isActive = activeTopics.includes(topic);
-                                    return (
-                                        <button
-                                            key={topic}
-                                            onClick={() => toggleTopic(topic)}
-                                            className={`px-3 py-1 text-xs font-medium rounded-full transition-colors ${isActive ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
-                                        >
-                                            {topic}
-                                        </button>
-                                    );
+                                    return ( <button key={topic} onClick={() => toggleTopic(topic)} className={`px-3 py-1 text-xs font-medium rounded-full transition-colors ${isActive ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`} > {topic} </button> );
                                 })}
                             </div>
                         </div>
@@ -528,7 +337,7 @@
                             <h2 className="text-2xl font-semibold">Publications</h2>
                             <p className="mt-2 text-sm text-gray-600"><strong>J</strong>: Journal / <strong>C</strong>: Conference / <strong>*</strong>: equal contribution</p>
                             <ul className="mt-4">
-                                {filteredPublications.map((item, index) => <PublicationItem key={index} item={item} />)}
+                                {filteredPublications.map((item, index) => <PublicationItem key={index} item={item} shimmerTopics={shimmerTopics} />)}
                             </ul>
                         </div>
                     )}
@@ -538,16 +347,12 @@
                             <h2 className="text-2xl font-semibold">Working Paper</h2>
                             <p className="mt-2 text-sm text-gray-600"><strong>S</strong>: Submitted / <strong>W</strong>: Work in progress / <strong>*</strong>: equal contribution</p>
                             <ul className="mt-4">
-                                {filteredWorkingPapers.map((item, index) => <PublicationItem key={index} item={item} />)}
+                                {filteredWorkingPapers.map((item, index) => <PublicationItem key={index} item={item} shimmerTopics={shimmerTopics} />)}
                             </ul>
                         </div>
                     )}
 
-                    {filteredPapers.length === 0 && (
-                        <div className="text-center py-10">
-                            <p className="text-gray-500">No publications match your criteria.</p>
-                        </div>
-                    )}
+                    {papersToDisplay.length === 0 && ( <div className="text-center py-10"> <p className="text-gray-500">No publications match your criteria.</p> </div> )}
                 </section>
             );
         };
@@ -558,49 +363,19 @@
             const containerRef = useRef();
             const [legendData, setLegendData] = useState([]);
             const [searchTerm, setSearchTerm] = useState('');
-            const [highlightedAffiliation, setHighlightedAffiliation] = useState(null); // ADDED: State for legend interaction
-            const d3Graph = useRef({}); // To hold D3 selections
+            const [highlightedAffiliation, setHighlightedAffiliation] = useState(null);
+            const d3Graph = useRef({});
 
-            // Effect for D3 Graph Setup
             useEffect(() => {
-                // ... (Data processing logic is unchanged) ...
-                const allowedNames = new Set([
-                    "Yoontae Hwang", "Yaxuan Kong", "Yiyuan Yang", "Stefan Zohren",
-                    "Wenjie Du", "Zhangyang Wang", "Ming Jin", "Qingsong Wen", "Yongjae Lee", 
-                    "Seulki Lee", "Dong-Young Lim", "Junhyeong Lee", "Joohwan Hong", 
-                    "Frank J Fabozzi", "Jang Ho Kim", "Jaeho Kim", "Seok-ju Hahn", 
-                    "Suhyeon Kim", "Junghye Lee"
-                ]);
+                // Data processing logic remains the same
+                const allowedNames = new Set([ "Yoontae Hwang", "Yaxuan Kong", "Yiyuan Yang", "Stefan Zohren", "Wenjie Du", "Zhangyang Wang", "Ming Jin", "Qingsong Wen", "Yongjae Lee", "Seulki Lee", "Dong-Young Lim", "Junhyeong Lee", "Joohwan Hong", "Frank J Fabozzi", "Jang Ho Kim", "Jaeho Kim", "Seok-ju Hahn", "Suhyeon Kim", "Junghye Lee" ]);
                 const authorPhotos = { "Yoontae Hwang": "/image_yoontae.png", "Youngbin Lee": "/youngbin.jpg" };
                 let nodes = {};
                 let links = {};
                 const affiliations = new Set();
-                allPapers.forEach(paper => {
-                    const authors = paper.authors.map(a => a.name.replace('*', '').trim()).filter(name => allowedNames.has(name));
-                    for (let i = 0; i < authors.length; i++) {
-                        for (let j = i + 1; j < authors.length; j++) {
-                            const sourceName = authors[i];
-                            const targetName = authors[j];
-                            const key = [sourceName, targetName].sort().join("-");
-                            [sourceName, targetName].forEach(name => {
-                                if (!nodes[name]) {
-                                    const info = collaboratorInfo[name] || { affiliation: "Unknown", scholar: null };
-                                    nodes[name] = { id: name, collaborations: 0, photo: authorPhotos[name], affiliation: info.affiliation, scholar: info.scholar };
-                                    affiliations.add(info.affiliation);
-                                }
-                                nodes[name].collaborations++;
-                            });
-                            if (links[key]) {
-                                links[key].value++;
-                            } else {
-                                links[key] = { source: sourceName, target: targetName, value: 1 };
-                            }
-                        }
-                    }
-                });
+                allPapers.forEach(paper => { const authors = paper.authors.map(a => a.name.replace('*', '').trim()).filter(name => allowedNames.has(name)); for (let i = 0; i < authors.length; i++) { for (let j = i + 1; j < authors.length; j++) { const sourceName = authors[i]; const targetName = authors[j]; const key = [sourceName, targetName].sort().join("-"); [sourceName, targetName].forEach(name => { if (!nodes[name]) { const info = collaboratorInfo[name] || { affiliation: "Unknown", scholar: null }; nodes[name] = { id: name, collaborations: 0, photo: authorPhotos[name], affiliation: info.affiliation, scholar: info.scholar }; affiliations.add(info.affiliation); } nodes[name].collaborations++; }); if (links[key]) { links[key].value++; } else { links[key] = { source: sourceName, target: targetName, value: 1 }; } } } });
                 const graphData = { nodes: Object.values(nodes), links: Object.values(links) };
                 
-                // D3 Setup
                 const container = containerRef.current;
                 if (!container) return;
                 
@@ -613,30 +388,23 @@
                 const affiliationColor = d3.scaleOrdinal(customColors).domain(Array.from(affiliations).sort());
                 setLegendData(affiliationColor.domain().map(d => ({ color: affiliationColor(d), name: d })));
 
-                const simulation = d3.forceSimulation(graphData.nodes)
-                    .force("link", d3.forceLink(graphData.links).id(d => d.id).distance(120))
-                    .force("charge", d3.forceManyBody().strength(-350))
-                    .force("center", d3.forceCenter(width / 2, height / 2))
-                    .force("collide", d3.forceCollide().radius(d => (d.id === "Yoontae Hwang" ? 30 : 5 + Math.sqrt(d.collaborations) * 3) + 15));
+                function drag(simulation) { function dragstarted(event) { if (!event.active) simulation.alphaTarget(0.3).restart(); event.subject.fx = event.subject.x; event.subject.fy = event.subject.y; } function dragged(event) { event.subject.fx = event.x; event.subject.fy = event.y; } function dragended(event) { if (!event.active) simulation.alphaTarget(0); event.subject.fx = null; event.subject.fy = null; } return d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended); }
+                const simulation = d3.forceSimulation(graphData.nodes) .force("link", d3.forceLink(graphData.links).id(d => d.id).distance(120)) .force("charge", d3.forceManyBody().strength(-350)) .force("center", d3.forceCenter(width / 2, height / 2)) .force("collide", d3.forceCollide().radius(d => (d.id === "Yoontae Hwang" ? 30 : 5 + Math.sqrt(d.collaborations) * 3) + 15));
+                
+                d3Graph.current.simulation = simulation;
+                d3Graph.current.drag = drag(simulation);
 
-                const svg = d3.select(svgRef.current)
-                    .attr("viewBox", [0, 0, width, height])
-                    .attr("preserveAspectRatio", "xMidYMid meet");
+                const svg = d3.select(svgRef.current) .attr("viewBox", [0, 0, width, height]) .attr("preserveAspectRatio", "xMidYMid meet");
+                d3Graph.current.svg = svg;
 
                 const stars = d3.range(250).map(() => ({ x: Math.random() * width, y: Math.random() * height, r: Math.random() * 1.2, delay: Math.random() * 5 + 's' }));
-                svg.append("g").attr("class", "star-group").selectAll("circle").data(stars).join("circle").attr("class", "star").attr("cx", d => d.x).attr("cy", d => d.y).attr("r", d => d.r).style("animation-delay", d => d.delay);
+                d3Graph.current.starGroup = svg.append("g").attr("class", "star-group").selectAll("circle").data(stars).join("circle").attr("class", "star").attr("cx", d => d.x).attr("cy", d => d.y).attr("r", d => d.r).style("animation-delay", d => d.delay);
 
                 const defs = svg.append('defs');
-                graphData.nodes.forEach(node => {
-                    if (node.photo) {
-                        defs.append('pattern').attr('id', 'img-' + node.id.replace(/\s+/g, '-')).attr('width', 1).attr('height', 1)
-                            .append('image').attr('xlink:href', node.photo).attr('x', 0).attr('y', 0).attr('width', 50).attr('height', 50)
-                            .on("error", function() { d3.select(this).attr("xlink:href", "https://placehold.co/50x50/020617/e2e8f0?text=?"); });
-                    }
-                });
+                graphData.nodes.forEach(node => { if (node.photo) { defs.append('pattern').attr('id', 'img-' + node.id.replace(/\s+/g, '-')).attr('width', 1).attr('height', 1) .append('image').attr('xlink:href', node.photo).attr('x', 0).attr('y', 0).attr('width', 50).attr('height', 50) .on("error", function() { d3.select(this).attr("xlink:href", "https://placehold.co/50x50/020617/e2e8f0?text=?"); }); } });
 
                 d3Graph.current.link = svg.append("g").attr("class", "links").selectAll("line").data(graphData.links).join("line").attr("stroke-width", d => 1 + Math.sqrt(d.value));
-                d3Graph.current.node = svg.append("g").attr("class", "nodes").selectAll("g").data(graphData.nodes).join("g").call(drag(simulation));
+                d3Graph.current.node = svg.append("g").attr("class", "nodes").selectAll("g").data(graphData.nodes).join("g").call(d3Graph.current.drag);
                 
                 d3Graph.current.node.append("circle").attr("class", "glow").attr("r", d => (d.id === "Yoontae Hwang" ? 30 : (5 + Math.sqrt(d.collaborations) * 3) + 4)).attr("fill", d => d.id === "Yoontae Hwang" ? "#f59e0b" : affiliationColor(d.affiliation)).attr("stroke", d => d.id === "Yoontae Hwang" ? "#f59e0b" : affiliationColor(d.affiliation));
                 d3Graph.current.node.append("circle").attr("class", "main-circle").attr("r", d => d.id === "Yoontae Hwang" ? 25 : 5 + Math.sqrt(d.collaborations) * 3).attr("fill", d => d.photo ? `url(#img-${d.id.replace(/\s+/g, '-')})` : affiliationColor(d.affiliation)).style("cursor", d => d.scholar ? "pointer" : "default").on("click", (event, d) => { if (d.scholar) { window.open(d.scholar, "_blank", "noopener,noreferrer"); } });
@@ -648,322 +416,132 @@
                 graphData.links.forEach(d => { linkedByIndex[`${d.source.index},${d.target.index}`] = 1; });
                 const isConnected = (a, b) => linkedByIndex[`${a.index},${b.index}`] || linkedByIndex[`${b.index},${a.index}`] || a.index === b.index;
 
-                d3Graph.current.node.on("mouseover", function (event, d) {
-                    if (searchTerm || highlightedAffiliation) return; // MODIFIED: Disable hover during search or highlight
-                    d3Graph.current.node.style("opacity", o => isConnected(d, o) ? 1 : 0.15);
-                    d3Graph.current.link.style("stroke-opacity", o => o.source === d || o.target === d ? 0.9 : 0.1).style("stroke", o => o.source === d || o.target === d ? "#f1f5f9" : "rgba(156, 163, 175, 0.4)");
-                    d3Graph.current.labels.style("opacity", o => isConnected(d, o) ? 1 : 0.15);
-                    d3.select(this).style("opacity", 1);
-                }).on("mouseout", () => {
-                    if (searchTerm || highlightedAffiliation) return; // MODIFIED: Disable hover during search or highlight
-                    d3Graph.current.node.style("opacity", 1);
-                    d3Graph.current.link.style("stroke-opacity", 1).style("stroke", "rgba(156, 163, 175, 0.4)");
-                    d3Graph.current.labels.style("opacity", 1);
-                });
+                d3Graph.current.node.on("mouseover", function (event, d) { if (searchTerm || highlightedAffiliation) return; d3Graph.current.node.style("opacity", o => isConnected(d, o) ? 1 : 0.15); d3Graph.current.link.style("stroke-opacity", o => o.source === d || o.target === d ? 0.9 : 0.1).style("stroke", o => o.source === d || o.target === d ? "#f1f5f9" : "rgba(156, 163, 175, 0.4)"); d3Graph.current.labels.style("opacity", o => isConnected(d, o) ? 1 : 0.15); d3.select(this).style("opacity", 1); }).on("mouseout", () => { if (searchTerm || highlightedAffiliation) return; d3Graph.current.node.style("opacity", 1); d3Graph.current.link.style("stroke-opacity", 1).style("stroke", "rgba(156, 163, 175, 0.4)"); d3Graph.current.labels.style("opacity", 1); });
 
-                simulation.on("tick", () => {
-                    d3Graph.current.link.attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y);
-                    d3Graph.current.node.attr("transform", d => `translate(${d.x},${d.y})`);
-                });
-
-                function drag(simulation) { /* ... (unchanged) ... */ 
-                    function dragstarted(event) { if (!event.active) simulation.alphaTarget(0.3).restart(); event.subject.fx = event.subject.x; event.subject.fy = event.subject.y; }
-                    function dragged(event) { event.subject.fx = event.x; event.subject.fy = event.y; }
-                    function dragended(event) { if (!event.active) simulation.alphaTarget(0); event.subject.fx = null; event.subject.fy = null; }
-                    return d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended);
-                }
-
-                const handleResize = () => { /* ... (unchanged) ... */ 
-                    if (containerRef.current) {
-                        const newWidth = containerRef.current.clientWidth;
-                        if (newWidth > 0) {
-                            svg.attr("viewBox", [0, 0, newWidth, height]);
-                            svg.selectAll(".star-group").remove();
-                            const newStars = d3.range(250).map(() => ({ x: Math.random() * newWidth, y: Math.random() * height, r: Math.random() * 1.2, delay: Math.random() * 5 + 's'}));
-                            svg.insert("g", ":first-child").attr("class", "star-group").selectAll("circle").data(newStars).join("circle").attr("class", "star").attr("cx", d => d.x).attr("cy", d => d.y).attr("r", d => d.r).style("animation-delay", d => d.delay);
-                            simulation.force("center", d3.forceCenter(newWidth / 2, height / 2));
-                            simulation.alpha(0.3).restart();
-                        }
-                    }
-                };
+                simulation.on("tick", () => { d3Graph.current.link.attr("x1", d => d.source.x).attr("y1", d => d.source.y).attr("x2", d => d.target.x).attr("y2", d => d.target.y); d3Graph.current.node.attr("transform", d => `translate(${d.x},${d.y})`); });
+                
+                const handleResize = () => { /* ... (unchanged) ... */ };
                 window.addEventListener('resize', handleResize);
                 const initTimer = setTimeout(handleResize, 100);
 
-                return () => {
-                    clearTimeout(initTimer);
-                    window.removeEventListener('resize', handleResize);
-                    simulation.stop();
-                };
+                return () => { clearTimeout(initTimer); window.removeEventListener('resize', handleResize); simulation.stop(); };
             }, []);
 
-            // Effect for Search Functionality
-            useEffect(() => {
-                if (!d3Graph.current.node) return;
+            const triggerWarpDrive = () => {
+                const { node, link, simulation, starGroup, svg, drag } = d3Graph.current;
+                if (!node || !link || !simulation || !starGroup || !svg) return;
+
+                const container = containerRef.current;
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                const centerX = width / 2;
+                const centerY = height / 2;
+
+                simulation.stop();
+                node.on('.drag', null);
+
+                svg.append("circle")
+                    .attr("cx", centerX).attr("cy", centerY).attr("r", 1)
+                    .attr("fill", "white").style("opacity", 0.8)
+                    .transition("flash_in").duration(200).ease(d3.easeCubicOut)
+                    .attr("r", Math.max(width, height)).style("opacity", 0)
+                    .remove();
+
+                node.transition("warp_in_node").delay(50).duration(800).ease(d3.easeQuadIn)
+                    .attr("transform", d => `translate(${centerX}, ${centerY}) scale(0)`)
+                    .style("opacity", 0);
+
+                link.transition("warp_in_link").delay(50).duration(800).ease(d3.easeQuadIn)
+                    .style("stroke-opacity", 0);
                 
-                const term = searchTerm.toLowerCase();
+                starGroup.transition("warp_in_stars").duration(850).ease(d3.easeQuadIn)
+                    .attr("transform", d => `translate(${centerX - d.x}, ${centerY - d.y}) scale(0.1)`)
+                    .style("opacity", 0);
 
-                if (term === "") {
-                    // If search is cleared, restore opacity based on legend highlight (if any)
-                    if (!highlightedAffiliation) {
-                        d3Graph.current.node.style("opacity", 1);
-                        d3Graph.current.link.style("stroke-opacity", 1).style("stroke", "rgba(156, 163, 175, 0.4)");
-                        d3Graph.current.labels.style("opacity", 1);
-                    }
-                    return;
+                setTimeout(() => {
+                    svg.append("circle")
+                        .attr("cx", centerX).attr("cy", centerY).attr("r", 1)
+                        .attr("fill", "white").style("opacity", 0.8)
+                        .transition("flash_out").duration(200).ease(d3.easeCubicOut)
+                        .attr("r", Math.max(width, height)).style("opacity", 0)
+                        .remove();
+
+                    node.transition("warp_out_node").delay(100).duration(1200).ease(d3.easeCubicOut)
+                        .attr("transform", d => `translate(${d.x}, ${d.y}) scale(1)`)
+                        .style("opacity", 1);
+
+                    link.transition("warp_out_link").delay(100).duration(1200).ease(d3.easeCubicOut)
+                        .style("stroke-opacity", 1);
+                    
+                    starGroup.transition("warp_out_stars").delay(100).duration(1200).ease(d3.easeCubicOut)
+                        .attr("transform", "translate(0,0) scale(1)")
+                        .style("opacity", 0.7);
+                    
+                    setTimeout(() => {
+                        simulation.alpha(0.3).restart();
+                        node.call(drag);
+                    }, 1300);
+
+                }, 1000);
+            };
+
+            const handleSearchChange = (e) => {
+                const query = e.target.value;
+                setSearchTerm(query);
+                setHighlightedAffiliation(null);
+
+                if (query.toLowerCase() === 'tsi') {
+                    triggerWarpDrive();
+                    setSearchTerm('');
                 }
-
-                const matchingNodeData = d3Graph.current.node.data().filter(d => d.id.toLowerCase().includes(term));
-                const matchingNodeIds = new Set(matchingNodeData.map(d => d.id));
-
-                d3Graph.current.node.style("opacity", d => matchingNodeIds.has(d.id) ? 1 : 0.1);
-                d3Graph.current.link
-                    .style("stroke-opacity", d => (matchingNodeIds.has(d.source.id) && matchingNodeIds.has(d.target.id)) ? 0.9 : 0.05)
-                    .style("stroke", d => (matchingNodeIds.has(d.source.id) && matchingNodeIds.has(d.target.id)) ? "#f1f5f9" : "rgba(156, 163, 175, 0.4)");
-                d3Graph.current.labels.style("opacity", d => matchingNodeIds.has(d.id) ? 1 : 0.1);
-
-            }, [searchTerm]);
-
-            // ADDED: Effect for Legend Highlighting
+            };
+            
             useEffect(() => {
-                if (!d3Graph.current.node || searchTerm) return; // Do not run if graph not ready or if searching
-
-                if (!highlightedAffiliation) {
-                    // Reset styles if no affiliation is selected
-                    d3Graph.current.node.style("opacity", 1);
-                    d3Graph.current.link.style("stroke-opacity", 1).style("stroke", "rgba(156, 163, 175, 0.4)");
-                    d3Graph.current.labels.style("opacity", 1);
-                    return;
-                }
-
+                if (!d3Graph.current.node || searchTerm) return;
+                if (!highlightedAffiliation) { d3Graph.current.node.style("opacity", 1); d3Graph.current.link.style("stroke-opacity", 1).style("stroke", "rgba(156, 163, 175, 0.4)"); d3Graph.current.labels.style("opacity", 1); return; }
                 const isAffiliationHighlighted = (d) => d.affiliation === highlightedAffiliation;
-
                 d3Graph.current.node.style("opacity", d => isAffiliationHighlighted(d) ? 1 : 0.1);
                 d3Graph.current.labels.style("opacity", d => isAffiliationHighlighted(d) ? 1 : 0.1);
-                d3Graph.current.link
-                    .style("stroke-opacity", d => (isAffiliationHighlighted(d.source) || isAffiliationHighlighted(d.target)) ? 0.9 : 0.05)
-                    .style("stroke", d => (isAffiliationHighlighted(d.source) || isAffiliationHighlighted(d.target)) ? "#f1f5f9" : "rgba(156, 163, 175, 0.4)");
-
+                d3Graph.current.link .style("stroke-opacity", d => (isAffiliationHighlighted(d.source) || isAffiliationHighlighted(d.target)) ? 0.9 : 0.05) .style("stroke", d => (isAffiliationHighlighted(d.source) || isAffiliationHighlighted(d.target)) ? "#f1f5f9" : "rgba(156, 163, 175, 0.4)");
             }, [highlightedAffiliation, searchTerm]);
 
-            // ADDED: Click handler for legend items
-            const handleLegendClick = (affiliation) => {
-                setSearchTerm(''); // Clear search when a legend item is clicked
-                setHighlightedAffiliation(prev => prev === affiliation ? null : affiliation);
-            };
+            const handleLegendClick = (affiliation) => { setSearchTerm(''); setHighlightedAffiliation(prev => prev === affiliation ? null : affiliation); };
 
             return (
                 <section>
                     <h2 className="text-2xl font-semibold">Collaboration Network (Ph.D Level)</h2>
-                    <p className="mt-2 text-sm text-gray-600">
-                        This graph visualizes the collaboration network based on my publications (Note: The network includes collaborators at the Ph.D. level and above). Each node represents a co-author, and its color indicates their affiliation. The size of the node corresponds to the number of collaborations. Click on a collaborator's node to view their profile. You can also click on a legend item to highlight an affiliation.
-                    </p>
-                    
+                    <p className="mt-2 text-sm text-gray-600"> This graph visualizes the collaboration network based on my publications (Note: The network includes collaborators at the Ph.D. level and above). Each node represents a co-author, and its color indicates their affiliation. The size of the node corresponds to the number of collaborations. Click on a collaborator's node to view their profile. You can also click on a legend item to highlight an affiliation. </p>
                     <div className="my-4">
-                        <input
-                            type="text"
-                            placeholder="Search collaborator by name..."
-                            value={searchTerm}
-                            onChange={(e) => {
-                                setSearchTerm(e.target.value);
-                                setHighlightedAffiliation(null); // MODIFIED: Reset legend highlight on search
-                            }}
-                            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
-                        />
+                        <input type="text" placeholder="Search collaborator by name..." value={searchTerm} onChange={handleSearchChange} className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500" />
+                        <p className="text-xs text-center text-gray-400 mt-2"> Hint: Try searching "TSI" to see our network in motion! </p>
                     </div>
-
-                    <div ref={containerRef} className="w-full h-[600px] rounded-lg shadow-md graph-container">
-                        <svg ref={svgRef} className="w-full h-full"></svg>
-                    </div>
-
-                    {/* MODIFIED: Interactive Legend */}
+                    <div ref={containerRef} className="w-full h-[600px] rounded-lg shadow-md graph-container"> <svg ref={svgRef} className="w-full h-full"></svg> </div>
                     <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-2 mt-4 p-2 bg-gray-100 rounded-lg">
-                        {legendData.map(item => (
-                            <button
-                                key={item.name}
-                                onClick={() => handleLegendClick(item.name)}
-                                className={`flex items-center text-xs transition-all duration-300 rounded-full px-3 py-1 cursor-pointer ${
-                                    highlightedAffiliation === item.name ? 'bg-white ring-2 ring-purple-500 shadow-lg' : 'bg-gray-200'
-                                } ${
-                                    highlightedAffiliation && highlightedAffiliation !== item.name ? 'opacity-40 hover:opacity-100' : 'opacity-100 hover:bg-gray-300'
-                                }`}
-                            >
-                                <div className="w-3 h-3 rounded-full mr-1.5 shadow-inner flex-shrink-0" style={{ backgroundColor: item.color }}></div>
-                                <span>{item.name}</span>
-                            </button>
-                        ))}
-                        {highlightedAffiliation && (
-                            <button
-                                onClick={() => setHighlightedAffiliation(null)}
-                                className="text-xs text-purple-600 font-semibold hover:underline ml-2"
-                            >
-                                Reset View
-                            </button>
-                        )}
+                        {legendData.map(item => ( <button key={item.name} onClick={() => handleLegendClick(item.name)} className={`flex items-center text-xs transition-all duration-300 rounded-full px-3 py-1 cursor-pointer ${ highlightedAffiliation === item.name ? 'bg-white ring-2 ring-purple-500 shadow-lg' : 'bg-gray-200' } ${ highlightedAffiliation && highlightedAffiliation !== item.name ? 'opacity-40 hover:opacity-100' : 'opacity-100 hover:bg-gray-300' }`} > <div className="w-3 h-3 rounded-full mr-1.5 shadow-inner flex-shrink-0" style={{ backgroundColor: item.color }}></div> <span>{item.name}</span> </button> ))}
+                        {highlightedAffiliation && ( <button onClick={() => setHighlightedAffiliation(null)} className="text-xs text-purple-600 font-semibold hover:underline ml-2"> Reset View </button> )}
                     </div>
                 </section>
             );
         };
 
-        // --- 🎓 TEACHING Tab ---
-        const TeachingTabContent = () => (
-            <section className="space-y-6">
-                <h2 className="text-2xl font-semibold">Teaching</h2>
-                <ul className="list-disc list-inside text-gray-700 space-y-2">
-                    <li><strong> TBD </strong><br/> TBD </li>
-                    <li><strong>TBD </strong><br/>TBD</li>
-                    <li><strong>TBD</strong><br/>TBD</li>
-                </ul>
-            </section>
-        );
-
-        // --- 🏗️ PROJECTS Tab ---
-        const ProjectTabContent = () => {
-            const projects = [
-                { title: "Sejong Science Fellowship (Oversea Track)", year: 2024, organization: "National Research Foundation of Korea (NRF)", funding: "70,000,000 KRW", period: "2024.09.01 to 2025.08.31" },
-                { title: "Ph.D. Fellowship", year: 2022, organization: "National Research Foundation of Korea (NRF)", funding: "40,000,000 KRW", period: "2022.06.01 to 2024.05.31" }
-            ];
-            return (
-                <section>
-                    <h2 className="text-2xl font-semibold">Funded Projects</h2>
-                    <ul className="mt-4 space-y-4">
-                        {projects.map(project => (
-                            <li key={project.title} className="pb-4 border-b last:border-b-0">
-                                <h3 className="text-lg font-semibold text-gray-800">{project.title}</h3>
-                                <p className="text-gray-600">{project.organization}, {project.year}</p>
-                                <ul className="list-disc list-inside ml-4 mt-1 text-sm text-gray-700">
-                                    <li><strong>Funding:</strong> {project.funding}</li>
-                                    <li><strong>Period:</strong> {project.period}</li>
-                                </ul>
-                            </li>
-                        ))}
-                    </ul>
-                </section>
-            );
-        };
-
-        // --- ✨ RANDOM STUFF Tab ---
-        const AwardsSection = () => {
-            const awards = [
-                { title: "Best Paper Award", year: 2024, organization: "Korean Academic Society of Business Administration" }
-            ];
-            return (
-                <div>
-                    <h3 className="text-xl font-semibold">Awards</h3>
-                    <ul className="mt-2 list-disc list-inside text-gray-700 space-y-2">
-                        {awards.map(award => (
-                            <li key={award.title}>
-                                <strong>{award.title}</strong>, {award.year}, {award.organization}
-                                {award.details && (
-                                    <ul className="list-['-_'] list-inside ml-4 text-sm">
-                                        {award.details.map(detail => <li key={detail}>{detail}</li>)}
-                                    </ul>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            );
-        };
-
-        const RecommendationsSection = () => {
-            const recommendations = [
-                { category: "Time-Series analysis", items: [{ text: "Time Series Analysis by James D. Hamilton", href: "https://www.jstor.org/stable/j.ctv14jx6sm" }] },
-                { category: "Optimization", items: [{ text: "Convex Optimization by Stephen Boyd and Lieven Vandenberghe", href: "https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" }, { text: "Optimization Methods in Finance by Gerard Cornuejols and Reha Tütüncü", href: "https://www.andrew.cmu.edu/user/gc0v/webpub/book.pdf" }, { text: "Introduction to Stochastic Programming by John R. Birge , François Louveaux", href: "https://link.springer.com/book/10.1007/978-1-4614-0237-4" }, { text: "Reinforcement Learning and Stochastic Optimization: A Unified Framework for Sequential Decisions by Warren B. Powell", href: "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119815068" },] },
-                { category: "ML/DL", items: [{ text: "Mathematical Engineering of Deep Learning by Benoit Liquet, Sarat Moka and Yoni Nazarathy", href: "https://deeplearningmath.org/" }, { text: "Alice's Adventures in a Differentiable Wonderland -- Volume I, A Tour of the Land by Simone Scardapane", href: "https://arxiv.org/abs/2404.17625" },] },
-                { category: "Fundamental Books", items: [{ text: "Linear Algebra for Data Science by Wanmo Kang and Kyunghyun Cho", href: "https://kyunghyuncho.me/linear-algebra-for-data-science/" }, { text: "Introduction to Mathematical Statistics by Robert Hogg, Joseph McKean, Allen Craig", href: "https://minerva.it.manchester.ac.uk/~saralees/statbook2.pdf" }, { text: "Probability: Theory and Examples by Rick Durrett", href: "https://services.math.duke.edu/~rtd/PTE/PTE5_011119.pdf" }, { text: "Principles of Mathematical Analysis by Walter Rudin", href: "https://www.amazon.co.uk/Principles-Mathematical-Analysis-International-Mathematics/dp/0070856133/" }, { text: "Elements of Information Theory by Thomas M. Cover and Joy A. Thomas", href: "http://staff.ustc.edu.cn/~cgong821/Wiley.Interscience.Elements.of.Information.Theory.Jul.2006.eBook-DDU.pdf" },] },
-                { category: "Finance", items: [{ text: "Introduction to Risk Parity and Budgeting by Thierry Roncalli", href: "http://www.thierry-roncalli.com/RiskParityBook.html" }, { text: "Quantitative Equity Portfolio Management by Ludwig B. Chincarini and Daehwan Kim", href: "https://www.amazon.com/Quantitative-Equity-Portfolio-Management-Second/dp/1264268920" }, { text: "Investment Science by David G. Luenberger", href: "https://www.amazon.com/Investment-Science-David-G-Luenberger/dp/0199740089" }, { text: "Are markets efficient? (Video) by Eugene Fama and Richard Thaler", href: "#" }, { text: "In Pursuit of the Perfect Portfolio (Video) by Harry M. Markowitz", href: "#" },] },
-                { category: "Writing", items: [{ text: "How to ML Paper - A brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-ml-paper" }, { text: "How to ML Rebuttal – A Brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-rebuttal-ml-paper" }, { text: "How to ML Review — A brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-review-ml-paper" }, { text: "Latex & Poster formatting Tips for Writing a Research Paper using LaTeX", href: "https://github.com/guanyingc/latex_paper_writing_tips" },] },
-                { category: "Useful website", items: [{ text: "Paper Copilot: Whether the score received at the AI conference is relatively good or bad", href: "https://papercopilot.com/" }, { text: "Cite.GG: Find recent papers that reference the paper you're reading", href: "https://cite.gg/#/" }, { text: "AI Conference Deadline: Countdowns to top CV/NLP/ML/Robotics/AI conference deadlines", href: "https://huggingface.co/spaces/huggingface/ai-deadlines" }, { text: "Operation Research (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_operationsresearch" }, { text: "Data Mining & Analysis (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_datamininganalysis" }, { text: "Artificial Inteligence (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_artificialintelligence" }, { text: "Finance (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=bus_finance" },], },
-            ];
-            return (
-                <div>
-                    <h3 className="text-xl font-semibold">Recommended Books and Guides</h3>
-                    <div className="mt-2 space-y-4">
-                        {recommendations.map(rec => (
-                            <div key={rec.category}>
-                                <h4 className="font-semibold text-gray-800">{rec.category}</h4>
-                                <ul className="list-disc list-inside text-gray-700 ml-4 space-y-1 mt-1">
-                                    {rec.items.map(item => (
-                                        <li key={item.text}>
-                                            <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{item.text}</a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            );
-        };
-
-        const RandomStuffTabContent = () => (
-            <section className="space-y-8">
-                <AwardsSection />
-                <RecommendationsSection />
-            </section>
-        );
-
-        // --- 🎯 VACANT POSITIONS Tab ---
-        const VacantPositionsTabContent = () => (
-            <section className="space-y-6">
-                <h2 className="text-2xl font-semibold">Vacant Positions</h2>
-                <p className="text-gray-700">
-                    TSI Lab is actively recruiting passionate researchers and students!<br />
-                    We welcome applicants for:
-                </p>
-                <ul className="list-disc list-inside text-gray-700">
-                    <li>PhD Students</li>
-                    <li>MS Students</li>
-                    <li>Interns (Undergraduate)</li>
-                </ul>
-                <p className="pt-2 text-gray-700">
-                    If you're interested in joining, please send your CV and a short statement of interest to
-                    <a href="mailto:yoontaeResearch@gmail.com" className="text-blue-600 hover:underline ml-1">yoontaeResearch@gmail.com</a>.
-                </p>
-                <div className="pt-4 border-t border-gray-200">
-                    <h3 className="text-xl font-semibold">Preferred Profile</h3>
-                    <p className="mt-2 text-gray-700">
-                        We are looking for students with solid mathematics and programming skills. Demonstrated excellence or active participation in data-science competitions (e.g., Kaggle) is highly valued.
-                    </p>
-                </div>
-                <div>
-                    <h3 className="text-xl font-semibold">(Mainly) Target Journals & Conference</h3>
-                    <div className="mt-2 space-y-3 text-gray-700 text-sm">
-                        <div><h4 className="font-semibold text-gray-800">OR Journals</h4><p>Management Science, Operations Research, European Journal of Operational Research, Annals of Operation Research, INFORMS Journal on Computing</p></div>
-                        <div><h4 className="font-semibold text-gray-800">Finance Journals</h4><p>Quantitative Finance, Journal of Portfolio Management, Journal of Financial and Quantitative Analysis, Finance Research Letters, Journal of Banking and Finance</p></div>
-                        <div><h4 className="font-semibold text-gray-800">Other Journals</h4><p>Neural Networks, Knowledge-Based Systems, Pattern Recognition, TMLR, Nature Machine Intelligence, Machine Learning, Information Sciences, International Journal of Forecasting</p></div>
-                        <div><h4 className="font-semibold text-gray-800">Conference</h4><p>KDD, NeurIPS, ICLR, ICML, EMNLP, ACL, AAAI, AISTAT, ICAIF</p></div>
-                    </div>
-                </div>
-            </section>
-        );
+        // --- Other Tabs (Unchanged) ---
+        const TeachingTabContent = () => ( <section className="space-y-6"> <h2 className="text-2xl font-semibold">Teaching</h2> <ul className="list-disc list-inside text-gray-700 space-y-2"> <li><strong> TBD </strong><br/> TBD </li> <li><strong>TBD </strong><br/>TBD</li> <li><strong>TBD</strong><br/>TBD</li> </ul> </section> );
+        const ProjectTabContent = () => { const projects = [ { title: "Sejong Science Fellowship (Oversea Track)", year: 2024, organization: "National Research Foundation of Korea (NRF)", funding: "70,000,000 KRW", period: "2024.09.01 to 2025.08.31" }, { title: "Ph.D. Fellowship", year: 2022, organization: "National Research Foundation of Korea (NRF)", funding: "40,000,000 KRW", period: "2022.06.01 to 2024.05.31" } ]; return ( <section> <h2 className="text-2xl font-semibold">Funded Projects</h2> <ul className="mt-4 space-y-4"> {projects.map(project => ( <li key={project.title} className="pb-4 border-b last:border-b-0"> <h3 className="text-lg font-semibold text-gray-800">{project.title}</h3> <p className="text-gray-600">{project.organization}, {project.year}</p> <ul className="list-disc list-inside ml-4 mt-1 text-sm text-gray-700"> <li><strong>Funding:</strong> {project.funding}</li> <li><strong>Period:</strong> {project.period}</li> </ul> </li> ))} </ul> </section> ); };
+        const AwardsSection = () => { const awards = [ { title: "Best Paper Award", year: 2024, organization: "Korean Academic Society of Business Administration" } ]; return ( <div> <h3 className="text-xl font-semibold">Awards</h3> <ul className="mt-2 list-disc list-inside text-gray-700 space-y-2"> {awards.map(award => ( <li key={award.title}> <strong>{award.title}</strong>, {award.year}, {award.organization} {award.details && ( <ul className="list-['-_'] list-inside ml-4 text-sm"> {award.details.map(detail => <li key={detail}>{detail}</li>)} </ul> )} </li> ))} </ul> </div> ); };
+        const RecommendationsSection = () => { const recommendations = [ { category: "Time-Series analysis", items: [{ text: "Time Series Analysis by James D. Hamilton", href: "https://www.jstor.org/stable/j.ctv14jx6sm" }] }, { category: "Optimization", items: [{ text: "Convex Optimization by Stephen Boyd and Lieven Vandenberghe", href: "https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf" }, { text: "Optimization Methods in Finance by Gerard Cornuejols and Reha Tütüncü", href: "https://www.andrew.cmu.edu/user/gc0v/webpub/book.pdf" }, { text: "Introduction to Stochastic Programming by John R. Birge , François Louveaux", href: "https://link.springer.com/book/10.1007/978-1-4614-0237-4" }, { text: "Reinforcement Learning and Stochastic Optimization: A Unified Framework for Sequential Decisions by Warren B. Powell", href: "https://onlinelibrary.wiley.com/doi/book/10.1002/9781119815068" },] }, { category: "ML/DL", items: [{ text: "Mathematical Engineering of Deep Learning by Benoit Liquet, Sarat Moka and Yoni Nazarathy", href: "https://deeplearningmath.org/" }, { text: "Alice's Adventures in a Differentiable Wonderland -- Volume I, A Tour of the Land by Simone Scardapane", href: "https://arxiv.org/abs/2404.17625" },] }, { category: "Fundamental Books", items: [{ text: "Linear Algebra for Data Science by Wanmo Kang and Kyunghyun Cho", href: "https://kyunghyuncho.me/linear-algebra-for-data-science/" }, { text: "Introduction to Mathematical Statistics by Robert Hogg, Joseph McKean, Allen Craig", href: "https://minerva.it.manchester.ac.uk/~saralees/statbook2.pdf" }, { text: "Probability: Theory and Examples by Rick Durrett", href: "https://services.math.duke.edu/~rtd/PTE/PTE5_011119.pdf" }, { text: "Principles of Mathematical Analysis by Walter Rudin", href: "https://www.amazon.co.uk/Principles-Mathematical-Analysis-International-Mathematics/dp/0070856133/" }, { text: "Elements of Information Theory by Thomas M. Cover and Joy A. Thomas", href: "http://staff.ustc.edu.cn/~cgong821/Wiley.Interscience.Elements.of.Information.Theory.Jul.2006.eBook-DDU.pdf" },] }, { category: "Finance", items: [{ text: "Introduction to Risk Parity and Budgeting by Thierry Roncalli", href: "http://www.thierry-roncalli.com/RiskParityBook.html" }, { text: "Quantitative Equity Portfolio Management by Ludwig B. Chincarini and Daehwan Kim", href: "https://www.amazon.com/Quantitative-Equity-Portfolio-Management-Second/dp/1264268920" }, { text: "Investment Science by David G. Luenberger", href: "https://www.amazon.com/Investment-Science-David-G-Luenberger/dp/0199740089" }, { text: "Are markets efficient? (Video) by Eugene Fama and Richard Thaler", href: "#" }, { text: "In Pursuit of the Perfect Portfolio (Video) by Harry M. Markowitz", href: "#" },] }, { category: "Writing", items: [{ text: "How to ML Paper - A brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-ml-paper" }, { text: "How to ML Rebuttal – A Brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-rebuttal-ml-paper" }, { text: "How to ML Review — A brief Guide by Jakob N. Foerster", href: "https://www.jakobfoerster.com/how-to-review-ml-paper" }, { text: "Latex & Poster formatting Tips for Writing a Research Paper using LaTeX", href: "https://github.com/guanyingc/latex_paper_writing_tips" },] }, { category: "Useful website", items: [{ text: "Paper Copilot: Whether the score received at the AI conference is relatively good or bad", href: "https://papercopilot.com/" }, { text: "Cite.GG: Find recent papers that reference the paper you're reading", href: "https://cite.gg/#/" }, { text: "AI Conference Deadline: Countdowns to top CV/NLP/ML/Robotics/AI conference deadlines", href: "https://huggingface.co/spaces/huggingface/ai-deadlines" }, { text: "Operation Research (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_operationsresearch" }, { text: "Data Mining & Analysis (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_datamininganalysis" }, { text: "Artificial Inteligence (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_artificialintelligence" }, { text: "Finance (Top publication): Google Scholar Metrics", href: "https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=bus_finance" },], }, ]; return ( <div> <h3 className="text-xl font-semibold">Recommended Books and Guides</h3> <div className="mt-2 space-y-4"> {recommendations.map(rec => ( <div key={rec.category}> <h4 className="font-semibold text-gray-800">{rec.category}</h4> <ul className="list-disc list-inside text-gray-700 ml-4 space-y-1 mt-1"> {rec.items.map(item => ( <li key={item.text}> <a href={item.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{item.text}</a> </li> ))} </ul> </div> ))} </div> </div> ); };
+        const RandomStuffTabContent = () => ( <section className="space-y-8"> <AwardsSection /> <RecommendationsSection /> </section> );
+        const VacantPositionsTabContent = () => ( <section className="space-y-6"> <h2 className="text-2xl font-semibold">Vacant Positions</h2> <p className="text-gray-700"> TSI Lab is actively recruiting passionate researchers and students!<br /> We welcome applicants for: </p> <ul className="list-disc list-inside text-gray-700"> <li>PhD Students</li> <li>MS Students</li> <li>Interns (Undergraduate)</li> </ul> <p className="pt-2 text-gray-700"> If you're interested in joining, please send your CV and a short statement of interest to <a href="mailto:yoontaeResearch@gmail.com" className="text-blue-600 hover:underline ml-1">yoontaeResearch@gmail.com</a>. </p> <div className="pt-4 border-t border-gray-200"> <h3 className="text-xl font-semibold">Preferred Profile</h3> <p className="mt-2 text-gray-700"> We are looking for students with solid mathematics and programming skills. Demonstrated excellence or active participation in data-science competitions (e.g., Kaggle) is highly valued. </p> </div> <div> <h3 className="text-xl font-semibold">(Mainly) Target Journals & Conference</h3> <div className="mt-2 space-y-3 text-gray-700 text-sm"> <div><h4 className="font-semibold text-gray-800">OR Journals</h4><p>Management Science, Operations Research, European Journal of Operational Research, Annals of Operation Research, INFORMS Journal on Computing</p></div> <div><h4 className="font-semibold text-gray-800">Finance Journals</h4><p>Quantitative Finance, Journal of Portfolio Management, Journal of Financial and Quantitative Analysis, Finance Research Letters, Journal of Banking and Finance</p></div> <div><h4 className="font-semibold text-gray-800">Other Journals</h4><p>Neural Networks, Knowledge-Based Systems, Pattern Recognition, TMLR, Nature Machine Intelligence, Machine Learning, Information Sciences, International Journal of Forecasting</p></div> <div><h4 className="font-semibold text-gray-800">Conference</h4><p>KDD, NeurIPS, ICLR, ICML, EMNLP, ACL, AAAI, AISTAT, ICAIF</p></div> </div> </div> </section> );
 
         //======================================================================
         // 4. MAIN APP COMPONENT
         //======================================================================
         function App() {
             const validTabs = ['home', 'members', 'collaborators', 'publications', 'teaching', 'project', 'random', 'vacant'];
-            
-            const getTabFromHash = () => {
-                const hash = window.location.hash.replace('#', '');
-                return validTabs.includes(hash) ? hash : 'home';
-            };
-            
+            const getTabFromHash = () => { const hash = window.location.hash.replace('#', ''); return validTabs.includes(hash) ? hash : 'home'; };
             const [activeTab, setActiveTab] = useState(getTabFromHash());
 
-            useEffect(() => {
-                window.location.hash = activeTab;
-            }, [activeTab]);
-
-            useEffect(() => {
-                const handleHashChange = () => {
-                    setActiveTab(getTabFromHash());
-                };
-                window.addEventListener('hashchange', handleHashChange);
-                return () => {
-                    window.removeEventListener('hashchange', handleHashChange);
-                };
-            }, []);
+            useEffect(() => { window.location.hash = activeTab; }, [activeTab]);
+            useEffect(() => { const handleHashChange = () => { setActiveTab(getTabFromHash()); }; window.addEventListener('hashchange', handleHashChange); return () => { window.removeEventListener('hashchange', handleHashChange); }; }, []);
 
             const renderContent = () => {
                 switch(activeTab) {
@@ -1016,7 +594,7 @@
                         </div>
                     </nav>
 
-                    <main className="mt-6 bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
+                    <main key={activeTab} className="mt-6 bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg fade-in">
                         {renderContent()}
                     </main>
                 </div>

@@ -101,7 +101,21 @@
         const allPapers = [...publications, ...workingPapers];
 
         const membersData = [
-            { name: "Prof. Yoontae Hwang", koreanName: "황윤태", status: "Principal Investigator", image: "/image_yoontae.png", email: "yoontaeResearch@gmail.com", bio: `I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025. Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee. Guided by the belief that “Research is meaningful only when its insights leave the lab and change the world,” our laboratory not only submits its findings to the most prestigious journals and conferences but also pursues research capable of driving substantial real-world impact.`, links: { scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl", linkedin: "https://www.linkedin.com/in/yoontae", } },
+            { 
+                name: "Prof. Yoontae Hwang", 
+                koreanName: "황윤태", 
+                status: "Principal Investigator", 
+                image: "/image_yoontae.png", 
+                email: "yoontaeResearch@gmail.com", 
+                bio: `I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025. Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee. Guided by the belief that “Research is meaningful only when its insights leave the lab and change the world,” our laboratory not only submits its findings to the most prestigious journals and conferences but also pursues research capable of driving substantial real-world impact.`, 
+                links: { scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl", linkedin: "https://www.linkedin.com/in/yoontae" },
+                awards: [
+                    { title: "Rising Scholar Award", year: 2025, organization: "Korean Academic Society of Business Administration" },
+                    { title: "Best Paper Award", year: 2024, organization: "Korean Academic Society of Business Administration" },
+                    { title: "Best Poster Award", year: 2024, organization: "UNIST AI Tech Workshop" },
+                    { title: "Commendation Award", year: 2020, organization: "Commissioner of Statistics Korea" },
+                ]
+            },
             { name: "TBD", koreanName: "미정", status: "PhD Student", image: "https://placehold.co/200x200/E2E8F0/4A5568?text=TBD", email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025. Interested in developing next-generation foundation models for financial time-series.", interests: ["Foundation Models", "Asset Pricing"], links: {} },
             { name: "TBD", koreanName: "미정", status: "MS Student", image: "https://placehold.co/200x200/E2E8F0/4A5568?text=TBD", email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025. Focusing on reinforcement learning for portfolio optimization.", interests: ["Reinforcement Learning", "Portfolio Optimization"], links: {} },
             { name: "Youngbin Lee", koreanName: "이영빈", status: "Industry Mentor", image: "/youngbin.png", currentPosition: "AI Researcher @ Elice", links: { scholar: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko", }, expertise: "LLM and Agent" },
@@ -299,6 +313,7 @@
             const isPI = member.status === 'Principal Investigator';
             const nameSize = isPI ? 'text-xl' : 'text-lg';
             const koreanNameSize = isPI ? 'text-lg' : 'text-base';
+            const [showAwards, setShowAwards] = useState(false);
 
             return (
                 <div className="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row items-start gap-6 h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
@@ -308,7 +323,7 @@
                         className="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg flex-shrink-0 mx-auto sm:mx-0"
                         onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/200x200/E2E8F0/4A5568?text=Error'; }}
                     />
-                    <div className="flex-grow flex flex-col">
+                    <div className="flex-grow flex flex-col h-full">
                         <div>
                             <h3 className={`${nameSize} font-bold text-gray-900`}>
                                 {member.name} <span className={`${koreanNameSize} font-medium text-gray-600`}>({member.koreanName})</span>
@@ -343,16 +358,45 @@
                             {member.bio && <p className="text-sm text-gray-700 mt-2 leading-relaxed">{member.bio}</p>}
                         </div>
 
-                        {member.interests && member.interests.length > 0 && (
-                            <div className="mt-auto pt-3">
-                                <h4 className="text-sm font-semibold text-gray-800">Interests:</h4>
-                                <div className="flex flex-wrap gap-2 mt-1">
-                                    {member.interests.map(interest => (
-                                        <span key={interest} className="px-2 py-1 bg-gray-200 text-gray-800 text-xs font-medium rounded-full">{interest}</span>
-                                    ))}
+                        <div className="mt-auto pt-2">
+                            {/* Awards Section for PI */}
+                            {isPI && member.awards && member.awards.length > 0 && (
+                                <div className="pt-2">
+                                    <div className="border-t border-gray-200 pt-3">
+                                        <button
+                                            onClick={() => setShowAwards(!showAwards)}
+                                            className="flex justify-between items-center w-full text-left font-semibold text-purple-700 hover:text-purple-800 transition-colors"
+                                        >
+                                            <span>🏆 View Awards</span>
+                                            <svg className={`w-5 h-5 transform transition-transform duration-200 ${showAwards ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                                        </button>
+                                        {showAwards && (
+                                            <div className="mt-2 pl-2 space-y-2">
+                                                <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
+                                                    {member.awards.sort((a, b) => b.year - a.year).map((award, index) => (
+                                                        <li key={index}>
+                                                            <strong>{award.title}</strong> ({award.year}), <em>{award.organization}</em>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
+
+                            {/* Interests Section */}
+                            {member.interests && member.interests.length > 0 && (
+                                <div className="pt-3">
+                                    <h4 className="text-sm font-semibold text-gray-800">Interests:</h4>
+                                    <div className="flex flex-wrap gap-2 mt-1">
+                                        {member.interests.map(interest => (
+                                            <span key={interest} className="px-2 py-1 bg-gray-200 text-gray-800 text-xs font-medium rounded-full">{interest}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             );
@@ -848,30 +892,7 @@
             );
         };
 
-        // --- ✨ RANDOM STUFF Tab ---
-        const AwardsSection = () => {
-            const awards = [
-                { title: "Best Paper Award", year: 2024, organization: "Korean Academic Society of Business Administration" }
-            ];
-            return (
-                <div>
-                    <h3 className="text-xl font-semibold">Awards</h3>
-                    <ul className="mt-2 list-disc list-inside text-gray-700 space-y-2">
-                        {awards.map(award => (
-                            <li key={award.title}>
-                                <strong>{award.title}</strong>, {award.year}, {award.organization}
-                                {award.details && (
-                                    <ul className="list-['-_'] list-inside ml-4 text-sm">
-                                        {award.details.map(detail => <li key={detail}>{detail}</li>)}
-                                    </ul>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            );
-        };
-
+        // --- ✨ FOR STUDENTS Tab ---
         const RecommendationsSection = () => {
             const recommendations = [
                 { category: "Time-Series analysis", items: [{ text: "Time Series Analysis by James D. Hamilton", href: "https://www.jstor.org/stable/j.ctv14jx6sm" }] },
@@ -903,9 +924,8 @@
             );
         };
 
-        const RandomStuffTabContent = () => (
+        const ForStudentsTabContent = () => (
             <section className="space-y-8">
-                <AwardsSection />
                 <RecommendationsSection />
             </section>
         );
@@ -949,7 +969,7 @@
         // 4. MAIN APP COMPONENT
         //======================================================================
         function App() {
-            const validTabs = ['home', 'members', 'collaborators', 'publications', 'teaching', 'project', 'random', 'vacant'];
+            const validTabs = ['home', 'members', 'collaborators', 'publications', 'teaching', 'project', 'for-students', 'vacant'];
             
             const getTabFromHash = () => {
                 const hash = window.location.hash.replace('#', '');
@@ -980,7 +1000,7 @@
                     case 'publications': return <PublicationsTabContent />;
                     case 'teaching': return <TeachingTabContent />;
                     case 'project': return <ProjectTabContent />;
-                    case 'random': return <RandomStuffTabContent />;
+                    case 'for-students': return <ForStudentsTabContent />;
                     case 'vacant': return <VacantPositionsTabContent />;
                     default: return <HomeTabContent />;
                 }
@@ -1018,7 +1038,7 @@
                             <TabButton value="publications">Publications</TabButton>
                             <TabButton value="teaching">Teaching</TabButton>
                             <TabButton value="project">Project</TabButton>
-                            <TabButton value="random">Random Stuff</TabButton>
+                            <TabButton value="for-students">For Students</TabButton>
                             <TabButton value="vacant">Vacant Positions</TabButton>
                         </div>
                     </nav>

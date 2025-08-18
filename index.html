@@ -94,8 +94,8 @@
             { id: "[J1]", title: "A Study on the Estimation of Apartment Price Index: Focused on the Machine Learning Algorithm", authors: [{ name: "Yoontae Hwang", isHighlight: true }], venue: "Journal of Money & Finance (KMFA), 2019, Acceptance rate 45.71%, Domestic journal (South Korea)", links: [{ text: "paper", href: "https://kiss.kstudy.com/Detail/Ar?key=3707638" }], topics: ["Household Finance", "Time-Series Analysis", "Deep Learning"] },
         ];
         const workingPapers = [
-            { id: "[S]", title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yaxuan Kong", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2025.01 (intended), Acceptance rate 13%", links: [ { text: "paper", href: "https://arxiv.org/abs/2502.00828" }, { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }, ], topics: ["Portfolio Theory", "Deep Learning"] },
-            { id: "[S]", title: "Signature-informed Transformer for Asset Allocation", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, ], venue: "Top AI Confernece, 2025.09 (intended), Acceptance rate 23%", links: [ { text: "code", href: "https://github.com/Yoontae6719/Signature-Informed-Transformer-For-Asset-Allocation" }, ], topics: ["Portfolio Theory", "Deep Learning"] },
+            { id: "[S]", title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yaxuan Kong", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2025.01 (intended), Acceptance rate 13%", award: "Rising Scholar Award @the Korean Academic Society of Business Administration 2025", links: [ { text: "paper", href: "https://arxiv.org/abs/2502.00828" }, { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }, ], topics: ["Portfolio Theory", "Deep Learning"] },
+            { id: "[S]", title: "Signature-informed Transformer for Asset Allocation", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, ], venue: "Top AI Confernece, 2025.09 (intended), Acceptance rate 23%",  links: [ { text: "code", href: "https://github.com/Yoontae6719/Signature-Informed-Transformer-For-Asset-Allocation" }, ], topics: ["Portfolio Theory", "Deep Learning"] },
             { id: "[S]", title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2024.12, Acceptance rate 23%", award: "Best Paper Award @the Korean Academic Society of Business Administration 2024", links: [ { text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
             { id: "[W]", title: "Neural Networks and Deep Learning for Asset Management", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Junhyeong Lee", href: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Jang Ho Kim", href: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=en" }, { name: "Woo Chang Kim", href: "https://scholar.google.co.kr/citations?user=7NmBs1kAAAAJ&hl=en" }, { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" }, ], venue: "Survey paper", links: [], topics: ["Portfolio Theory", "Deep Learning", "Survey"] },
         ];
@@ -933,28 +933,67 @@
 
         // --- 🎯 VACANT POSITIONS Tab ---
         const VacantPositionsTabContent = () => (
-            <section className="space-y-6">
-                <h2 className="text-2xl font-semibold">Vacant Positions</h2>
-                <p className="text-gray-700">
-                    TSI Lab is actively recruiting passionate researchers and students!<br />
-                    We welcome applicants for:
-                </p>
-                <ul className="list-disc list-inside text-gray-700">
-                    <li>PhD Students</li>
-                    <li>MS Students</li>
-                    <li>Interns (Undergraduate)</li>
-                </ul>
-                <p className="pt-2 text-gray-700">
-                    If you're interested in joining, please send your CV and a short statement of interest to
-                    <a href="mailto:yoontaeResearch@gmail.com" className="text-blue-600 hover:underline ml-1">yoontaeResearch@gmail.com</a>.
-                </p>
-                <div className="pt-4 border-t border-gray-200">
+            <section className="space-y-8">
+                <div>
+                    <h2 className="text-2xl font-semibold">Vacant Positions</h2>
+                    <p className="text-gray-700 mt-2">
+                        TSI Lab is actively recruiting passionate researchers and students!<br />
+                        We welcome applicants for:
+                    </p>
+                    <ul className="list-disc list-inside text-gray-700 mt-2">
+                        <li>PhD Students</li>
+                        <li>MS Students</li>
+                        <li>Interns (Undergraduate)</li>
+                    </ul>
+                    <p className="pt-2 text-gray-700">
+                        If you're interested in joining, please send your CV and a short statement of interest to
+                        <a href="mailto:yoontaeResearch@gmail.com" className="text-blue-600 hover:underline ml-1">yoontaeResearch@gmail.com</a>.
+                    </p>
+                </div>
+                
+                <div className="pt-6 border-t border-gray-200">
                     <h3 className="text-xl font-semibold">Preferred Profile</h3>
                     <p className="mt-2 text-gray-700">
                         We are looking for students with solid mathematics and programming skills. Demonstrated excellence or active participation in data-science competitions (e.g., Kaggle) is highly valued.
                     </p>
                 </div>
-                <div>
+
+                {/* --- NEW SECTION --- */}
+                <div className="pt-6 border-t border-gray-200">
+                    <h3 className="text-xl font-semibold">Ongoing Research</h3>
+                    <div className="mt-4 space-y-4 text-gray-700">
+                        <div>
+                            <h4 className="font-semibold text-lg text-gray-800">1) Conditional Portfolio Construction for Retail Investors</h4>
+                            <p className="mt-1">
+                                Retail investors often hold only one or two assets, which leaves them highly exposed to risk. We are developing an optimization method that, given a user’s current (small) holdings, recommends up to K additional assets to improve diversification.
+                            </p>
+                            <p className="mt-2 text-sm italic">
+                                Our approach leverages submodularity and the envelope theorem, and it assumes familiarity with convex optimization.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold text-lg text-gray-800">2) Financial Foundation Model</h4>
+                            <p className="mt-1">
+                                We aim to build a single model that, from OHLCV data, can handle multiple forecasting tasks—return, volume, and volatility—across assets from various countries, with strong zero-shot performance. This project requires a solid background in deep learning.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 className="font-semibold text-lg text-gray-800">Additional Interests (DL)</h4>
+                             <ul className="list-disc list-inside mt-2 ml-4 space-y-1">
+                                <li><strong>Finance:</strong> volume forecasting, limit order book (LOB) modeling</li>
+                                <li><strong>Science:</strong> physics-informed neural networks (PINNs)</li>
+                                <li><strong>Sports:</strong> sports betting modeling</li>
+                                <li><strong>General time series:</strong> tokenization, mixture-of-expert</li>
+                            </ul>
+                            <p className="mt-2 text-sm">
+                                These are the topics I’m most focused on at the moment.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {/* --- END NEW SECTION --- */}
+
+                <div className="pt-6 border-t border-gray-200">
                     <h3 className="text-xl font-semibold">(Mainly) Target Journals & Conference</h3>
                     <div className="mt-2 space-y-3 text-gray-700 text-sm">
                         <div><h4 className="font-semibold text-gray-800">OR Journals</h4><p>Management Science, Operations Research, European Journal of Operational Research, Annals of Operation Research, INFORMS Journal on Computing</p></div>
@@ -965,6 +1004,7 @@
                 </div>
             </section>
         );
+
 
         //======================================================================
         // 4. MAIN APP COMPONENT

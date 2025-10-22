@@ -110,7 +110,7 @@
                 image: "/image_yoontae.png", 
                 email: "yoontae.hwang@pusan.ac.kr", 
                 bio: `I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025. Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee. Guided by the belief that “Research is meaningful only when its insights leave the lab and change the world,” our laboratory not only submits its findings to the most prestigious journals and conferences but also pursues research capable of driving substantial real-world impact.`, 
-                links: { scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl", linkedin: "https://www.linkedin.com/in/yoontae", OAQ: "https://www.oaqcorp.com/" },
+                links: { scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl", linkedin: "https://www.linkedin.com/in/yoontae", OAQ: "https://www.oaqcorp.com/", },
                 awards: [
                     { title: "Advisor (Industry Position)", year: 2025, organization: "OAQ" },
                     { title: "Rising Scholar Award", year: 2025, organization: "Korean Academic Society of Business Administration" },
@@ -338,6 +338,7 @@
                             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 my-2">
                                 {member.links.scholar && <a href={member.links.scholar} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">Google Scholar</a>}
                                 {member.links.linkedin && <a href={member.links.linkedin} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">LinkedIn</a>}
+                                {member.links.OAQ && <a href={member.links.OAQ} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">OAQ</a>}
                                 {member.status === 'Principal Investigator' && member.email && (<span className="text-sm text-gray-600">Email: {member.email}</span>)}
                                 {member.status !== 'Principal Investigator' && member.email && (<a href={`mailto:${member.email}`} className="text-sm text-blue-600 hover:underline">Email</a>)}
                                 

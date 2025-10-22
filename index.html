@@ -110,8 +110,9 @@
                 image: "/image_yoontae.png", 
                 email: "yoontae.hwang@pusan.ac.kr", 
                 bio: `I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025. Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee. Guided by the belief that “Research is meaningful only when its insights leave the lab and change the world,” our laboratory not only submits its findings to the most prestigious journals and conferences but also pursues research capable of driving substantial real-world impact.`, 
-                links: { scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl", linkedin: "https://www.linkedin.com/in/yoontae" },
+                links: { scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl", linkedin: "https://www.linkedin.com/in/yoontae", OAQ: "https://www.oaqcorp.com/" },
                 awards: [
+                    { title: "Advisor (Industry Position)", year: 2025, organization: "OAQ" },
                     { title: "Rising Scholar Award", year: 2025, organization: "Korean Academic Society of Business Administration" },
                     { title: "Best Paper Award", year: 2024, organization: "Korean Academic Society of Business Administration" },
                     { title: "Best Poster Award", year: 2024, organization: "UNIST AI Tech Workshop" },
@@ -371,7 +372,7 @@
                                             onClick={() => setShowAwards(!showAwards)}
                                             className="flex justify-between items-center w-full text-left font-semibold text-purple-700 hover:text-purple-800 transition-colors"
                                         >
-                                            <span>🏆 View Awards</span>
+                                            <span>🏆 Awards and Positions </span>
                                             <svg className={`w-5 h-5 transform transition-transform duration-200 ${showAwards ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
                                         </button>
                                         {showAwards && (

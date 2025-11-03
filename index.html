@@ -602,7 +602,7 @@
                     {filteredPublications.length > 0 && (
                         <div>
                             <h2 className="text-2xl font-semibold">Publications</h2>
-                            <p className="mt-2 text-sm text-gray-600"><strong>J</strong>: Journal / <strong>C</strong>: Conference / <strong>*</strong>: equal contribution</p>
+                            <p className="mt-2 text-sm text-gray-600"><strong>J</strong>: Journal / <strong>C</strong>: Conference / <strong>*</strong>: equal contribution / <strong>†</strong>: corresponding author </p>
                             <ul className="mt-4">
                                 {filteredPublications.map((item, index) => <PublicationItem key={index} item={item} />)}
                             </ul>
@@ -612,7 +612,7 @@
                     {filteredWorkingPapers.length > 0 && (
                         <div className="pt-4">
                             <h2 className="text-2xl font-semibold">Working Paper</h2>
-                            <p className="mt-2 text-sm text-gray-600"><strong>S</strong>: Submitted / <strong>W</strong>: Work in progress / <strong>*</strong>: equal contribution</p>
+                            <p className="mt-2 text-sm text-gray-600"><strong>S</strong>: Submitted / <strong>W</strong>: Work in progress / <strong>*</strong>: equal contribution / <strong>†</strong>: corresponding author </p>
                             <ul className="mt-4">
                                 {filteredWorkingPapers.map((item, index) => <PublicationItem key={index} item={item} />)}
                             </ul>

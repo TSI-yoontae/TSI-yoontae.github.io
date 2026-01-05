@@ -15,6 +15,32 @@ window.TSI_Data.publications = [
 ];
 
 window.TSI_Data.workingPapers = [
+    // [NEW] Added Papers
+    { 
+        id: "[S]", 
+        title: "Portable Single-Beam Atomic Total-Field Magnetometer for Stand-off Magnetic Sensing", 
+        authors: [ 
+            { name: "Heonsik Lee" }, 
+            { name: "Hyunbeen Lee" }, 
+            { name: "Minseok Choi" }, 
+            { name: "Yoontae Hwang", isHighlight: true }, 
+            { name: "Deok-Young Lee" } 
+        ], 
+        venue: "Physics journal, Acceptance rate 30%", 
+        links: [], 
+        topics: ["AI in Science"] 
+    },
+    { 
+        id: "[W]", 
+        title: "Subspace Regularized Portfolio Optimization under Regime Dependent Risk", 
+        authors: [ 
+            { name: "Yoontae Hwang", isHighlight: true } 
+        ], 
+        venue: "Optimization journal, Acceptance rate 15%", 
+        links: [], 
+        topics: ["Portfolio Theory", "Optimization"] 
+    },
+    // Existing Working Papers
     { id: "[S]", title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yaxuan Kong", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2025.01 (intended), Acceptance rate 13%", award: "Rising Scholar Award @the Korean Academic Society of Business Administration 2025", links: [ { text: "paper", href: "https://arxiv.org/abs/2502.00828" }, { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }, ], topics: ["Portfolio Theory", "Deep Learning"] },
     { id: "[S]", title: "Signature-informed Transformer for Asset Allocation", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, ], venue: "Top AI Confernece, 2025.09 (intended), Acceptance rate 23%",  links: [ { text: "paper", href: "https://arxiv.org/abs/2510.03129" }, { text: "code", href: "https://github.com/Yoontae6719/Signature-Informed-Transformer-For-Asset-Allocation" }, ], topics: ["Portfolio Theory", "Deep Learning"] },
     { id: "[S]", title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2024.12, Acceptance rate 23%", award: "Best Paper Award @the Korean Academic Society of Business Administration 2024", links: [ { text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },

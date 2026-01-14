@@ -27,7 +27,7 @@ window.TSI_Data.workingPapers = [
             { name: "Deok-Young Lee" } 
         ], 
         venue: "Physics journal, Acceptance rate 30%", 
-        links: [ text: "paper", href: "https://arxiv.org/abs/2601.08716v1" }], 
+        links: [ {text: "paper", href: "https://arxiv.org/abs/2601.08716v1" }], 
         topics: ["AI in Science"] 
     },
     { 

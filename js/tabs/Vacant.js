@@ -22,19 +22,41 @@ window.VacantPositionsTabContent = () => (
             <p className="mt-2 text-gray-700">
                 We are looking for students with solid mathematics and programming skills. Demonstrated excellence or active participation in data-science competitions (e.g., Dacon, Kaggle) is highly valued. Please note that achievements from the majority of domestic competitions and awards in South Korea are not considered.
             </p>
-        <div className="mt-4 text-red-600 font-medium">
-            <p className="font-bold mb-2">Important Notice on Recruitment & Membership:</p>
-            <p className="mb-2">Recruitment for Lab Researchers and Master's thesis advisees is conducted separately.</p>
-            
-            <ul className="list-disc pl-5 space-y-1">
-            <li>
-                <span className="font-bold">Lab Researchers (Official Members; MS, PhD Candidate):</span> Candidates must contact the lab before admission or within two months.
-            </li>
-            <li>
-                <span className="font-bold">Master's Thesis Track (Academic Service):</span> Selection occurs after six months. Please note that this track is an academic guidance role and does not confer official lab membership or a place on the Member list.
-            </li>
-            </ul>
-        </div>
+
+            {/* --- [수정된 부분 시작] 절취선 및 박사 과정 모집 강조 --- */}
+            <div className="mt-8">
+                {/* 절취선 (Cut Line) */}
+                <div className="relative flex items-center py-4">
+                    <div className="flex-grow border-t-2 border-dashed border-gray-300"></div>
+                    <span className="flex-shrink-0 mx-4 text-gray-400 text-sm tracking-wide font-medium">CURRENT STATUS</span>
+                    <div className="flex-grow border-t-2 border-dashed border-gray-300"></div>
+                </div>
+
+                {/* 모집 공지 박스 */}
+                <div className="bg-red-50 border border-red-100 rounded-lg p-5 text-center shadow-sm">
+                    <h4 className="text-red-700 font-bold text-lg flex justify-center items-center gap-2">
+                        <span>🚫</span> MS & Intern Recruitment Closed
+                    </h4>
+                    
+                    <p className="mt-3 text-gray-800 font-medium">
+                        We are currently <span className="text-red-600 font-bold underline decoration-2 underline-offset-2">exclusively recruiting PhD students</span>.
+                    </p>
+                    <p className="text-sm text-gray-600 mt-1">
+                        (Including MS-PhD Integrated Course applicants)
+                    </p>
+
+                    <div className="mt-4 flex justify-center gap-4 text-sm">
+                        <span className="px-3 py-1 bg-white border border-red-200 rounded-full text-red-600 font-semibold">
+                            ✅ PhD / Integrated: Open
+                        </span>
+                        <span className="px-3 py-1 bg-gray-100 border border-gray-200 rounded-full text-gray-400 line-through decoration-gray-400">
+                            MS / Interns
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {/* --- [수정된 부분 끝] --- */}
+
         </div>
 
         <div className="pt-6 border-t border-gray-200">
@@ -74,11 +96,11 @@ window.VacantPositionsTabContent = () => (
                 <div>
                     <h4 className="font-semibold text-lg text-gray-800">Additional Interests (DL)</h4>
                         <ul className="list-disc list-inside mt-2 ml-4 space-y-1">
-                        <li><strong>Finance:</strong> volume forecasting, limit order book (LOB) modeling</li>
-                        <li><strong>Science:</strong> physics-informed neural networks (PINNs)</li>
-                        <li><strong>Sports:</strong> sports betting modeling</li>
-                        <li><strong>General time series:</strong> tokenization, mixture-of-expert</li>
-                    </ul>
+                            <li><strong>Finance:</strong> volume forecasting, limit order book (LOB) modeling</li>
+                            <li><strong>Science:</strong> physics-informed neural networks (PINNs)</li>
+                            <li><strong>Sports:</strong> sports betting modeling</li>
+                            <li><strong>General time series:</strong> tokenization, mixture-of-expert</li>
+                        </ul>
                     <p className="mt-2 text-sm">
                         These are the topics I’m most focused on at the moment.
                     </p>
@@ -93,7 +115,7 @@ window.VacantPositionsTabContent = () => (
                 <div><h4 className="font-semibold text-gray-800">Finance Journals</h4><p>Quantitative Finance, Journal of Portfolio Management, Journal of Financial and Quantitative Analysis, Finance Research Letters, Journal of Banking and Finance</p></div>
                 <div><h4 className="font-semibold text-gray-800">Other Journals</h4><p>Neural Networks, Pattern Recognition, TMLR, Nature Machine Intelligence, Machine Learning, International Journal of Forecasting</p></div>
                 <div><h4 className="font-semibold text-gray-800">Conference</h4><p>KDD, NeurIPS, ICLR, ICML, KDD, EMNLP, ACL, AAAI, AISTATS</p></div>
-                <div><h4 className="font-semibold text-gray-800">Info</h4><p>When we decide where to submit our work, we prioritize the prestige of a journal or conference over its rankings. This is especially true in AI, where many 'journals' boast high impact factors (JCR ranking). However, we know that their high ranking is not a guarantee of their quality. Consequently, we prefer not to submit our work to journals, with only a few exceptions.   </p></div>
+                <div><h4 className="font-semibold text-gray-800">Info</h4><p>When we decide where to submit our work, we prioritize the prestige of a journal or conference over its rankings. This is especially true in AI, where many 'journals' boast high impact factors (JCR ranking). However, we know that their high ranking is not a guarantee of their quality. Consequently, we prefer not to submit our work to journals, with only a few exceptions.    </p></div>
             </div>
         </div>
     </section>

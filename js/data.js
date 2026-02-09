@@ -15,7 +15,58 @@ window.TSI_Data.publications = [
 ];
 
 window.TSI_Data.workingPapers = [
-    // [NEW] Added Papers
+    // [NEW 2026] Added Papers
+    { 
+        id: "[W]", 
+        title: "Evaluating LLMs in Finance Requires Explicit Bias Consideration", 
+        authors: [ 
+            { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, 
+            { name: "Hoyoung Lee*" }, 
+            { name: "Yoontae Hwang*", isHighlight: true }, 
+            { name: "Alejandro Lopez-Lira" }, 
+            { name: "Bradford Levy" },
+            { name: "Dhagash Mehta" },
+            { name: "Qingsong Wen", href: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" },
+            { name: "Chanyeol Choi" },
+            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
+            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
+        ], 
+        venue: "Submitted to Top AI Conference", 
+        links: [], 
+        topics: ["Large Language Models", "Finance", "Bias"] 
+    },
+    { 
+        id: "[W]", 
+        title: "Forecasting Future Language: Context Design for Mention Markets", 
+        authors: [ 
+            { name: "Sumin Kim" }, 
+            { name: "Jihoon Kwon" }, 
+            { name: "Yoon Kim" }, 
+            { name: "Ahn Wonbin" }, 
+            { name: "Alejandro Lopez-Lira" },
+            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
+            { name: "Yoontae Hwang", isHighlight: true },
+            { name: "Jaewon Lee" },
+            { name: "Raffi Khatchadourian" },
+            { name: "Chanyeol Choi" },
+        ], 
+        venue: "Submitted to AI Conf Workshop", 
+        links: [], 
+        topics: ["Natural Language Processing", "Finance"] 
+    },
+    { 
+        id: "[W]", 
+        title: "Homophily and Entropy Temperature Scaling for Graph Neural Networks", 
+        authors: [ 
+            { name: "In Woo Tae" }, 
+            { name: "Yoontae Hwang", isHighlight: true }, 
+            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }
+        ], 
+        venue: "Submitted", 
+        links: [], 
+        topics: ["Graph Neural Networks", "Deep Learning"] 
+    },
+    // Existing & Updated Papers
     { 
         id: "[S]", 
         title: "Portable Single-Beam Atomic Total-Field Magnetometer for Stand-off Magnetic Sensing", 
@@ -40,14 +91,26 @@ window.TSI_Data.workingPapers = [
         links: [], 
         topics: ["Portfolio Theory", "Optimization"] 
     },
-    // Existing Working Papers
     { id: "[S]", title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yaxuan Kong", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2025.01 (intended), Acceptance rate 13%", award: "Rising Scholar Award @the Korean Academic Society of Business Administration 2025", links: [ { text: "paper", href: "https://arxiv.org/abs/2502.00828" }, { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }, ], topics: ["Portfolio Theory", "Deep Learning"] },
     { id: "[S]", title: "Signature-informed Transformer for Asset Allocation", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, ], venue: "Top AI Confernece, 2025.09 (intended), Acceptance rate 23%",  links: [ { text: "paper", href: "https://arxiv.org/abs/2510.03129" }, { text: "code", href: "https://github.com/Yoontae6719/Signature-Informed-Transformer-For-Asset-Allocation" }, ], topics: ["Portfolio Theory", "Deep Learning"] },
     { id: "[S]", title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2024.12, Acceptance rate 23%", award: "Best Paper Award @the Korean Academic Society of Business Administration 2024", links: [ { text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
     { id: "[S]", title: "LLM-Enhanced Black-Litterman Portfolio Optimization", authors: [ { name: "Youngbin Lee*", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" }, { name: "Yejin Kim*", href: "https://scholar.google.com/citations?user=RT2PhEsAAAAJ&hl=ko" }, { name: "Juhyeong Kim" }, { name: "Suin Kim" }, { name: "Yoontae Hwang†", isHighlight: true },  { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } ], venue: "Finance Journal, 2024.12, Acceptance rate 23%", links: [ { text: "paper", href: "https://arxiv.org/abs/2504.14345" }, { text: "code", href: "https://github.com/youngandbin/LLM-BLM" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
     { id: "[W]", title: "Decision by Supervised Learning", authors: [ { name: "Juhyeong Kim" }, { name: "Sungyoon Cho" }, { name: "Youngbin Lee" }, { name: "Yejin Kim" }, { name: "Yongmin Choi" },   { name: "Yoontae Hwang†", isHighlight: true },  { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } ], venue: "Finance Journal, 2026.02, Acceptance rate 23%", links: [ { text: "paper", href: "https://arxiv.org/abs/2503.13544" }, { text: "code", href: "https://github.com/DSLwDE/DSLwDE" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
-    { id: "[W]", title: "NavFormer: IGRF Forecasting in Moving Coordinate Frames", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "OAQ" } ], venue: "Top AI Confernece, 2025.09 (intended), Acceptance rate 23%", links: [], topics: ["Time-Series Analysis", "AI in Science"]  },
-    { id: "[W]", title: "Position Paper(title is not fixed)", authors: [],  venue: "Top AI Confernece, 2025.09 (intended), Acceptance rate 23%", links: [], topics: ["Survey"]  },
+    { 
+        id: "[W]", 
+        title: "NavFormer: IGRF Forecasting in Moving Coordinate Frames", 
+        authors: [ 
+            { name: "Yoontae Hwang", isHighlight: true }, 
+            { name: "Dongwoo Lee" },
+            { name: "Minseok Choi" },
+            { name: "Yong Sup Ihn" },
+            { name: "Daham Kim", href: "https://www.linkedin.com/in/daham-kim/" },
+            { name: "Deok-Young Lee" } 
+        ], 
+        venue: "Submitted to Top AI Confernece", 
+        links: [], 
+        topics: ["Time-Series Analysis", "AI in Science"]  
+    },
 ];
 
 window.TSI_Data.allPapers = [...window.TSI_Data.publications, ...window.TSI_Data.workingPapers];

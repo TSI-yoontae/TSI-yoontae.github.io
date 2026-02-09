@@ -1,3 +1,96 @@
+/**
+ * 1. DATA SECTION
+ * 요청하신 4개의 논문 정보를 업데이트하여 구성했습니다.
+ * - NavFormer: 저자 순서 변경
+ * - Forecasting Future Language: 저자 대거 추가 및 제목/Venue 변경
+ * - Position Paper: 제목 변경, 공동 1저자(*) 표시
+ * - Homophily: 교신 저자(†) 표시 및 신규 추가
+ */
+
+const publicationsList = [
+    {
+        id: "2024",
+        title: "NavFormer: IGRF Forecasting in Moving Coordinate Frames",
+        authors: [
+            { name: "Yoontae Hwang", isHighlight: true },
+            { name: "Dongwoo Lee" },
+            { name: "Minseok Choi" },
+            { name: "Yong Sup Ihn" },
+            { name: "Daham Kim" },
+            { name: "Deok-Young Lee" }
+        ],
+        venue: "Submit", // 구체적인 학회명이 있다면 수정해주세요
+        topics: ["Time-Series Analysis", "Deep Learning"],
+        links: [{ text: "Paper", href: "#" }]
+    }
+];
+
+const workingPapersList = [
+    {
+        id: "2025",
+        title: "Forecasting Future Language: Context Design for Mention Markets",
+        authors: [
+            { name: "Sumin Kim" },
+            { name: "Jihoon Kwon" },
+            { name: "Yoon Kim" },
+            { name: "Ahn Wonbin" },
+            { name: "Alejandro Lopez-Lira" },
+            { name: "Yongjae Lee" },
+            { name: "Yoontae Hwang", isHighlight: true },
+            { name: "Jaewon Lee" },
+            { name: "Raffi Khatchadourian" },
+            { name: "Chanyeol Choi" }
+        ],
+        venue: "Submit (AI Conf Workshop)",
+        topics: ["Deep Learning", "Trading"],
+        links: []
+    },
+    {
+        id: "2025",
+        title: "Evaluating LLMs in Finance Requires Explicit Bias Consideration",
+        authors: [
+            { name: "Yaxuan Kong*" },
+            { name: "Hoyoung Lee*" },
+            { name: "Yoontae Hwang*", isHighlight: true },
+            { name: "Alejandro Lopez-Lira" },
+            { name: "Bradford Levy" },
+            { name: "Dhagash Mehta" },
+            { name: "Qingsong Wen" },
+            { name: "Chanyeol Choi" },
+            { name: "Yongjae Lee" },
+            { name: "Stefan Zohren" }
+        ],
+        venue: "Submit",
+        topics: ["Deep Learning", "Survey", "AI in Science"],
+        links: []
+    },
+    {
+        id: "2025",
+        title: "Homophily and Entropy Temperature Scaling for Graph Neural Networks",
+        authors: [
+            { name: "In Woo Tae" },
+            { name: "Yoontae Hwang†", isHighlight: true }, // 교신 저자 표시
+            { name: "Yongjae Lee†" } // 교신 저자 표시
+        ],
+        venue: "Submit",
+        topics: ["Deep Learning", "Tabular Modeling"],
+        links: []
+    }
+];
+
+// window 객체에 데이터 할당
+window.TSI_Data = {
+    publications: publicationsList,
+    workingPapers: workingPapersList,
+    allPapers: [...publicationsList, ...workingPapersList]
+};
+
+
+/**
+ * 2. REACT COMPONENT SECTION
+ * 제공해주신 UI 코드를 그대로 유지하되, 위 데이터를 렌더링합니다.
+ */
+
 const { useState, useMemo, Fragment } = React;
 
 const PublicationItem = ({ item }) => (
@@ -43,6 +136,7 @@ const PublicationItem = ({ item }) => (
 );
 
 window.PublicationsTabContent = () => {
+    // 위에서 정의한 window.TSI_Data를 가져옵니다.
     const publications = window.TSI_Data.publications;
     const workingPapers = window.TSI_Data.workingPapers;
     const allPapers = window.TSI_Data.allPapers;

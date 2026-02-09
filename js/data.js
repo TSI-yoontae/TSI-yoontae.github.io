@@ -60,7 +60,7 @@ window.TSI_Data.membersData = [
         image: "/image_yoontae.png", 
         email: "yoontae.hwang@pusan.ac.kr", 
         bio: `I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025. Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee. Guided by the belief that “Research is meaningful only when its insights leave the lab and change the world,” our laboratory not only submits its findings to the most prestigious journals and conferences but also pursues research capable of driving substantial real-world impact.`, 
-        links: { scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl", linkedin: "https://www.linkedin.com/in/yoontae", OAQ: "https://www.oaqcorp.com/", },
+        links: { scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl", linkedin: "https://www.linkedin.com/in/yoontae", OAQ: "https://www.arrakistech.io/", },
         awards: [
             { title: "Advisor (Industry Position)", year: 2025, organization: "OAQ" },
             { title: "Rising Scholar Award", year: 2025, organization: "Korean Academic Society of Business Administration" },

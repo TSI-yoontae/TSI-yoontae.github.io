@@ -17,7 +17,7 @@ window.TSI_Data.publications = [
 window.TSI_Data.workingPapers = [
     // [NEW 2026] Added Papers
     { 
-        id: "[W]", 
+        id: "[S]", 
         title: "Evaluating LLMs in Finance Requires Explicit Bias Consideration", 
         authors: [ 
             { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, 
@@ -28,8 +28,8 @@ window.TSI_Data.workingPapers = [
             { name: "Dhagash Mehta" },
             { name: "Qingsong Wen", href: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" },
             { name: "Chanyeol Choi" },
-            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
-            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
+            { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
+            { name: "Stefan Zohren†", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
         ], 
         venue: "Submitted to Top AI Conference", 
         links: [], 
@@ -55,14 +55,14 @@ window.TSI_Data.workingPapers = [
         topics: ["Natural Language Processing", "Finance"] 
     },
     { 
-        id: "[W]", 
+        id: "[S]", 
         title: "Homophily and Entropy Temperature Scaling for Graph Neural Networks", 
         authors: [ 
             { name: "In Woo Tae" }, 
-            { name: "Yoontae Hwang", isHighlight: true }, 
-            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }
+            { name: "Yoontae Hwang†", isHighlight: true }, 
+            { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }
         ], 
-        venue: "Submitted", 
+        venue: "Submitted to Top AI Conference", 
         links: [], 
         topics: ["Graph Neural Networks", "Deep Learning"] 
     },
@@ -97,7 +97,7 @@ window.TSI_Data.workingPapers = [
     { id: "[S]", title: "LLM-Enhanced Black-Litterman Portfolio Optimization", authors: [ { name: "Youngbin Lee*", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" }, { name: "Yejin Kim*", href: "https://scholar.google.com/citations?user=RT2PhEsAAAAJ&hl=ko" }, { name: "Juhyeong Kim" }, { name: "Suin Kim" }, { name: "Yoontae Hwang†", isHighlight: true },  { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } ], venue: "Finance Journal, 2024.12, Acceptance rate 23%", links: [ { text: "paper", href: "https://arxiv.org/abs/2504.14345" }, { text: "code", href: "https://github.com/youngandbin/LLM-BLM" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
     { id: "[W]", title: "Decision by Supervised Learning", authors: [ { name: "Juhyeong Kim" }, { name: "Sungyoon Cho" }, { name: "Youngbin Lee" }, { name: "Yejin Kim" }, { name: "Yongmin Choi" },   { name: "Yoontae Hwang†", isHighlight: true },  { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } ], venue: "Finance Journal, 2026.02, Acceptance rate 23%", links: [ { text: "paper", href: "https://arxiv.org/abs/2503.13544" }, { text: "code", href: "https://github.com/DSLwDE/DSLwDE" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
     { 
-        id: "[W]", 
+        id: "[S]", 
         title: "NavFormer: IGRF Forecasting in Moving Coordinate Frames", 
         authors: [ 
             { name: "Yoontae Hwang", isHighlight: true }, 

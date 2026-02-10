@@ -57,56 +57,6 @@ window.VacantPositionsTabContent = () => (
             </div>
             {/* --- [수정된 부분 끝] --- */}
 
-        </div>
-
-        <div className="pt-6 border-t border-gray-200">
-            <h3 className="text-xl font-semibold">Ongoing Research</h3>
-            <div className="mt-4 space-y-4 text-gray-700">
-                <div>
-                    <h4 className="font-semibold text-lg text-gray-800">1) Conditional Portfolio Construction for Retail Investors</h4>
-                    <p className="mt-1">
-                        Retail investors often hold only one or two assets, which leaves them highly exposed to risk. We are developing an optimization method that, given a user’s current (small) holdings, recommends up to K additional assets to improve diversification.
-                    </p>
-                    <p className="mt-2 text-sm italic">
-                        Prerequisites: familiarity with submodularity, the envelope theorem, and convex optimization.
-                    </p>
-                </div>
-                <div>
-                    <h4 className="font-semibold text-lg text-gray-800">2) Financial Foundation Model</h4>
-                    <p className="mt-1">
-                        We aim to build a single model that, from OHLCV data, can handle multiple forecasting tasks—return, volume, and volatility—across assets from various countries, with strong zero-shot performance. This project requires a solid background in deep learning.
-                    </p>
-                </div>
-                <div>
-                    <h4 className="font-semibold text-lg text-gray-800">3) Stop loss adjusted Label</h4>
-                    <p className="mt-1">
-                        Conventional labeling methods often fail to capture the path-dependent nature of financial returns, leading to suboptimal trading decisions. This project aims to develop an advanced labeling technique that dynamically adjusts for stop-loss and take-profit levels, better reflecting real-world trading scenarios. By creating more realistic training signals, we expect to significantly improve the risk-adjusted performance of machine learning-based trading strategies.
-                    </p>
-                </div>
-                <div>
-                    <h4 className="font-semibold text-lg text-gray-800">4) How much alpha fits in a candle? </h4>
-                    <p className="mt-1">
-                        This research establishes the theoretical upper bound on the predictive information a single OHLCV bar contains about future market direction. We derive a hard, computable limit on the performance of any trading model, revealing how this limit is fundamentally constrained by the bar's duration and the market's underlying predictability.
-                    </p>
-                    <p className="mt-2 text-sm italic">
-                        Prerequisites: familiarity with Probability and Stochastic Processes, Information Theory and Mathematical Statistics
-                    </p>
-                </div>
-
-                <div>
-                    <h4 className="font-semibold text-lg text-gray-800">Additional Interests (DL)</h4>
-                        <ul className="list-disc list-inside mt-2 ml-4 space-y-1">
-                            <li><strong>Finance:</strong> volume forecasting, limit order book (LOB) modeling</li>
-                            <li><strong>Science:</strong> physics-informed neural networks (PINNs)</li>
-                            <li><strong>Sports:</strong> sports betting modeling</li>
-                            <li><strong>General time series:</strong> tokenization, mixture-of-expert</li>
-                        </ul>
-                    <p className="mt-2 text-sm">
-                        These are the topics I’m most focused on at the moment.
-                    </p>
-                </div>
-            </div>
-        </div>
 
         <div className="pt-6 border-t border-gray-200">
             <h3 className="text-xl font-semibold">(Mainly) Target Journals & Conference</h3>

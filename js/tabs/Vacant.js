@@ -25,7 +25,7 @@ window.VacantPositionsTabContent = () => (
                 We are looking for students with solid mathematics and programming skills. Demonstrated excellence or active participation in data-science competitions (e.g., Dacon, Kaggle) is highly valued. Please note that achievements from the majority of domestic competitions and awards in South Korea are not considered.
             </p>
 
-            {/* --- [추가된 강조 섹션: Lab Policy] --- */}
+            {/* --- [수정된 부분: 톤앤매너 완화 및 구체화] --- */}
             <div className="mt-6 bg-amber-50 border-l-4 border-amber-500 p-4 shadow-sm">
                 <h4 className="font-bold text-amber-800 text-sm uppercase mb-2">
                     ⚠️ Important Admission & Funding Policy
@@ -35,11 +35,11 @@ window.VacantPositionsTabContent = () => (
                         <strong>Strict Pre-contact Requirement:</strong> Unlike general university regulations, official membership in TSI Lab is <strong>strictly limited</strong> to students who have successfully completed the pre-contact process (confirmed within 3 months of admission).
                     </p>
                     <p>
-                        <strong>Financial Support Warning:</strong> Students joining without this prior arrangement may still receive academic supervision for their degree research. However, please be explicitly aware that <span className="font-bold underline">financial support (stipend/labor costs) is NOT provided</span> to students who have not completed the pre-contact process.
+                        <strong>Financial Support Policy:</strong> Students joining without this prior arrangement may still receive academic supervision for their degree research. However, please be aware that <span className="font-bold underline">additional financial support funded by the laboratory (e.g., monthly stipends) will be minimal or unavailable</span> for students who have not completed the pre-contact process.
                     </p>
                 </div>
             </div>
-            {/* --- [추가된 섹션 끝] --- */}
+            {/* --- [수정된 부분 끝] --- */}
 
             <div className="mt-8">
                 {/* 절취선 (Cut Line) */}

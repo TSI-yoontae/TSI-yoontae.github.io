@@ -25,7 +25,22 @@ window.VacantPositionsTabContent = () => (
                 We are looking for students with solid mathematics and programming skills. Demonstrated excellence or active participation in data-science competitions (e.g., Dacon, Kaggle) is highly valued. Please note that achievements from the majority of domestic competitions and awards in South Korea are not considered.
             </p>
 
-            {/* --- [수정된 부분 시작] --- */}
+            {/* --- [추가된 강조 섹션: Lab Policy] --- */}
+            <div className="mt-6 bg-amber-50 border-l-4 border-amber-500 p-4 shadow-sm">
+                <h4 className="font-bold text-amber-800 text-sm uppercase mb-2">
+                    ⚠️ Important Admission & Funding Policy
+                </h4>
+                <div className="text-sm text-amber-900 space-y-2">
+                    <p>
+                        <strong>Strict Pre-contact Requirement:</strong> Unlike general university regulations, official membership in TSI Lab is <strong>strictly limited</strong> to students who have successfully completed the pre-contact process (confirmed within 3 months of admission).
+                    </p>
+                    <p>
+                        <strong>Financial Support Warning:</strong> Students joining without this prior arrangement may still receive academic supervision for their degree research. However, please be explicitly aware that <span className="font-bold underline">financial support (stipend/labor costs) is NOT provided</span> to students who have not completed the pre-contact process.
+                    </p>
+                </div>
+            </div>
+            {/* --- [추가된 섹션 끝] --- */}
+
             <div className="mt-8">
                 {/* 절취선 (Cut Line) */}
                 <div className="relative flex items-center py-4">
@@ -57,8 +72,7 @@ window.VacantPositionsTabContent = () => (
                     </div>
                 </div>
             </div>
-            {/* --- [수정된 부분 끝] --- */}
-        </div> {/* <--- 여기가 빠져 있었습니다 (Preferred Profile 닫는 태그) */}
+        </div>
 
         {/* 3. Target Journals 섹션 */}
         <div className="pt-6 border-t border-gray-200">

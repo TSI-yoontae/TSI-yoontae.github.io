@@ -6,20 +6,15 @@ const MemberCard = ({ member }) => {
     const koreanNameSize = isPI ? 'text-lg' : 'text-base';
     const [showAwards, setShowAwards] = useState(false);
 
+    // 이미지를 제거하고 텍스트 중심의 카드 디자인으로 변경
     return (
-        <div className="bg-white p-4 rounded-lg shadow-md flex flex-col sm:flex-row items-start gap-6 h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-            <img 
-                src={member.image} 
-                alt={`${member.name} 프로필 사진`}
-                className="w-24 h-24 sm:w-32 sm:h-32 rounded-full shadow-lg flex-shrink-0 mx-auto sm:mx-0"
-                onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/200x200/E2E8F0/4A5568?text=Error'; }}
-            />
-            <div className="flex-grow flex flex-col h-full">
+        <div className="bg-white p-5 rounded-lg shadow-md h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-gray-100">
+            <div className="flex flex-col h-full">
                 <div>
                     <h3 className={`${nameSize} font-bold text-gray-900`}>
                         {member.name} <span className={`${koreanNameSize} font-medium text-gray-600`}>({member.koreanName})</span>
                     </h3>
-                    {member.currentPosition && <p className="text-md font-semibold text-purple-600">{member.currentPosition}</p>}
+                    {member.currentPosition && <p className="text-md font-semibold text-purple-600 mt-1">{member.currentPosition}</p>}
                     
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-2 my-2">
                         {member.links.scholar && <a href={member.links.scholar} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">Google Scholar</a>}
@@ -29,14 +24,10 @@ const MemberCard = ({ member }) => {
                         {member.status !== 'Principal Investigator' && member.email && (<a href={`mailto:${member.email}`} className="text-sm text-blue-600 hover:underline">Email</a>)}
                         
                         {member.status === 'Alumni' && (
-                            <span className="px-2 py-0.5 bg-indigo-100 text-indigo-800 text-xs font-semibold rounded-full">
-                                Alumni
-                            </span>
+                            <span className="px-2 py-0.5 bg-indigo-100 text-indigo-800 text-xs font-semibold rounded-full">Alumni</span>
                         )}
                         {member.status === 'Industry Mentor' && (
-                            <span className="px-2 py-0.5 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
-                                Industry Mentor
-                            </span>
+                            <span className="px-2 py-0.5 bg-green-100 text-green-800 text-xs font-semibold rounded-full">Industry Mentor</span>
                         )}
                     </div>
                      {member.expertise && (
@@ -77,13 +68,15 @@ const MemberCard = ({ member }) => {
                         </div>
                     )}
 
-                    {/* Interests Section */}
+                    {/* Interests Section (연구주제 표시) */}
                     {member.interests && member.interests.length > 0 && (
-                        <div className="pt-3">
-                            <h4 className="text-sm font-semibold text-gray-800">Interests:</h4>
-                            <div className="flex flex-wrap gap-2 mt-1">
-                                {member.interests.map(interest => (
-                                    <span key={interest} className="px-2 py-1 bg-gray-200 text-gray-800 text-xs font-medium rounded-full">{interest}</span>
+                        <div className="pt-3 border-t border-gray-100 mt-2">
+                            <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Research Interests</h4>
+                            <div className="flex flex-wrap gap-2">
+                                {member.interests.map((interest, idx) => (
+                                    <span key={idx} className="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-md border border-gray-200">
+                                        {interest}
+                                    </span>
                                 ))}
                             </div>
                         </div>
@@ -96,31 +89,26 @@ const MemberCard = ({ member }) => {
 
 const MemberSection = ({ title, members, description }) => {
     const showTBD = members.length === 0 || members.every(m => m.name === "TBD");
-
     const isGridSection = title !== 'Principal Investigator';
-    const isTwoColumnGrid = title.includes('Students') || title.includes('Alumni') || title.includes('Mentoring');
-
-    let className = "space-y-6"; // Default for PI section
+    
+    // PI가 아니면 모두 3열 그리드 (이미지가 없으므로 더 촘촘해도 됨)
+    let className = "space-y-6"; 
     if (isGridSection) {
-        if (isTwoColumnGrid) {
-            className = "grid grid-cols-1 md:grid-cols-2 gap-6";
-        } else {
-            className = "grid grid-cols-1 md:grid-cols-3 gap-6";
-        }
+        className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5";
     }
 
     return (
         <div>
-            <h2 className="text-2xl font-semibold border-b pb-2">{title}</h2>
+            <h2 className="text-2xl font-semibold border-b pb-2 text-gray-800">{title}</h2>
             {description && (
-                <p className="mt-3 mb-4 text-sm text-gray-600">{description}</p>
+                <p className="mt-2 mb-4 text-sm text-gray-600">{description}</p>
             )}
             <div className={showTBD ? 'mt-4' : 'mt-6'}>
                 {showTBD ? (
                     <p className="text-gray-500 italic">To be determined.</p>
                 ) : (
                     <div className={className}>
-                        {members.map(member => <MemberCard key={member.name} member={member} />)}
+                        {members.map((member, idx) => <MemberCard key={member.name + idx} member={member} />)}
                     </div>
                 )}
             </div>
@@ -130,22 +118,44 @@ const MemberSection = ({ title, members, description }) => {
 
 window.MembersTabContent = () => {
     const membersData = window.TSI_Data.membersData;
+    
+    // 데이터 필터링
     const pi = membersData.filter(m => m.status === 'Principal Investigator');
     const phdStudents = membersData.filter(m => m.status === 'PhD Student');
+    
+    // [NEW] Master Thesis Track과 MS Students 분리
+    const masterThesis = membersData.filter(m => m.status === 'Master Thesis Track');
     const msStudents = membersData.filter(m => m.status === 'MS Student');
+    
     const industryMentors = membersData.filter(m => m.status === 'Industry Mentor');
     const alumni = membersData.filter(m => m.status === 'Alumni');
 
     return (
-        <section className="space-y-12">
+        <section className="space-y-16 mb-20">
             <MemberSection title="Principal Investigator" members={pi} />
+            
             <MemberSection title="PhD Students" members={phdStudents} />
-            <MemberSection title="MS Students" members={msStudents} />
+            
+            {/* Master Thesis Track 섹션 */}
+            <MemberSection 
+                title="Master Thesis Track" 
+                members={masterThesis} 
+                description="Graduate students pursuing a Master's degree with a research thesis focus."
+            />
+            
+            {/* MS Students 섹션 */}
+            <MemberSection 
+                title="MS Students" 
+                members={msStudents} 
+                description="Graduate students in the Master of Science program."
+            />
+            
             <MemberSection 
                 title="Mentoring" 
                 members={industryMentors} 
-                description="Our mentors are experts who can provide guidance to students on specific career paths in industry"
+                description="Our mentors are experts who provide guidance on specific industry career paths."
             />
+            
             <MemberSection title="Alumni" members={alumni} />
         </section>
     );

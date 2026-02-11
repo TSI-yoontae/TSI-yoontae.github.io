@@ -174,7 +174,7 @@ window.MembersTabContent = () => {
             <MemberSection 
                 title="MS Students" 
                 members={msStudents} 
-                description="Graduate students in the Master of Science program."
+                description="Graduate students"
             />
             
             <MemberSection 

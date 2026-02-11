@@ -36,7 +36,7 @@ window.TSI_Data.workingPapers = [
         topics: ["Large Language Models", "Finance", "Bias"] 
     },
     { 
-        id: "[W]", 
+        id: "[S]", 
         title: "Forecasting Future Language: Context Design for Mention Markets", 
         authors: [ 
             { name: "Sumin Kim" }, 

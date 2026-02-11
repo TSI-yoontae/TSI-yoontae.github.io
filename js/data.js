@@ -115,16 +115,16 @@ window.TSI_Data.workingPapers = [
 
 window.TSI_Data.allPapers = [...window.TSI_Data.publications, ...window.TSI_Data.workingPapers];
 
-// ... (이전 데이터 유지)
 
 window.TSI_Data.membersData = [
     { 
         name: "Prof. Yoontae Hwang", 
         koreanName: "황윤태", 
         status: "Principal Investigator", 
-        // image 필드는 제거하거나 비워도 됨
+        // 교수님은 기존 이미지 유지
+        image: "/image_yoontae.png", 
         email: "yoontae.hwang@pusan.ac.kr", 
-        bio: `I am an Assistant Professor at the Graduate School of Data Science, Pusan National University... (기존 내용)`, 
+        bio: `I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025. Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee. Guided by the belief that “Research is meaningful only when its insights leave the lab and change the world,” our laboratory not only submits its findings to the most prestigious journals and conferences but also pursues research capable of driving substantial real-world impact.`, 
         links: { scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl", linkedin: "https://www.linkedin.com/in/yoontae", OAQ: "https://www.arrakistech.io/", },
         awards: [
             { title: "Advisor (Industry Position)", year: 2025, organization: "OAQ" },
@@ -140,56 +140,58 @@ window.TSI_Data.membersData = [
         interests: ["Foundation Models", "Asset Pricing"], links: {} 
     },
 
-    // --- [NEW] Master Thesis Track ---
+    // --- MS Students (Track 구분 없이 모두 MS Student로 통일) ---
     { 
-        name: "Donghyun Yoon", koreanName: "윤동현", status: "Master Thesis Track", 
-        email: "", bio: "Master Thesis Track Student.", 
+        name: "Donghyun Yoon", koreanName: "윤동현", status: "MS Student", 
+        email: "", bio: "Master Thesis Track.", // Bio에 트랙 정보 표시
         interests: ["Agent", "Art"], links: {} 
     },
     { 
-        name: "Seunghyun Yang", koreanName: "양승현", status: "Master Thesis Track", 
-        email: "", bio: "Master Thesis Track Student.", 
+        name: "Seunghyun Yang", koreanName: "양승현", status: "MS Student", 
+        email: "", bio: "Master Thesis Track.", 
         interests: ["LLM", "Sports"], links: {} 
     },
     { 
-        name: "Jaeyoon Pyeon", koreanName: "편재윤", status: "Master Thesis Track", 
-        email: "", bio: "Master Thesis Track Student.", 
+        name: "Jaeyoon Pyeon", koreanName: "편재윤", status: "MS Student", 
+        email: "", bio: "Master Thesis Track.", 
         interests: ["AI", "Finance"], links: {} 
     },
     { 
-        name: "Seunggil Jeong", koreanName: "정승길", status: "Master Thesis Track", 
-        email: "", bio: "Master Thesis Track Student.", 
+        name: "Seunggil Jeong", koreanName: "정승길", status: "MS Student", 
+        email: "", bio: "Master Thesis Track.", 
         interests: ["AI", "Time Series"], links: {} 
     },
     { 
-        name: "Hanshin Lee", koreanName: "이한신", status: "Master Thesis Track", 
-        email: "", bio: "Master Thesis Track Student.", 
+        name: "Hanshin Lee", koreanName: "이한신", status: "MS Student", 
+        email: "", bio: "Master Thesis Track.", 
         interests: ["Data Science"], links: {} 
     },
     { 
-        name: "Taehwan Kim", koreanName: "김태환", status: "Master Thesis Track", 
-        email: "", bio: "Master Thesis Track Student.", 
+        name: "Taehwan Kim", koreanName: "김태환", status: "MS Student", 
+        email: "", bio: "Master Thesis Track.", 
         interests: ["AI", "Audio"], links: {} 
     },
     { 
-        name: "Yeonju Kim", koreanName: "김연주", status: "Master Thesis Track", 
-        email: "", bio: "Master Thesis Track Student.", 
+        name: "Yeonju Kim", koreanName: "김연주", status: "MS Student", 
+        email: "", bio: "Master Thesis Track.", 
         interests: ["AI", "Time Series"], links: {} 
     },
-
-    // --- [NEW] MS Students ---
     { 
         name: "Jiseok Kang", koreanName: "강지석", status: "MS Student", 
         email: "", bio: "MS Student.", 
         interests: ["AI", "Finance"], links: {} 
     },
+    { 
+        name: "TBD", koreanName: "미정", status: "MS Student", 
+        email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025.", 
+        interests: ["Reinforcement Learning", "Portfolio Optimization"], links: {} 
+    },
 
     // --- Mentors ---
-    { name: "Youngbin Lee", koreanName: "이영빈", status: "Industry Mentor", currentPosition: "AI Researcher @ Elice", links: { scholar: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko", }, expertise: "LLM and Agent" },
-    { name: "Yejin Kim", koreanName: "김예진", status: "Industry Mentor", currentPosition: "Data Scientist @ Meritz Fire & Marine Insurance", links: { linkedin: "https://www.linkedin.com/in/yejining99/" }, expertise: "Recommender System" },
+    { name: "Youngbin Lee", koreanName: "이영빈", status: "Industry Mentor", image: "/youngbin.png", currentPosition: "AI Researcher @ Elice", links: { scholar: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko", }, expertise: "LLM and Agent" },
+    { name: "Yejin Kim", koreanName: "김예진", status: "Industry Mentor", image: "/Yejin.jpg", currentPosition: "Data Scientist @ Meritz Fire & Marine Insurance", links: { linkedin: "https://www.linkedin.com/in/yejining99/" }, expertise: "Recommender System" },
 ];
 
-// ... (collaboratorInfo 등 나머지 데이터 유지)
 window.TSI_Data.collaboratorInfo = {
     "Yaxuan Kong": { affiliation: "University of Oxford", scholar: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" },
     "Yiyuan Yang": { affiliation: "University of Oxford", scholar: "https://scholar.google.co.kr/citations?user=FUuGvZIAAAAJ&hl=en" },

@@ -184,7 +184,7 @@ window.TSI_Data.membersData = [
     { 
         name: "TBD", koreanName: "미정", status: "MS Student", 
         email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025.", 
-        interests: ["Reinforcement Learning", "Portfolio Optimization"], links: {} 
+        interests: ["AI in Science"], links: {} 
     },
 
     // --- Mentors ---

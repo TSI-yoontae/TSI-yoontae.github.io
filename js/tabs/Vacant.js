@@ -32,7 +32,7 @@ window.VacantPositionsTabContent = () => (
                 </h4>
                 <div className="text-sm text-amber-900 space-y-2">
                     <p>
-                        <strong>Strict Pre-contact Requirement:</strong> Unlike general university regulations, official membership in TSI Lab is <strong>strictly limited</strong> to students who have successfully completed the pre-contact process (confirmed within 3 months of admission).
+                        <strong>Strict Pre-contact Requirement:</strong> Unlike general university regulations, official membership in TSI Lab is <strong>strictly limited</strong> to students who have successfully completed the pre-contact process (confirmed within 1 months of admission).
                     </p>
                     <p>
                         <strong>Financial Support Policy:</strong> Students joining without this prior arrangement may still receive academic supervision for their degree research. However, please be aware that <span className="font-bold underline">additional financial support funded by the laboratory will be minimal or unavailable</span> for students who have not completed the pre-contact process.

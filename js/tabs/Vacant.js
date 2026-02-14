@@ -25,18 +25,28 @@ window.VacantPositionsTabContent = () => (
                 We are looking for students with solid mathematics and programming skills. Demonstrated excellence or active participation in data-science competitions (e.g., Dacon, Kaggle) is highly valued. Please note that achievements from the majority of domestic competitions and awards in South Korea are not considered.
             </p>
 
-            {/* --- [수정된 부분: 톤앤매너 완화 및 구체화] --- */}
+            {/* --- [수정된 부분: 졸업 요건(MS, PhD) 통합 추가] --- */}
             <div className="mt-6 bg-amber-50 border-l-4 border-amber-500 p-4 shadow-sm">
                 <h4 className="font-bold text-amber-800 text-sm uppercase mb-2">
-                    ⚠️ Important Admission & Funding Policy
+                    ⚠️ Important Admission, Funding & Graduation Policy
                 </h4>
-                <div className="text-sm text-amber-900 space-y-2">
+                <div className="text-sm text-amber-900 space-y-3">
                     <p>
                         <strong>Strict Pre-contact Requirement:</strong> Unlike general university regulations, official membership in TSI Lab is <strong>strictly limited</strong> to students who have successfully completed the pre-contact process (confirmed within 1 months of admission).
                     </p>
                     <p>
                         <strong>Financial Support Policy:</strong> Students joining without this prior arrangement may still receive academic supervision for their degree research. However, please be aware that <span className="font-bold underline">additional financial support funded by the laboratory will be minimal or unavailable</span> for students who have not completed the pre-contact process.
                     </p>
+                    
+                    {/* Graduation Policies Divider */}
+                    <div className="border-t border-amber-200 pt-3 mt-3 space-y-2">
+                        <p>
+                            <strong>Graduation Policy (MS):</strong> Please be aware that regarding Master's degree theses, if the work does not meet the advisor's standards, graduation may not be possible within exactly 4 semesters.
+                        </p>
+                        <p>
+                            <strong>Graduation Policy (PhD & Integrated):</strong> Candidates are required to publish <span className="font-bold text-red-800">at least one paper in a top-tier AI conference</span>. Furthermore, a <span className="font-bold text-red-800">total of 3 or more publications</span> (including the target journals listed below) are required for graduation.
+                        </p>
+                    </div>
                 </div>
             </div>
             {/* --- [수정된 부분 끝] --- */}

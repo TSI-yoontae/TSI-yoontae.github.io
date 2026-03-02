@@ -18,7 +18,7 @@ const ResearchPhilosophySection = () => {
         </section>
     );
 };
-o
+
 const ResearchTopicsSection = () => {
     const { FinanceIcon, ScienceIcon, ModelIcon, AccordionItem } = window;
     

@@ -18,7 +18,7 @@ const ResearchPhilosophySection = () => {
         </section>
     );
 };
-
+o
 const ResearchTopicsSection = () => {
     const { FinanceIcon, ScienceIcon, ModelIcon, AccordionItem } = window;
     
@@ -62,7 +62,7 @@ window.HomeTabContent = () => {
             <section>
                 <h2 className="text-2xl font-semibold">Latest News</h2>
                 <ul className="list-disc list-inside text-gray-700 space-y-2 mt-3">
-                    <li>📢 We will be hosting the <a href="https://icaif25-rfts.github.io/" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline hover:text-blue-800 transition-colors"> Workshop on Rethinking Financial Time-Series: Foundations, Frontiers, and Future Directions </a> 
+                    <li>📢 We will be hosting the <a href="https://icaif-25-rtfs.github.io/" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline hover:text-blue-800 transition-colors"> Workshop on Rethinking Financial Time-Series: Foundations, Frontiers, and Future Directions </a> 
             at ICAIF-25. Join us! </li>
                     <li>🏆 Selected for the <span className="font-semibold">Rising Scholar Award (2025)</span> by the Korean Academic Society of Business Administration.</li>
                     <li>📢 The Time Series Intelligence Lab (TSI Lab) will launch in September 2025.</li>

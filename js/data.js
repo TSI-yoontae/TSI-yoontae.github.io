@@ -162,11 +162,6 @@ window.TSI_Data.membersData = [
         interests: ["AI", "Time Series"], links: {} 
     },
     { 
-        name: "Hanshin Lee", koreanName: "이한신", status: "MS Student", 
-        email: "", bio: "Master Thesis Track.", 
-        interests: ["Data Science"], links: {} 
-    },
-    { 
         name: "Taehwan Kim", koreanName: "김태환", status: "MS Student", 
         email: "", bio: "Master Thesis Track.", 
         interests: ["AI", "Audio"], links: {} 

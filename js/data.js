@@ -1,4 +1,3 @@
-# ./js/data.js
 window.TSI_Data = {};
 
 window.TSI_Data.publications = [

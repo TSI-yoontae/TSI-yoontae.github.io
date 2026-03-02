@@ -1,6 +1,27 @@
+# ./js/data.js
 window.TSI_Data = {};
 
 window.TSI_Data.publications = [
+    // [C6]로 배정 및 Publications로 이동된 논문
+    { 
+        id: "[C6]", 
+        title: "Forecasting Future Language: Context Design for Mention Markets", 
+        authors: [ 
+            { name: "Sumin Kim" }, 
+            { name: "Jihoon Kwon" }, 
+            { name: "Yoon Kim" }, 
+            { name: "Ahn Wonbin" }, 
+            { name: "Alejandro Lopez-Lira" },
+            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
+            { name: "Yoontae Hwang", isHighlight: true },
+            { name: "Jaewon Lee" },
+            { name: "Raffi Khatchadourian" },
+            { name: "Chanyeol Choi" },
+        ], 
+        venue: "ICLR 2026 Workshop (Accepted), Submitted to another venue", 
+        links: [ { text: "paper", href: "https://arxiv.org/pdf/2602.21229" } ], 
+        topics: ["Natural Language Processing", "Finance"] 
+    },
     { id: "[J6]", title: "Deep Learning in Asset Management: Architectures, Applications, and Challenges", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Youngbin Lee", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" }, { name: "Junhyeong Lee", href: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Jang Ho Kim", href: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=en" }, { name: "Woo Chang Kim", href: "https://scholar.google.co.kr/citations?user=7NmBs1kAAAAJ&hl=en" }, { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" }, ], venue: "The Journal Of Portfolio Management, 2025", links: [ ], award: "Forthcoming in December", topics: ["Portfolio Theory", "Deep Learning", "Survey"] },
     { id: "[C5]", title: "Fusing Narrative Semantics for Financial Volatility Forecasting", authors: [ { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Yoontae Hwang*", isHighlight: true }, {name: "Marcus Kaiser"}, {name: "Chris Vryonides"}, {name: "Roel Oomen"}, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, ], venue: "ACM International Conference on AI in Finance (ICAIF), 2025, Acceptance rate 27%", award: "Oxford & Deutsche Bank Project", links: [ { text: "paper", href: "https://arxiv.org/abs/2510.20699" }, { text: "code", href: "https://github.com/Yoontae6719/M2VN-Multi-Modal-Learning-Network-for-Volatility-Forecasting" }, ], topics: ["Time-Series Analysis", "Deep Learning"] },
     { id: "[C4]", title: "Time-MQA: Time Series Multi-Task Question Answering with Context Enhancement", authors: [ { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Yiyuan Yang*", href: "https://scholar.google.co.kr/citations?user=FUuGvZIAAAAJ&hl=en" }, { name: "Yoontae Hwang", isHighlight: true }, { name: "Wenjie Du", href: "https://scholar.google.com/citations?user=j9qvUg0AAAAJ&hl=en" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Zhangyang Wang", href: "https://scholar.google.com/citations?user=pxFyKAIAAAAJ&hl=en" }, { name: "Ming Jin", href: "https://scholar.google.com/citations?user=I2xvKaIAAAAJ&hl=en" }, { name: "Qingsong Wen", href: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" }, ], venue: "Annual Meeting of the Association for Computational Linguistics (ACL), 2025, Acceptance rate 23%, Main Track", links: [ { text: "paper", href: "https://arxiv.org/abs/2503.01875" }, { text: "Hugging Face", href: "https://huggingface.co/Time-MQA" }, ], topics: ["Time-Series Analysis", "Deep Learning"] },
@@ -15,7 +36,6 @@ window.TSI_Data.publications = [
 ];
 
 window.TSI_Data.workingPapers = [
-    // [NEW 2026] Added Papers
     { 
         id: "[S]", 
         title: "Evaluating LLMs in Finance Requires Explicit Bias Consideration", 
@@ -32,27 +52,8 @@ window.TSI_Data.workingPapers = [
             { name: "Stefan Zohren†", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
         ], 
         venue: "Submitted to Top AI Conference", 
-        links: [], 
+        links: [ { text: "paper", href: "https://arxiv.org/pdf/2602.14233v1" } ], 
         topics: ["Large Language Models", "Finance", "Bias"] 
-    },
-    { 
-        id: "[S]", 
-        title: "Forecasting Future Language: Context Design for Mention Markets", 
-        authors: [ 
-            { name: "Sumin Kim" }, 
-            { name: "Jihoon Kwon" }, 
-            { name: "Yoon Kim" }, 
-            { name: "Ahn Wonbin" }, 
-            { name: "Alejandro Lopez-Lira" },
-            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
-            { name: "Yoontae Hwang", isHighlight: true },
-            { name: "Jaewon Lee" },
-            { name: "Raffi Khatchadourian" },
-            { name: "Chanyeol Choi" },
-        ], 
-        venue: "Submitted to AI Conf Workshop", 
-        links: [], 
-        topics: ["Natural Language Processing", "Finance"] 
     },
     { 
         id: "[S]", 
@@ -66,7 +67,6 @@ window.TSI_Data.workingPapers = [
         links: [], 
         topics: ["Graph Neural Networks", "Deep Learning"] 
     },
-    // Existing & Updated Papers
     { 
         id: "[S]", 
         title: "Portable Single-Beam Atomic Total-Field Magnetometer for Stand-off Magnetic Sensing", 
@@ -108,7 +108,7 @@ window.TSI_Data.workingPapers = [
             { name: "Deok-Young Lee" } 
         ], 
         venue: "Submitted to Top AI Confernece", 
-        links: [], 
+        links: [ { text: "paper", href: "https://arxiv.org/pdf/2601.18800" } ], 
         topics: ["Time-Series Analysis", "AI in Science"]  
     },
 ];
@@ -121,7 +121,6 @@ window.TSI_Data.membersData = [
         name: "Prof. Yoontae Hwang", 
         koreanName: "황윤태", 
         status: "Principal Investigator", 
-        // 교수님은 기존 이미지 유지
         image: "/image_yoontae.png", 
         email: "yoontae.hwang@pusan.ac.kr", 
         bio: `I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025. Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee. Guided by the belief that “Research is meaningful only when its insights leave the lab and change the world,” our laboratory not only submits its findings to the most prestigious journals and conferences but also pursues research capable of driving substantial real-world impact.`, 
@@ -139,11 +138,9 @@ window.TSI_Data.membersData = [
         email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025.", 
         interests: ["Foundation Models", "Asset Pricing"], links: {} 
     },
-
-    // --- MS Students (Track 구분 없이 모두 MS Student로 통일) ---
     { 
         name: "Donghyun Yoon", koreanName: "윤동현", status: "MS Student", 
-        email: "", bio: "Master Thesis Track.", // Bio에 트랙 정보 표시
+        email: "", bio: "Master Thesis Track.", 
         interests: ["Agent", "Art"], links: {} 
     },
     { 
@@ -181,8 +178,6 @@ window.TSI_Data.membersData = [
         email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025.", 
         interests: ["AI in Science"], links: {} 
     },
-
-    // --- Mentors ---
     { name: "Youngbin Lee", koreanName: "이영빈", status: "Industry Mentor", image: "/youngbin.png", currentPosition: "AI Researcher @ Elice", links: { scholar: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko", }, expertise: "LLM and Agent" },
     { name: "Yejin Kim", koreanName: "김예진", status: "Industry Mentor", image: "/Yejin.jpg", currentPosition: "Data Scientist @ Meritz Fire & Marine Insurance", links: { linkedin: "https://www.linkedin.com/in/yejining99/" }, expertise: "Recommender System" },
 ];

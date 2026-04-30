@@ -24,7 +24,7 @@ const ResearchTopicsSection = () => {
     
     const researchTopicsData = [
         { id: 1, icon: <FinanceIcon />, title: "AI in Quantitative Finance", content: [{ topic: "Asset Management", subtopics: ["Decision-focused learning", "Portfolio optimization", "Goal-based investing", "Trading strategy*", "Household Finance",] }, { topic: "Financial Modeling", subtopics: ["Investor behavior modeling", "Asset pricing", "Market making", "Order flow analysis",] }, { topic: "Time-Series for Finance", subtopics: ["Volatility forecasting", "Regime-switching models", "Lead-lag detection", "Return Forecasting",] }] },
-        { id: 2, icon: <ScienceIcon />, title: "AI in Science with OAQ", content: [{ topic: "Physics & Climate Modeling", subtopics: ["Physics-Informed Neural Networks", "Climate Dynamics Forecasting",] }, { topic: "General Scientific Applications", subtopics: ["GPS Free Autonomous Navigation*", "Magnetic Object Detection*",] }, { topic: "Sport Science", subtopics: ["Player Performance Modeling & Tracking", "Sports Betting",] }] },
+        { id: 2, icon: <ScienceIcon />, title: "AI in Science", content: [{ topic: "Physics & Climate Modeling", subtopics: ["Physics-Informed Neural Networks", "Climate Dynamics Forecasting",] }, { topic: "General Scientific Applications", subtopics: ["GPS Free Autonomous Navigation*", "Magnetic Object Detection*",] }, { topic: "Sport Science", subtopics: ["Player Performance Modeling & Tracking", "Sports Betting",] }] },
         { id: 3, icon: <ModelIcon />, title: "Foundation Model", content: [{ topic: "Model Architecture & Representation", subtopics: ["Foundation Models for Financial Time Series", "Foundation Models for Sports Analytics"] }, { topic: "Advanced Learning Paradigms", subtopics: ["Temporal Domain Generalization", "Learning Strategy", "Tokenizer",] }] }
     ];
     const [openAccordionId, setOpenAccordionId] = useState(null);
@@ -62,6 +62,7 @@ window.HomeTabContent = () => {
             <section>
                 <h2 className="text-2xl font-semibold">Latest News</h2>
                 <ul className="list-disc list-inside text-gray-700 space-y-2 mt-3">
+                   <li><b>[May 2026]</b> Two papers related to Financial AI have been accepted to ICML'26!</li>
                     <li>📢 We will be hosting the <a href="https://icaif-25-rtfs.github.io/" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 hover:underline hover:text-blue-800 transition-colors"> Workshop on Rethinking Financial Time-Series: Foundations, Frontiers, and Future Directions </a> 
             at ICAIF-25. Join us! </li>
                     <li>🏆 Selected for the <span className="font-semibold">Rising Scholar Award (2025)</span> by the Korean Academic Society of Business Administration.</li>

@@ -173,6 +173,12 @@ window.TSI_Data.membersData = [
         interests: ["AI", "Finance"], links: {} 
     },
     { 
+        name: "Hyeongcheol Kim", koreanName: "김형", status: "MS Student", 
+        email: "", bio: "Master Thesis Track.", 
+        interests: ["AI", "Finance"], links: {} 
+    },
+    
+    { 
         name: "TBD", koreanName: "미정", status: "MS Student", 
         email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025.", 
         interests: ["AI in Science"], links: {} 

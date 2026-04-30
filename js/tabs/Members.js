@@ -26,7 +26,6 @@ const MemberCard = ({ member }) => {
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 my-2">
                             {member.links.scholar && <a href={member.links.scholar} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">Google Scholar</a>}
                             {member.links.linkedin && <a href={member.links.linkedin} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">LinkedIn</a>}
-                            {member.links.OAQ && <a href={member.links.OAQ} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">OAQ</a>}
                             {member.email && <span className="text-sm text-gray-600">Email: {member.email}</span>}
                         </div>
                          {member.expertise && (

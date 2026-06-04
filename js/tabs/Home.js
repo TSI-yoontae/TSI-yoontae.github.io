@@ -16,7 +16,7 @@ const ResearchTopicsSection = () => {
         {
             id: 'market',
             title: 'AI in Market',
-            items: ['Optimal Betting (Mainly Polymarket)', "Dark Pool" ,'Sport Science'],
+            items: ['Optimal Betting (Mainly Polymarket)', "Dark Pool", "Limit Order Book" ,'Sport Science'],
         },
         {
             id: 'foundation',

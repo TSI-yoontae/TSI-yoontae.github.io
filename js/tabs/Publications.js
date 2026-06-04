@@ -200,7 +200,6 @@ window.PublicationsTabContent = () => {
                     <div>
                         <h2 className="text-2xl font-extrabold tracking-tight text-[#172033]">Readable research archive</h2>
                         <p className="mt-1 max-w-4xl text-sm leading-5 text-[#5e6676]">
-                            Compact bibliography-style rows show title, authors, venue, year, and links without extra classification labels.
                         </p>
                     </div>
                     <div className="flex flex-wrap gap-1.5">

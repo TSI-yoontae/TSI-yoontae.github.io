@@ -89,11 +89,6 @@ window.MembersTabContent = () => {
 
     return (
         <section className="space-y-5">
-            <div>
-                <MemberSectionHeader
-                    title="Members"
-                />
-            </div>
             <section className="tsi-section">
                 <MemberSectionHeader title="Principal Investigator" />
                 <div className="space-y-2">

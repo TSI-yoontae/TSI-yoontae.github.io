@@ -43,46 +43,46 @@ function App() {
 
     const TabButton = ({ value, children }) => {
         const isActive = activeTab === value;
-        const classes = `whitespace-nowrap border-b-2 px-1 py-3 text-sm font-semibold transition-colors ${
+        const classes = `whitespace-nowrap border-b-2 px-2 py-2 text-[13px] font-semibold transition-colors ${
             isActive
-                ? 'border-slate-900 text-slate-950'
-                : 'border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-900'
+                ? 'border-slate-950 text-slate-950'
+                : 'border-transparent text-slate-500 hover:border-slate-400 hover:text-slate-900'
         }`;
         return <button onClick={() => setActiveTab(value)} className={classes}>{children}</button>;
     };
 
     return (
-        <div className="min-h-screen">
-            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
-                <header className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-                    <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div className="min-h-screen bg-white">
+            <div className="mx-auto max-w-6xl px-4 py-4 sm:px-5 lg:px-6">
+                <header className="border-b border-slate-300 pb-3">
+                    <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
                         <div>
-                            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">Pusan National University</p>
-                            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-5xl">
-                                Time Series Intelligence Lab <span className="text-slate-500">(TSI Lab)</span>
+                            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">Pusan National University</p>
+                            <h1 className="mt-1 text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">
+                                Time Series Intelligence Lab <span className="font-semibold text-slate-500">(TSI Lab)</span>
                             </h1>
-                            <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
+                            <p className="mt-1 text-sm leading-5 text-slate-600">
                                 AI in Finance · AI in Market · Foundation Models for Financial Time Series
                             </p>
                         </div>
                         <a
                             href="mailto:yoontae.hwang@pusan.ac.kr"
-                            className="inline-flex items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-900 hover:text-slate-950"
+                            className="text-sm font-semibold text-slate-700 underline decoration-slate-300 hover:text-slate-950 hover:decoration-slate-900"
                         >
                             yoontae.hwang@pusan.ac.kr
                         </a>
                     </div>
                 </header>
                 
-                <nav className="mt-6 border-b border-slate-200">
-                    <div className="flex gap-5 overflow-x-auto">
+                <nav className="border-b border-slate-200">
+                    <div className="flex gap-2 overflow-x-auto">
                         {tabs.map(tab => (
                             <TabButton key={tab.value} value={tab.value}>{tab.label}</TabButton>
                         ))}
                     </div>
                 </nav>
 
-                <main className="mt-8">
+                <main className="mt-4">
                     {renderContent()}
                 </main>
             </div>

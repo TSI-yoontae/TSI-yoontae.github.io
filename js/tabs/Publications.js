@@ -38,19 +38,19 @@ const getResearchAreas = (paper) => {
 };
 
 const PublicationStat = ({ label, value }) => (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-        <p className="text-3xl font-extrabold text-slate-950">{value}</p>
-        <p className="mt-1 text-sm font-semibold text-slate-500">{label}</p>
-    </div>
+    <span className="inline-flex items-baseline gap-1 border border-slate-200 bg-white px-2 py-1 text-xs text-slate-600">
+        <strong className="text-sm text-slate-950">{value}</strong>
+        {label}
+    </span>
 );
 
 const FilterButton = ({ active, onClick, children }) => (
     <button
         onClick={onClick}
-        className={`rounded-full px-3 py-1.5 text-xs font-semibold transition-colors ${
+        className={`border px-2 py-1 text-xs font-semibold transition-colors ${
             active
-                ? 'bg-slate-950 text-white'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                ? 'border-slate-950 bg-slate-950 text-white'
+                : 'border-slate-200 bg-white text-slate-700 hover:border-slate-500'
         }`}
     >
         {children}
@@ -59,11 +59,11 @@ const FilterButton = ({ active, onClick, children }) => (
 
 const AuthorList = ({ authors }) => {
     const [expanded, setExpanded] = React.useState(false);
-    const visibleAuthors = expanded ? authors : authors.slice(0, 6);
+    const visibleAuthors = expanded ? authors : authors.slice(0, 8);
     const hiddenCount = Math.max(authors.length - visibleAuthors.length, 0);
 
     return (
-        <div className="text-sm leading-6 text-slate-600">
+        <div className="text-[13px] leading-5 text-slate-600">
             {visibleAuthors.map((author, index) => (
                 <React.Fragment key={`${author.name}-${index}`}>
                     {author.href ? (
@@ -81,16 +81,36 @@ const AuthorList = ({ authors }) => {
                     {index < visibleAuthors.length - 1 && ', '}
                 </React.Fragment>
             ))}
-            {hiddenCount > 0 && (
-                <button onClick={() => setExpanded(true)} className="ml-2 text-xs font-bold text-slate-700 underline decoration-slate-300 underline-offset-4 hover:decoration-slate-900">
+            {hiddenCount > 0 && !expanded && (
+                <button onClick={() => setExpanded(true)} className="ml-2 text-xs font-bold text-slate-700 underline decoration-slate-300 hover:decoration-slate-900">
                     +{hiddenCount} more
+                </button>
+            )}
+            {expanded && authors.length > 8 && (
+                <button onClick={() => setExpanded(false)} className="ml-2 text-xs font-bold text-slate-700 underline decoration-slate-300 hover:decoration-slate-900">
+                    show less
                 </button>
             )}
         </div>
     );
 };
 
-const PublicationCard = ({ paper }) => {
+const PublicationTags = ({ areas, topics, compact = false }) => (
+    <div className={`flex flex-wrap gap-1 ${compact ? 'justify-start lg:justify-end' : ''}`}>
+        {areas.map(area => (
+            <span key={area} className="border border-slate-900 bg-slate-900 px-1.5 py-0.5 text-[11px] font-semibold text-white">
+                {area}
+            </span>
+        ))}
+        {topics.map(topic => (
+            <span key={topic} className="border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[11px] font-semibold text-slate-700">
+                {topic}
+            </span>
+        ))}
+    </div>
+);
+
+const PublicationEntry = ({ paper }) => {
     const links = paper.links || [];
     const topics = paper.topics || [];
     const kind = getPublicationKind(paper.id);
@@ -99,30 +119,30 @@ const PublicationCard = ({ paper }) => {
     const cleanId = (paper.id || '').replace(/\[|\]/g, '');
 
     return (
-        <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
-                <div className="flex flex-none items-center gap-3 lg:w-32 lg:flex-col lg:items-start">
-                    <span className="inline-flex h-11 min-w-11 items-center justify-center rounded-xl bg-slate-950 px-3 text-sm font-extrabold text-white">
+        <article className="border-b border-slate-100 px-3 py-2.5 last:border-b-0 hover:bg-slate-50/70">
+            <div className="grid gap-2 lg:grid-cols-[86px_1fr_190px] lg:gap-4">
+                <div className="flex items-center gap-2 lg:block">
+                    <span className="inline-flex min-w-10 justify-center border border-slate-300 bg-white px-2 py-0.5 text-[12px] font-extrabold text-slate-900">
                         {cleanId || 'Paper'}
                     </span>
-                    <div className="space-y-1">
-                        <p className="text-xs font-bold uppercase tracking-wide text-slate-500">{kind}</p>
-                        {year && <p className="text-xs font-semibold text-slate-500">{year}</p>}
+                    <div className="flex gap-2 text-[11px] font-semibold uppercase tracking-wide text-slate-500 lg:mt-1 lg:block lg:space-y-0.5">
+                        <p>{kind}</p>
+                        {year && <p>{year}</p>}
                     </div>
                 </div>
 
-                <div className="min-w-0 flex-1">
-                    <div className="flex flex-col gap-3 xl:flex-row xl:items-start xl:justify-between">
-                        <h3 className="text-base font-extrabold leading-6 text-slate-950 sm:text-lg">{paper.title}</h3>
+                <div className="min-w-0">
+                    <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
+                        <h3 className="text-[15px] font-extrabold leading-5 text-slate-950">{paper.title}</h3>
                         {links.length > 0 && (
-                            <div className="flex flex-none flex-wrap gap-2">
+                            <div className="flex flex-none flex-wrap gap-x-3 gap-y-1 sm:justify-end">
                                 {links.map((link, index) => (
                                     <a
                                         key={`${link.href}-${index}`}
                                         href={link.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="rounded-full border border-slate-200 px-3 py-1 text-xs font-bold text-slate-700 transition-colors hover:border-slate-900 hover:text-slate-950"
+                                        className="text-xs font-bold text-slate-600 underline decoration-slate-300 hover:text-slate-950 hover:decoration-slate-900"
                                     >
                                         {link.text}
                                     </a>
@@ -131,22 +151,16 @@ const PublicationCard = ({ paper }) => {
                         )}
                     </div>
 
-                    {(paper.authors || []).length > 0 && <div className="mt-2"><AuthorList authors={paper.authors || []} /></div>}
-                    {paper.venue && <p className="mt-2 text-sm font-medium leading-6 text-slate-500">{paper.venue}</p>}
-                    {paper.award && <p className="mt-2 text-sm font-semibold text-rose-600">{paper.award}</p>}
-
-                    <div className="mt-4 flex flex-wrap gap-2">
-                        {areas.map(area => (
-                            <span key={area} className="rounded-full bg-slate-900 px-2.5 py-1 text-xs font-semibold text-white">
-                                {area}
-                            </span>
-                        ))}
-                        {topics.map(topic => (
-                            <span key={topic} className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
-                                {topic}
-                            </span>
-                        ))}
+                    {(paper.authors || []).length > 0 && <div className="mt-1"><AuthorList authors={paper.authors || []} /></div>}
+                    {paper.venue && <p className="mt-1 text-[13px] font-medium leading-5 text-slate-500">{paper.venue}</p>}
+                    {paper.award && <p className="mt-1 text-[13px] font-semibold leading-5 text-rose-700">{paper.award}</p>}
+                    <div className="mt-1.5 lg:hidden">
+                        <PublicationTags areas={areas} topics={topics} />
                     </div>
+                </div>
+
+                <div className="hidden lg:block">
+                    <PublicationTags areas={areas} topics={topics} compact />
                 </div>
             </div>
         </article>
@@ -157,17 +171,17 @@ const PublicationListSection = ({ title, description, papers }) => {
     if (papers.length === 0) return null;
 
     return (
-        <section className="space-y-4">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <section className="tsi-section">
+            <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                    <h2 className="text-2xl font-bold tracking-tight text-slate-950">{title}</h2>
-                    {description && <p className="mt-1 text-sm leading-6 text-slate-600">{description}</p>}
+                    <h2 className="text-lg font-extrabold tracking-tight text-slate-950">{title}</h2>
+                    {description && <p className="text-sm leading-5 text-slate-600">{description}</p>}
                 </div>
-                <p className="text-sm font-semibold text-slate-500">{papers.length} papers</p>
+                <p className="text-xs font-semibold text-slate-500">{papers.length} papers</p>
             </div>
-            <div className="space-y-3">
+            <div className="border border-slate-200 bg-white">
                 {papers.map((paper, index) => (
-                    <PublicationCard key={`${paper.id}-${paper.title}-${index}`} paper={paper} />
+                    <PublicationEntry key={`${paper.id}-${paper.title}-${index}`} paper={paper} />
                 ))}
             </div>
         </section>
@@ -176,7 +190,7 @@ const PublicationListSection = ({ title, description, papers }) => {
 
 window.PublicationsTabContent = () => {
     if (!window.TSI_Data) {
-        return <div className="p-4 text-slate-500">Loading data...</div>;
+        return <div className="p-3 text-slate-500">Loading data...</div>;
     }
 
     const publications = window.TSI_Data.publications || [];
@@ -252,46 +266,48 @@ window.PublicationsTabContent = () => {
     };
 
     return (
-        <section className="space-y-8">
-            <div className="space-y-4">
-                <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.22em] text-slate-500">Publications</p>
-                    <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-950">Readable research archive</h2>
-                    <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600">
-                        Search across title, author, venue, research area, and topic. Cards keep venue, authors, links, awards, and topic tags visible without turning the page into a dense bibliography.
-                    </p>
-                    <p className="mt-2 text-xs leading-5 text-slate-500">
-                        <strong>C</strong>: Conference · <strong>J</strong>: Journal · <strong>S</strong>: Submitted · <strong>W</strong>: Work in progress · <strong>*</strong>: equal contribution · <strong>†</strong>: corresponding author
-                    </p>
+        <section className="space-y-5">
+            <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">Publications</p>
+                <div className="mt-0.5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                    <div>
+                        <h2 className="text-2xl font-extrabold tracking-tight text-slate-950">Readable research archive</h2>
+                        <p className="mt-1 max-w-4xl text-sm leading-5 text-slate-600">
+                            Compact bibliography-style rows show title, authors, venue, links, area, and topic tags without large card spacing.
+                        </p>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                        <PublicationStat label="total" value={allPapers.length} />
+                        <PublicationStat label="pub." value={publications.length} />
+                        <PublicationStat label="working" value={workingPapers.length} />
+                    </div>
                 </div>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                    <PublicationStat label="Total papers" value={allPapers.length} />
-                    <PublicationStat label="Publications" value={publications.length} />
-                    <PublicationStat label="Working papers" value={workingPapers.length} />
-                </div>
+                <p className="mt-1 text-xs leading-5 text-slate-500">
+                    <strong>C</strong>: Conference · <strong>J</strong>: Journal · <strong>S</strong>: Submitted · <strong>W</strong>: Work in progress · <strong>*</strong>: equal contribution · <strong>†</strong>: corresponding author
+                </p>
             </div>
 
-            <div className="sticky top-0 z-10 rounded-2xl border border-slate-200 bg-white/95 p-4 shadow-sm backdrop-blur sm:p-5">
-                <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
+            <div className="border border-slate-200 bg-white p-3">
+                <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
                     <div className="relative flex-1">
                         <input
                             type="text"
-                            placeholder="Search by title, author, venue, area, or topic..."
+                            placeholder="Search title, author, venue, area, or topic..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 pl-10 text-sm outline-none transition focus:border-slate-900"
+                            className="w-full border border-slate-300 bg-white px-3 py-2 pl-8 text-sm outline-none transition focus:border-slate-900"
                         />
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400">
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
                     </div>
-                    <button onClick={resetFilters} className="rounded-xl border border-slate-200 px-4 py-3 text-sm font-bold text-slate-700 transition-colors hover:border-slate-900 hover:text-slate-950">
+                    <button onClick={resetFilters} className="border border-slate-300 px-3 py-2 text-xs font-bold text-slate-700 transition-colors hover:border-slate-900 hover:text-slate-950">
                         Reset
                     </button>
                 </div>
 
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div className="mt-2 flex flex-wrap gap-1.5">
                     {[
                         ['all', 'All'],
                         ['publication', 'Publications'],
@@ -301,18 +317,18 @@ window.PublicationsTabContent = () => {
                     ))}
                 </div>
 
-                <div className="mt-4 space-y-3">
+                <div className="mt-2 grid gap-2 lg:grid-cols-[1fr_2fr]">
                     <div>
-                        <p className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">Research area</p>
-                        <div className="flex flex-wrap gap-2">
+                        <p className="mb-1 text-[11px] font-bold uppercase tracking-wide text-slate-500">Research area</p>
+                        <div className="flex flex-wrap gap-1.5">
                             {areaOptions.map(area => (
                                 <FilterButton key={area} active={activeAreas.includes(area)} onClick={() => toggleArea(area)}>{area}</FilterButton>
                             ))}
                         </div>
                     </div>
                     <div>
-                        <p className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">Detailed tags</p>
-                        <div className="flex max-h-24 flex-wrap gap-2 overflow-y-auto pr-1">
+                        <p className="mb-1 text-[11px] font-bold uppercase tracking-wide text-slate-500">Detailed tags</p>
+                        <div className="flex max-h-20 flex-wrap gap-1.5 overflow-y-auto pr-1">
                             {detailedTags.map(tag => (
                                 <FilterButton key={tag} active={activeTags.includes(tag)} onClick={() => toggleTag(tag)}>{tag}</FilterButton>
                             ))}
@@ -338,9 +354,9 @@ window.PublicationsTabContent = () => {
             />
 
             {filteredPapers.length === 0 && (
-                <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center">
+                <div className="border border-dashed border-slate-300 bg-white p-5 text-center">
                     <p className="font-semibold text-slate-700">No papers match the current filters.</p>
-                    <button onClick={resetFilters} className="mt-3 text-sm font-bold text-slate-950 underline decoration-slate-300 underline-offset-4 hover:decoration-slate-900">
+                    <button onClick={resetFilters} className="mt-2 text-sm font-bold text-slate-950 underline decoration-slate-300 hover:decoration-slate-900">
                         Clear filters
                     </button>
                 </div>

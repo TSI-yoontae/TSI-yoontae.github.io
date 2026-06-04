@@ -57,6 +57,20 @@ window.TSI_Data.publications = [
         topics: ["Natural Language Processing", "Finance"] 
     },
     { 
+        id: "[J7]", 
+        title: "Portable Single-Beam Atomic Total-Field Magnetometer for Stand-off Magnetic Sensing", 
+        authors: [ 
+            { name: "Heonsik Lee" }, 
+            { name: "Hyunbeen Lee" }, 
+            { name: "Minseok Choi" }, 
+            { name: "Yoontae Hwang", isHighlight: true }, 
+            { name: "Deok-Young Lee" } 
+        ], 
+        venue: "Journal of Applied Physics, 2026, Acceptance rate 35%", 
+        links: [ { text: "paper", href: "https://arxiv.org/abs/2601.08716v1" } ], 
+        topics: ["AI in Science"] 
+    },
+    { 
         id: "[J6]", 
         title: "Deep Learning in Asset Management: Architectures, Applications, and Challenges", 
         authors: [ 
@@ -69,9 +83,8 @@ window.TSI_Data.publications = [
             { name: "Woo Chang Kim", href: "https://scholar.google.co.kr/citations?user=7NmBs1kAAAAJ&hl=en" }, 
             { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" } 
         ], 
-        venue: "The Journal Of Portfolio Management, 2025", 
-        links: [], 
-        award: "Forthcoming in December", 
+        venue: "The Journal of Portfolio Management, 2025", 
+        links: [{ text: "paper", href: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5593850" }], 
         topics: ["Portfolio Theory", "Deep Learning", "Survey"] 
     },
     { 
@@ -250,20 +263,6 @@ window.TSI_Data.workingPapers = [
         topics: ["Graph Neural Networks", "Deep Learning"] 
     },
     { 
-        id: "[S]", 
-        title: "Portable Single-Beam Atomic Total-Field Magnetometer for Stand-off Magnetic Sensing", 
-        authors: [ 
-            { name: "Heonsik Lee" }, 
-            { name: "Hyunbeen Lee" }, 
-            { name: "Minseok Choi" }, 
-            { name: "Yoontae Hwang", isHighlight: true }, 
-            { name: "Deok-Young Lee" } 
-        ], 
-        venue: "Physics journal, Acceptance rate 30%", 
-        links: [ {text: "paper", href: "https://arxiv.org/abs/2601.08716v1" }], 
-        topics: ["AI in Science"] 
-    },
-    { 
         id: "[W]", 
         title: "Subspace Regularized Portfolio Optimization under Regime Dependent Risk", 
         authors: [ 
@@ -359,10 +358,14 @@ window.TSI_Data.membersData = [
         email: "", bio: "Master Thesis Track.", 
         interests: ["AI", "Finance"], links: {} 
     },
-    
     { 
-        name: "TBD", koreanName: "미정", status: "MS Student", 
-        email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025.", 
-        interests: ["AI in Science"], links: {} 
+        name: "Jisoo Park", koreanName: "박지수", status: "MS Student", 
+        email: "", bio: "Master Thesis Track.", 
+        interests: ["AI", "Finance"], links: {} 
+    },
+    { 
+        name: "Suhye Park", koreanName: "박수혜", status: "MS Student", 
+        email: "", bio: "Master Thesis Track.", 
+        interests: ["AI", "Finance"], links: {} 
     },
 ];

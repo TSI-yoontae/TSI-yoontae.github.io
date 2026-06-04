@@ -34,16 +34,17 @@ const ResearchTopicsSection = () => {
             />
             <div className="tsi-panel">
                 {researchTopicsData.map((topic, index) => (
-                    <article key={topic.id} className="tsi-row grid gap-2 px-3 py-2.5 md:grid-cols-[180px_1fr] md:gap-4">
-                        <div className="flex items-baseline gap-2 md:block">
+                    <article key={topic.id} className="tsi-row grid gap-1.5 px-3 py-2.5 md:grid-cols-[170px_1fr] md:gap-4">
+                        <div className="flex items-baseline gap-2">
                             <p className="text-[11px] font-extrabold text-[#8a6f3d]">0{index + 1}</p>
                             <h3 className="text-base font-extrabold text-[#172033]">{topic.title}</h3>
                         </div>
-                        <div className="flex flex-wrap gap-1.5">
-                            {topic.items.map(item => (
-                                <span key={item} className="tsi-badge px-2 py-0.5 text-xs font-semibold">
-                                    {item}
-                                </span>
+                        <div className="tsi-keyword-chain flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm leading-5 md:border-l md:border-[#e9e2d5] md:pl-4">
+                            {topic.items.map((item, itemIndex) => (
+                                <React.Fragment key={item}>
+                                    <span className="tsi-keyword-term">{item}</span>
+                                    {itemIndex < topic.items.length - 1 && <span className="tsi-keyword-divider">/</span>}
+                                </React.Fragment>
                             ))}
                         </div>
                     </article>
@@ -105,11 +106,11 @@ const SelectedPapersSection = () => {
                 {selectedPapers.map((paper, index) => (
                     <li key={index} className="tsi-row grid gap-2 px-3 py-2.5 sm:grid-cols-[32px_1fr]">
                         <span className="text-[13px] font-bold text-[#8a6f3d]">{index + 1}.</span>
-                        <div>
-                            <h3 className="text-sm font-bold leading-5 text-[#172033]">{paper.title}</h3>
-                            <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
+                        <div className="flex min-w-0 items-start justify-between gap-3">
+                            <h3 className="min-w-0 flex-1 pr-2 text-sm font-bold leading-5 text-[#172033]">{paper.title}</h3>
+                            <div className="flex shrink-0 flex-wrap justify-end gap-x-2 gap-y-1 pt-0.5">
                                 {paper.links.map(link => (
-                                    <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="tsi-link text-xs">
+                                    <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="tsi-mini-link whitespace-nowrap">
                                         {link.text}
                                     </a>
                                 ))}

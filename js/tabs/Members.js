@@ -92,7 +92,6 @@ window.MembersTabContent = () => {
             <div>
                 <MemberSectionHeader
                     title="Members"
-                    description="Students are listed by name only to keep the page compact and easy to scan."
                 />
             </div>
             <section className="tsi-section">

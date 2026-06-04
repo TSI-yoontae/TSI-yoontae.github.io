@@ -11,12 +11,12 @@ const ResearchTopicsSection = () => {
         {
             id: 'finance',
             title: 'AI in Finance',
-            items: ['Portfolio Optimization', 'Financial Modeling', 'Time-series for Finance'],
+            items: ['Portfolio Optimization', 'Financial Modeling', 'Goal-based Wealth Management','Time-series for Finance'],
         },
         {
             id: 'market',
             title: 'AI in Market',
-            items: ['Betting Modeling (Mainly Polymarket)', 'Sport Science'],
+            items: ['Betting Modeling (Mainly Polymarket)', "Dark Pool" ,'Sport Science'],
         },
         {
             id: 'foundation',

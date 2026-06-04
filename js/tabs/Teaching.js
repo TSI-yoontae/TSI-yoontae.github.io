@@ -12,25 +12,25 @@ window.TeachingTabContent = () => {
     return (
         <section className="space-y-3">
             <div>
-                <h2 className="text-xl font-extrabold tracking-tight text-slate-950">Teaching</h2>
-                <p className="mt-1 text-sm leading-5 text-slate-600">Courses and teaching materials.</p>
+                <h2 className="text-xl font-extrabold tracking-tight text-[#172033]">Teaching</h2>
+                <p className="mt-1 text-sm leading-5 text-[#5e6676]">Courses and teaching materials.</p>
             </div>
-            <div className="border border-slate-200 bg-white">
+            <div className="border border-[#d8d0c0] bg-[#fffdf8]">
                 {courses.map(course => (
-                    <div key={course.title} className="grid gap-1 border-b border-slate-100 px-3 py-2.5 last:border-b-0 sm:grid-cols-[1fr_210px] sm:gap-4">
+                    <div key={course.title} className="grid gap-1 border-b border-[#e9e2d5] px-3 py-2.5 last:border-b-0 sm:grid-cols-[1fr_210px] sm:gap-4">
                         <div>
-                            <h3 className="text-sm font-bold text-slate-950">{course.title}</h3>
+                            <h3 className="text-sm font-bold text-[#172033]">{course.title}</h3>
                             {course.links.length > 0 && (
                                 <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
                                     {course.links.map(link => (
-                                        <a key={link.href} href={link.href} className="text-xs font-semibold text-slate-600 underline decoration-slate-300 hover:text-slate-950 hover:decoration-slate-900" target="_blank" rel="noopener noreferrer">
+                                        <a key={link.href} href={link.href} className="text-xs font-semibold text-[#5e6676] underline decoration-[#c3b8a5] hover:text-[#172033] hover:decoration-[#1f4e5f]" target="_blank" rel="noopener noreferrer">
                                             {link.text}
                                         </a>
                                     ))}
                                 </div>
                             )}
                         </div>
-                        <p className="text-sm font-medium text-slate-500 sm:text-right">{course.term}</p>
+                        <p className="text-sm font-medium text-[#746b5d] sm:text-right">{course.term}</p>
                     </div>
                 ))}
             </div>

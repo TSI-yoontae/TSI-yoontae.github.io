@@ -12,17 +12,17 @@ const RecommendationsSection = () => {
     return (
         <section className="space-y-3">
             <div>
-                <h2 className="text-xl font-extrabold tracking-tight text-slate-950">Recommended Books and Guides</h2>
-                <p className="mt-1 text-sm leading-5 text-slate-600">Compact reading list for students interested in the lab's research areas.</p>
+                <h2 className="text-xl font-extrabold tracking-tight text-[#172033]">Recommended Books and Guides</h2>
+                <p className="mt-1 text-sm leading-5 text-[#5e6676]">Compact reading list for students interested in the lab's research areas.</p>
             </div>
-            <div className="border border-slate-200 bg-white">
+            <div className="border border-[#d8d0c0] bg-[#fffdf8]">
                 {recommendations.map(rec => (
-                    <div key={rec.category} className="grid gap-2 border-b border-slate-100 px-3 py-2.5 last:border-b-0 md:grid-cols-[180px_1fr] md:gap-4">
-                        <h3 className="text-sm font-bold text-slate-950">{rec.category}</h3>
-                        <ul className="space-y-1 text-sm leading-5 text-slate-700">
+                    <div key={rec.category} className="grid gap-2 border-b border-[#e9e2d5] px-3 py-2.5 last:border-b-0 md:grid-cols-[180px_1fr] md:gap-4">
+                        <h3 className="text-sm font-bold text-[#172033]">{rec.category}</h3>
+                        <ul className="space-y-1 text-sm leading-5 text-[#404958]">
                             {rec.items.map(item => (
                                 <li key={item.text}>
-                                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="underline decoration-slate-300 hover:text-slate-950 hover:decoration-slate-900">{item.text}</a>
+                                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="underline decoration-[#c3b8a5] hover:text-[#172033] hover:decoration-[#1f4e5f]">{item.text}</a>
                                 </li>
                             ))}
                         </ul>

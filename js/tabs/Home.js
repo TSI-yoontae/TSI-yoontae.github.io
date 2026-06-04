@@ -1,7 +1,7 @@
 const { useState } = React;
 
 const ResearchPhilosophySection = () => {
-     return (
+    return (
         <section>
             <h2 className="text-2xl font-semibold">Research Philosophy</h2>
             <div className="mt-4 space-y-3 text-gray-700 leading-relaxed bg-white p-6 rounded-lg shadow-md border border-gray-200">
@@ -75,18 +75,19 @@ window.HomeTabContent = () => {
             <ResearchPhilosophySection />
 
             <section>
-                <h2 className="text-2xl font-semibold">Selected Papers</h2>
+                <h2 className="text-2xl font-semibold">AI Conference</h2>
                 <ul className="mt-2 space-y-4">
                     {selectedPapers.map((paper, index) => (
-                        <li key={index} className="border-b pb-3 last:border-b-0 last:pb-0">
-                            <p className="font-semibold text-gray-800">{paper.title}</p>
-                            <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1">
+                        <li key={index} className="border-b pb-3 last:border-b-0 last:pb-0 leading-relaxed">
+                            {/* 논문 제목과 링크를 인라인으로 한 줄에 배치되도록 수정 */}
+                            <span className="font-semibold text-gray-800 mr-2">{paper.title}</span>
+                            <span className="inline-flex flex-wrap gap-x-3 align-baseline">
                                 {paper.links.map((link) => (
                                     <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
                                         [{link.text}]
                                     </a>
                                 ))}
-                            </div>
+                            </span>
                         </li>
                     ))}
                 </ul>

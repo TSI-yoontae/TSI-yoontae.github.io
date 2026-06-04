@@ -85,13 +85,13 @@ const NewsSection = () => {
 
 const SelectedPapersSection = () => {
     const selectedPapers = [
-        { title: "[ICML'26] Signature-informed Transformer for Asset Allocation", links: [{ text: 'paper', href: 'https://arxiv.org/abs/2510.03129' }, { text: 'code', href: 'https://github.com/Yoontae6719/Signature-Informed-Transformer-For-Asset-Allocation' }] },
+        { title: "[ICML'26] Signature-informed Transformer for Asset Allocation", links: [{ text: 'paper', href: 'https://arxiv.org/abs/2510.03129' }, { text: 'code', href: 'https://github.com/Yoontae6719/Signature-Informed-Transformer-For-Asset-Allocation' }}, { text: 'seminar@Korea Investment Corporation', href: 'ppt/KIC.pdf' }] },
         { title: "[ICML'26] Position: Evaluating LLMs in Finance Requires Explicit Bias Consideration", links: [{ text: 'paper', href: 'https://arxiv.org/abs/2602.14233' }, { text: 'code', href: 'https://github.com/Eleanorkong/Awesome-Financial-LLM-Bias-Mitigation' }] },
         { title: "[ACL'25] Time-MQA: Time series multi-task question answering with context enhancement", links: [{ text: 'paper', href: 'https://aclanthology.org/2025.acl-long.1437/' }, { text: 'code', href: 'https://huggingface.co/Time-MQA' }] },
         { title: "[ICAIF'25] Fusing Narrative Semantics for Financial Volatility Forecasting", links: [{ text: 'paper', href: 'https://dl.acm.org/doi/abs/10.1145/3768292.3771256' }, { text: 'code', href: 'https://github.com/Yoontae6719/M2VN-Multi-Modal-Learning-Network-for-Volatility-Forecasting' }] },
         { title: "[AAAI'25] Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset", links: [{ text: 'paper', href: 'https://arxiv.org/abs/2412.12864' }, { text: 'code', href: 'https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset' }, { text: 'seminar@UNIST', href: 'ppt/GFTab_UNIST.pdf' }] },
         { title: "[KDD'24] CAFO: Feature-Centric Explanation on Time Series Classification", links: [{ text: 'paper', href: 'https://arxiv.org/pdf/2406.01833' }, { text: 'code', href: 'https://github.com/eai-lab/CAFO' }] },
-        { title: "[ICAIF'23] SimStock: Representation Model for Stock Similarities", links: [{ text: 'paper', href: 'https://dl.acm.org/doi/abs/10.1145/3604237.3626888' }, { text: 'code', href: 'https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities' }] },
+        { title: "[ICAIF'23] SimStock: Representation Model for Stock Similarities", links: [{ text: 'paper', href: 'https://dl.acm.org/doi/abs/10.1145/3604237.3626888' }, { text: 'code', href: 'https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities' }, { text: 'seminar@SKKU', href: 'ppt/SKKU.pdf' }] },
     ];
 
     return (

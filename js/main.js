@@ -1,34 +1,27 @@
-const { useState, useEffect } = React;
-
 function App() {
-    const validTabs = ['home', 'members', 'collaborators', 'publications', 'teaching', 'project', 'for-students', 'vacant'];
+    const validTabs = ['home', 'members', 'publications', 'teaching', 'project', 'for-students', 'vacant'];
     
     const getTabFromHash = () => {
         const hash = window.location.hash.replace('#', '');
         return validTabs.includes(hash) ? hash : 'home';
     };
     
-    const [activeTab, setActiveTab] = useState(getTabFromHash());
+    const [activeTab, setActiveTab] = React.useState(getTabFromHash());
 
-    useEffect(() => {
+    React.useEffect(() => {
         window.location.hash = activeTab;
     }, [activeTab]);
 
-    useEffect(() => {
-        const handleHashChange = () => {
-            setActiveTab(getTabFromHash());
-        };
+    React.useEffect(() => {
+        const handleHashChange = () => setActiveTab(getTabFromHash());
         window.addEventListener('hashchange', handleHashChange);
-        return () => {
-            window.removeEventListener('hashchange', handleHashChange);
-        };
+        return () => window.removeEventListener('hashchange', handleHashChange);
     }, []);
 
     const renderContent = () => {
         switch(activeTab) {
             case 'home': return <window.HomeTabContent />;
             case 'members': return <window.MembersTabContent />;
-            case 'collaborators': return <window.CollaboratorTabContent />;
             case 'publications': return <window.PublicationsTabContent />;
             case 'teaching': return <window.TeachingTabContent />;
             case 'project': return <window.ProjectTabContent />;
@@ -38,46 +31,61 @@ function App() {
         }
     };
     
+    const tabs = [
+        { value: 'home', label: 'Home' },
+        { value: 'members', label: 'Members' },
+        { value: 'publications', label: 'Publications' },
+        { value: 'teaching', label: 'Teaching' },
+        { value: 'project', label: 'Project' },
+        { value: 'for-students', label: 'For Students' },
+        { value: 'vacant', label: 'Vacant Positions' },
+    ];
+
     const TabButton = ({ value, children }) => {
         const isActive = activeTab === value;
-        const classes = `px-3 sm:px-4 py-2 text-sm font-medium rounded-md cursor-pointer transition-all duration-200 ${
-            isActive ? 'bg-white text-gray-900 shadow-md' : 'text-gray-600 hover:bg-gray-200 hover:text-gray-800'
+        const classes = `whitespace-nowrap border-b-2 px-1 py-3 text-sm font-semibold transition-colors ${
+            isActive
+                ? 'border-slate-900 text-slate-950'
+                : 'border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-900'
         }`;
         return <button onClick={() => setActiveTab(value)} className={classes}>{children}</button>;
     };
 
     return (
-        <div className="p-4 sm:p-8 space-y-10 max-w-6xl mx-auto">
-            <header className="text-center">
-                <h1 className="text-3xl sm:text-4xl font-bold text-gray-800">
-                    Time Series Intelligence Lab (TSI Lab)
-                </h1>
-                <p className="text-md sm:text-lg text-center text-gray-600 mt-2">
-                    Advancing AI-driven Time Series Research
-                </p>
-                <p className="mt-1 text-xs sm:text-sm text-gray-500">
-                    <a href="mailto:yoontae.hwang@pusan.ac.kr" className="hover:underline">
-                        📩 Contact: yoontae.hwang@pusan.ac.kr
-                    </a>
-                </p>
-            </header>
-            
-            <nav className="w-full">
-                <div className="flex justify-center flex-wrap gap-1 sm:gap-2 bg-gray-100 p-1 rounded-lg shadow-inner">
-                    <TabButton value="home">Home</TabButton>
-                    <TabButton value="members">Members</TabButton>
-                    <TabButton value="collaborators">Collaborators</TabButton>
-                    <TabButton value="publications">Publications</TabButton>
-                    <TabButton value="teaching">Teaching</TabButton>
-                    <TabButton value="project">Project</TabButton>
-                    <TabButton value="for-students">For Students</TabButton>
-                    <TabButton value="vacant">Vacant Positions</TabButton>
-                </div>
-            </nav>
+        <div className="min-h-screen">
+            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
+                <header className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+                    <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                        <div>
+                            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">Pusan National University</p>
+                            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-5xl">
+                                Time Series Intelligence Lab <span className="text-slate-500">(TSI Lab)</span>
+                            </h1>
+                            <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600 sm:text-lg">
+                                AI in Finance · AI in Market · Foundation Models for Financial Time Series
+                            </p>
+                        </div>
+                        <a
+                            href="mailto:yoontae.hwang@pusan.ac.kr"
+                            className="inline-flex items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-900 hover:text-slate-950"
+                        >
+                            yoontae.hwang@pusan.ac.kr
+                        </a>
+                    </div>
+                </header>
+                
+                <nav className="mt-6 border-b border-slate-200">
+                    <div className="flex gap-5 overflow-x-auto">
+                        {tabs.map(tab => (
+                            <TabButton key={tab.value} value={tab.value}>{tab.label}</TabButton>
+                        ))}
+                    </div>
+                </nav>
 
-            <main className="mt-6 bg-gray-100 p-4 sm:p-6 rounded-lg shadow-lg">
-                {renderContent()}
-            </main>
+                <main className="mt-8">
+                    {renderContent()}
+                </main>
+            </div>
         </div>
     );
 }

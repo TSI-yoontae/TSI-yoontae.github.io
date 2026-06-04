@@ -368,31 +368,3 @@ window.TSI_Data.membersData = [
     { name: "Youngbin Lee", koreanName: "이영빈", status: "Industry Mentor", image: "/youngbin.png", currentPosition: "AI Researcher @ Elice", links: { scholar: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko", }, expertise: "LLM and Agent" },
     { name: "Yejin Kim", koreanName: "김예진", status: "Industry Mentor", image: "/Yejin.jpg", currentPosition: "Data Scientist @ Meritz Fire & Marine Insurance", links: { linkedin: "https://www.linkedin.com/in/yejining99/" }, expertise: "Recommender System" },
 ];
-
-window.TSI_Data.collaboratorInfo = {
-    "Yaxuan Kong": { affiliation: "University of Oxford", scholar: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" },
-    "Yiyuan Yang": { affiliation: "University of Oxford", scholar: "https://scholar.google.co.kr/citations?user=FUuGvZIAAAAJ&hl=en" },
-    "Stefan Zohren": { affiliation: "University of Oxford", scholar: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
-    "Wenjie Du": { affiliation: "TimeSeries-AI", scholar: "https://scholar.google.com/citations?user=j9qvUg0AAAAJ&hl=en" },
-    "Zhangyang Wang": { affiliation: "University of Texas at Austin", scholar: "https://scholar.google.com/citations?user=pxFyKAIAAAAJ&hl=en" },
-    "Ming Jin": { affiliation: "Griffith University", scholar: "https://scholar.google.com/citations?user=I2xvKaIAAAAJ&hl=en" },
-    "Qingsong Wen": { affiliation: "Squirrel AI Learning", scholar: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" },
-    "Yongjae Lee": { affiliation: "UNIST", scholar: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
-    "Seulki Lee": { affiliation: "UNIST", scholar: "https://scholar.google.com/citations?hl=en&user=qhI7uVMAAAAJ" },
-    "Dong-Young Lim": { affiliation: "UNIST", scholar: "https://sites.google.com/view/dlim/group?authuser=0" },
-    "Junhyeong Lee": { affiliation: "UNIST", scholar: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" },
-    "Joohwan Hong": { affiliation: "Hana Institute of Technology", scholar: "https://www.notion.so/unist-felab/Joohwan-Hong-Ph-D-a93266780e6a407a866e8b7ec7d47129" },
-    "Frank J Fabozzi": { affiliation: "Johns Hopkins University", scholar: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" },
-    "Jang Ho Kim": { affiliation: "Korea University", scholar: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" },
-    "Jaeho Kim": { affiliation: "Korea University", scholar: "https://sites.google.com/view/jaeho-kim" },
-    "Seok-ju Hahn": { affiliation: "Argonne National Laboratory", scholar: "https://vaseline555.github.io/" },
-    "Suhyeon Kim": { affiliation: "Kyungpook National University", scholar: "https://www.linkedin.com/in/sh-kim1026/" },
-    "Junghye Lee": { affiliation: "Seoul National University", scholar: "https://d3mlab.snu.ac.kr/members/principal-investigator" },
-    "Daham Kim": { affiliation: "UNIST", scholar: "https://www.linkedin.com/in/daham-kim/" },
-    "Seunghwan Noh": { affiliation: "UNIST", scholar: null },
-    "Junpyo Park": { affiliation: "UNIST", scholar: "https://www.notion.so/unist-felab/Junpyo-Park-187b74eaaae847a98175664018bebea8" },
-    "Kyeongbin Kim": { affiliation: "UNIST", scholar: "https://www.linkedin.com/in/kimkyle95/" },
-    "Dongcheol Lim": { affiliation: "UNIST", scholar: "https://www.linkedin.com/in/dongclim0613/" },
-    "Woo Chang Kim": { affiliation: "KAIST", scholar: "https://scholar.google.co.kr/citations?user=7NmBs1kAAAAJ&hl=en" },
-    "Yoontae Hwang": { affiliation: "Pusan National University", scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl" }
-};

@@ -30,7 +30,6 @@ const ResearchTopicsSection = () => {
             <SectionTitle
                 eyebrow="Research Topics"
                 title="Core directions"
-                description="Three broad directions organize the lab's research agenda."
             />
             <div className="tsi-panel">
                 {researchTopicsData.map((topic, index) => (
@@ -100,7 +99,6 @@ const SelectedPapersSection = () => {
             <SectionTitle
                 eyebrow="Selected Papers"
                 title="Representative AI conference papers"
-                description="A compact list of representative papers. The full searchable archive is available in the Publications tab."
             />
             <ol className="tsi-panel">
                 {selectedPapers.map((paper, index) => (

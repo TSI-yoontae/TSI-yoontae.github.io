@@ -65,7 +65,7 @@ window.VacantPositionsTabContent = () => (
                         <strong>Graduation Policy (MS):</strong> If the thesis work does not meet the advisor's standards, graduation may not be possible within exactly 4 semesters.
                     </p>
                     <p>
-                        <strong>Graduation Policy (PhD & Integrated):</strong> Candidates are required to publish at least one paper in a top-tier AI conference. A total of 2 or more publications, including the target journals listed below, are required for graduation.
+                        <strong>Graduation Policy (PhD & Integrated):</strong> Candidates are required to publish at least two paper in a top-tier AI conference. A total of 3 or more publications, including the target journals listed below, are required for graduation.
                     </p>
                 </div>
             </div>

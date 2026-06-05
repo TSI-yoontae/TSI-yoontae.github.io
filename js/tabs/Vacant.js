@@ -47,7 +47,7 @@ window.VacantPositionsTabContent = () => (
         <VacantPhilosophySection />
 
         <section className="tsi-section">
-            <VacantSectionTitle title="Preferred Profile" />
+            <VacantSectionTitle title="Preferred Profile (Updated June 2026" />
             <p className="mt-1 text-sm leading-5 text-[#404958]">
                 We are looking for students with solid mathematics and programming skills. Demonstrated excellence or active participation in data-science competitions such as Dacon or Kaggle is highly valued. Achievements from the majority of domestic competitions and awards in South Korea are not considered.
             </p>

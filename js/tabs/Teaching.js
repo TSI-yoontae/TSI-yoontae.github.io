@@ -11,8 +11,8 @@ window.TeachingTabContent = () => {
             links: [{ text: 'Decision Focused Learning (Implicit Layer)', href: 'https://TSI-yoontae.github.io/js/tabs/convex/8_DFL.pdf' }],
             links: [{ text: 'First-Order Optimization Methods', href: 'https://TSI-yoontae.github.io/js/tabs/convex/9_Optimization.pdf' }],
         },
-        { title: 'Python Programming', term: '2nd Semester, 2025', links: [] },
-        { title: 'Financial Application', term: '2nd Semester, 2025 / 1st Semester, 2026', links: [] },
+        { title: 'Python Programming', term: '2nd Semester, 2025 / 1st Semester, 2026', links: [] },
+        { title: 'Financial Application', term: '2nd Semester, 2025', links: [] },
     ];
 
     return (

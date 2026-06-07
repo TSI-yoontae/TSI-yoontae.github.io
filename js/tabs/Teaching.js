@@ -25,20 +25,27 @@ window.TeachingTabContent = () => {
             </div>
             <div className="border border-[#d8d0c0] bg-[#fffdf8]">
                 {courses.map(course => (
-                    <div key={course.title} className="grid gap-1 border-b border-[#e9e2d5] px-3 py-2.5 last:border-b-0 sm:grid-cols-[1fr_210px] sm:gap-4">
+                    <div key={course.title} className="grid gap-2 border-b border-[#e9e2d5] px-4 py-3 last:border-b-0 md:grid-cols-[1fr_280px] md:gap-4">
                         <div>
                             <h3 className="text-sm font-bold text-[#172033]">{course.title}</h3>
                             {course.links.length > 0 && (
-                                <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1">
+                                <div className="mt-2 grid gap-1.5 sm:grid-cols-2">
                                     {course.links.map(link => (
-                                        <a key={link.href} href={link.href} className="text-xs font-semibold text-[#5e6676] underline decoration-[#c3b8a5] hover:text-[#172033] hover:decoration-[#1f4e5f]" target="_blank" rel="noopener noreferrer">
+                                        <a
+                                            key={link.href}
+                                            href={link.href}
+                                            className="block border border-[#e9e2d5] bg-[#f8f5ed] px-2 py-1.5 text-xs font-semibold text-[#5e6676] no-underline hover:border-[#b7aa91] hover:bg-[#fffdf8] hover:text-[#172033]"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <span className="mr-1 text-[#8a6f3d]">•</span>
                                             {link.text}
                                         </a>
                                     ))}
                                 </div>
                             )}
                         </div>
-                        <p className="text-sm font-medium text-[#746b5d] sm:text-right">{course.term}</p>
+                        <p className="text-sm font-medium text-[#746b5d] md:text-right">{course.term}</p>
                     </div>
                 ))}
             </div>

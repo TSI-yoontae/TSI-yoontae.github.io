@@ -55,8 +55,9 @@ const ResearchTopicsSection = () => {
 
 const NewsSection = () => {
     const news = [
-        { date: 'May 2026', text: "Yoontae Hwang recognized as a Gold Reviewer (Top Reviewer) for ICML'26." },
-        { date: 'May 2026', text: "Two Financial AI papers accepted to ICML'26." },
+        { date: 'June 2026', text: "One paper accepted to **Journal of Applied Physics**." },
+        { date: 'May 2026', text: "Yoontae Hwang recognized as a Gold Reviewer (Top Reviewer) for **ICML'26**." },
+        { date: 'May 2026', text: "Two Financial AI papers accepted to **ICML'26**." },
         { date: 'Dec 2025', text: 'TSI Lab will host the Workshop on Rethinking Financial Time-Series at ICAIF-25.', link: 'https://icaif-25-rtfs.github.io/' },
         { date: 'Dec 2025', text: 'Selected for the Rising Scholar Award by the Korean Academic Society of Business Administration.' },
         { date: 'Sep 2025', text: 'Time Series Intelligence Lab launches at Pusan National University.' },

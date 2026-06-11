@@ -89,7 +89,7 @@ window.VacantPositionsTabContent = () => (
                     ['OR Journals', 'Management Science, Operations Research, European Journal of Operational Research, Annals of Operation Research, INFORMS Journal on Computing'],
                     ['Finance Journals', 'Quantitative Finance, Journal of Portfolio Management, Journal of Financial and Quantitative Analysis, Finance Research Letters, Journal of Banking and Finance'],
                     ['Other Journals', 'Neural Networks, Pattern Recognition, TMLR, Nature Machine Intelligence, Machine Learning, International Journal of Forecasting'],
-                    ['Top Conference(CORE A*)', 'KDD, NeurIPS, ICLR, ICML, EMNLP, ACL, AAAI, AISTATS'],
+                    ['Top Conference', 'KDD, NeurIPS, ICLR, ICML, EMNLP, ACL, AAAI, AISTATS'],
                     ['Info', "When we decide where to submit our work, we prioritize the prestige of a journal or conference over its rankings. This is especially true in AI, where many journals have high impact factors but are not necessarily preferred publication venues."],
                 ].map(([title, body]) => (
                     <div key={title} className="grid gap-1 border-b border-[#e9e2d5] px-3 py-2.5 last:border-b-0 md:grid-cols-[160px_1fr] md:gap-4">

@@ -17,7 +17,7 @@ window.TSI_Data.publications = [
             { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
             { name: "Stefan Zohren†", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }
         ], 
-        venue: "ICML '26, Acceptance rate 26%", 
+        venue: "ICML 26 (Position Track), Acceptance rate 26%, Top-tier AI Confernece", 
         links: [ { text: "paper", href: "https://arxiv.org/pdf/2602.14233v1" } ], 
         topics: ["Large Language Models", "Finance", "Bias"] 
     },
@@ -29,7 +29,7 @@ window.TSI_Data.publications = [
             { name: "Yoontae Hwang", isHighlight: true }, 
             { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }
         ], 
-        venue: "ICML '26, Acceptance rate 26%",  
+        venue: "ICML '26 (Main Track), Acceptance rate 26%, Top-tier AI Confernece",  
         links: [ 
             { text: "paper", href: "https://arxiv.org/abs/2510.03129" }, 
             { text: "code", href: "https://github.com/Yoontae6719/Signature-Informed-Transformer-For-Asset-Allocation" } 
@@ -98,7 +98,7 @@ window.TSI_Data.publications = [
             { name: "Roel Oomen" }, 
             { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" } 
         ], 
-        venue: "ACM International Conference on AI in Finance (ICAIF), 2025, Acceptance rate 27%", 
+        venue: "ICAIF'25 (Main Track), Acceptance rate 27%", 
         award: "Oxford & Deutsche Bank Project", 
         links: [ 
             { text: "paper", href: "https://arxiv.org/abs/2510.20699" }, 
@@ -119,7 +119,7 @@ window.TSI_Data.publications = [
             { name: "Ming Jin", href: "https://scholar.google.com/citations?user=I2xvKaIAAAAJ&hl=en" }, 
             { name: "Qingsong Wen", href: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" } 
         ], 
-        venue: "Annual Meeting of the Association for Computational Linguistics (ACL), 2025, Acceptance rate 23%, Main Track", 
+        venue: "ACL'25 (Main Track), Acceptance rate 23%, Main Track, Top-tier AI Confernece", 
         links: [ 
             { text: "paper", href: "https://arxiv.org/abs/2503.01875" }, 
             { text: "Hugging Face", href: "https://huggingface.co/Time-MQA" } 
@@ -133,7 +133,7 @@ window.TSI_Data.publications = [
             { name: "Yoontae Hwang", isHighlight: true }, 
             { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } 
         ], 
-        venue: "AAAI Conference on Artificial Intelligence (AAAI), 2025, Acceptance rate 24%, Main Track", 
+        venue: "AAAI'25 (Main Track), Acceptance rate 24%, Top-tier AI Confernece", 
         links: [ 
             { text: "paper", href: "https://arxiv.org/abs/2412.12864" }, 
             { text: "code", href: "https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset" }, 
@@ -151,7 +151,7 @@ window.TSI_Data.publications = [
             { name: "Junghye Lee", href: "https://d3mlab.snu.ac.kr/members/principal-investigator" }, 
             { name: "Seulki Lee", href: "https://scholar.google.com/citations?hl=en&user=qhI7uVMAAAAJ" } 
         ], 
-        venue: "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), 2024, Acceptance rate 20%, Main Track", 
+        venue: "KDD'24 (Main Track), Acceptance rate 20%, Top-tier AI Confernece", 
         award: "Best Poster Award, @UNIST AI Tech Workshop 2024", 
         links: [ 
             { text: "paper", href: "https://arxiv.org/abs/2406.01833" }, 
@@ -170,7 +170,7 @@ window.TSI_Data.publications = [
             { name: "Joohwan Hong", href: "https://www.notion.so/unist-felab/Joohwan-Hong-Ph-D-a93266780e6a407a866e8b7ec7d47129" }, 
             { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } 
         ], 
-        venue: "ACM International Conference on AI in Finance (ICAIF), 2023, Acceptance rate 21%", 
+        venue: "ICAIF'23 (Main Track; Oral Paper Top 5%), Acceptance rate 21%", 
         award: "Oral Presentation", 
         awardColor: "red", 
         links: [ 

@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.29.4/babel.min.js"></script>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -58,18 +58,23 @@
     </style>
 </head>
 <body class="antialiased">
-    <div id="root"></div>
+    <div id="root">
+        <div style="max-width: 720px; margin: 48px auto; padding: 24px; font-family: system-ui, -apple-system, Segoe UI, sans-serif; background: #fffdf8; border: 1px solid #d8d0c0; color: #172033;">
+            <h1 style="font-size: 22px; font-weight: 800; margin: 0 0 8px;">TSI Lab</h1>
+            <p style="margin: 0; line-height: 1.6;">Loading site… If this message stays visible, a JavaScript CDN failed to load. Please refresh once or check the browser console.</p>
+        </div>
+    </div>
 
-    <script type="text/babel" data-presets="react" src="js/data.js"></script>
+    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/data.js"></script>
     
-    <script type="text/babel" data-presets="react" src="js/tabs/Home.js"></script>
-    <script type="text/babel" data-presets="react" src="js/tabs/Members.js"></script>
-    <script type="text/babel" data-presets="react" src="js/tabs/Publications.js"></script>
-    <script type="text/babel" data-presets="react" src="js/tabs/Teaching.js"></script>
-    <script type="text/babel" data-presets="react" src="js/tabs/Project.js"></script>
-    <script type="text/babel" data-presets="react" src="js/tabs/ForStudents.js"></script>
-    <script type="text/babel" data-presets="react" src="js/tabs/Vacant.js"></script>
+    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/tabs/Home.js"></script>
+    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/tabs/Members.js"></script>
+    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/tabs/Publications.js"></script>
+    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/tabs/Teaching.js"></script>
+    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/tabs/Project.js"></script>
+    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/tabs/ForStudents.js"></script>
+    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/tabs/Vacant.js"></script>
     
-    <script type="text/babel" src="js/main.js"></script>
+    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/main.js"></script>
 </body>
 </html>

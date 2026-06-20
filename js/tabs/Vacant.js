@@ -56,16 +56,16 @@ window.VacantPositionsTabContent = () => (
                 <h4 className="text-sm font-extrabold text-[#5b4315]">Important Admission, Funding & Graduation Policy</h4>
                 <div className="mt-2 space-y-2 text-sm leading-5 text-[#4b3a1b]">
                     <p>
-                        <strong>Strict Pre-contact Requirement:</strong> Unlike general university regulations, official membership in TSI Lab is strictly limited to students who have successfully completed the pre-contact process, confirmed within 1 month of admission.
+                        <strong>Strict Pre-contact Requirement:</strong> Official TSI Lab membership requires completion of the pre-contact process, which must be confirmed within one month of admission (superseding general university rules).
                     </p>
                     <p>
-                        <strong>Financial Support Policy:</strong> Students joining without this prior arrangement may still receive academic supervision for their degree research. However, additional financial support funded by the laboratory will be minimal or unavailable for students who have not completed the pre-contact process.
+                        <strong>Financial Support Policy:</strong> Students who join without prior contact will receive degree supervision but are generally ineligible for lab-funded financial support.
                     </p>
                     <p>
-                        <strong>Graduation Policy (MS):</strong> If the thesis work does not meet the advisor's standards, graduation may not be possible within exactly 4 semesters.
+                        <strong>Graduation Policy (MS):</strong> Graduation may be extended beyond four semesters if the thesis does not meet the advisor's standards.
                     </p>
                     <p>
-                        <strong>Graduation Policy (PhD & Integrated):</strong> Candidates are required to publish at least two paper in a top-tier AI conference. A total of 3 (Top tier AI conf + Journal) or more publications, including the target journals listed below, are required for graduation.
+                        <strong>Graduation Policy (PhD & Integrated):</strong> A minimum of 3 publications is required to graduate. This total must consist of at least 2 top-tier AI conference papers, plus publications in the target journals listed below.
                     </p>
                 </div>
             </div>

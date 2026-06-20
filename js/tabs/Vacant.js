@@ -90,7 +90,7 @@ window.VacantPositionsTabContent = () => (
                     ['Finance Journals', 'Quantitative Finance, Journal of Portfolio Management, Journal of Financial and Quantitative Analysis, Finance Research Letters, Journal of Banking and Finance'],
                     ['Other Journals', 'Neural Networks, Pattern Recognition, TMLR, Nature Machine Intelligence, Machine Learning, International Journal of Forecasting'],
                     ['Top Conference', 'KDD, NeurIPS, ICLR, ICML, EMNLP, ACL, AAAI, AISTATS'],
-                    ['Info', "When we decide where to submit our work, we prioritize the prestige of a journal or conference over its rankings. This is especially true in AI, where many journals have high impact factors but are not necessarily preferred publication venues."],
+                    ['Info', "When selecting publication venues, we prioritize academic prestige over quantitative rankings. This principle is especially crucial in AI, where numerical metrics like JCR Ranking do not always align with the most respected venues."],
                 ].map(([title, body]) => (
                     <div key={title} className="grid gap-1 border-b border-[#e9e2d5] px-3 py-2.5 last:border-b-0 md:grid-cols-[160px_1fr] md:gap-4">
                         <h4 className="text-sm font-bold text-[#172033]">{title}</h4>

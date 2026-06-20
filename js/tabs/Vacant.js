@@ -88,7 +88,7 @@ window.VacantPositionsTabContent = () => (
                 {[
                     ['OR Journals', 'Management Science, Operations Research, European Journal of Operational Research, Annals of Operation Research, INFORMS Journal on Computing'],
                     ['Finance Journals', 'Quantitative Finance, Journal of Portfolio Management, Journal of Financial and Quantitative Analysis, Finance Research Letters, Journal of Banking and Finance'],
-                    ['Other Journals', 'Neural Networks, Pattern Recognition, TMLR, Nature Machine Intelligence, Machine Learning, International Journal of Forecasting'],
+                    ['Other Journals', 'Neural Networks, Pattern Recognition, JMLR, TMLR, Nature Machine Intelligence, Machine Learning, International Journal of Forecasting'],
                     ['Top Conference', 'KDD, NeurIPS, ICLR, ICML, EMNLP, ACL, AAAI, AISTATS'],
                     ['Info', "When selecting publication venues, we prioritize academic prestige over quantitative rankings. This principle is especially crucial in AI, where numerical metrics like JCR Ranking do not always align with the most respected venues."],
                 ].map(([title, body]) => (

@@ -13,8 +13,10 @@ window.TeachingTabContent = () => {
                 { text: 'First-Order Optimization Methods', href: 'js/tabs/convex/9_Optimization.pdf' },
             ],
         },
+        { title: 'Foundation Models', term: '2nd Semester, 2026', links: [] },
+        { title: 'Financial Application', term: '2nd Semester, 2025 / 2nd Semester, 2026', links: [] },
         { title: 'Python Programming', term: '2nd Semester, 2025 / 1st Semester, 2026', links: [] },
-        { title: 'Financial Application', term: '2nd Semester, 2025', links: [] },
+
     ];
 
     return (

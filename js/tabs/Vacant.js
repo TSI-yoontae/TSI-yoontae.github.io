@@ -59,13 +59,13 @@ window.VacantPositionsTabContent = () => (
                         <strong>Strict Pre-contact Requirement:</strong> Official TSI Lab membership requires completion of the pre-contact process, which must be confirmed within one month of admission (superseding general university rules).
                     </p>
                     <p>
-                        <strong>Financial Support Policy:</strong> Students who join without prior contact will receive degree supervision but are generally ineligible for lab-funded financial support.
+                        <strong>Financial Support:</strong> Students who join without prior contact will receive degree supervision but are generally ineligible for lab-funded financial support.
                     </p>
                     <p>
-                        <strong>Graduation Policy (MS):</strong> Graduation may be extended beyond four semesters if the thesis does not meet the advisor's standards.
+                        <strong>M.S. Graduation:</strong> Graduation may be extended beyond four semesters if the thesis does not meet the advisor's standards.
                     </p>
                     <p>
-                        <strong>Graduation Policy (PhD & Integrated):</strong> A minimum of 3 publications is required to graduate. This total must consist of at least 2 top-tier AI conference papers, plus publications in the target journals listed below.
+                        <strong>Ph.D. & Integrated Ph.D. Graduation:</strong> A minimum of 3 publications is required to graduate. This total must consist of at least 2 top-tier AI conference papers, plus publications in the target journals listed below.
                     </p>
                 </div>
             </div>

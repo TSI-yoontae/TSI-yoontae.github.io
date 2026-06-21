@@ -56,7 +56,7 @@ window.VacantPositionsTabContent = () => (
                 <h4 className="text-sm font-extrabold text-[#5b4315]">Important Admission, Funding & Graduation Policy</h4>
                 <div className="mt-2 space-y-2 text-sm leading-5 text-[#4b3a1b]">
                     <p>
-                        <strong>Strict Pre-contact Requirement:</strong> Official TSI Lab membership requires completion of the pre-contact process, which must be confirmed within one month of admission (superseding general university rules).
+                        <strong>Strict Pre-contact Requirement:</strong> Official TSI Lab membership requires completion of the pre-contact process, which must be confirmed within one month of admission.
                     </p>
                     <p>
                         <strong>Financial Support:</strong> Students who join without prior contact will receive degree supervision but are generally ineligible for lab-funded financial support.

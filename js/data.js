@@ -251,7 +251,7 @@ window.TSI_Data.publications = [
 window.TSI_Data.workingPapers = [
 
     {
-        id: "[W]",
+        id: "[S]",
         title: "Trading Time Effect",
         authors: [
             { name: "Yoontae Hwang", isHighlight: true },

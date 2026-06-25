@@ -250,6 +250,45 @@ window.TSI_Data.publications = [
 
 window.TSI_Data.workingPapers = [
 
+    {
+        id: "[W]",
+        title: "Trading Time Effect",
+        authors: [
+            { name: "Yoontae Hwang", isHighlight: true },
+            { name: "Jae Gyeong Choi" }
+        ],
+        venue: "Finance Journal, 2026.05",
+        links: []
+    },
+    {
+        id: "[W]",
+        title: "Stop Loss Decisions",
+        authors: [
+            { name: "Yoontae Hwang", isHighlight: true },
+            { name: "Mihai Cucuringu" }
+        ],
+        venue: "Finance Journal, 2026.07",
+        links: []
+    },
+    {
+        id: "[W]",
+        title: "Signature-V2",
+        authors: [
+            { name: "Yoontae Hwang", isHighlight: true },
+            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }
+        ],
+        venue: "Top AI Conference",
+        links: []
+    },
+    {
+        id: "[W]",
+        title: "Denoising Predictive Closure",
+        authors: [
+            { name: "Yoontae Hwang", isHighlight: true }
+        ],
+        venue: "Top AI Conference",
+        links: []
+    },
     { 
         id: "[S]", 
         title: "Homophily and Entropy Temperature Scaling for Graph Neural Networks", 

@@ -268,7 +268,7 @@ window.TSI_Data.workingPapers = [
             { name: "Mihai Cucuringu" }
         ],
         venue: "Finance Journal, 2026.07",
-        links: []
+        links: [ { text: "code", href: "https://github.com/TSI-yoontae/Counterfactual-First-Passage-Learning-for-Stop-Loss-Decisions" }, ],
     },
     {
         id: "[W]",

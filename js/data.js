@@ -258,7 +258,7 @@ window.TSI_Data.workingPapers = [
             { name: "Jae Gyeong Choi" }
         ],
         venue: "Finance Journal, 2026.05",
-        links: []
+        links: [ { text: "code", href: "https://github.com/TSI-yoontae/Trading-Time-and-the-Allocation-of-Global-Information" }, ],
     },
     {
         id: "[W]",

@@ -1,31 +1,3 @@
-
-
-붙여넣은 텍스트 (1)(43).txt
-문서
-아래 내용에서 Working papers를 몇개 추가하고싶어.
-
-1. Trading Time Effect, Yoontae Hwang, Jae Gyeong Choi, Finance Journal, 2026.05 
-2. Stop Loss Decisions, Yoontae Hwang, Mihai Cucuringu, Finance Journal, 2026.07 
-3. Signature-V2, Yoontae Hwang, Stefan Zohren, Top AI Conference.
-4. Denoising Predictive Closure, Yoontae Hwang, Top AI Conference.
- 
-
-기존 workingPapers 형식에 맞춰 네 항목을 추가하고, 제공되지 않은 링크와 수상 정보는 빈 배열로 두며 JavaScript 문법까지 점검하겠습니다.
-
-2m 2s 동안 생각함
-업로드된 코드의 window.TSI_Data.workingPapers 맨 위에 4개 항목을 추가했습니다. 붙여넣은 텍스트 (1).txt
-
-모두 Working Paper를 의미하는 [W]로 표시했으며, 제공되지 않은 논문 링크는 빈 배열로 두었습니다. JavaScript 문법 검사도 통과했습니다.
-
-수정된 JavaScript 파일
-수정된 TXT 파일
-
-
-
-라이브러리
-/
-붙여넣은 텍스트 (1).txt
-더 많은 액션
 window.TSI_Data = {};
 
 window.TSI_Data.publications = [

@@ -308,7 +308,7 @@ window.TSI_Data.workingPapers = [
             { name: "Yoontae Hwang", isHighlight: true } 
         ], 
         venue: "Optimization journal, Acceptance rate 15%", 
-        links: [], 
+        links: [ { text: "paper", href: "https://arxiv.org/abs/2605.21409" }, { text: "code", href: "https://github.com/TSI-yoontae/Portfolio-Preference-Elicitation-in-Institutional-Crossing-Markets" }, ],
         topics: ["Portfolio Theory", "Optimization"] 
     },
     { id: "[S]", title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yaxuan Kong", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2025.01 (intended), Acceptance rate 13%", award: "Rising Scholar Award @the Korean Academic Society of Business Administration 2025", links: [ { text: "paper", href: "https://arxiv.org/abs/2502.00828" }, { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }, ], topics: ["Portfolio Theory", "Deep Learning"] },

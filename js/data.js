@@ -302,8 +302,8 @@ window.TSI_Data.workingPapers = [
         topics: ["Graph Neural Networks", "Deep Learning"] 
     },
     { 
-        id: "[W]", 
-        title: "Subspace Regularized Portfolio Optimization under Regime Dependent Risk", 
+        id: "[S]", 
+        title: "Portfolio Preference Elicitation in Institutional Crossing Markets", 
         authors: [ 
             { name: "Yoontae Hwang", isHighlight: true } 
         ], 

@@ -1,12 +1,6 @@
 window.ProjectTabContent = () => {
     const projects = [
-        {
-            title: '제조 AX를 위한 다양한 공정조건에 강건한 프레스 성형 품질 예측용 물리기반 가공표면 이미지 생성 모델 개발',
-            year: 2026,
-            role: '참여연구',
-            organization: '한국연구재단 신진연구-유형 A',
-            period: '2026.03 - Present',
-        },
+
         {
             title: 'GLOW-AI 혁신인재양성 교육연구단',
             year: 2025,

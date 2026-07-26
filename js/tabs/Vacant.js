@@ -35,13 +35,6 @@ window.VacantPositionsTabContent = () => (
     <section className="space-y-5">
         <div>
             <h2 className="text-xl font-extrabold tracking-tight text-[#172033]">Vacant Positions</h2>
-            <p className="mt-1 text-sm leading-5 text-[#404958]">
-                TSI Lab is actively recruiting passionate researchers and students.
-            </p>
-            <p className="mt-1 text-sm leading-5 text-[#404958]">
-                Interested applicants should send a CV and a short statement of interest to
-                <a href="mailto:yoontae.hwang@pusan.ac.kr" className="ml-1 tsi-link">yoontae.hwang@pusan.ac.kr</a>.
-            </p>
         </div>
 
         <VacantPhilosophySection />

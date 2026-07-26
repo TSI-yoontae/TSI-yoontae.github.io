@@ -65,7 +65,7 @@ window.VacantPositionsTabContent = () => (
                         <strong>M.S. Graduation:</strong> Graduation may be extended beyond four semesters if the thesis does not meet the advisor's standards.
                     </p>
                     <p>
-                        <strong>Ph.D. & Integrated Ph.D. Graduation:</strong> A minimum of 3 publications is required to graduate. This total must consist of at least 2 top-tier AI conference papers, plus publications in the target journals listed below.
+                        <strong>Ph.D. & Integrated Ph.D. Graduation:</strong> A minimum of 4 publications is required to graduate. This total must consist of at least 2 top-tier AI conference papers, plus publications in the target journals listed below.
                     </p>
                 </div>
             </div>

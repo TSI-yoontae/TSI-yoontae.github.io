@@ -36,7 +36,7 @@ window.VacantPositionsTabContent = () => (
         <div>
             <h2 className="text-xl font-extrabold tracking-tight text-[#172033]">Vacant Positions</h2>
             <p className="mt-1 text-sm leading-5 text-[#404958]">
-                TSI Lab is actively recruiting passionate researchers and students. We welcome applicants for PhD students, MS students, and undergraduate interns.
+                TSI Lab is actively recruiting passionate researchers and students.
             </p>
             <p className="mt-1 text-sm leading-5 text-[#404958]">
                 Interested applicants should send a CV and a short statement of interest to

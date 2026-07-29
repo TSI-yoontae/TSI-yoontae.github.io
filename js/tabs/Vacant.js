@@ -64,7 +64,7 @@ window.VacantPositionsTabContent = () => (
         <VacantPhilosophySection />
 
         <section className="tsi-section">
-            <VacantSectionTitle title="Preferred Profile (Updated June 2026)" />
+            <VacantSectionTitle title="Preferred Profile (Updated August 2026)" />
 
             <p className="mt-1 text-sm leading-5 text-[#404958]">
                 We are looking for students with solid mathematics and

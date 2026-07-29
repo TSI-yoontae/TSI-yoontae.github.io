@@ -131,11 +131,6 @@ window.VacantPositionsTabContent = () => (
                     a clear commitment to producing high-impact research.
                 </p>
 
-                <p className="mt-2 text-sm font-semibold leading-5 text-[#87382c]">
-                    Sending an application does not guarantee a response.
-                    Applications that do not clearly demonstrate exceptional
-                    research motivation will not be considered.
-                </p>
 
                 <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold">
                     <span className="border border-[#b45a4a] bg-[#e8e2d4] px-2 py-1 text-[#746b5d] line-through">

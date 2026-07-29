@@ -1,6 +1,9 @@
 const VacantSectionTitle = ({ title, description }) => (
     <div className="mb-2.5">
-        <h3 className="text-lg font-extrabold tracking-tight text-[#172033]">{title}</h3>
+        <h3 className="text-lg font-extrabold tracking-tight text-[#172033]">
+            {title}
+        </h3>
+
         {description && (
             <p className="mt-1 text-sm leading-5 text-[#5e6676]">
                 {description}
@@ -18,7 +21,8 @@ const VacantPhilosophySection = () => (
 
         <div className="border border-[#d8d0c0] bg-[#eceff1] px-3 py-3">
             <blockquote className="border-l-2 border-[#243044] pl-3 text-sm font-semibold leading-5 text-[#172033]">
-                “Research is meaningful only when its insights leave the lab and change the world.”
+                “Research is meaningful only when its insights leave the lab
+                and change the world.”
             </blockquote>
 
             <div className="mt-3 grid gap-2 md:grid-cols-3">
@@ -43,6 +47,7 @@ const VacantPhilosophySection = () => (
                         <h4 className="text-sm font-bold text-[#172033]">
                             {title}
                         </h4>
+
                         <p className="mt-0.5 text-sm leading-5 text-[#5e6676]">
                             {body}
                         </p>
@@ -77,7 +82,7 @@ window.VacantPositionsTabContent = () => (
 
             <div className="mt-3 border border-[#b99a4b] bg-[#f1e7cf] p-3">
                 <h4 className="text-sm font-extrabold text-[#5b4315]">
-                    Important Admission, Funding & Graduation Policy
+                    Important Admission, Funding &amp; Graduation Policy
                 </h4>
 
                 <div className="mt-2 space-y-2 text-sm leading-5 text-[#4b3a1b]">
@@ -95,11 +100,11 @@ window.VacantPositionsTabContent = () => (
                     </p>
 
                     <p>
-                        <strong>Ph.D. & Integrated Ph.D. Graduation:</strong> A
-                        minimum of 4 publications is required to graduate. This
-                        total must consist of at least 2 top-tier AI conference
-                        papers, plus publications in the target journals listed
-                        below.
+                        <strong>Ph.D. &amp; Integrated Ph.D. Graduation:</strong>{' '}
+                        A minimum of 4 publications is required to graduate.
+                        This total must consist of at least 2 top-tier AI
+                        conference papers, plus publications in the target
+                        journals listed below.
                     </p>
 
                     <p>
@@ -125,12 +130,11 @@ window.VacantPositionsTabContent = () => (
                         Ph.D., MS-Ph.D. integrated, M.S., and internship
                         programs is currently closed.
                     </span>{' '}
-                    Ph.D. and integrated-course applicants may be considered
-                    only in exceptional cases when they demonstrate
-                    extraordinary research motivation, strong preparation, and
-                    a clear commitment to producing high-impact research.
+                    However, exceptionally motivated applicants may still be
+                    considered on a case-by-case basis if they demonstrate
+                    strong preparation and a clear commitment to producing
+                    high-impact research.
                 </p>
-
 
                 <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold">
                     <span className="border border-[#b45a4a] bg-[#e8e2d4] px-2 py-1 text-[#746b5d] line-through">
@@ -142,7 +146,7 @@ window.VacantPositionsTabContent = () => (
                     </span>
 
                     <span className="border border-[#b45a4a] bg-[#fffdf8] px-2 py-1 text-[#87382c]">
-                        Exceptional Ph.D. Candidates Only
+                        Exceptional Applicants May Be Considered
                     </span>
                 </div>
             </div>
@@ -181,6 +185,7 @@ window.VacantPositionsTabContent = () => (
                         <h4 className="text-sm font-bold text-[#172033]">
                             {title}
                         </h4>
+
                         <p className="text-sm leading-5 text-[#404958]">
                             {body}
                         </p>

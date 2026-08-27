@@ -1,6 +1,13 @@
 window.ProjectTabContent = () => {
     const projects = [
-
+{
+            title: '글로컬R&D',
+            year: 2026,
+            role: '책임연구원',
+            organization: 'National Research Foundation of Korea (NRF)',
+            funding: '600,000,000 KRW',
+            period: '2026.09 - 2029.09',
+        },
         {
             title: 'GLOW-AI 혁신인재양성 교육연구단',
             year: 2025,

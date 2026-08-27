@@ -55,6 +55,7 @@ const ResearchTopicsSection = () => {
 
 const NewsSection = () => {
     const news = [
+        { date: 'Aug 2026', text: "한국연구재단(NRF) 글로컬R&D 사업 선정, 3년간 최대 6억 원 연구비 확보" },
         { date: 'June 2026', text: "One paper accepted to Journal of Applied Physics." },
         { date: 'May 2026', text: "Yoontae Hwang recognized as a Gold Reviewer (Top Reviewer) for ICML'26." },
         { date: 'May 2026', text: "Two Financial AI papers accepted to ICML'26." },

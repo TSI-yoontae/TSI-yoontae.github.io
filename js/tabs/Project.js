@@ -13,6 +13,7 @@ window.ProjectTabContent = () => {
             year: 2026,
             role: '책임연구자',
             organization: '한국금융학회',
+            funding: '10,000,000 KRW',
             period: '2026.09 - Present',
         },
         {

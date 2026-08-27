@@ -1,7 +1,21 @@
 window.ProjectTabContent = () => {
     const projects = [
-{
-            title: '글로컬R&D',
+        {
+            title: '글로벌데이터리더양성사업 (with National University of Singapore)',
+            year: 2026,
+            role: '참여연구원(세부책임)',
+            organization: 'National Research Foundation of Korea (NRF)',
+            period: '2026.09 - Present',
+        },
+        {
+            title: '기업 공시자료의 한계가치에 관한 연구',
+            year: 2026,
+            role: '책임연구자',
+            organization: '한국금융학회',
+            period: '2026.09 - Present',
+        },
+        {
+            title: '글로컬 R&D (with University of Oxford)',
             year: 2026,
             role: '책임연구원',
             organization: 'National Research Foundation of Korea (NRF)',

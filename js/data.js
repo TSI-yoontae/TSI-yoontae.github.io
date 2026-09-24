@@ -1,6 +1,35 @@
 window.TSI_Data = {};
  
 window.TSI_Data.publications = [
+    {
+        id: "[C9]",
+        title: "HoTS: Homophily-Aware Temperature Scaling for Graph Neural Network Calibration",
+        authors: [
+            { name: "In Woo Tae" },
+            { name: "Yoontae Hwang†", isHighlight: true },
+            { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }
+        ],
+        venue: "NeurIPS'26 (Accepted), Top-tier AI Conference; CORE A*",
+        links: [ { text: "paper", href: "https://openreview.net/forum?id=woxrGUwgJ3" } ],
+        topics: ["Graph Neural Networks", "Deep Learning"]
+    },
+    {
+        id: "[J8]",
+        title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization",
+        authors: [
+            { name: "Yoontae Hwang", isHighlight: true },
+            { name: "Yaxuan Kong", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" },
+            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
+            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }
+        ],
+        venue: "Expert Systems with Applications, 2026 (Accepted)",
+        award: "Rising Scholar Award @the Korean Academic Society of Business Administration 2025",
+        links: [
+            { text: "paper", href: "https://www.sciencedirect.com/science/article/pii/S0957417426032938" },
+            { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }
+        ],
+        topics: ["Portfolio Theory", "Deep Learning"]
+    },
     // 새로 추가된 ICML 2026 논문 1
     { 
         id: "[C8]", 
@@ -291,18 +320,6 @@ window.TSI_Data.workingPapers = [
     },
     { 
         id: "[S]", 
-        title: "Homophily and Entropy Temperature Scaling for Graph Neural Networks", 
-        authors: [ 
-            { name: "In Woo Tae" }, 
-            { name: "Yoontae Hwang†", isHighlight: true }, 
-            { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }
-        ], 
-        venue: "Submitted to Top AI Conference", 
-        links: [], 
-        topics: ["Graph Neural Networks", "Deep Learning"] 
-    },
-    { 
-        id: "[S]", 
         title: "Portfolio Preference Elicitation in Institutional Crossing Markets", 
         authors: [ 
             { name: "Yoontae Hwang", isHighlight: true } 
@@ -311,7 +328,6 @@ window.TSI_Data.workingPapers = [
         links: [ { text: "paper", href: "https://arxiv.org/abs/2605.21409" }, { text: "code", href: "https://github.com/TSI-yoontae/Portfolio-Preference-Elicitation-in-Institutional-Crossing-Markets" }, ],
         topics: ["Portfolio Theory", "Optimization"] 
     },
-    { id: "[S]", title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Yaxuan Kong", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2025.01 (intended), Acceptance rate 13%", award: "Rising Scholar Award @the Korean Academic Society of Business Administration 2025", links: [ { text: "paper", href: "https://arxiv.org/abs/2502.00828" }, { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }, ], topics: ["Portfolio Theory", "Deep Learning"] },
     { id: "[S]", title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2024.12, Acceptance rate 23%", award: "Best Paper Award @the Korean Academic Society of Business Administration 2024", links: [ { text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
     { id: "[S]", title: "LLM-Enhanced Black-Litterman Portfolio Optimization", authors: [ { name: "Youngbin Lee*", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" }, { name: "Yejin Kim*", href: "https://scholar.google.com/citations?user=RT2PhEsAAAAJ&hl=ko" }, { name: "Juhyeong Kim" }, { name: "Suin Kim" }, { name: "Yoontae Hwang†", isHighlight: true },  { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } ], venue: "Finance Journal, 2024.12, Acceptance rate 23%", links: [ { text: "paper", href: "https://arxiv.org/abs/2504.14345" }, { text: "code", href: "https://github.com/youngandbin/LLM-BLM" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
     { id: "[W]", title: "Decision by Supervised Learning", authors: [ { name: "Juhyeong Kim" }, { name: "Sungyoon Cho" }, { name: "Youngbin Lee" }, { name: "Yejin Kim" }, { name: "Yongmin Choi" },   { name: "Yoontae Hwang†", isHighlight: true },  { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } ], venue: "Finance Journal, 2026.02, Acceptance rate 23%", links: [ { text: "paper", href: "https://arxiv.org/abs/2503.13544" }, { text: "code", href: "https://github.com/DSLwDE/DSLwDE" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },

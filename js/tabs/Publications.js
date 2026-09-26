@@ -1,6 +1,8 @@
 const normalizePublicationText = (value) => (value || '').toString().toLowerCase();
 
 const getPublicationYear = (paper) => {
+    if (Number.isInteger(paper.year)) return paper.year;
+
     const text = `${paper.venue || ''} ${paper.title || ''}`;
     const fullYear = text.match(/20\d{2}/);
     if (fullYear) return Number(fullYear[0]);
@@ -29,8 +31,10 @@ const PublicationStat = ({ label, value }) => (
 
 const FilterButton = ({ active, onClick, children }) => (
     <button
+        type="button"
+        aria-pressed={active}
         onClick={onClick}
-        className={`border px-2.5 py-1 text-xs font-semibold transition-colors ${
+        className={`border px-2.5 py-1 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#243044] focus-visible:ring-offset-2 ${
             active
                 ? 'border-[#172033] bg-[#172033] text-[#fffdf8]'
                 : 'border-[#c8bead] bg-[#eee8dc] text-[#2f3847] hover:border-[#172033] hover:bg-[#e4dccd]'
@@ -160,6 +164,7 @@ window.PublicationsTabContent = () => {
         return allPapers.map((paper, index) => ({
             ...paper,
             sourceType: index < publications.length ? 'publication' : 'working',
+            kind: getPublicationKind(paper.id),
             year: getPublicationYear(paper),
             originalIndex: index,
         }));
@@ -178,7 +183,12 @@ window.PublicationsTabContent = () => {
             ].join(' '));
 
             const matchesQuery = query === '' || searchable.includes(query);
-            const matchesType = activeType === 'all' || paper.sourceType === activeType;
+            const matchesType = activeType === 'all'
+                || paper.sourceType === activeType
+                || (paper.sourceType === 'publication' && (
+                    (activeType === 'conference' && paper.kind === 'Conference')
+                    || (activeType === 'journal' && paper.kind === 'Journal')
+                ));
 
             return matchesQuery && matchesType;
         });
@@ -233,10 +243,12 @@ window.PublicationsTabContent = () => {
                     </button>
                 </div>
 
-                <div className="mt-2 flex flex-wrap gap-1.5">
+                <div role="group" aria-label="Publication type" className="mt-2 flex flex-wrap gap-1.5">
                     {[
                         ['all', 'All'],
                         ['publication', 'Publication'],
+                        ['conference', 'Conference'],
+                        ['journal', 'Journal'],
                         ['working', 'Working Papers'],
                     ].map(([value, label]) => (
                         <FilterButton key={value} active={activeType === value} onClick={() => setActiveType(value)}>{label}</FilterButton>

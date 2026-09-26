@@ -1,4 +1,18 @@
 window.TSI_Data = {};
+
+window.TSI_Data.reviewStartYear = 2025;
+window.TSI_Data.news = [
+    { date: 'Sep 2026', category: 'Academic service', text: "Yoontae Hwang will serve as an organizer of the workshop \"FinFM: Foundation Models and Generative AI for Finance\" at AAAI'27." },
+    { date: 'Sep 2026', category: 'Publication', text: "One paper (Graph Neural Network) accepted to NeurIPS'26 (Top Tier AI Conference; CORE A*)." },
+    { date: 'Sep 2026', category: 'Publication', text: "One paper accepted to Expert systems with applications(6/109; Top 5.5%)." },
+    { date: 'Aug 2026', category: 'Research funding', text: "한국연구재단(NRF) 글로컬R&D 사업 선정, 3년간 최대 6억 원 연구비 확보" },
+    { date: 'Jun 2026', category: 'Publication', text: "One paper accepted to Journal of Applied Physics." },
+    { date: 'May 2026', category: 'Recognition', text: "Yoontae Hwang recognized as a Gold Reviewer (Top Reviewer) for ICML'26." },
+    { date: 'May 2026', category: 'Publication', text: "Two Financial AI papers accepted to ICML'26 (Top Tier AI Confernece; CORE A*)." },
+    { date: 'Dec 2025', category: 'Academic service', text: 'TSI Lab will host the Workshop on Rethinking Financial Time-Series at ICAIF-25.', link: 'https://icaif-25-rtfs.github.io/' },
+    { date: 'Dec 2025', category: 'Recognition', text: 'Selected for the Rising Scholar Award by the Korean Academic Society of Business Administration.' },
+    { date: 'Sep 2025', category: 'Lab milestone', text: 'Time Series Intelligence Lab launches at Pusan National University.' },
+];
  
 window.TSI_Data.publications = [
     {
@@ -46,7 +60,7 @@ window.TSI_Data.publications = [
             { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
             { name: "Stefan Zohren†", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }
         ], 
-        venue: "ICML 26 (Position Track), Acceptance rate 26%, Top-tier AI Confernece", 
+        venue: "ICML '26 (Position Track), Acceptance rate 26%, Top-tier AI Confernece",
         links: [ { text: "paper", href: "https://arxiv.org/pdf/2602.14233v1" } ], 
         topics: ["Large Language Models", "Finance", "Bias"] 
     },

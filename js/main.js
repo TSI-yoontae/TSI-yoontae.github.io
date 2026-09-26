@@ -1,5 +1,5 @@
 function App() {
-    const validTabs = ['home', 'members', 'publications', 'teaching', 'project', 'for-students', 'vacant'];
+    const validTabs = ['home', 'members', 'publications', 'teaching', 'project', 'for-students', 'vacant', 'year-in-review'];
     
     const getTabFromHash = () => {
         const hash = window.location.hash.replace('#', '');
@@ -27,6 +27,7 @@ function App() {
             case 'project': return <window.ProjectTabContent />;
             case 'for-students': return <window.ForStudentsTabContent />;
             case 'vacant': return <window.VacantPositionsTabContent />;
+            case 'year-in-review': return <window.YearInReviewTabContent />;
             default: return <window.HomeTabContent />;
         }
     };
@@ -39,6 +40,7 @@ function App() {
         { value: 'project', label: 'Project' },
         { value: 'for-students', label: 'For Students' },
         { value: 'vacant', label: 'Vacant Positions' },
+        { value: 'year-in-review', label: 'Year in Review' },
     ];
 
     const TabButton = ({ value, children }) => {

@@ -55,6 +55,7 @@ const ResearchTopicsSection = () => {
 
 const NewsSection = () => {
     const news = [
+        { date: 'Sep 2026', text: "Yoontae Hwang will serve as an organizer of the workshop \"FinFM: Foundation Models and Generative AI for Finance\" at AAAI'27." },
         { date: 'Sep 2026', text: "One paper (Graph Neural Network) accepted to NeurIPS'26 (Top Tier AI Conference; CORE A*)." },
         { date: 'Sep 2026', text: "One paper accepted to Expert systems with applications(6/109; Top 5.5%)." },
         { date: 'Aug 2026', text: "한국연구재단(NRF) 글로컬R&D 사업 선정, 3년간 최대 6억 원 연구비 확보" },

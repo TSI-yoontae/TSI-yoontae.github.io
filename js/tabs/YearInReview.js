@@ -26,7 +26,7 @@ window.YearInReviewTabContent = () => {
             || (kind === 'Conference' && !/\bworkshops?\b/i.test(paper.venue || ''));
     });
     const currentYear = new Date().getFullYear();
-    const projects = (data.projects || []).filter(project => project.funding).map(project => ({
+    const projects = (data.projects || []).map(project => ({
         ...project,
         activeYears: getProjectActiveYears(project, currentYear),
     }));
@@ -83,7 +83,8 @@ window.YearInReviewTabContent = () => {
             <section className="tsi-section">
                 <h3 className="text-lg font-extrabold tracking-tight text-[#172033]">Research funding</h3>
                 <p className="mb-2 mt-1 text-sm leading-5 text-[#5e6676]">
-                    Projects active during {selectedYear}. Funding amounts cover the full project period.
+                    Projects active during {selectedYear}, including principal investigator and participating researcher roles.
+                    {' '}Listed funding amounts cover the full project period.
                 </p>
                 {fundedProjects.length > 0 ? (
                     <div className="tsi-panel">
@@ -91,7 +92,7 @@ window.YearInReviewTabContent = () => {
                             <article key={`${project.title}-${project.period}`} className="tsi-row px-3 py-3">
                                 <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                                     <h4 className="text-sm font-bold text-[#172033]">{project.title}</h4>
-                                    <p className="shrink-0 text-sm font-extrabold text-[#172033]">{project.funding}</p>
+                                    {project.funding && <p className="shrink-0 text-sm font-extrabold text-[#172033]">{project.funding}</p>}
                                 </div>
                                 <p className="mt-1 text-sm leading-5 text-[#5e6676]">{project.organization}</p>
                                 <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-sm text-[#404958]">
@@ -102,7 +103,7 @@ window.YearInReviewTabContent = () => {
                         ))}
                     </div>
                 ) : (
-                    <p className="text-sm leading-5 text-[#5e6676]">No funding amounts are listed for projects active in {selectedYear}.</p>
+                    <p className="text-sm leading-5 text-[#5e6676]">No active funded projects are listed for {selectedYear}.</p>
                 )}
             </section>
 

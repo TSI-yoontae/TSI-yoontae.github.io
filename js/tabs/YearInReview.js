@@ -1,3 +1,16 @@
+const getProjectActiveYears = (project, currentYear) => {
+    const period = project.period || '';
+    const periodYears = period.match(/\b\d{4}\b/g) || [];
+    const startYear = periodYears.length > 0 ? Number(periodYears[0]) : project.year;
+    const endYear = /\b(present|ongoing)\b/i.test(period)
+        ? currentYear
+        : Number(periodYears[1] || startYear);
+
+    if (!Number.isInteger(startYear) || !Number.isInteger(endYear) || endYear < startYear) return [];
+
+    return Array.from({ length: endYear - startYear + 1 }, (_, index) => startYear + index);
+};
+
 const YearReviewMetric = ({ label, value }) => (
     <div className="border border-[#d8d0c0] bg-[#fffdf8] px-3 py-3">
         <p className="text-3xl font-extrabold tracking-tight text-[#172033]">{value}</p>
@@ -12,19 +25,22 @@ window.YearInReviewTabContent = () => {
         return kind === 'Journal'
             || (kind === 'Conference' && !/\bworkshops?\b/i.test(paper.venue || ''));
     });
-    const projects = (data.projects || []).filter(project => project.funding);
     const currentYear = new Date().getFullYear();
+    const projects = (data.projects || []).filter(project => project.funding).map(project => ({
+        ...project,
+        activeYears: getProjectActiveYears(project, currentYear),
+    }));
     const startYear = data.reviewStartYear || currentYear;
     const years = [...new Set([
         ...publications.map(getPublicationYear),
-        ...projects.map(project => project.year),
+        ...projects.flatMap(project => project.activeYears),
     ])].filter(year => Number.isInteger(year) && year >= startYear).sort((a, b) => b - a);
 
     const [selectedYear, setSelectedYear] = React.useState(() => years[0] || currentYear);
     const papers = publications.filter(paper => getPublicationYear(paper) === selectedYear);
     const conferencePapers = papers.filter(paper => getPublicationKind(paper.id) === 'Conference');
     const journalPapers = papers.filter(paper => getPublicationKind(paper.id) === 'Journal');
-    const fundedProjects = projects.filter(project => project.year === selectedYear);
+    const fundedProjects = projects.filter(project => project.activeYears.includes(selectedYear));
 
     return (
         <section className="space-y-5">
@@ -57,17 +73,17 @@ window.YearInReviewTabContent = () => {
                     <YearReviewMetric label="Accepted / published papers" value={papers.length} />
                     <YearReviewMetric label="Conference papers" value={conferencePapers.length} />
                     <YearReviewMetric label="Journal papers" value={journalPapers.length} />
-                    <YearReviewMetric label="Funding records" value={fundedProjects.length} />
+                    <YearReviewMetric label="Active funded projects" value={fundedProjects.length} />
                 </div>
                 <p className="mt-2 text-xs leading-5 text-[#746b5d]">
-                    Papers are grouped by venue year. Funding is grouped by project start year.
+                    Papers are grouped by venue year. Funding includes projects active during the selected year.
                 </p>
             </section>
 
             <section className="tsi-section">
                 <h3 className="text-lg font-extrabold tracking-tight text-[#172033]">Research funding</h3>
                 <p className="mb-2 mt-1 text-sm leading-5 text-[#5e6676]">
-                    Funding amounts cover the full project period.
+                    Projects active during {selectedYear}. Funding amounts cover the full project period.
                 </p>
                 {fundedProjects.length > 0 ? (
                     <div className="tsi-panel">
@@ -86,7 +102,7 @@ window.YearInReviewTabContent = () => {
                         ))}
                     </div>
                 ) : (
-                    <p className="text-sm leading-5 text-[#5e6676]">No project funding amounts are listed for {selectedYear}.</p>
+                    <p className="text-sm leading-5 text-[#5e6676]">No funding amounts are listed for projects active in {selectedYear}.</p>
                 )}
             </section>
 

@@ -1,65 +1,67 @@
+window.TSI_Data.projects = [
+    {
+        title: '2026학년도 신진교수 지원사업',
+        year: 2026,
+        role: '책임연구자',
+        organization: 'Pusan National University (국립대육성사업)',
+        funding: '20,000,000 KRW',
+        period: '2026.10 - Present',
+    },
+    {
+        title: '글로컬 R&D (with University of Oxford)',
+        year: 2026,
+        role: '책임연구자',
+        organization: 'National Research Foundation of Korea (NRF)',
+        funding: '600,000,000 KRW',
+        period: '2026.09 - Present',
+    },
+    {
+        title: '기업 공시자료의 한계가치에 관한 연구',
+        year: 2026,
+        role: '책임연구자',
+        organization: '한국금융학회',
+        funding: '10,000,000 KRW',
+        period: '2026.09 - Present',
+    },
+    {
+        title: '글로벌데이터리더양성사업 (with National University of Singapore)',
+        year: 2026,
+        role: '참여연구원(세부책임)',
+        organization: 'National Research Foundation of Korea (NRF)',
+        period: '2026.09 - Present',
+    },
+    {
+        title: 'GLOW-AI 혁신인재양성 교육연구단',
+        year: 2025,
+        role: '참여연구원',
+        organization: '4단계 BK21 사업',
+        period: '2025.11 - Present',
+    },
+    {
+        title: '지역산업 혁신을 위한 지역 수요 중심 데이터사이언스 융합인재 양성사업',
+        year: 2025,
+        role: '참여연구원',
+        organization: '과학기술정보통신부 데이터사이언스융합인재양성',
+        period: '2025.09 - Present',
+    },
+    {
+        title: 'Sejong Science Fellowship (Oversea Track)',
+        year: 2024,
+        organization: 'National Research Foundation of Korea (NRF)',
+        funding: '70,000,000 KRW',
+        period: '2024.09.01 - 2025.08.31',
+    },
+    {
+        title: 'Ph.D. Fellowship',
+        year: 2022,
+        organization: 'National Research Foundation of Korea (NRF)',
+        funding: '40,000,000 KRW',
+        period: '2022.06.01 - 2024.05.31',
+    },
+];
+
 window.ProjectTabContent = () => {
-    const projects = [
-        {
-            title: '2026학년도 신진교수 지원사업',
-            year: 2026,
-            role: '책임연구자',
-            organization: 'Pusan National University (국립대육성사업)',
-            funding: '20,000,000 KRW',
-            period: '2026.10 - Present',
-        },
-        {
-            title: '글로컬 R&D (with University of Oxford)',
-            year: 2026,
-            role: '책임연구자',
-            organization: 'National Research Foundation of Korea (NRF)',
-            funding: '600,000,000 KRW',
-            period: '2026.09 - Present',
-        },
-        {
-            title: '기업 공시자료의 한계가치에 관한 연구',
-            year: 2026,
-            role: '책임연구자',
-            organization: '한국금융학회',
-            funding: '10,000,000 KRW',
-            period: '2026.09 - Present',
-        },
-        {
-            title: '글로벌데이터리더양성사업 (with National University of Singapore)',
-            year: 2026,
-            role: '참여연구원(세부책임)',
-            organization: 'National Research Foundation of Korea (NRF)',
-            period: '2026.09 - Present',
-        },
-        {
-            title: 'GLOW-AI 혁신인재양성 교육연구단',
-            year: 2025,
-            role: '참여연구원',
-            organization: '4단계 BK21 사업',
-            period: '2025.11 - Present',
-        },
-        {
-            title: '지역산업 혁신을 위한 지역 수요 중심 데이터사이언스 융합인재 양성사업',
-            year: 2025,
-            role: '참여연구원',
-            organization: '과학기술정보통신부 데이터사이언스융합인재양성',
-            period: '2025.09 - Present',
-        },
-        {
-            title: 'Sejong Science Fellowship (Oversea Track)',
-            year: 2024,
-            organization: 'National Research Foundation of Korea (NRF)',
-            funding: '70,000,000 KRW',
-            period: '2024.09.01 - 2025.08.31',
-        },
-        {
-            title: 'Ph.D. Fellowship',
-            year: 2022,
-            organization: 'National Research Foundation of Korea (NRF)',
-            funding: '40,000,000 KRW',
-            period: '2022.06.01 - 2024.05.31',
-        },
-    ];
+    const projects = window.TSI_Data.projects || [];
 
     return (
         <section className="space-y-3">

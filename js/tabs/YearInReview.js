@@ -1,8 +1,3 @@
-const getNewsYear = (item) => {
-    const year = (item.date || '').match(/20\d{2}/);
-    return year ? Number(year[0]) : null;
-};
-
 const YearReviewMetric = ({ label, value }) => (
     <div className="border border-[#d8d0c0] bg-[#fffdf8] px-3 py-3">
         <p className="text-3xl font-extrabold tracking-tight text-[#172033]">{value}</p>
@@ -12,20 +7,24 @@ const YearReviewMetric = ({ label, value }) => (
 
 window.YearInReviewTabContent = () => {
     const data = window.TSI_Data || {};
-    const publications = data.publications || [];
-    const news = data.news || [];
+    const publications = (data.publications || []).filter(paper => {
+        const kind = getPublicationKind(paper.id);
+        return kind === 'Journal'
+            || (kind === 'Conference' && !/\bworkshops?\b/i.test(paper.venue || ''));
+    });
+    const projects = (data.projects || []).filter(project => project.funding);
     const currentYear = new Date().getFullYear();
     const startYear = data.reviewStartYear || currentYear;
     const years = [...new Set([
         ...publications.map(getPublicationYear),
-        ...news.map(getNewsYear),
+        ...projects.map(project => project.year),
     ])].filter(year => Number.isInteger(year) && year >= startYear).sort((a, b) => b - a);
 
     const [selectedYear, setSelectedYear] = React.useState(() => years[0] || currentYear);
     const papers = publications.filter(paper => getPublicationYear(paper) === selectedYear);
     const conferencePapers = papers.filter(paper => getPublicationKind(paper.id) === 'Conference');
     const journalPapers = papers.filter(paper => getPublicationKind(paper.id) === 'Journal');
-    const highlights = news.filter(item => getNewsYear(item) === selectedYear && item.category !== 'Publication');
+    const fundedProjects = projects.filter(project => project.year === selectedYear);
 
     return (
         <section className="space-y-5">
@@ -34,7 +33,7 @@ window.YearInReviewTabContent = () => {
                     <p className="tsi-kicker">Annual record</p>
                     <h2 className="mt-0.5 text-2xl font-extrabold tracking-tight text-[#172033]">Year in Review</h2>
                     <p className="mt-1 text-sm leading-5 text-[#5e6676]">
-                        Research output, recognition, and lab milestones, year by year.
+                        Conference papers, journal papers, and research funding, year by year.
                     </p>
                 </div>
 
@@ -56,40 +55,43 @@ window.YearInReviewTabContent = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
                     <YearReviewMetric label="Accepted / published papers" value={papers.length} />
-                    <YearReviewMetric label="Conference & workshop papers" value={conferencePapers.length} />
+                    <YearReviewMetric label="Conference papers" value={conferencePapers.length} />
                     <YearReviewMetric label="Journal papers" value={journalPapers.length} />
-                    <YearReviewMetric label="Milestones" value={highlights.length} />
+                    <YearReviewMetric label="Funding records" value={fundedProjects.length} />
                 </div>
                 <p className="mt-2 text-xs leading-5 text-[#746b5d]">
-                    Papers are grouped by venue year. Milestones use the date of the announcement.
+                    Papers are grouped by venue year. Funding is grouped by project start year.
                 </p>
             </section>
 
             <section className="tsi-section">
-                <h3 className="mb-2 text-lg font-extrabold tracking-tight text-[#172033]">Highlights & milestones</h3>
-                {highlights.length > 0 ? (
+                <h3 className="text-lg font-extrabold tracking-tight text-[#172033]">Research funding</h3>
+                <p className="mb-2 mt-1 text-sm leading-5 text-[#5e6676]">
+                    Funding amounts cover the full project period.
+                </p>
+                {fundedProjects.length > 0 ? (
                     <div className="tsi-panel">
-                        {highlights.map((item, index) => (
-                            <article key={`${item.date}-${index}`} className="tsi-row grid gap-2 px-3 py-3 sm:grid-cols-[105px_1fr] sm:gap-4">
-                                <p className="text-[13px] font-bold text-[#746b5d]">{item.date}</p>
-                                <div>
-                                    <p className="mb-1 text-[11px] font-bold uppercase tracking-wide text-[#8a6f3d]">{item.category || 'News'}</p>
-                                    <p className="text-sm leading-5 text-[#404958]">
-                                        {item.link ? (
-                                            <a href={item.link} target="_blank" rel="noopener noreferrer" className="tsi-link">{item.text}</a>
-                                        ) : item.text}
-                                    </p>
+                        {fundedProjects.map(project => (
+                            <article key={`${project.title}-${project.period}`} className="tsi-row px-3 py-3">
+                                <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+                                    <h4 className="text-sm font-bold text-[#172033]">{project.title}</h4>
+                                    <p className="shrink-0 text-sm font-extrabold text-[#172033]">{project.funding}</p>
+                                </div>
+                                <p className="mt-1 text-sm leading-5 text-[#5e6676]">{project.organization}</p>
+                                <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-sm text-[#404958]">
+                                    {project.role && <p><strong className="text-[#172033]">Role:</strong> {project.role}</p>}
+                                    <p><strong className="text-[#172033]">Period:</strong> {project.period}</p>
                                 </div>
                             </article>
                         ))}
                     </div>
                 ) : (
-                    <p className="text-sm leading-5 text-[#5e6676]">No milestones have been announced for this year.</p>
+                    <p className="text-sm leading-5 text-[#5e6676]">No project funding amounts are listed for {selectedYear}.</p>
                 )}
             </section>
 
             <PublicationListSection
-                title="Conference & workshop papers"
+                title="Conference papers"
                 description={`Accepted or published papers for ${selectedYear}.`}
                 papers={conferencePapers}
             />

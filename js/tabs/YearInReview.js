@@ -30,10 +30,16 @@ window.YearInReviewTabContent = () => {
         ...project,
         activeYears: getProjectActiveYears(project, currentYear),
     }));
+    const organizingActivities = (data.news || []).filter(item => item.organizing).map(item => ({
+        ...item.organizing,
+        year: Number((item.date || '').match(/\b\d{4}\b/)?.[0]),
+        link: item.link,
+    }));
     const startYear = data.reviewStartYear || currentYear;
     const years = [...new Set([
         ...publications.map(getPublicationYear),
         ...projects.flatMap(project => project.activeYears),
+        ...organizingActivities.map(activity => activity.year),
     ])].filter(year => Number.isInteger(year) && year >= startYear).sort((a, b) => b - a);
 
     const [selectedYear, setSelectedYear] = React.useState(() => years[0] || currentYear);
@@ -41,6 +47,7 @@ window.YearInReviewTabContent = () => {
     const conferencePapers = papers.filter(paper => getPublicationKind(paper.id) === 'Conference');
     const journalPapers = papers.filter(paper => getPublicationKind(paper.id) === 'Journal');
     const fundedProjects = projects.filter(project => project.activeYears.includes(selectedYear));
+    const organizingRoles = organizingActivities.filter(activity => activity.year === selectedYear);
 
     return (
         <section className="space-y-5">
@@ -49,7 +56,7 @@ window.YearInReviewTabContent = () => {
                     <p className="tsi-kicker">Annual record</p>
                     <h2 className="mt-0.5 text-2xl font-extrabold tracking-tight text-[#172033]">Year in Review</h2>
                     <p className="mt-1 text-sm leading-5 text-[#5e6676]">
-                        Conference papers, journal papers, and research funding, year by year.
+                        Publications, research funding, and organizing activities, year by year.
                     </p>
                 </div>
 
@@ -69,14 +76,16 @@ window.YearInReviewTabContent = () => {
                     <h3 className="text-lg font-extrabold tracking-tight text-[#172033]">{selectedYear} at a glance</h3>
                     {selectedYear === currentYear && <p className="text-xs font-semibold text-[#746b5d]">Year to date</p>}
                 </div>
-                <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+                <div className="grid grid-cols-2 gap-2 lg:grid-cols-5">
                     <YearReviewMetric label="Accepted / published papers" value={papers.length} />
                     <YearReviewMetric label="Conference papers" value={conferencePapers.length} />
                     <YearReviewMetric label="Journal papers" value={journalPapers.length} />
                     <YearReviewMetric label="Active funded projects" value={fundedProjects.length} />
+                    <YearReviewMetric label="Organizer roles" value={organizingRoles.length} />
                 </div>
                 <p className="mt-2 text-xs leading-5 text-[#746b5d]">
                     Papers are grouped by venue year. Funding includes projects active during the selected year.
+                    {' '}Organizer roles are grouped by announcement year.
                 </p>
             </section>
 
@@ -104,6 +113,33 @@ window.YearInReviewTabContent = () => {
                     </div>
                 ) : (
                     <p className="text-sm leading-5 text-[#5e6676]">No active funded projects are listed for {selectedYear}.</p>
+                )}
+            </section>
+
+            <section className="tsi-section">
+                <h3 className="text-lg font-extrabold tracking-tight text-[#172033]">Workshop organizing</h3>
+                <p className="mb-2 mt-1 text-sm leading-5 text-[#5e6676]">
+                    Workshop organizing roles announced in {selectedYear}.
+                </p>
+                {organizingRoles.length > 0 ? (
+                    <div className="tsi-panel">
+                        {organizingRoles.map(activity => (
+                            <article key={`${activity.title}-${activity.venue}`} className="tsi-row px-3 py-3">
+                                <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+                                    <h4 className="text-sm font-bold text-[#172033]">{activity.title}</h4>
+                                    <p className="shrink-0 text-sm font-semibold text-[#746b5d]">{activity.venue}</p>
+                                </div>
+                                <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-sm text-[#404958]">
+                                    <p><strong className="text-[#172033]">Role:</strong> {activity.role}</p>
+                                    {activity.link && (
+                                        <a href={activity.link} target="_blank" rel="noopener noreferrer" className="tsi-link">Workshop website</a>
+                                    )}
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                ) : (
+                    <p className="text-sm leading-5 text-[#5e6676]">No workshop organizing roles are listed for {selectedYear}.</p>
                 )}
             </section>
 

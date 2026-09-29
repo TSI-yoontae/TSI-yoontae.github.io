@@ -6,6 +6,7 @@ window.TSI_Data.news = [
         date: 'Sep 2026',
         category: 'Academic service',
         text: "Yoontae Hwang will serve as an organizer of the workshop \"FinFM: Foundation Models and Generative AI for Finance\" at AAAI'27.",
+        link: 'https://finfm.finhorizons.org/',
         organizing: { title: 'FinFM: Foundation Models and Generative AI for Finance', venue: "AAAI'27", role: 'Organizer' },
     },
     { date: 'Sep 2026', category: 'Publication', text: "One paper (Graph Neural Network) accepted to NeurIPS'26 (Top Tier AI Conference; CORE A*)." },

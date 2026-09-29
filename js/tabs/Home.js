@@ -1,12 +1,9 @@
 const selectedHomePapers = [
-        { title: "[ICML'26] Signature-informed Transformer for Asset Allocation", links: [{ text: 'paper', href: 'https://arxiv.org/abs/2510.03129' }, { text: 'code', href: 'https://github.com/Yoontae6719/Signature-Informed-Transformer-For-Asset-Allocation' }, { text: 'seminar@KIC', href: 'ppt/KIC.pdf' }] },
-        { title: "[ICML'26] Position: Evaluating LLMs in Finance Requires Explicit Bias Consideration", links: [{ text: 'paper', href: 'https://arxiv.org/abs/2602.14233' }, { text: 'code', href: 'https://github.com/Eleanorkong/Awesome-Financial-LLM-Bias-Mitigation' }] },
-        { title: "[ACL'25] Time-MQA: Time series multi-task question answering with context enhancement", links: [{ text: 'paper', href: 'https://aclanthology.org/2025.acl-long.1437/' }, { text: 'code', href: 'https://huggingface.co/Time-MQA' }] },
-        { title: "[ICAIF'25] Fusing Narrative Semantics for Financial Volatility Forecasting", links: [{ text: 'paper', href: 'https://dl.acm.org/doi/abs/10.1145/3768292.3771256' }, { text: 'code', href: 'https://github.com/Yoontae6719/M2VN-Multi-Modal-Learning-Network-for-Volatility-Forecasting' }] },
-        { title: "[AAAI'25] Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset", links: [{ text: 'paper', href: 'https://arxiv.org/abs/2412.12864' }, { text: 'code', href: 'https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset' }, { text: 'seminar@UNIST', href: 'ppt/GFTab_UNIST.pdf' }] },
-        { title: "[KDD'24] CAFO: Feature-Centric Explanation on Time Series Classification", links: [{ text: 'paper', href: 'https://arxiv.org/pdf/2406.01833' }, { text: 'code', href: 'https://github.com/eai-lab/CAFO' }] },
-        { title: "[ICAIF'23] SimStock: Representation Model for Stock Similarities", links: [{ text: 'paper', href: 'https://dl.acm.org/doi/abs/10.1145/3604237.3626888' }, { text: 'code', href: 'https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities' }, { text: 'seminar@SKKU', href: 'ppt/SKKU.pdf' }] },
-    ];
+    { id: '[C9]', venue: "NeurIPS'26" },
+    { id: '[C7]', venue: "ICML'26", extraLinks: [{ text: 'seminar@KIC', href: 'ppt/KIC.pdf' }] },
+    { id: '[C3]', venue: "AAAI'25" },
+    { id: '[J8]', venue: "ESWA'26" },
+];
 
 const researchDirections = [
     { id: 'finance', label: 'AI in Finance', query: 'Portfolio', description: 'Machine learning for portfolio construction, financial modeling, and investment decisions.', items: ['Portfolio Optimization', 'Financial Modeling', 'Goal-based Wealth Management', 'Time-series for Finance'] },
@@ -59,16 +56,17 @@ const NewsSection = () => {
 };
 
 const SelectedPapersSection = () => {
-    const hots = window.TSI_Data.publications.find(paper => paper.id === '[C9]');
-    const papers = hots ? [{ title: "[NeurIPS'26] " + hots.title, links: hots.links }, ...selectedHomePapers] : selectedHomePapers;
+    const papers = selectedHomePapers.map(selection => {
+        const paper = window.TSI_Data.publications.find(paper => paper.id === selection.id);
+        return paper && { ...paper, selectedVenue: selection.venue, links: [...paper.links, ...(selection.extraLinks || [])] };
+    }).filter(Boolean);
     return (
         <section className="home-section">
             <SectionHeading title="Selected publications"><a className="text-link" href="#publications">Full archive <ArrowIcon /></a></SectionHeading>
             <div className="selected-list">{papers.map(paper => {
-                const parts = paper.title.match(/^\[(.*?)\]\s*(.*)$/);
-                return <article className="selected-row" key={paper.title}>
-                    <span className="selected-venue">{parts?.[1]}</span>
-                    <div><h3><a href={paper.links[0].href} target="_blank" rel="noopener noreferrer">{parts?.[2] || paper.title}</a></h3></div>
+                return <article className="selected-row" key={paper.id}>
+                    <span className="selected-venue" title={paper.venue}>{paper.selectedVenue}</span>
+                    <div><h3><a href={paper.links[0].href} target="_blank" rel="noopener noreferrer">{paper.title}</a></h3></div>
                     <ResourceLinks links={paper.links} />
                 </article>;
             })}</div>

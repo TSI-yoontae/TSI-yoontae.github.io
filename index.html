@@ -85,6 +85,7 @@ kbd{font-family:var(--mono);font-size:11px;line-height:1;color:var(--text-2);bor
 .menu-btn{display:none;width:40px;height:40px;align-items:center;justify-content:center;border:1px solid var(--line-2);border-radius:11px}
 .mobile-nav{position:absolute;left:0;right:0;top:64px;border-bottom:1px solid var(--line);background:rgba(10,11,14,.97);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding:8px 16px 20px}
 .mobile-nav[hidden]{display:none}
+@media (min-width:1101px){.mobile-nav{display:none!important}}
 .mobile-nav a{display:flex;justify-content:space-between;align-items:center;height:52px;border-bottom:1px solid var(--line);font-size:17px;color:var(--text-2)}
 .mobile-nav a[aria-current="page"]{color:var(--text)}
 
@@ -158,7 +159,12 @@ main.page-in{animation:pageIn .5s var(--ease)}
 .prog{position:absolute;left:10px;right:10px;bottom:3px;height:2px;border-radius:2px;background:var(--amber);transform-origin:0 50%;transform:scaleX(0);opacity:0;pointer-events:none}
 .terminal.auto .term-tabs button[aria-selected="true"] .prog{opacity:.9;animation:prog var(--rot,9s) linear both}
 @keyframes prog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-.term-meta{flex:1;display:flex;justify-content:flex-end}
+.term-meta{flex:1;display:flex;justify-content:flex-end;align-items:center;gap:8px}
+.term-pause{display:inline-flex;align-items:center;justify-content:center;width:34px;height:30px;border:1px solid var(--line-2);border-radius:8px;color:var(--text-2);transition:color .2s,border-color .2s}
+.term-pause:hover{color:var(--text);border-color:var(--line-3)}
+.term-pause .i-play,.term-pause[aria-pressed="true"] .i-pause{display:none}
+.term-pause[aria-pressed="true"] .i-play{display:block}
+.term-pause[aria-pressed="true"]{color:var(--amber);border-color:rgba(255,181,71,.5)}
 .sim-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);border:1px solid var(--line-2);border-radius:7px;padding:3px 8px;white-space:nowrap}
 .term-body{position:relative;height:clamp(360px,40vw,520px)}
 .term-body canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:crosshair;touch-action:pan-y;transition:opacity .2s}
@@ -171,7 +177,8 @@ main.page-in{animation:pageIn .5s var(--ease)}
 .ticker::before{left:0;background:linear-gradient(90deg,var(--bg),rgba(10,11,14,0))}
 .ticker::after{right:0;background:linear-gradient(270deg,var(--bg),rgba(10,11,14,0))}
 .ticker-track{display:flex;width:max-content;animation:tick 70s linear infinite}
-.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker:hover .ticker-track,.ticker:focus-within .ticker-track{animation-play-state:paused}
+.ticker:focus-visible{outline:2px solid var(--amber);outline-offset:-2px;border-radius:0}
 .tk-set{display:flex}
 @keyframes tick{to{transform:translateX(-50%)}}
 .tk{display:inline-flex;align-items:center;gap:10px;height:54px;padding:0 30px;border-right:1px solid var(--line);font-family:var(--mono);font-size:12.5px;letter-spacing:.03em;white-space:nowrap;color:var(--text-2)}
@@ -1611,7 +1618,7 @@ window.TSI = {
       F: makeForecast(), A: makeAlloc(), B: makeBook(),
       k: function (base) { return 1 - Math.pow(1 - base, S.dt / 16.7); }
     };
-    var raf = 0, last = 0, inView = true, dead = false, touchTimer = 0;
+    var raf = 0, last = 0, inView = true, dead = false, touchTimer = 0, paused = false;
 
     function resize() {
       var w = canvas.clientWidth, h = canvas.clientHeight;
@@ -1644,14 +1651,14 @@ window.TSI = {
       if (!inView || document.hidden) { last = 0; return; }
       var dt = last ? Math.min(100, now - last) : 16.7;
       last = now; S.dt = dt; S.now = now;
-      if (!reduced) {
+      if (!reduced && !paused) {
         var step = STEP[S.mode], guard = 0;
         S.acc += dt;
         while (S.acc >= step && guard < 5) { S.acc -= step; advance(now); guard++; }
         if (guard >= 5) S.acc = 0;
         S.phase = S.acc / step;
-        if (S.intro < 1) S.intro = Math.min(1, S.intro + dt / 1500);
       }
+      if (!reduced && S.intro < 1) S.intro = Math.min(1, S.intro + dt / 1500);
       if (S.fade < 1) S.fade = Math.min(1, S.fade + dt / 420);
       if (S.F.morph < 1) S.F.morph = Math.min(1, S.F.morph + dt / 520);
       draw();
@@ -1677,7 +1684,7 @@ window.TSI = {
     canvas.addEventListener('click', onClick);
     var ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(function () { resize(); draw(); }) : null;
     if (ro) ro.observe(canvas); else window.addEventListener('resize', resize);
-    var io = typeof IntersectionObserver !== 'undefined' ? new IntersectionObserver(function (es) { inView = es[0].isIntersecting; }, { threshold: 0 }) : null;
+    var io = typeof IntersectionObserver !== 'undefined' ? new IntersectionObserver(function (es) { inView = es[es.length - 1].isIntersecting; }, { threshold: 0 }) : null;
     if (io) io.observe(canvas);
     resize();
     raf = requestAnimationFrame(frame);
@@ -1685,6 +1692,8 @@ window.TSI = {
     return {
       setMode: function (m) { if (m === S.mode || !STEP[m]) return; S.mode = m; S.fade = 0; S.acc = 0; S.phase = 0; },
       getMode: function () { return S.mode; },
+      setPaused: function (p) { paused = !!p; },
+      isPaused: function () { return paused; },
       resample: resample,
       destroy: function () {
         dead = true; cancelAnimationFrame(raf); clearTimeout(touchTimer);
@@ -1746,7 +1755,9 @@ window.TSI = {
     user: '<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="5.5" r="2.8"/><path d="M2.8 14c.7-2.6 2.8-4 5.2-4s4.5 1.4 5.2 4"/></svg>',
     bolt: '<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12.5 6 8l3 2.5 5-6"/></svg>',
     book: '<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 3.5c1.8-.8 3.7-.8 5.5 0v10c-1.8-.8-3.7-.8-5.5 0zM8 3.5c1.8-.8 3.7-.8 5.5 0v10c-1.8-.8-3.7-.8-5.5 0z"/></svg>',
-    coin: '<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="5.8"/><path d="M8 4.8v6.4M10 6.2c-.4-.7-1.1-1-2-1-1.1 0-2 .6-2 1.4 0 1.9 4 1 4 2.9 0 .8-.9 1.4-2 1.4-.9 0-1.7-.4-2-1.1"/></svg>'
+    coin: '<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="5.8"/><path d="M8 4.8v6.4M10 6.2c-.4-.7-1.1-1-2-1-1.1 0-2 .6-2 1.4 0 1.9 4 1 4 2.9 0 .8-.9 1.4-2 1.4-.9 0-1.7-.4-2-1.1"/></svg>',
+    pause: '<svg class="i-pause" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5.5 3.5v9M10.5 3.5v9"/></svg>',
+    play: '<svg class="i-play" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.2v9.6l7.6-4.8z" fill="currentColor"/></svg>'
   };
 
   /* ---------- data helpers ---------- */
@@ -1762,8 +1773,9 @@ window.TSI = {
     var s = t.match(/'(\d{2})/);
     return s ? 2000 + Number(s[1]) : null;
   }
-  var PAPERS = D.publications.map(function (p, i) { return Object.assign({}, p, { group: 'published', key: 'p' + i, kind: kindOf(p.id), yr: yearOf(p) }); })
-    .concat(D.workingPapers.map(function (p, i) { return Object.assign({}, p, { group: 'working', key: 'w' + i, kind: kindOf(p.id), yr: yearOf(p) }); }));
+  function paperHay(p) { return [p.id, p.title, p.venue, p.award, (p.authors || []).map(function (a) { return a.name; }).join(' ')].join(' ').toLowerCase(); }
+  var PAPERS = D.publications.map(function (p, i) { return Object.assign({}, p, { group: 'published', key: 'p' + i, kind: kindOf(p.id), yr: yearOf(p), hay: paperHay(p) }); })
+    .concat(D.workingPapers.map(function (p, i) { return Object.assign({}, p, { group: 'working', key: 'w' + i, kind: kindOf(p.id), yr: yearOf(p), hay: paperHay(p) }); }));
   function byRef(ref) { for (var i = 0; i < D.publications.length; i++) if (D.publications[i].id === ref) return D.publications[i]; return null; }
   function venueShort(p) { return String(p.venue || '').split(/[,(]/)[0].trim(); }
   function authorsHTML(authors, q, limit) {
@@ -1825,7 +1837,7 @@ window.TSI = {
   function money(f) {
     if (!f) return '';
     var n = Number(String(f).replace(/[^\d]/g, ''));
-    if (!n) return f;
+    if (!n) return esc(f);
     return '₩' + Math.round(n / 1e6).toLocaleString('en-US') + 'M';
   }
   function fmtMonth(d) { return d.toLocaleString('en-US', { month: 'short', year: 'numeric' }); }
@@ -1917,13 +1929,14 @@ window.TSI = {
       '<div class="term-tabs" role="tablist" aria-label="Terminal views">' + MODES.map(function (m, i) {
         return '<button type="button" role="tab" id="tab-' + m.id + '" aria-controls="term-panel" aria-selected="' + (i === 0) + '" tabindex="' + (i === 0 ? 0 : -1) + '" data-mode="' + m.id + '"><span class="tab-k">' + m.k + '</span>' + m.label + '<span class="prog" aria-hidden="true"></span></button>';
       }).join('') + '</div>' +
-      '<div class="term-meta"><span class="sim-tag" title="Synthetic data generated in your browser — illustrative only">Simulated data</span></div></div>' +
+      '<div class="term-meta"><span class="sim-tag" title="Synthetic data generated in your browser — illustrative only">Simulated data</span>' +
+      '<button class="term-pause" type="button" id="term-pause" aria-pressed="false" aria-label="Pause live data">' + ICON.pause + ICON.play + '</button></div></div>' +
       '<div class="term-body" id="term-panel" role="tabpanel" aria-labelledby="tab-forecast"><canvas id="term-canvas" role="img" aria-label="' + esc(MODES[0].aria) + '"></canvas></div>' +
       '<div class="term-foot"><span class="term-desc">' + esc(MODES[0].desc) + '</span><span class="term-hint">' + esc(MODES[0].hint) + '</span></div>' +
       '</div></div></section>';
 
     var tk = D.news.map(function (n) { return '<span class="tk">' + ICON.tri + '<b>' + esc(n.tag) + '</b><span>' + esc(n.short) + '</span><em>' + esc(n.date) + '</em></span>'; }).join('');
-    var ticker = '<section class="ticker" aria-label="Lab news ticker"><div class="ticker-track"><div class="tk-set">' + tk + '</div><div class="tk-set" aria-hidden="true">' + tk + '</div></div></section>';
+    var ticker = '<section class="ticker" tabindex="0" aria-label="Lab news ticker (hover or focus to pause)"><div class="ticker-track"><div class="tk-set">' + tk + '</div><div class="tk-set" aria-hidden="true">' + tk + '</div></div></section>';
 
     var research = '<section class="section" id="research"><div class="container">' +
       '<div class="section-head reveal"><p class="eyebrow"><span>01</span>Research</p><h2>Three research lines, <span class="serif">one horizon.</span></h2>' +
@@ -1990,7 +2003,7 @@ window.TSI = {
     var term = $('#terminal'), canvas = $('#term-canvas');
     var engine = TSITerminal.create(canvas, { mode: 'forecast', reducedMotion: reduceMotion });
     cleanups.push(function () { engine.destroy(); });
-    var tabs = $$('.term-tabs [data-mode]', term);
+    var tabs = $$('.term-tabs [data-mode]', term), panel = $('#term-panel', term), pauseBtn = $('#term-pause', term);
     var auto = !reduceMotion, timer = 0, ROT = 9000;
     function setMode(id, user) {
       var m = MODES.filter(function (x) { return x.id === id; })[0]; if (!m) return;
@@ -2000,7 +2013,7 @@ window.TSI = {
         b.setAttribute('aria-selected', on); b.tabIndex = on ? 0 : -1;
         var pr = $('.prog', b); if (pr) { pr.style.animation = 'none'; void pr.offsetWidth; pr.style.animation = ''; }
       });
-      $('#term-panel').setAttribute('aria-labelledby', 'tab-' + id);
+      panel.setAttribute('aria-labelledby', 'tab-' + id);
       canvas.setAttribute('aria-label', m.aria);
       $('.term-desc', term).textContent = m.desc;
       $('.term-hint', term).textContent = m.hint;
@@ -2026,6 +2039,13 @@ window.TSI = {
     });
     canvas.addEventListener('pointerdown', stopAuto);
     canvas.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') stopAuto(); });
+    pauseBtn.addEventListener('click', function () {
+      var p = !engine.isPaused();
+      engine.setPaused(p);
+      pauseBtn.setAttribute('aria-pressed', String(p));
+      pauseBtn.setAttribute('aria-label', p ? 'Resume live data' : 'Pause live data');
+      stopAuto();
+    });
     schedule();
 
     var tiltOn = !reduceMotion && window.matchMedia('(hover: hover) and (min-width: 761px)').matches;
@@ -2056,7 +2076,7 @@ window.TSI = {
     var metrics = $('#metrics'), seg = $('#num-seg'), shown = false;
     function applyMetrics() { $$('.num', metrics).forEach(function (el) { el.style.setProperty('--n', shown ? el.getAttribute('data-n') : 0); }); }
     if ('IntersectionObserver' in window) {
-      var mio = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { shown = true; applyMetrics(); mio.disconnect(); } }, { threshold: 0.35 });
+      var mio = new IntersectionObserver(function (es) { if (es[es.length - 1].isIntersecting) { shown = true; applyMetrics(); mio.disconnect(); } }, { threshold: 0.35 });
       mio.observe(metrics); cleanups.push(function () { mio.disconnect(); });
     } else { shown = true; applyMetrics(); }
     seg.addEventListener('click', function (e) {
@@ -2114,12 +2134,8 @@ window.TSI = {
     input.value = q;
     function run() {
       var nq = q.trim().toLowerCase();
-      var list = PAPERS.filter(function (p) {
-        if (!matchType(p, type)) return false;
-        if (!nq) return true;
-        var hay = [p.id, p.title, p.venue, p.award, (p.authors || []).map(function (a) { return a.name; }).join(' ')].join(' ').toLowerCase();
-        return hay.indexOf(nq) !== -1;
-      });
+      var matched = PAPERS.filter(function (p) { return !nq || p.hay.indexOf(nq) !== -1; });
+      var list = matched.filter(function (p) { return matchType(p, type); });
       var pub = list.filter(function (p) { return p.group === 'published'; }), wk = list.filter(function (p) { return p.group === 'working'; });
       var qq = q.trim();
       var html = '';
@@ -2127,7 +2143,11 @@ window.TSI = {
       if (wk.length) html += '<div class="pub-group-h"><h2>Working papers</h2><span class="mono-label">' + wk.length + ' papers</span></div>' + wk.map(function (p) { return pubEntry(p, qq); }).join('');
       if (!list.length) html = '<div class="empty"><p>No papers match “' + esc(qq) + '”.</p><button type="button" data-reset>Clear filters</button></div>';
       out.innerHTML = html;
-      $$('button', seg).forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-type') === type); });
+      $$('button', seg).forEach(function (b) {
+        var t = b.getAttribute('data-type');
+        b.setAttribute('aria-pressed', t === type);
+        $('.c', b).textContent = matched.filter(function (p) { return matchType(p, t); }).length;
+      });
       var qs = new URLSearchParams(); if (qq) qs.set('q', qq); if (type !== 'all') qs.set('type', type);
       var h = '#/publications' + (qs.toString() ? '?' + qs.toString() : '');
       if (location.hash !== h) history.replaceState(null, '', h);
@@ -2281,7 +2301,7 @@ window.TSI = {
   }
   function policyBody(lang) {
     var v = D.vacancy[lang];
-    return '<div class="policy" lang="' + lang + '"><div><p class="lede" style="margin:0;color:var(--text)">' + esc(v.introduction) + '</p>' +
+    return '<div class="policy" lang="' + lang + '"><div><p class="mono-label" style="margin:0 0 14px">' + esc(v.updated) + '</p><p class="lede" style="margin:0;color:var(--text)">' + esc(v.introduction) + '</p>' +
       '<div class="closed-note"><h3>' + esc(v.statusTitle) + '</h3><p>' + esc(v.closedText) + ' ' + esc(v.exceptionText) + '</p></div>' +
       '</div>' +
       '<div><p class="mono-label" style="margin:0 0 14px">' + esc(v.policyTitle) + '</p><ol class="policy-list">' +
@@ -2341,9 +2361,14 @@ window.TSI = {
     var el = document.getElementById(id); if (!el) return;
     el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
   }
+  function revisit(r) {
+    closeMobileNav();
+    if (r.anchor) scrollToAnchor(r.anchor);
+    else window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+  }
   function render() {
     var r = parseRoute();
-    if (current && current.page === r.page && current.qs === r.params.toString()) { if (r.anchor) scrollToAnchor(r.anchor); return; }
+    if (current && current.page === r.page && current.qs === r.params.toString()) { revisit(r); return; }
     if (current && current.cleanup) current.cleanup();
     var view = VIEWS[r.page];
     main.innerHTML = view.html(r);
@@ -2433,7 +2458,7 @@ window.TSI = {
     var it = palItems[i]; if (!it) return;
     closePalette();
     if (it.external) { window.open(it.href, '_blank', 'noopener'); return; }
-    if (location.hash === it.href) { current = null; render(); } else location.hash = it.href;
+    if (location.hash === it.href) revisit(parseRoute()); else location.hash = it.href;
   }
   palInput.addEventListener('input', renderPalette);
   palInput.addEventListener('keydown', function (e) {
@@ -2446,12 +2471,15 @@ window.TSI = {
   palList.addEventListener('mousemove', function (e) { var el = e.target.closest('.pal-item'); if (el && Number(el.getAttribute('data-i')) !== palSel) selectPal(Number(el.getAttribute('data-i'))); });
   palList.addEventListener('click', function (e) { var el = e.target.closest('.pal-item'); if (el) activatePal(Number(el.getAttribute('data-i'))); });
   palette.addEventListener('mousedown', function (e) { if (e.target === palette) closePalette(); });
+  $('.pal-box', palette).addEventListener('mousedown', function (e) { if (e.target !== palInput) e.preventDefault(); });
+  document.addEventListener('focusin', function (e) { if (paletteOpen() && !palette.contains(e.target)) palInput.focus(); });
 
   /* ---------- global interactions ---------- */
   function typing(e) { var t = e.target; return t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable); }
   document.addEventListener('keydown', function (e) {
     if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); paletteOpen() ? closePalette() : openPalette(); return; }
     if (e.key === 'Escape' && paletteOpen()) { closePalette(); return; }
+    if (e.key === 'Escape' && !mnav.hidden) { closeMobileNav(); menuBtn.focus(); return; }
     if (e.key === '/' && !typing(e) && !paletteOpen() && (!current || current.page !== 'publications')) { e.preventDefault(); openPalette(); }
   });
   document.addEventListener('click', function (e) {
@@ -2500,6 +2528,7 @@ window.TSI = {
   menuBtn.addEventListener('click', function () {
     var open = mnav.hidden; mnav.hidden = !open; menuBtn.setAttribute('aria-expanded', String(open));
   });
+  mnav.addEventListener('click', function (e) { if (e.target.closest('a')) closeMobileNav(); });
 
   $$('.kbd-mod').forEach(function (k) { k.textContent = isMac ? '⌘K' : 'Ctrl K'; });
   $$('[data-year]').forEach(function (s) { if (!s.getAttribute('data-year')) s.textContent = CURRENT_YEAR; });

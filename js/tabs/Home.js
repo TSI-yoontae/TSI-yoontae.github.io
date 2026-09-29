@@ -42,10 +42,12 @@ const NewsSection = () => {
     return (
         <section className="news-section">
             <SectionHeading title="Latest updates"><a className="text-link" href="#year-in-review">Year in Review <ArrowIcon /></a></SectionHeading>
+            <div className="news-columns" aria-hidden="true"><span>Date</span><span>Category</span><span>Update</span></div>
             <div id="news-list" className="news-list">{(expanded ? news : news.slice(0, 6)).map(item =>
                 <article className="news-item" key={item.text}>
-                    <div className="news-meta"><span className="mono">{item.date}</span><span className="news-category">{item.category}</span></div>
-                    <p>{item.link ? <a href={item.link} target="_blank" rel="noopener noreferrer">{item.text}<ArrowIcon diagonal /></a> : item.text}</p>
+                    <span className="news-date mono">{item.date}</span>
+                    <span className="news-category">{item.category}</span>
+                    <p>{item.link ? <a href={item.link} target="_blank" rel="noopener noreferrer"><span>{item.text}</span><ArrowIcon diagonal /></a> : item.text}</p>
                 </article>)}</div>
             {news.length > 6 && <button className="text-button news-toggle" aria-expanded={expanded} aria-controls="news-list" onClick={() => setExpanded(!expanded)}>
                 {expanded ? 'Show recent updates' : 'All ' + news.length + ' updates'} <span aria-hidden="true">{expanded ? '−' : '+'}</span>
@@ -91,8 +93,10 @@ window.HomeTabContent = () => {
                     <div><span><strong>{papers.length}</strong>Papers</span><span><strong>{projects.length}</strong>Projects</span><span><strong>{organizers.length}</strong>Organizer roles</span></div>
                 </a>
             </section>
-            <div className="home-columns"><NewsSection /><HomeResearchTopics /></div>
-            <SelectedPapersSection />
+            <div className="home-columns">
+                <div className="home-primary"><NewsSection /><SelectedPapersSection /></div>
+                <div className="home-secondary"><ResearchTerminal /><HomeResearchTopics /></div>
+            </div>
         </>
     );
 };

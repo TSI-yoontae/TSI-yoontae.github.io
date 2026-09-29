@@ -6,7 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
-const files = ['js/data.js', 'js/figures.js', 'js/shared.js', 'js/tabs/Home.js', 'js/tabs/Members.js',
+const files = ['js/data.js', 'js/figures.js', 'js/shared.js', 'js/terminal-engine.js', 'js/ResearchTerminal.js', 'js/tabs/Home.js', 'js/tabs/Members.js',
   'js/tabs/Publications.js', 'js/tabs/Teaching.js', 'js/tabs/Project.js',
   'js/tabs/ForStudents.js', 'js/tabs/Vacant.js', 'js/tabs/YearInReview.js', 'js/tabs/ResearchExplorer.js', 'js/main.js'];
 const source = await Promise.all(files.map(file => readFile(path.join(root, file), 'utf8')));

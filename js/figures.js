@@ -1,4 +1,4 @@
-// Verified figures from public papers and author research materials.
+// Verified figures from papers and author-provided research materials.
 // Source provenance is recorded in figures/README.md.
 window.TSI_Data.paperFigures = {
     "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization": {
@@ -171,5 +171,32 @@ window.TSI_Data.paperFigures = {
         "caption": "Controlled experiments on temperature, local homophily, and estimation noise.",
         "alt": "Temperature decreases as homophily increases; the fitted structural correction weakens with noisier homophily estimates.",
         "source": "https://arxiv.org/html/2609.32426v1#S5.F1"
+    },
+    "Deep Learning in Asset Management: Architectures, Applications, and Challenges": {
+        "src": "figures/asset-management.png",
+        "width": 1656,
+        "height": 908,
+        "label": "Exhibit 1",
+        "caption": "Survey overview linking asset-management tasks, model architectures, and practical deployment.",
+        "alt": "Three-part overview of asset-management tasks, neural network architectures, and practical considerations for deploying deep learning.",
+        "source": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5593850"
+    },
+    "Heterogeneous Trading Behaviors of Individual Investors": {
+        "src": "figures/heterogeneous-trading.png",
+        "width": 1168,
+        "height": 968,
+        "label": "Figure 3",
+        "caption": "Decision tree summarizing eight investor clusters by trading activity.",
+        "alt": "Investor clusters A through H organized by buy and sell counts, turnover, deposit and withdrawal activity, and transaction volume.",
+        "source": "https://www.sciencedirect.com/science/article/abs/pii/S1544612324005117"
+    },
+    "Stop-loss adjusted labels for machine learning-based trading of risky assets": {
+        "src": "figures/stop-loss-labels.png",
+        "width": 1872,
+        "height": 700,
+        "label": "Figure 1",
+        "caption": "Training and trading workflows with ordinary and stop-loss-adjusted labels.",
+        "alt": "Parallel workflows compare ordinary labels with stop-loss-adjusted labels during model training and prediction before applying a stop-loss strategy.",
+        "source": "https://www.sciencedirect.com/science/article/abs/pii/S1544612323006578"
     }
 };

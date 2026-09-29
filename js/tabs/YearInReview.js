@@ -43,9 +43,8 @@ window.YearInReviewTabContent = () => {
                         <YearReviewMetric label="Organizer roles" value={organizingRoles.length} />
                     </div>
                 </section>
-                <p className="fine-print">Papers are grouped by venue year. Funding includes projects active during the selected year. Organizer roles are grouped by announcement year.</p>
                 <section className="content-section">
-                    <SectionHeading title="Research funding" description="Funding amounts cover the full project period; all researcher roles are included." />
+                    <SectionHeading title="Research funding" />
                     {fundedProjects.length ? <div className="project-list">{fundedProjects.map(project => <ProjectEntry key={project.title} project={project} />)}</div>
                         : <EmptyState>No active funded projects are listed for {selectedYear}.</EmptyState>}
                 </section>

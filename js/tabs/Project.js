@@ -79,7 +79,7 @@ const ProjectEntry = ({ project, showStatus = false }) => (
                 <div><dt>Period</dt><dd>{project.period}</dd></div>
             </dl>
         </div>
-        {project.funding && <div className="project-funding"><strong>{project.funding.replace(' KRW', '')}</strong><span>KRW · full project period</span></div>}
+        {project.funding && <div className="project-funding"><strong>{project.funding.replace(' KRW', '')}</strong><span>KRW</span></div>}
     </article>
 );
 
@@ -97,7 +97,6 @@ window.ProjectTabContent = () => {
             </div>
             <div className="project-list">{filtered.map(project => <ProjectEntry key={project.title} project={project} showStatus />)}</div>
             {!filtered.length && <EmptyState>No projects are listed in this category.</EmptyState>}
-            <p className="fine-print">Amounts, where available, cover the full project period. Principal investigator and participating researcher roles are included.</p>
         </>
     );
 };

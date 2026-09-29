@@ -2,7 +2,6 @@ const PrincipalInvestigatorCard = ({ member }) => (
     <article className="pi-profile">
         <div className="pi-portrait"><img src={member.image} alt={member.name} width="360" height="440" /><p className="eyebrow">Principal Investigator</p></div>
         <div className="pi-copy">
-            <p className="eyebrow">Meet the principal investigator</p>
             <h2>{member.name}<span lang="ko">{member.koreanName}</span></h2>
             <ResourceLinks links={[
                 ...(member.links?.scholar ? [{ text: 'Google Scholar', href: member.links.scholar }] : []),
@@ -27,7 +26,6 @@ const StudentSection = ({ title, members }) => {
             <SectionHeading title={title}>{namedMembers.length > 0 && <span className="count-label">{namedMembers.length} members</span>}</SectionHeading>
             {namedMembers.length ? <div className="member-grid">{namedMembers.map(member => (
                 <article className="member-card" key={member.name}>
-                    <div className="member-monogram" aria-hidden="true">{member.name.split(' ').map(name => name[0]).join('')}</div>
                     <div><h3>{member.name}</h3>{member.koreanName && <p lang="ko" className="member-korean">{member.koreanName}</p>}
                         {member.interests?.length > 0 && <p className="member-interests">{member.interests.join(' · ')}</p>}
                     </div>
@@ -41,11 +39,11 @@ window.MembersTabContent = () => {
     const members = window.TSI_Data.membersData || [];
     return (
         <>
-            <PageIntro eyebrow="People" title="Members" description="A research group connecting machine learning, time series, and financial decision-making." />
+            <PageIntro title="Members" />
             {members.filter(member => member.status === 'Principal Investigator').map(member => <PrincipalInvestigatorCard key={member.name} member={member} />)}
             <StudentSection title="PhD students" members={members.filter(member => member.status === 'PhD Student')} />
             <StudentSection title="MS students" members={members.filter(member => ['MS Student', 'Master Thesis Track'].includes(member.status))} />
-            <div className="inline-callout"><p>Interested in our research culture?</p><a className="text-link" href="#vacant">Read about joining the lab <ArrowIcon /></a></div>
+            <div className="inline-callout"><a className="text-link" href="#vacant">Read about joining the lab <ArrowIcon /></a></div>
         </>
     );
 };

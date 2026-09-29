@@ -1,5 +1,4 @@
-window.TeachingTabContent = () => {
-    const courses = [
+const labCourses = [
         {
             title: 'Optimization For Data Science (Convex Optimization)',
             term: '1st Semester, 2026',
@@ -19,38 +18,21 @@ window.TeachingTabContent = () => {
 
     ];
 
-    return (
-        <section className="space-y-3">
-            <div>
-                <h2 className="text-xl font-extrabold tracking-tight text-[#172033]">Teaching</h2>
-                <p className="mt-1 text-sm leading-5 text-[#5e6676]">Courses and teaching materials.</p>
-            </div>
-            <div className="border border-[#d8d0c0] bg-[#fffdf8]">
-                {courses.map(course => (
-                    <div key={course.title} className="grid gap-2 border-b border-[#e9e2d5] px-4 py-3 last:border-b-0 md:grid-cols-[1fr_280px] md:gap-4">
-                        <div>
-                            <h3 className="text-sm font-bold text-[#172033]">{course.title}</h3>
-                            {course.links.length > 0 && (
-                                <div className="mt-2 grid gap-1.5 sm:grid-cols-2">
-                                    {course.links.map(link => (
-                                        <a
-                                            key={link.href}
-                                            href={link.href}
-                                            className="block border border-[#e9e2d5] bg-[#f8f5ed] px-2 py-1.5 text-xs font-semibold text-[#5e6676] no-underline hover:border-[#b7aa91] hover:bg-[#fffdf8] hover:text-[#172033]"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <span className="mr-1 text-[#8a6f3d]">•</span>
-                                            {link.text}
-                                        </a>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                        <p className="text-sm font-medium text-[#746b5d] md:text-right">{course.term}</p>
-                    </div>
-                ))}
-            </div>
-        </section>
-    );
-};
+window.TeachingTabContent = () => (
+    <>
+        <PageIntro eyebrow="In the classroom" title="Teaching" description="Courses and materials in optimization, machine learning, and financial applications." />
+        <div className="course-grid">
+            {labCourses.map((course, index) => (
+                <article className="course-card" key={course.title}>
+                    <div className="course-meta"><span className="mono">0{index + 1}</span><span>{course.term}</span></div>
+                    <h2>{course.title}</h2>
+                    {course.links.length > 0 ? <details className="disclosure course-materials" open>
+                        <summary>Course materials <span className="count-label">{course.links.length} resources</span><span className="disclosure-symbol" aria-hidden="true">+</span></summary>
+                        <ul>{course.links.map(link => <li key={link.href}><a href={link.href} target="_blank" rel="noopener noreferrer"><span>{link.text}</span><span className="file-type">PDF <ArrowIcon diagonal /></span></a></li>)}</ul>
+                    </details> : <p className="course-no-materials">Materials will be shared when available.</p>}
+                </article>
+            ))}
+        </div>
+        <div className="inline-callout"><p>Looking for a starting point?</p><a className="text-link" href="#for-students">Explore the reading list <ArrowIcon /></a></div>
+    </>
+);

@@ -1,102 +1,51 @@
-const MemberSectionHeader = ({ title, description }) => (
-    <div className="mb-2.5">
-        <h2 className="tsi-heading text-xl">{title}</h2>
-        {description && <p className="mt-1 max-w-4xl text-sm leading-5 text-[#5e6676]">{description}</p>}
-    </div>
+const PrincipalInvestigatorCard = ({ member }) => (
+    <article className="pi-profile">
+        <div className="pi-portrait"><img src={member.image} alt={member.name} width="360" height="440" /><p className="eyebrow">Principal Investigator</p></div>
+        <div className="pi-copy">
+            <p className="eyebrow">Meet the principal investigator</p>
+            <h2>{member.name}<span lang="ko">{member.koreanName}</span></h2>
+            <ResourceLinks links={[
+                ...(member.links?.scholar ? [{ text: 'Google Scholar', href: member.links.scholar }] : []),
+                ...(member.links?.linkedin ? [{ text: 'LinkedIn', href: member.links.linkedin }] : []),
+                ...(member.email ? [{ text: 'Email', href: 'mailto:' + member.email }] : []),
+            ]} />
+            <p className="pi-bio">{member.bio}</p>
+            {member.awards?.length > 0 && <details className="disclosure">
+                <summary>Awards and positions<span aria-hidden="true" className="disclosure-symbol">+</span></summary>
+                <ul className="awards-list">{[...member.awards].sort((a, b) => b.year - a.year).map(award =>
+                    <li key={award.title}><span className="mono">{award.year}</span><div><strong>{award.title}</strong><p>{award.organization}</p></div></li>
+                )}</ul>
+            </details>}
+        </div>
+    </article>
 );
 
-const PrincipalInvestigatorCard = ({ member }) => {
-    const [showAwards, setShowAwards] = React.useState(false);
-    const links = member.links || {};
-
+const StudentSection = ({ title, members }) => {
+    const namedMembers = members.filter(member => member.name !== 'TBD');
     return (
-        <article className="tsi-panel p-3 sm:p-4">
-            <div className="flex flex-col gap-3 sm:flex-row">
-                <img
-                    src={member.image}
-                    alt={`${member.name} profile`}
-                    className="h-28 w-28 flex-none border border-[#d8d0c0] bg-[#eceff1] object-cover"
-                    onError={(e) => { e.target.onerror = null; e.target.src = 'https://placehold.co/200x200/ECEFF1/172033?text=TSI'; }}
-                />
-                <div className="min-w-0 flex-1">
-                    <p className="tsi-kicker">Principal Investigator</p>
-                    <h3 className="mt-1 text-xl font-extrabold tracking-tight text-[#172033]">
-                        {member.name} <span className="font-semibold text-[#746b5d]">({member.koreanName})</span>
-                    </h3>
-                    <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
-                        {links.scholar && <a href={links.scholar} target="_blank" rel="noopener noreferrer" className="tsi-link text-xs">Google Scholar</a>}
-                        {links.linkedin && <a href={links.linkedin} target="_blank" rel="noopener noreferrer" className="tsi-link text-xs">LinkedIn</a>}
-                        {member.email && <a href={`mailto:${member.email}`} className="tsi-link text-xs">Email</a>}
+        <section className="content-section">
+            <SectionHeading title={title}>{namedMembers.length > 0 && <span className="count-label">{namedMembers.length} members</span>}</SectionHeading>
+            {namedMembers.length ? <div className="member-grid">{namedMembers.map(member => (
+                <article className="member-card" key={member.name}>
+                    <div className="member-monogram" aria-hidden="true">{member.name.split(' ').map(name => name[0]).join('')}</div>
+                    <div><h3>{member.name}</h3>{member.koreanName && <p lang="ko" className="member-korean">{member.koreanName}</p>}
+                        {member.interests?.length > 0 && <p className="member-interests">{member.interests.join(' · ')}</p>}
                     </div>
-                    {member.bio && <p className="mt-2 text-sm leading-5 text-[#404958]">{member.bio}</p>}
-
-                    {member.awards && member.awards.length > 0 && (
-                        <div className="mt-3 border-t border-[#e9e2d5] pt-2">
-                            <button
-                                onClick={() => setShowAwards(!showAwards)}
-                                className="flex items-center gap-2 text-left text-sm font-bold text-[#172033]"
-                            >
-                                <span>Awards and Positions</span>
-                                <span className="text-[#8a6f3d]">{showAwards ? '−' : '+'}</span>
-                            </button>
-                            {showAwards && (
-                                <ul className="mt-2 space-y-1 text-sm leading-5 text-[#404958]">
-                                    {[...member.awards].sort((a, b) => Number(b.year) - Number(a.year)).map((award, index) => (
-                                        <li key={index} className="grid gap-2 sm:grid-cols-[70px_1fr]">
-                                            <span className="font-semibold text-[#746b5d]">{award.year}</span>
-                                            <span><strong className="text-[#172033]">{award.title}</strong>, {award.organization}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                        </div>
-                    )}
-                </div>
-            </div>
-        </article>
-    );
-};
-
-const StudentNameList = ({ title, members }) => {
-    if (!members || members.length === 0) {
-        return (
-            <section className="tsi-section">
-                <MemberSectionHeader title={title} />
-                <p className="text-sm italic text-[#5e6676]">To be announced.</p>
-            </section>
-        );
-    }
-
-    return (
-        <section className="tsi-section">
-            <MemberSectionHeader title={title} />
-            <ul className="grid grid-cols-1 border border-[#d8d0c0] bg-[#fffdf8] sm:grid-cols-2 lg:grid-cols-3">
-                {members.map((member, index) => (
-                    <li key={`${member.name}-${index}`} className="border-b border-[#e9e2d5] px-3 py-2 text-sm font-semibold text-[#172033] sm:border-r lg:[&:nth-child(3n)]:border-r-0">
-                        {member.name}{member.koreanName ? <span className="font-medium text-[#746b5d]"> ({member.koreanName})</span> : null}
-                    </li>
-                ))}
-            </ul>
+                </article>
+            ))}</div> : <p className="muted">To be announced.</p>}
         </section>
     );
 };
 
 window.MembersTabContent = () => {
-    const membersData = window.TSI_Data.membersData || [];
-    const pi = membersData.filter(m => m.status === 'Principal Investigator');
-    const phdStudents = membersData.filter(m => m.status === 'PhD Student');
-    const msStudents = membersData.filter(m => m.status === 'MS Student' || m.status === 'Master Thesis Track');
-
+    const members = window.TSI_Data.membersData || [];
     return (
-        <section className="space-y-5">
-            <section className="tsi-section">
-                <MemberSectionHeader title="Principal Investigator" />
-                <div className="space-y-2">
-                    {pi.map((member, index) => <PrincipalInvestigatorCard key={`${member.name}-${index}`} member={member} />)}
-                </div>
-            </section>
-            <StudentNameList title="PhD Students" members={phdStudents} />
-            <StudentNameList title="MS Students" members={msStudents} />
-        </section>
+        <>
+            <PageIntro eyebrow="People" title="Members" description="A research group connecting machine learning, time series, and financial decision-making." />
+            {members.filter(member => member.status === 'Principal Investigator').map(member => <PrincipalInvestigatorCard key={member.name} member={member} />)}
+            <StudentSection title="PhD students" members={members.filter(member => member.status === 'PhD Student')} />
+            <StudentSection title="MS students" members={members.filter(member => ['MS Student', 'Master Thesis Track'].includes(member.status))} />
+            <div className="inline-callout"><p>Interested in our research culture?</p><a className="text-link" href="#vacant">Read about joining the lab <ArrowIcon /></a></div>
+        </>
     );
 };

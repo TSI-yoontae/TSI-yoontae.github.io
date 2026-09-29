@@ -78,7 +78,7 @@ window.PublicationsTabContent = ({ initialQuery = '' }) => {
     const reset = () => { setQuery(''); setType('all'); setYear('all'); };
     return (
         <>
-            <PageIntro eyebrow="Research archive" title="Publications" description="Ideas, methods, and evidence. Explore our published research and ongoing work.">
+            <PageIntro title="Publications">
                 <div className="intro-stats"><div><strong>{publications.length}</strong><span>Publications</span></div><div><strong>{workingPapers.length}</strong><span>Working papers</span></div></div>
             </PageIntro>
             <div className="filter-panel">
@@ -98,7 +98,7 @@ window.PublicationsTabContent = ({ initialQuery = '' }) => {
             </div>
             <div className="results-meta"><p role="status">Showing <strong>{filtered.length}</strong> of {allPapers.length} papers</p><p>* Equal contribution &nbsp; † Corresponding author</p></div>
             <PublicationListSection title="Published & accepted" papers={filtered.filter(paper => paper.sourceType === 'publication')} />
-            <PublicationListSection title="Working papers" description="Submitted manuscripts and work in progress." papers={filtered.filter(paper => paper.sourceType === 'working')} />
+            <PublicationListSection title="Working papers" papers={filtered.filter(paper => paper.sourceType === 'working')} />
             {!filtered.length && <EmptyState><h2>No papers found.</h2><p>Try another keyword, year, or publication type.</p><button className="button button-dark" onClick={reset}>Clear filters <ArrowIcon /></button></EmptyState>}
         </>
     );

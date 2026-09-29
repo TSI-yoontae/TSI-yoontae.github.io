@@ -89,7 +89,7 @@ window.ProjectTabContent = () => {
     const filtered = projects.filter(project => status === 'All' || getProjectStatus(project) === status);
     return (
         <>
-            <PageIntro eyebrow="Projects & support" title="Funded Projects" description="Research projects, grants, and fellowships supporting our work." />
+            <PageIntro title="Funded Projects" />
             <div className="section-heading">
                 <div className="filter-group" role="group" aria-label="Project status">{['All', 'Ongoing', 'Upcoming', 'Completed'].map(item =>
                     <FilterButton key={item} active={item === status} onClick={() => setStatus(item)}>{item}</FilterButton>)}</div>

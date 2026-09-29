@@ -14,7 +14,7 @@ window.ForStudentsTabContent = () => {
     const groups = studentRecommendations.map(group => ({ ...group, items: group.items.filter(item => (group.category + ' ' + item.text).toLowerCase().includes(normalized)) })).filter(group => group.items.length);
     return (
         <>
-            <PageIntro eyebrow="For students" title="For Students" description="Books, lecture notes, and practical guides for building a strong research foundation." />
+            <PageIntro title="For Students" />
             <label className="search-field reading-search"><span className="sr-only">Search reading list</span><input type="search" placeholder="Find a book, author, or topic…" value={query} onChange={event => setQuery(event.target.value)} /><span aria-hidden="true">⌕</span></label>
             <p className="fine-print" role="status">{groups.reduce((sum, group) => sum + group.items.length, 0)} reading resources · {groups.length} {groups.length === 1 ? 'topic' : 'topics'}</p>
             <div className="reading-list">{groups.map((group, index) =>

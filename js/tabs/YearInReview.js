@@ -28,7 +28,7 @@ window.YearInReviewTabContent = () => {
     const organizingRoles = organizingActivities.filter(activity => activity.year === selectedYear);
     return (
         <>
-            <PageIntro eyebrow="The annual record" title="Year in Review" description="Publications, research funding, and organizing activities. A record of our progress, year by year.">
+            <PageIntro title="Year in Review">
                 <div className="filter-group year-switcher" role="group" aria-label="Review year">{years.map(year =>
                     <FilterButton key={year} active={selectedYear === year} onClick={() => setSelectedYear(year)} aria-controls="annual-record">{year}</FilterButton>)}</div>
             </PageIntro>
@@ -45,12 +45,12 @@ window.YearInReviewTabContent = () => {
                 </section>
                 <p className="fine-print">Papers are grouped by venue year. Funding includes projects active during the selected year. Organizer roles are grouped by announcement year.</p>
                 <section className="content-section">
-                    <SectionHeading eyebrow="Support for research" title="Research funding" description={'Projects active during ' + selectedYear + ', including principal investigator and participating researcher roles. Listed funding amounts cover the full project period.'} />
+                    <SectionHeading title="Research funding" description="Funding amounts cover the full project period; all researcher roles are included." />
                     {fundedProjects.length ? <div className="project-list">{fundedProjects.map(project => <ProjectEntry key={project.title} project={project} />)}</div>
                         : <EmptyState>No active funded projects are listed for {selectedYear}.</EmptyState>}
                 </section>
                 <section className="content-section">
-                    <SectionHeading eyebrow="Academic community" title="Workshop organizing" description={'Organizing roles announced in ' + selectedYear + '.'} />
+                    <SectionHeading title="Workshop organizing" />
                     {organizingRoles.length ? <div className="organizing-grid">{organizingRoles.map(activity =>
                         <article className="organizing-card" key={activity.title}>
                             <div className="organizing-meta"><span className="venue-chip">{activity.venue}</span><span>{activity.role}</span></div>
@@ -58,8 +58,8 @@ window.YearInReviewTabContent = () => {
                         </article>
                     )}</div> : <EmptyState>No workshop organizing roles are listed for {selectedYear}.</EmptyState>}
                 </section>
-                <PublicationListSection title="Conference papers" description={'Accepted or published papers for ' + selectedYear + '.'} papers={conferencePapers} />
-                <PublicationListSection title="Journal papers" description={'Accepted or published papers for ' + selectedYear + '.'} papers={journalPapers} />
+                <PublicationListSection title="Conference papers" papers={conferencePapers} />
+                <PublicationListSection title="Journal papers" papers={journalPapers} />
                 {!papers.length && <EmptyState>No accepted or published papers are listed for this year.</EmptyState>}
             </div>
         </>

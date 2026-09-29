@@ -20,7 +20,7 @@ const labCourses = [
 
 window.TeachingTabContent = () => (
     <>
-        <PageIntro eyebrow="In the classroom" title="Teaching" description="Courses and materials in optimization, machine learning, and financial applications." />
+        <PageIntro title="Teaching" />
         <div className="course-grid">
             {labCourses.map((course, index) => (
                 <article className="course-card" key={course.title}>

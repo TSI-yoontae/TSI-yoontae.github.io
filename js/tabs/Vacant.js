@@ -99,7 +99,7 @@ const VacantPreferredProfileSection = () => {
 
 window.VacantPositionsTabContent = () => (
     <>
-        <PageIntro eyebrow="Prospective students" title="Vacant Positions" description="Our research culture, expectations, and current recruitment status." />
+        <PageIntro title="Vacant Positions" />
         <section className="philosophy-banner">
             <p className="eyebrow">Research philosophy</p>
             <blockquote>“Research is meaningful only when its insights leave the lab and change the world.”</blockquote>
@@ -111,7 +111,7 @@ window.VacantPositionsTabContent = () => (
         </section>
         <VacantPreferredProfileSection />
         <section className="content-section">
-            <SectionHeading eyebrow="Research standards" title="Target journals & conferences" />
+            <SectionHeading title="Target journals & conferences" />
             <div className="venue-list">{[
                 ['OR Journals', 'Management Science, Operations Research, European Journal of Operational Research, Annals of Operations Research, INFORMS Journal on Computing'],
                 ['Finance Journals', 'Quantitative Finance, Journal of Portfolio Management, Journal of Financial and Quantitative Analysis, Finance Research Letters, Journal of Banking and Finance'],

@@ -30,7 +30,6 @@ const HomeResearchTopics = () => {
             <a className="explorer-launch" href="#research-explorer">
                 <span className="explorer-launch-label"><span className="terminal-dot" /> Interactive archive</span>
                 <strong>Research Explorer <ArrowIcon /></strong>
-                <span>Browse topics, trace connections, and open papers.</span>
             </a>
             <div className="home-admissions"><h3>Prospective students</h3><p>Regular recruitment is currently closed. Please read the lab guidelines before contacting the advisor.</p><a className="text-link" href="#vacant">Recruitment & lab guidelines <ArrowIcon /></a></div>
         </section>
@@ -85,7 +84,6 @@ window.HomeTabContent = () => {
         <>
             <section className="home-masthead">
                 <div><p className="eyebrow">Pusan National University · Graduate School of Data Science</p><h1 id="page-title" tabIndex="-1">Time Series Intelligence Lab</h1>
-                    <p>We study machine learning for financial time series, markets, and decision-making.</p>
                     <div className="masthead-links"><span>Principal Investigator: Yoontae Hwang</span><a href="mailto:yoontae.hwang@pusan.ac.kr">yoontae.hwang@pusan.ac.kr <ArrowIcon diagonal /></a></div>
                 </div>
                 <a className="home-year-summary" href="#year-in-review" aria-label={year + ' Year in Review'}>

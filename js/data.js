@@ -36,7 +36,10 @@ window.TSI_Data.publications = [
             { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }
         ],
         venue: "NeurIPS'26 (Accepted), Top-tier AI Conference; CORE A*",
-        links: [ { text: "paper", href: "https://openreview.net/forum?id=woxrGUwgJ3" } ],
+        links: [
+            { text: "paper", href: "https://openreview.net/forum?id=woxrGUwgJ3" },
+            { text: "arXiv", href: "https://arxiv.org/abs/2609.32426" }
+        ],
         topics: ["Graph Neural Networks", "Deep Learning"]
     },
     {

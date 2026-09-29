@@ -14,21 +14,18 @@ const LabMark = () => (
     </svg>
 );
 
-const PageIntro = ({ eyebrow, title, description, children }) => (
+const PageIntro = ({ title, children }) => (
     <header className="page-intro">
         <div>
-            <p className="eyebrow">{eyebrow || 'Time Series Intelligence Lab'}</p>
             <h1 tabIndex="-1" id="page-title">{title}</h1>
-            {description && <p className="page-description">{description}</p>}
         </div>
         {children}
     </header>
 );
 
-const SectionHeading = ({ eyebrow, title, description, children }) => (
+const SectionHeading = ({ title, description, children }) => (
     <div className="section-heading">
         <div>
-            {eyebrow && <p className="eyebrow">{eyebrow}</p>}
             <h2>{title}</h2>
             {description && <p className="section-description">{description}</p>}
         </div>

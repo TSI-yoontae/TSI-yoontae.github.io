@@ -1,6 +1,6 @@
 # Research Explorer figures
 
-These images reproduce figures from the linked papers or author research materials. They are not generated illustrations. Captions are concise descriptions; source links identify the original context. Figures from preprints may differ from the final publisher version.
+These images reproduce figures from the linked papers or author-provided research materials. They are not generated illustrations. Captions are concise descriptions; source links identify the original context. Figures from preprints may differ from the final publisher version.
 
 Working papers without a public manuscript link intentionally have no figure or placeholder. Code links alone do not qualify. Missing figures are omitted until a verified source is available.
 
@@ -136,3 +136,24 @@ Working papers without a public manuscript link intentionally have no figure or 
 - Figure 1: Controlled experiments on temperature, local homophily, and estimation noise.
 - Source: https://arxiv.org/html/2609.32426v1#S5.F1
 - Original asset: https://arxiv.org/pdf/2609.32426v1 (PDF page 8; figure extracted at 216 dpi)
+
+## Deep Learning in Asset Management: Architectures, Applications, and Challenges
+
+- File: `asset-management.png`
+- Exhibit 1: Survey overview linking asset-management tasks, model architectures, and practical deployment.
+- Source: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5593850
+- Original asset: author-provided `ssrn-5593850.pdf` (PDF page 5; figure extracted at 288 dpi). Only the figure is included in this repository.
+
+## Heterogeneous Trading Behaviors of Individual Investors
+
+- File: `heterogeneous-trading.png`
+- Figure 3: Decision tree summarizing eight investor clusters by trading activity.
+- Source: https://www.sciencedirect.com/science/article/abs/pii/S1544612324005117
+- Original asset: author-provided `황윤태_Heterogenouse_trading.pdf` (PDF page 7; figure extracted at 288 dpi). Only the figure is included in this repository.
+
+## Stop-loss adjusted labels for machine learning-based trading of risky assets
+
+- File: `stop-loss-labels.png`
+- Figure 1: Training and trading workflows with ordinary and stop-loss-adjusted labels.
+- Source: https://www.sciencedirect.com/science/article/abs/pii/S1544612323006578
+- Original asset: author-provided `황윤태_stop_loss.pdf` (PDF page 2; figure extracted at 288 dpi). Only the figure is included in this repository.

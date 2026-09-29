@@ -2,34 +2,35 @@
 
 Public website for TSI Lab, Pusan National University: https://tsi-yoontae.github.io/
 
-## Editing and publishing
+The site is one static page, `index.html`, with no build step. GitHub Pages serves it directly from `main`.
 
-1. Install Node.js, then run `npm ci`.
-2. Edit the source files listed below.
-3. Run `npm run build`. This creates the production bundle and updates the JavaScript and CSS cache versions in `index.html`.
-4. Commit the source changes **and** the generated `site.bundle.js` and `index.html`. GitHub Pages serves these files directly; it does not run the build.
+## Editing content
 
-Use `npm run dev` to build and start a local preview at http://127.0.0.1:8765. After editing, run `npm run build` in another terminal and reload the preview.
+All content lives in the `window.TSI` block of `index.html` (search for `CONTENT — edit this block`):
 
-## Where content lives
+- `news`: lab news. `tag` and `short` feed the scrolling ticker; entries with `organizing` count as workshop organizer roles.
+- `publications`, `workingPapers`: the paper archive. The first letter of `id` sets the type (C conference, J journal, S submitted, W work in progress).
+- `selected`, `pillars`: selected papers and research lines on the home page.
+- `members`, `projects`, `courses`, `reading`, `vacancy` (English/Korean), `principles`, `targetVenues`.
 
-- `js/data.js`: news, publications, working papers, and member information.
-- `js/tabs/Project.js`: funding/project records and project display.
-- `js/tabs/Home.js`: research directions and selected papers, including seminar links.
-- `js/tabs/Teaching.js`: courses and teaching materials.
-- `js/tabs/ForStudents.js`: books and research resources.
-- `js/tabs/Vacant.js`: admission policies and English/Korean profile copy.
-- `js/tabs/ResearchExplorer.js`: research filters, independently scrollable paper list/details, and an accessible figure enlargement dialog.
-- `js/figures.js`: representative figure metadata keyed by exact paper title. Store images in `figures/` and record their original source in `figures/README.md`.
-- `js/tabs/YearInReview.js`: annual views derived from the shared records.
-- `js/shared.js`, `js/main.js`, and `styles.css`: shared components, navigation, and responsive styling.
+Commit the edited `index.html`; the change is live once GitHub Pages redeploys.
+
+## Local preview
+
+```
+python3 -m http.server 8765
+```
+
+Then open http://127.0.0.1:8765.
 
 ## Annual review rules
 
-The annual record begins in 2025. Conference papers exclude workshops; journals are counted separately. A project is included whenever its period overlaps the selected year, including participating researcher roles. Funding amounts represent the full project period, not an annual total. Organizer roles use the announcement year in the news record and link to the workshop website.
+The annual record begins at `reviewStartYear` (2025). Conference papers exclude workshops; journals are counted separately. A project counts in every year its period overlaps, including participating researcher roles. Funding amounts represent the full project period. Organizer roles use the announcement year in the news record.
 
 ## Interface
 
-The site preserves hash routes, including `#publications`, `#vacant`, and `#year-in-review`. Research-direction links can prefill publication searches with `#publications?q=Portfolio`. The responsive menu, filters, disclosures, and language controls support keyboard access; animation respects reduced-motion preferences. React is bundled locally, so no runtime Babel or Tailwind CDN is required.
-
-Research Explorer shows verified paper figures or clearly attributed author research illustrations. It omits figures and placeholders for working papers without a public manuscript link, even when a code repository is available. Students are displayed as text profiles without portraits or avatar placeholders. Page headings omit promotional subtitles.
+- Routes: `#/publications`, `#/people`, `#/teaching`, `#/funding`, `#/review`, `#/join`. Old links (`#members`, `#publications`, `#vacant`, `#project`, `#for-students`, `#year-in-review`) redirect to the new routes, and `#/publications?q=Portfolio` pre-fills the paper search.
+- `Ctrl K` / `⌘K` (or `/`) opens site-wide search.
+- The hero terminal (Forecast, Allocate, Order book) draws simulated data generated in the browser and is labeled as such.
+- Animations respect reduced-motion preferences.
+- Images, `ppt/`, `js/tabs/convex/` and `figures/` stay where they are.

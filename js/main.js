@@ -1,97 +1,87 @@
-function App() {
-    const validTabs = ['home', 'members', 'publications', 'teaching', 'project', 'for-students', 'vacant', 'year-in-review'];
-    
-    const getTabFromHash = () => {
-        const hash = window.location.hash.replace('#', '');
-        return validTabs.includes(hash) ? hash : 'home';
-    };
-    
-    const [activeTab, setActiveTab] = React.useState(getTabFromHash());
+const navigation = [
+    ['home', 'Home'], ['members', 'Members'], ['publications', 'Publications'], ['research-explorer', 'Research Explorer'],
+    ['project', 'Projects'], ['teaching', 'Teaching'], ['for-students', 'For Students'],
+    ['vacant', 'Vacant Positions'], ['year-in-review', 'Year in Review'],
+];
 
-    React.useEffect(() => {
-        window.location.hash = activeTab;
-    }, [activeTab]);
+const readLocation = () => {
+    const [candidate, query = ''] = window.location.hash.slice(1).split('?');
+    return { tab: navigation.some(([id]) => id === candidate) ? candidate : 'home', query: new URLSearchParams(query).get('q') || '' };
+};
 
+const App = () => {
+    const [location, setLocation] = React.useState(readLocation);
+    const [menuOpen, setMenuOpen] = React.useState(false);
+    const mainRef = React.useRef(null);
+    const menuRef = React.useRef(null);
     React.useEffect(() => {
-        const handleHashChange = () => setActiveTab(getTabFromHash());
-        window.addEventListener('hashchange', handleHashChange);
-        return () => window.removeEventListener('hashchange', handleHashChange);
+        const navigate = () => {
+            setLocation(readLocation());
+            setMenuOpen(false);
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            mainRef.current?.focus({ preventScroll: true });
+        };
+        window.addEventListener('hashchange', navigate);
+        return () => window.removeEventListener('hashchange', navigate);
     }, []);
+    React.useEffect(() => {
+        const label = navigation.find(([id]) => id === location.tab)[1];
+        document.title = (location.tab === 'home' ? 'Time Series Intelligence' : label) + ' | TSI Lab';
+    }, [location.tab]);
+    React.useEffect(() => {
+        if (!menuOpen) return;
+        const closeOnEscape = event => {
+            if (event.key === 'Escape') { setMenuOpen(false); menuRef.current?.focus(); }
+        };
+        window.addEventListener('keydown', closeOnEscape);
+        return () => window.removeEventListener('keydown', closeOnEscape);
+    }, [menuOpen]);
 
-    const renderContent = () => {
-        switch(activeTab) {
-            case 'home': return <window.HomeTabContent />;
-            case 'members': return <window.MembersTabContent />;
-            case 'publications': return <window.PublicationsTabContent />;
-            case 'teaching': return <window.TeachingTabContent />;
-            case 'project': return <window.ProjectTabContent />;
-            case 'for-students': return <window.ForStudentsTabContent />;
-            case 'vacant': return <window.VacantPositionsTabContent />;
-            case 'year-in-review': return <window.YearInReviewTabContent />;
-            default: return <window.HomeTabContent />;
-        }
-    };
-    
-    const tabs = [
-        { value: 'home', label: 'Home' },
-        { value: 'members', label: 'Members' },
-        { value: 'publications', label: 'Publications' },
-        { value: 'teaching', label: 'Teaching' },
-        { value: 'project', label: 'Project' },
-        { value: 'for-students', label: 'For Students' },
-        { value: 'vacant', label: 'Vacant Positions' },
-        { value: 'year-in-review', label: 'Year in Review' },
-    ];
-
-    const TabButton = ({ value, children }) => {
-        const isActive = activeTab === value;
-        const classes = `whitespace-nowrap border-r border-[#c8bead] px-3 py-2 text-[13px] font-semibold transition-colors ${
-            isActive
-                ? 'bg-[#172033] text-[#fffdf8]'
-                : 'bg-[#e8e2d4] text-[#2f3847] hover:bg-[#dcd4c4] hover:text-[#172033]'
-        }`;
-        return <button onClick={() => setActiveTab(value)} className={classes}>{children}</button>;
+    const content = {
+        home: <window.HomeTabContent />,
+        members: <window.MembersTabContent />,
+        publications: <window.PublicationsTabContent key={location.query} initialQuery={location.query} />,
+        'research-explorer': <window.ResearchExplorerTabContent />,
+        project: <window.ProjectTabContent />,
+        teaching: <window.TeachingTabContent />,
+        'for-students': <window.ForStudentsTabContent />,
+        vacant: <window.VacantPositionsTabContent />,
+        'year-in-review': <window.YearInReviewTabContent />,
     };
 
     return (
-        <div className="min-h-screen bg-[#f4f1e8]">
-            <div className="mx-auto max-w-6xl px-4 py-3 sm:px-5 lg:px-6">
-                <header className="border border-[#172033] bg-[#243044] px-3 py-3 text-[#fffdf8]">
-                    <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-                        <div>
-                            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#c5b691]">Pusan National University</p>
-                            <h1 className="mt-1 text-2xl font-extrabold tracking-tight text-[#fffdf8] sm:text-3xl">
-                                Time Series Intelligence Lab <span className="font-semibold text-[#cbd3df]">(TSI Lab)</span>
-                            </h1>
-                            <p className="mt-1 text-sm leading-5 text-[#d8dee7]">
-                                AI in Finance · AI in Market · Foundation Models for Financial Time Series
-                            </p>
-                        </div>
-                        <a
-                            href="mailto:yoontae.hwang@pusan.ac.kr"
-                            className="inline-flex w-fit border border-[#69758a] bg-[#1b2434] px-2 py-1 text-sm font-semibold text-[#fffdf8] underline decoration-[#8d9aae] hover:border-[#c5b691] hover:decoration-[#c5b691]"
-                        >
-                            yoontae.hwang@pusan.ac.kr
-                        </a>
-                    </div>
-                </header>
-                
-                <nav className="border-x border-b border-[#c8bead] bg-[#e8e2d4]">
-                    <div className="flex overflow-x-auto">
-                        {tabs.map(tab => (
-                            <TabButton key={tab.value} value={tab.value}>{tab.label}</TabButton>
-                        ))}
+        <>
+            <a className="skip-link" href="#main-content" onClick={event => { event.preventDefault(); mainRef.current?.focus(); }}>Skip to content</a>
+            <header className="site-header">
+                <div className="header-inner">
+                    <a className="brand" href="#home" aria-label="TSI Lab home">
+                        <LabMark /><span>TSI Lab<span className="brand-caption">Time Series Intelligence</span></span>
+                    </a>
+                    <span className="university-label">Pusan National University<br /><span>Graduate School of Data Science</span></span>
+                    <a className="header-contact text-link" href="mailto:yoontae.hwang@pusan.ac.kr">Get in touch <ArrowIcon diagonal /></a>
+                    <button ref={menuRef} className="menu-button" aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => setMenuOpen(!menuOpen)}>
+                        {menuOpen ? 'Close' : 'Menu'}<span aria-hidden="true">{menuOpen ? '−' : '+'}</span>
+                    </button>
+                </div>
+                <nav id="main-navigation" aria-label="Main navigation" className={'main-nav' + (menuOpen ? ' is-open' : '')}>
+                    <div className="nav-inner">
+                        {navigation.map(([id, label]) => <a key={id} href={'#' + id} aria-current={location.tab === id ? 'page' : undefined}
+                            onClick={() => setMenuOpen(false)}>{label}</a>)}
                     </div>
                 </nav>
-
-                <main className="mt-4">
-                    {renderContent()}
-                </main>
-            </div>
-        </div>
+            </header>
+            <main id="main-content" ref={mainRef} tabIndex="-1" className="site-main">
+                <div key={location.tab} className="page-enter">{content[location.tab]}</div>
+            </main>
+            <footer className="site-footer">
+                <div className="footer-top">
+                    <div><a className="brand" href="#home"><LabMark /><span>TSI Lab</span></a><p>Time Series Intelligence Lab<br />Pusan National University · Busan, South Korea</p></div>
+                    <div className="footer-contact"><p className="eyebrow">Contact</p><a className="text-link" href="mailto:yoontae.hwang@pusan.ac.kr">yoontae.hwang@pusan.ac.kr <ArrowIcon diagonal /></a></div>
+                </div>
+                <div className="footer-bottom"><span>© {new Date().getFullYear()} TSI Lab</span><div><a href="#publications">Research</a><a href="#vacant">Prospective students</a><a href="#year-in-review">Year in Review</a></div></div>
+            </footer>
+        </>
     );
-}
+};
 
-const container = document.getElementById('root');
-const root = ReactDOM.createRoot(container);
-root.render(<App />);
+createRoot(document.getElementById('root')).render(<App />);

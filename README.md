@@ -19,7 +19,8 @@ Use `npm run dev` to build and start a local preview at http://127.0.0.1:8765. A
 - `js/tabs/Teaching.js`: courses and teaching materials.
 - `js/tabs/ForStudents.js`: books and research resources.
 - `js/tabs/Vacant.js`: admission policies and English/Korean profile copy.
-- `js/tabs/ResearchExplorer.js`: four research-area filters, year selection, and connected paper browsing.
+- `js/tabs/ResearchExplorer.js`: research filters, independently scrollable paper list/details, and an accessible figure enlargement dialog.
+- `js/figures.js`: representative figure metadata keyed by exact paper title. Store images in `figures/` and record their original source in `figures/README.md`.
 - `js/tabs/YearInReview.js`: annual views derived from the shared records.
 - `js/shared.js`, `js/main.js`, and `styles.css`: shared components, navigation, and responsive styling.
 
@@ -30,3 +31,5 @@ The annual record begins in 2025. Conference papers exclude workshops; journals 
 ## Interface
 
 The site preserves hash routes, including `#publications`, `#vacant`, and `#year-in-review`. Research-direction links can prefill publication searches with `#publications?q=Portfolio`. The responsive menu, filters, disclosures, and language controls support keyboard access; animation respects reduced-motion preferences. React is bundled locally, so no runtime Babel or Tailwind CDN is required.
+
+Research Explorer shows verified paper figures or clearly attributed author research illustrations. It omits figures and placeholders for working papers without a public manuscript link, even when a code repository is available. Students are displayed as text profiles without portraits or avatar placeholders. Page headings omit promotional subtitles.

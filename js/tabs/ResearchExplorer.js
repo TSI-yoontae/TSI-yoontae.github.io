@@ -20,6 +20,7 @@ const ResearchFigure = ({ figure, title }) => {
 };
 
 window.ResearchExplorerTabContent = () => {
+    const [view, setView] = React.useState('papers');
     const publications = window.TSI_Data.publications || [];
     const workingPapers = window.TSI_Data.workingPapers || [];
     const papers = React.useMemo(() => [
@@ -58,8 +59,13 @@ window.ResearchExplorerTabContent = () => {
     const openRelated = paper => { reset(); setSelectedTitle(paper.title); };
     return (
         <>
-            <PageIntro title="Research Explorer" />
-            <section className="research-desk" aria-label="Interactive research archive">
+            <PageIntro title="Research Explorer">
+                <div className="filter-group" role="group" aria-label="Research Explorer view">
+                    <FilterButton active={view === 'papers'} onClick={() => setView('papers')}>Papers</FilterButton>
+                    <FilterButton active={view === 'terminal'} onClick={() => setView('terminal')}>TSI / Terminal</FilterButton>
+                </div>
+            </PageIntro>
+            <section className="research-desk" aria-label="Interactive research archive" hidden={view !== 'papers'}>
                 <div className="desk-toolbar">
                     <span className="desk-label"><span className="terminal-dot" /> TSI / RESEARCH</span>
                     <label className="desk-search"><span aria-hidden="true">⌕</span><span className="sr-only">Search research explorer</span><input type="search" placeholder="Search title, author, or keyword" value={query} onChange={event => setQuery(event.target.value)} /></label>
@@ -103,6 +109,7 @@ window.ResearchExplorerTabContent = () => {
                     </section>
                 </div>
             </section>
+            {view === 'terminal' && <div className="explorer-terminal"><ResearchTerminal /></div>}
         </>
     );
 };

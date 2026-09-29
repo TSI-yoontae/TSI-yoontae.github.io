@@ -95,7 +95,7 @@ window.HomeTabContent = () => {
             </section>
             <div className="home-columns">
                 <div className="home-primary"><NewsSection /><SelectedPapersSection /></div>
-                <div className="home-secondary"><ResearchTerminal /><HomeResearchTopics /></div>
+                <HomeResearchTopics />
             </div>
         </>
     );

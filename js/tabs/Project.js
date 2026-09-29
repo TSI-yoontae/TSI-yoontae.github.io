@@ -60,62 +60,44 @@ window.TSI_Data.projects = [
     },
 ];
 
+const getProjectStatus = (project, now = new Date()) => {
+    const dates = (project.period || '').match(/\d{4}\.\d{2}(?:\.\d{2})?/g) || [];
+    if (!dates.length) return 'Ongoing';
+    const month = date => Number(date.slice(0, 4)) * 12 + Number(date.slice(5, 7));
+    const currentMonth = now.getFullYear() * 12 + now.getMonth() + 1;
+    if (month(dates[0]) > currentMonth) return 'Upcoming';
+    if (!/present|ongoing/i.test(project.period) && dates[1] && month(dates[1]) < currentMonth) return 'Completed';
+    return 'Ongoing';
+};
+
+const ProjectEntry = ({ project, showStatus = false }) => (
+    <article className="project-entry">
+        <div className="project-year"><span className="mono">{project.year}</span>{showStatus && <span className={'project-status status-' + getProjectStatus(project).toLowerCase()}>{getProjectStatus(project)}</span>}</div>
+        <div className="project-body"><h3 lang={/[가-힣]/.test(project.title) ? 'ko' : undefined}>{project.title}</h3><p className="project-organization">{project.organization}</p>
+            <dl className="project-details">
+                {project.role && <div><dt>Role</dt><dd lang="ko">{project.role}</dd></div>}
+                <div><dt>Period</dt><dd>{project.period}</dd></div>
+            </dl>
+        </div>
+        {project.funding && <div className="project-funding"><strong>{project.funding.replace(' KRW', '')}</strong><span>KRW · full project period</span></div>}
+    </article>
+);
+
 window.ProjectTabContent = () => {
     const projects = window.TSI_Data.projects || [];
-
+    const [status, setStatus] = React.useState('All');
+    const filtered = projects.filter(project => status === 'All' || getProjectStatus(project) === status);
     return (
-        <section className="space-y-3">
-            <div>
-                <h2 className="text-xl font-extrabold tracking-tight text-[#172033]">
-                    Funded Projects
-                </h2>
-                <p className="mt-1 text-sm leading-5 text-[#5e6676]">
-                    Selected research projects, grants, and fellowships.
-                </p>
+        <>
+            <PageIntro eyebrow="Projects & support" title="Funded Projects" description="Research projects, grants, and fellowships supporting our work." />
+            <div className="section-heading">
+                <div className="filter-group" role="group" aria-label="Project status">{['All', 'Ongoing', 'Upcoming', 'Completed'].map(item =>
+                    <FilterButton key={item} active={item === status} onClick={() => setStatus(item)}>{item}</FilterButton>)}</div>
+                <p className="count-label" role="status">{filtered.length} {filtered.length === 1 ? 'project' : 'projects'}</p>
             </div>
-
-            <div className="border border-[#d8d0c0] bg-[#fffdf8]">
-                {projects.map((project) => (
-                    <article
-                        key={`${project.title}-${project.period}`}
-                        className="border-b border-[#e9e2d5] px-3 py-2.5 last:border-b-0"
-                    >
-                        <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between">
-                            <h3 className="text-sm font-bold text-[#172033]">
-                                {project.title}
-                            </h3>
-                            <p className="shrink-0 text-xs font-semibold text-[#746b5d]">
-                                {project.year}
-                            </p>
-                        </div>
-
-                        <p className="mt-1 text-sm leading-5 text-[#5e6676]">
-                            {project.organization}
-                        </p>
-
-                        <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-sm text-[#404958]">
-                            {project.role && (
-                                <p>
-                                    <strong className="text-[#172033]">Role:</strong>{' '}
-                                    {project.role}
-                                </p>
-                            )}
-
-                            {project.funding && (
-                                <p>
-                                    <strong className="text-[#172033]">Funding:</strong>{' '}
-                                    {project.funding}
-                                </p>
-                            )}
-
-                            <p>
-                                <strong className="text-[#172033]">Period:</strong>{' '}
-                                {project.period}
-                            </p>
-                        </div>
-                    </article>
-                ))}
-            </div>
-        </section>
+            <div className="project-list">{filtered.map(project => <ProjectEntry key={project.title} project={project} showStatus />)}</div>
+            {!filtered.length && <EmptyState>No projects are listed in this category.</EmptyState>}
+            <p className="fine-print">Amounts, where available, cover the full project period. Principal investigator and participating researcher roles are included.</p>
+        </>
     );
 };

@@ -1,81 +1,28 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TSI Lab | Time Series Intelligence</title>
-    
-    <meta name="description" content="Pusan National University's Time Series Intelligence (TSI) Lab, led by Prof. Yoontae Hwang. We study AI in Finance, AI in Market, and Foundation Models for financial time series.">
-    <meta name="google-site-verification" content="zUXBoVvnNd_fLXqOcAivCHm6VXk-5CU29wTHpFs13Ow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone@7.29.4/babel.min.js"></script>
-    
+    <title>TSI Lab | Time Series Intelligence</title>
+    <meta name="description" content="Pusan National University's Time Series Intelligence (TSI) Lab, led by Prof. Yoontae Hwang. We study AI in Finance, AI in Market, and Foundation Models for financial time series.">
+    <meta name="google-site-verification" content="zUXBoVvnNd_fLXqOcAivCHm6VXk-5CU29wTHpFs13Ow">
+    <meta name="theme-color" content="#fafbf8">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --tsi-ink: #172033;
-            --tsi-navy: #243044;
-            --tsi-muted: #5e6676;
-            --tsi-stone: #746b5d;
-            --tsi-accent: #8a6f3d;
-            --tsi-paper: #f4f1e8;
-            --tsi-panel: #fffdf8;
-            --tsi-panel-muted: #eceff1;
-            --tsi-line: #d8d0c0;
-            --tsi-line-soft: #e9e2d5;
-            --tsi-link: #1f4e5f;
-        }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--tsi-paper);
-            color: var(--tsi-ink);
-            font-size: 14px;
-        }
-        ::selection { background: #d7c8a3; }
-        a { text-underline-offset: 3px; }
-        .tsi-rule { border-top: 1px solid var(--tsi-line); }
-        .tsi-section { border-top: 1px solid var(--tsi-line); padding-top: 14px; }
-        .tsi-section:first-child { border-top: 0; padding-top: 0; }
-        .tsi-panel { border: 1px solid var(--tsi-line); background: var(--tsi-panel); }
-        .tsi-panel-muted { border: 1px solid var(--tsi-line); background: var(--tsi-panel-muted); }
-        .tsi-row { border-bottom: 1px solid var(--tsi-line-soft); }
-        .tsi-row:last-child { border-bottom: 0; }
-        .tsi-link { color: var(--tsi-link); font-weight: 650; text-decoration: underline; text-decoration-color: #b7aa91; }
-        .tsi-link:hover { color: var(--tsi-ink); text-decoration-color: var(--tsi-link); }
-        .tsi-kicker { color: var(--tsi-accent); font-size: 11px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; }
-        .tsi-heading { color: var(--tsi-ink); font-weight: 800; letter-spacing: -0.025em; }
-        .tsi-muted { color: var(--tsi-muted); }
-        .tsi-keyword-chain { color: #404958; }
-        .tsi-keyword-term { font-weight: 650; }
-        .tsi-keyword-divider { color: #a49373; font-weight: 500; }
-        .tsi-mini-link { color: var(--tsi-link); font-size: 12px; font-weight: 750; text-decoration: underline; text-decoration-color: #b7aa91; text-underline-offset: 3px; }
-        .tsi-mini-link:hover { color: var(--tsi-ink); text-decoration-color: var(--tsi-link); }
-        input::placeholder { color: #858c98; }
-    </style>
+    <link rel="stylesheet" href="styles.css?v=f09c872d3db7">
+    <script src="site.bundle.js?v=53341caa10ce" defer></script>
 </head>
-<body class="antialiased">
+<body>
     <div id="root">
-        <div style="max-width: 720px; margin: 48px auto; padding: 24px; font-family: system-ui, -apple-system, Segoe UI, sans-serif; background: #fffdf8; border: 1px solid #d8d0c0; color: #172033;">
-            <h1 style="font-size: 22px; font-weight: 800; margin: 0 0 8px;">TSI Lab</h1>
-            <p style="margin: 0; line-height: 1.6;">Loading site…</p>
+        <div class="loading-state">
+            <p class="eyebrow">Pusan National University</p>
+            <h1>Time Series Intelligence Lab</h1>
+            <p>AI for finance, markets, and time series.</p>
+            <p>Loading the lab website…</p>
+            <noscript><p>Please enable JavaScript to browse the research archive. Contact <a href="mailto:yoontae.hwang@pusan.ac.kr">yoontae.hwang@pusan.ac.kr</a>.</p></noscript>
         </div>
     </div>
-
-    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/data.js?v=20260929-finfm"></script>
-    
-    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/tabs/Home.js?v=20260926-review"></script>
-    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/tabs/Members.js"></script>
-    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/tabs/Publications.js?v=20260926-review"></script>
-    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/tabs/Teaching.js"></script>
-    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/tabs/Project.js?v=20260928-funding"></script>
-    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/tabs/ForStudents.js"></script>
-    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/tabs/Vacant.js?v=20260926"></script>
-    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/tabs/YearInReview.js?v=20260928-organizers"></script>
-    
-    <script type="text/babel" data-presets="env,react" data-targets="defaults" src="js/main.js?v=20260926-review"></script>
 </body>
 </html>

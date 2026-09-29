@@ -1,84 +1,4 @@
-const SectionTitle = ({ eyebrow, title, description }) => (
-    <div className="mb-2.5">
-        {eyebrow && <p className="tsi-kicker">{eyebrow}</p>}
-        <h2 className="tsi-heading mt-0.5 text-xl">{title}</h2>
-        {description && <p className="mt-1 max-w-4xl text-sm leading-5 text-[#5e6676]">{description}</p>}
-    </div>
-);
-
-const ResearchTopicsSection = () => {
-    const researchTopicsData = [
-        {
-            id: 'finance',
-            title: 'AI in Finance',
-            items: ['Portfolio Optimization', 'Financial Modeling', 'Goal-based Wealth Management','Time-series for Finance'],
-        },
-        {
-            id: 'market',
-            title: 'AI in Market',
-            items: ['Optimal Betting (Mainly Polymarket)', "Dark Pool", "Limit Order Book" ,'Sport Science'],
-        },
-        {
-            id: 'foundation',
-            title: 'Foundation Model',
-            items: ['Foundation Models for Financial Time Series'],
-        },
-    ];
-
-    return (
-        <section className="tsi-section">
-            <SectionTitle
-                eyebrow="Research Topics"
-                title="Core directions"
-            />
-            <div className="tsi-panel">
-                {researchTopicsData.map((topic, index) => (
-                    <article key={topic.id} className="tsi-row grid gap-1.5 px-3 py-2.5 md:grid-cols-[170px_1fr] md:gap-4">
-                        <div className="flex items-baseline gap-2">
-                            <p className="text-[11px] font-extrabold text-[#8a6f3d]">0{index + 1}</p>
-                            <h3 className="text-base font-extrabold text-[#172033]">{topic.title}</h3>
-                        </div>
-                        <div className="tsi-keyword-chain flex flex-wrap items-baseline gap-x-2 gap-y-1 text-sm leading-5 md:border-l md:border-[#e9e2d5] md:pl-4">
-                            {topic.items.map((item, itemIndex) => (
-                                <React.Fragment key={item}>
-                                    <span className="tsi-keyword-term">{item}</span>
-                                    {itemIndex < topic.items.length - 1 && <span className="tsi-keyword-divider">/</span>}
-                                </React.Fragment>
-                            ))}
-                        </div>
-                    </article>
-                ))}
-            </div>
-        </section>
-    );
-};
-
-const NewsSection = () => {
-    const news = (window.TSI_Data && window.TSI_Data.news) || [];
-
-    return (
-        <section className="tsi-section">
-            <SectionTitle eyebrow="News" title="Latest updates" />
-            <div className="tsi-panel">
-                {news.map((item, index) => (
-                    <div key={index} className="tsi-row grid gap-1 px-3 py-2.5 sm:grid-cols-[105px_1fr] sm:gap-4">
-                        <p className="text-[13px] font-bold text-[#746b5d]">{item.date}</p>
-                        <p className="text-sm leading-5 text-[#404958]">
-                            {item.link ? (
-                                <a href={item.link} target="_blank" rel="noopener noreferrer" className="tsi-link">
-                                    {item.text}
-                                </a>
-                            ) : item.text}
-                        </p>
-                    </div>
-                ))}
-            </div>
-        </section>
-    );
-};
-
-const SelectedPapersSection = () => {
-    const selectedPapers = [
+const selectedHomePapers = [
         { title: "[ICML'26] Signature-informed Transformer for Asset Allocation", links: [{ text: 'paper', href: 'https://arxiv.org/abs/2510.03129' }, { text: 'code', href: 'https://github.com/Yoontae6719/Signature-Informed-Transformer-For-Asset-Allocation' }, { text: 'seminar@KIC', href: 'ppt/KIC.pdf' }] },
         { title: "[ICML'26] Position: Evaluating LLMs in Finance Requires Explicit Bias Consideration", links: [{ text: 'paper', href: 'https://arxiv.org/abs/2602.14233' }, { text: 'code', href: 'https://github.com/Eleanorkong/Awesome-Financial-LLM-Bias-Mitigation' }] },
         { title: "[ACL'25] Time-MQA: Time series multi-task question answering with context enhancement", links: [{ text: 'paper', href: 'https://aclanthology.org/2025.acl-long.1437/' }, { text: 'code', href: 'https://huggingface.co/Time-MQA' }] },
@@ -88,48 +8,95 @@ const SelectedPapersSection = () => {
         { title: "[ICAIF'23] SimStock: Representation Model for Stock Similarities", links: [{ text: 'paper', href: 'https://dl.acm.org/doi/abs/10.1145/3604237.3626888' }, { text: 'code', href: 'https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities' }, { text: 'seminar@SKKU', href: 'ppt/SKKU.pdf' }] },
     ];
 
+const researchDirections = [
+    { id: 'finance', label: 'AI in Finance', query: 'Portfolio', description: 'Machine learning for portfolio construction, financial modeling, and investment decisions.', items: ['Portfolio Optimization', 'Financial Modeling', 'Goal-based Wealth Management', 'Time-series for Finance'] },
+    { id: 'market', label: 'AI in Market', query: 'Market', description: 'Prediction and decision-making in financial markets, prediction markets, and sports.', items: ['Optimal Betting (Mainly Polymarket)', 'Dark Pool', 'Limit Order Book', 'Sport Science'] },
+    { id: 'foundation', label: 'Foundation Models', query: 'Time', description: 'General representations and foundation models for financial time series.', items: ['Foundation Models for Financial Time Series'] },
+];
+
+const HomeResearchTopics = () => {
+    const [active, setActive] = React.useState('finance');
     return (
-        <section className="tsi-section">
-            <SectionTitle
-                eyebrow="Selected Papers"
-                title="Representative AI conference papers"
-            />
-            <ol className="tsi-panel">
-                {selectedPapers.map((paper, index) => (
-                    <li key={index} className="tsi-row grid gap-2 px-3 py-2.5 sm:grid-cols-[32px_1fr]">
-                        <span className="text-[13px] font-bold text-[#8a6f3d]">{index + 1}.</span>
-                        <div className="flex min-w-0 items-start justify-between gap-3">
-                            <h3 className="min-w-0 flex-1 pr-2 text-sm font-bold leading-5 text-[#172033]">{paper.title}</h3>
-                            <div className="flex shrink-0 flex-wrap justify-end gap-x-2 gap-y-1 pt-0.5">
-                                {paper.links.map(link => (
-                                    <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="tsi-mini-link whitespace-nowrap">
-                                        {link.text}
-                                    </a>
-                                ))}
-                            </div>
-                        </div>
-                    </li>
-                ))}
-            </ol>
+        <section className="home-research">
+            <SectionHeading title="Research areas" />
+            <div className="home-topics">{researchDirections.map((topic, index) =>
+                <div className="home-topic" key={topic.id}>
+                    <button aria-expanded={active === topic.id} aria-controls={'topic-' + topic.id} onClick={() => setActive(active === topic.id ? '' : topic.id)}>
+                        <span className="mono">0{index + 1}</span><strong>{topic.label}</strong><span aria-hidden="true">{active === topic.id ? '−' : '+'}</span>
+                    </button>
+                    <div id={'topic-' + topic.id} hidden={active !== topic.id}>
+                        <p>{topic.description}</p><ul>{topic.items.map(item => <li key={item}>{item}</li>)}</ul>
+                        <a className="text-link" href={'#publications?q=' + encodeURIComponent(topic.query)}>Related papers <ArrowIcon /></a>
+                    </div>
+                </div>
+            )}</div>
+            <a className="explorer-launch" href="#research-explorer">
+                <span className="explorer-launch-label"><span className="terminal-dot" /> Interactive archive</span>
+                <strong>Research Explorer <ArrowIcon /></strong>
+                <span>Browse topics, trace connections, and open papers.</span>
+            </a>
+            <div className="home-admissions"><h3>Prospective students</h3><p>Regular recruitment is currently closed. Please read the lab guidelines before contacting the advisor.</p><a className="text-link" href="#vacant">Recruitment & lab guidelines <ArrowIcon /></a></div>
         </section>
     );
 };
 
-const ContactSection = () => (
-    <section className="tsi-section">
-        <SectionTitle eyebrow="Contact" title="Get in touch" />
-        <div className="tsi-panel-muted px-3 py-2.5 text-sm leading-5 text-[#404958]">
-            <p><span className="font-semibold text-[#172033]">Email:</span> <a href="mailto:yoontae.hwang@pusan.ac.kr" className="tsi-link">yoontae.hwang@pusan.ac.kr</a></p>
-            <p><span className="font-semibold text-[#172033]">Address:</span> Pusan National University, Busan, South Korea</p>
-        </div>
-    </section>
-);
+const NewsSection = () => {
+    const news = window.TSI_Data.news || [];
+    const [expanded, setExpanded] = React.useState(false);
+    return (
+        <section className="news-section">
+            <SectionHeading title="Latest updates"><a className="text-link" href="#year-in-review">Year in Review <ArrowIcon /></a></SectionHeading>
+            <div id="news-list" className="news-list">{(expanded ? news : news.slice(0, 6)).map(item =>
+                <article className="news-item" key={item.text}>
+                    <div className="news-meta"><span className="mono">{item.date}</span><span className="news-category">{item.category}</span></div>
+                    <p>{item.link ? <a href={item.link} target="_blank" rel="noopener noreferrer">{item.text}<ArrowIcon diagonal /></a> : item.text}</p>
+                </article>)}</div>
+            {news.length > 6 && <button className="text-button news-toggle" aria-expanded={expanded} aria-controls="news-list" onClick={() => setExpanded(!expanded)}>
+                {expanded ? 'Show recent updates' : 'All ' + news.length + ' updates'} <span aria-hidden="true">{expanded ? '−' : '+'}</span>
+            </button>}
+        </section>
+    );
+};
 
-window.HomeTabContent = () => (
-    <div className="space-y-5">
-        <NewsSection />
-        <ResearchTopicsSection />
-        <SelectedPapersSection />
-        <ContactSection />
-    </div>
-);
+const SelectedPapersSection = () => {
+    const hots = window.TSI_Data.publications.find(paper => paper.id === '[C9]');
+    const papers = hots ? [{ title: "[NeurIPS'26] " + hots.title, links: hots.links }, ...selectedHomePapers] : selectedHomePapers;
+    return (
+        <section className="home-section">
+            <SectionHeading title="Selected publications"><a className="text-link" href="#publications">Full archive <ArrowIcon /></a></SectionHeading>
+            <div className="selected-list">{papers.map(paper => {
+                const parts = paper.title.match(/^\[(.*?)\]\s*(.*)$/);
+                return <article className="selected-row" key={paper.title}>
+                    <span className="selected-venue">{parts?.[1]}</span>
+                    <div><h3><a href={paper.links[0].href} target="_blank" rel="noopener noreferrer">{parts?.[2] || paper.title}</a></h3></div>
+                    <ResourceLinks links={paper.links} />
+                </article>;
+            })}</div>
+        </section>
+    );
+};
+
+window.HomeTabContent = () => {
+    const data = window.TSI_Data;
+    const year = new Date().getFullYear();
+    const papers = data.publications.filter(paper => getPublicationYear(paper) === year
+        && (getPublicationKind(paper.id) === 'Journal' || !/workshop/i.test(paper.venue || '')));
+    const projects = (data.projects || []).filter(project => getProjectActiveYears(project, year).includes(year));
+    const organizers = data.news.filter(item => item.organizing && item.date.includes(String(year)));
+    return (
+        <>
+            <section className="home-masthead">
+                <div><p className="eyebrow">Pusan National University · Graduate School of Data Science</p><h1 id="page-title" tabIndex="-1">Time Series Intelligence Lab</h1>
+                    <p>We study machine learning for financial time series, markets, and decision-making.</p>
+                    <div className="masthead-links"><span>Principal Investigator: Yoontae Hwang</span><a href="mailto:yoontae.hwang@pusan.ac.kr">yoontae.hwang@pusan.ac.kr <ArrowIcon diagonal /></a></div>
+                </div>
+                <a className="home-year-summary" href="#year-in-review" aria-label={year + ' Year in Review'}>
+                    <span className="summary-label">{year} at a glance <ArrowIcon /></span>
+                    <div><span><strong>{papers.length}</strong>Papers</span><span><strong>{projects.length}</strong>Projects</span><span><strong>{organizers.length}</strong>Organizer roles</span></div>
+                </a>
+            </section>
+            <div className="home-columns"><NewsSection /><HomeResearchTopics /></div>
+            <SelectedPapersSection />
+        </>
+    );
+};

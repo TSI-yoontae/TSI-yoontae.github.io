@@ -1,63 +1,3 @@
-const VacantSectionTitle = ({ title, description }) => (
-    <div className="mb-2.5">
-        <h3 className="text-lg font-extrabold tracking-tight text-[#172033]">
-            {title}
-        </h3>
-
-        {description && (
-            <p className="mt-1 text-sm leading-5 text-[#5e6676]">
-                {description}
-            </p>
-        )}
-    </div>
-);
-
-const VacantPhilosophySection = () => (
-    <section className="tsi-section">
-        <VacantSectionTitle
-            title="Research Philosophy"
-            description="This section summarizes the lab's research culture for prospective students."
-        />
-
-        <div className="border border-[#d8d0c0] bg-[#eceff1] px-3 py-3">
-            <blockquote className="border-l-2 border-[#243044] pl-3 text-sm font-semibold leading-5 text-[#172033]">
-                “Research is meaningful only when its insights leave the lab
-                and change the world.”
-            </blockquote>
-
-            <div className="mt-3 grid gap-2 md:grid-cols-3">
-                {[
-                    [
-                        'Impact-driven',
-                        'Start from concrete problems in finance and markets.',
-                    ],
-                    [
-                        'Academically rigorous',
-                        'Build methods and evidence that stand up to top-tier review.',
-                    ],
-                    [
-                        'Open and collaborative',
-                        'Share ideas, code, and results when possible.',
-                    ],
-                ].map(([title, body]) => (
-                    <div
-                        key={title}
-                        className="border-t border-[#d8d0c0] pt-2 md:border-l md:border-t-0 md:pl-3 md:pt-0"
-                    >
-                        <h4 className="text-sm font-bold text-[#172033]">
-                            {title}
-                        </h4>
-
-                        <p className="mt-0.5 text-sm leading-5 text-[#5e6676]">
-                            {body}
-                        </p>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-);
-
 const vacantProfileCopy = {
     en: {
         title: 'Preferred Profile (Updated September 2026)',
@@ -130,78 +70,27 @@ const vacantProfileCopy = {
 const VacantPreferredProfileSection = () => {
     const [language, setLanguage] = React.useState('en');
     const copy = vacantProfileCopy[language];
-
     return (
-        <section className="tsi-section">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-                <div lang={language}>
-                    <VacantSectionTitle title={copy.title} />
-                </div>
-
-                <div role="group" aria-label="Preferred Profile language" className="mb-2.5 flex shrink-0 gap-1">
-                    {[
-                        ['en', 'English'],
-                        ['ko', '한국어'],
-                    ].map(([value, label]) => (
-                        <button
-                            key={value}
-                            type="button"
-                            lang={value}
-                            aria-pressed={language === value}
-                            aria-controls="preferred-profile-content"
-                            onClick={() => setLanguage(value)}
-                            className={`border px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#243044] focus-visible:ring-offset-2 ${
-                                language === value
-                                    ? 'border-[#172033] bg-[#172033] text-[#fffdf8]'
-                                    : 'border-[#c8bead] bg-[#eee8dc] text-[#2f3847] hover:border-[#172033] hover:bg-[#e4dccd]'
-                            }`}
-                        >
-                            {label}
-                        </button>
-                    ))}
+        <section className="content-section profile-section">
+            <div className="section-heading">
+                <div><p className="eyebrow">Before you contact us</p><h2 lang={language}>{copy.title}</h2></div>
+                <div className="filter-group language-switcher" role="group" aria-label="Preferred Profile language">
+                    {[['en', 'English'], ['ko', '한국어']].map(([value, label]) =>
+                        <FilterButton key={value} active={language === value} onClick={() => setLanguage(value)} lang={value} aria-controls="preferred-profile-content">{label}</FilterButton>)}
                 </div>
             </div>
-
             <div id="preferred-profile-content" lang={language}>
-                <p className="mt-1 text-sm leading-5 text-[#404958]">
-                    {copy.introduction}
-                </p>
-
-                <div className="mt-3 border border-[#b99a4b] bg-[#f1e7cf] p-3">
-                    <h4 className="text-sm font-extrabold text-[#5b4315]">
-                        {copy.policyTitle}
-                    </h4>
-
-                    <div className="mt-2 space-y-2 text-sm leading-5 text-[#4b3a1b]">
-                        {copy.policies.map(policy => (
-                            <p key={policy.id}>
-                                <strong>{policy.label}:</strong>{' '}{policy.text}
-                            </p>
-                        ))}
-                    </div>
+                <p className="profile-introduction">{copy.introduction}</p>
+                <div className="recruitment-status">
+                    <p className="eyebrow">{language === 'ko' ? '모집 안내' : 'Recruitment update'}</p>
+                    <h3>{copy.statusTitle}</h3><p>{copy.closedText}</p><p>{copy.exceptionText}</p>
+                    <div className="status-tags"><span>{copy.doctoralStatus}</span><span>{copy.mastersStatus}</span><span>{copy.exceptionStatus}</span></div>
                 </div>
-
-                <div className="mt-3 border border-[#b45a4a] bg-[#f4ded8] p-3">
-                    <h4 className="text-sm font-extrabold text-[#87382c]">
-                        {copy.statusTitle}
-                    </h4>
-
-                    <p className="mt-1 text-sm leading-5 text-[#404958]">
-                        <strong className="text-[#87382c]">{copy.closedText}</strong>{' '}
-                        {copy.exceptionText}
-                    </p>
-
-                    <div className="mt-3 flex flex-wrap gap-2 text-xs font-semibold">
-                        <span className="border border-[#b45a4a] bg-[#e8e2d4] px-2 py-1 text-[#746b5d] line-through">
-                            {copy.doctoralStatus}
-                        </span>
-                        <span className="border border-[#d8d0c0] bg-[#e8e2d4] px-2 py-1 text-[#746b5d] line-through">
-                            {copy.mastersStatus}
-                        </span>
-                        <span className="border border-[#b45a4a] bg-[#fffdf8] px-2 py-1 text-[#87382c]">
-                            {copy.exceptionStatus}
-                        </span>
-                    </div>
+                <h3 className="policy-heading">{copy.policyTitle}</h3>
+                <div className="policy-list">{copy.policies.map((policy, index) =>
+                    <article key={policy.id} className={'policy-item' + (index === 0 ? ' policy-essential' : '')}>
+                        <span className="mono">0{index + 1}</span><div><h4>{policy.label}</h4><p>{policy.text}</p></div>
+                    </article>)}
                 </div>
             </div>
         </section>
@@ -209,56 +98,28 @@ const VacantPreferredProfileSection = () => {
 };
 
 window.VacantPositionsTabContent = () => (
-    <section className="space-y-5">
-        <div>
-            <h2 className="text-xl font-extrabold tracking-tight text-[#172033]">
-                Vacant Positions
-            </h2>
-        </div>
-
-        <VacantPhilosophySection />
-        <VacantPreferredProfileSection />
-
-        <section className="tsi-section">
-            <VacantSectionTitle title="Target Journals & Conferences" />
-
-            <div className="mt-2 border border-[#d8d0c0] bg-[#fffdf8]">
-                {[
-                    [
-                        'OR Journals',
-                        'Management Science, Operations Research, European Journal of Operational Research, Annals of Operations Research, INFORMS Journal on Computing',
-                    ],
-                    [
-                        'Finance Journals',
-                        'Quantitative Finance, Journal of Portfolio Management, Journal of Financial and Quantitative Analysis, Finance Research Letters, Journal of Banking and Finance',
-                    ],
-                    [
-                        'Other Journals',
-                        'Neural Networks, Pattern Recognition, JMLR, TMLR, Nature Machine Intelligence, Machine Learning, International Journal of Forecasting',
-                    ],
-                    [
-                        'Top Conferences',
-                        'KDD, NeurIPS, ICLR, ICML, EMNLP, ACL, AAAI, AISTATS',
-                    ],
-                    [
-                        'Info',
-                        'When selecting publication venues, we prioritize academic prestige over quantitative rankings. This principle is especially crucial in AI, where numerical metrics such as JCR rankings do not always align with the most respected venues.',
-                    ],
-                ].map(([title, body]) => (
-                    <div
-                        key={title}
-                        className="grid gap-1 border-b border-[#e9e2d5] px-3 py-2.5 last:border-b-0 md:grid-cols-[160px_1fr] md:gap-4"
-                    >
-                        <h4 className="text-sm font-bold text-[#172033]">
-                            {title}
-                        </h4>
-
-                        <p className="text-sm leading-5 text-[#404958]">
-                            {body}
-                        </p>
-                    </div>
-                ))}
-            </div>
+    <>
+        <PageIntro eyebrow="Prospective students" title="Vacant Positions" description="Our research culture, expectations, and current recruitment status." />
+        <section className="philosophy-banner">
+            <p className="eyebrow">Research philosophy</p>
+            <blockquote>“Research is meaningful only when its insights leave the lab and change the world.”</blockquote>
+            <div className="values-grid">{[
+                ['Impact-driven', 'Start from concrete problems in finance and markets.'],
+                ['Academically rigorous', 'Build methods and evidence that stand up to top-tier review.'],
+                ['Open and collaborative', 'Share ideas, code, and results when possible.'],
+            ].map(([title, body]) => <div key={title}><h3>{title}</h3><p>{body}</p></div>)}</div>
         </section>
-    </section>
+        <VacantPreferredProfileSection />
+        <section className="content-section">
+            <SectionHeading eyebrow="Research standards" title="Target journals & conferences" />
+            <div className="venue-list">{[
+                ['OR Journals', 'Management Science, Operations Research, European Journal of Operational Research, Annals of Operations Research, INFORMS Journal on Computing'],
+                ['Finance Journals', 'Quantitative Finance, Journal of Portfolio Management, Journal of Financial and Quantitative Analysis, Finance Research Letters, Journal of Banking and Finance'],
+                ['Other Journals', 'Neural Networks, Pattern Recognition, JMLR, TMLR, Nature Machine Intelligence, Machine Learning, International Journal of Forecasting'],
+                ['Top Conferences', 'KDD, NeurIPS, ICLR, ICML, EMNLP, ACL, AAAI, AISTATS'],
+            ].map(([title, body]) => <div key={title}><h3>{title}</h3><p>{body}</p></div>)}</div>
+            <p className="fine-print">When selecting publication venues, we prioritize academic prestige over quantitative rankings. This principle is especially crucial in AI, where numerical metrics such as JCR rankings do not always align with the most respected venues.</p>
+        </section>
+        <div className="inline-callout"><p>Prior contact with the advisor is required before joining.</p><a className="text-link" href="mailto:yoontae.hwang@pusan.ac.kr">Contact the advisor <ArrowIcon diagonal /></a></div>
+    </>
 );

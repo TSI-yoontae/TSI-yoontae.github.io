@@ -1,5 +1,4 @@
-const RecommendationsSection = () => {
-    const recommendations = [
+const studentRecommendations = [
         { category: 'Time-Series analysis', items: [{ text: 'Time Series Analysis by James D. Hamilton', href: 'https://www.jstor.org/stable/j.ctv14jx6sm' }] },
         { category: 'Optimization', items: [{ text: 'Convex Optimization by Stephen Boyd and Lieven Vandenberghe', href: 'https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf' }, { text: 'Optimization Methods in Finance by Gerard Cornuejols and Reha Tütüncü', href: 'https://www.andrew.cmu.edu/user/gc0v/webpub/book.pdf' }, { text: 'Introduction to Stochastic Programming by John R. Birge , François Louveaux', href: 'https://link.springer.com/book/10.1007/978-1-4614-0237-4' }, { text: 'Reinforcement Learning and Stochastic Optimization: A Unified Framework for Sequential Decisions by Warren B. Powell', href: 'https://onlinelibrary.wiley.com/doi/book/10.1002/9781119815068' }] },
         { category: 'ML/DL', items: [{ text: 'Mathematical Engineering of Deep Learning by Benoit Liquet, Sarat Moka and Yoni Nazarathy', href: 'https://deeplearningmath.org/' }, { text: "Alice's Adventures in a Differentiable Wonderland -- Volume I, A Tour of the Land by Simone Scardapane", href: 'https://arxiv.org/abs/2404.17625' }] },
@@ -9,32 +8,22 @@ const RecommendationsSection = () => {
         { category: 'Useful website', items: [{ text: "Paper Copilot: Whether the score received at the AI conference is relatively good or bad", href: 'https://papercopilot.com/' }, { text: "Cite.GG: Find recent papers that reference the paper you're reading", href: 'https://cite.gg/#/' }, { text: 'AI Conference Deadline: Countdowns to top CV/NLP/ML/Robotics/AI conference deadlines', href: 'https://huggingface.co/spaces/huggingface/ai-deadlines' }, { text: 'Operation Research (Top publication): Google Scholar Metrics', href: 'https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_operationsresearch' }, { text: 'Data Mining & Analysis (Top publication): Google Scholar Metrics', href: 'https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_datamininganalysis' }, { text: 'Artificial Inteligence (Top publication): Google Scholar Metrics', href: 'https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_artificialintelligence' }, { text: 'Finance (Top publication): Google Scholar Metrics', href: 'https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=bus_finance' }] },
     ];
 
+window.ForStudentsTabContent = () => {
+    const [query, setQuery] = React.useState('');
+    const normalized = query.trim().toLowerCase();
+    const groups = studentRecommendations.map(group => ({ ...group, items: group.items.filter(item => (group.category + ' ' + item.text).toLowerCase().includes(normalized)) })).filter(group => group.items.length);
     return (
-        <section className="space-y-3">
-            <div>
-                <h2 className="text-xl font-extrabold tracking-tight text-[#172033]">Recommended Books and Guides</h2>
-                <p className="mt-1 text-sm leading-5 text-[#5e6676]">Compact reading list for students interested in the lab's research areas.</p>
-            </div>
-            <div className="border border-[#d8d0c0] bg-[#fffdf8]">
-                {recommendations.map(rec => (
-                    <div key={rec.category} className="grid gap-2 border-b border-[#e9e2d5] px-3 py-2.5 last:border-b-0 md:grid-cols-[180px_1fr] md:gap-4">
-                        <h3 className="text-sm font-bold text-[#172033]">{rec.category}</h3>
-                        <ul className="space-y-1 text-sm leading-5 text-[#404958]">
-                            {rec.items.map(item => (
-                                <li key={item.text}>
-                                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="underline decoration-[#c3b8a5] hover:text-[#172033] hover:decoration-[#1f4e5f]">{item.text}</a>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                ))}
-            </div>
-        </section>
+        <>
+            <PageIntro eyebrow="For students" title="For Students" description="Books, lecture notes, and practical guides for building a strong research foundation." />
+            <label className="search-field reading-search"><span className="sr-only">Search reading list</span><input type="search" placeholder="Find a book, author, or topic…" value={query} onChange={event => setQuery(event.target.value)} /><span aria-hidden="true">⌕</span></label>
+            <p className="fine-print" role="status">{groups.reduce((sum, group) => sum + group.items.length, 0)} reading resources · {groups.length} {groups.length === 1 ? 'topic' : 'topics'}</p>
+            <div className="reading-list">{groups.map((group, index) =>
+                <details className="reading-group" key={group.category + (normalized ? '-search' : '-browse')} open={normalized ? true : index === 0 ? true : undefined}>
+                    <summary><span className="mono">0{studentRecommendations.findIndex(item => item.category === group.category) + 1}</span><h2>{group.category}</h2><span className="count-label">{group.items.length}</span><span className="disclosure-symbol" aria-hidden="true">+</span></summary>
+                    <ul>{group.items.map(item => <li key={item.text}>{item.href !== '#' ? <a href={item.href} target="_blank" rel="noopener noreferrer"><span>{item.text}</span><ArrowIcon diagonal /></a>
+                        : <span className="unlinked-resource">{item.text}<span className="fine-print">Link to be added</span></span>}</li>)}</ul>
+                </details>)}</div>
+            {!groups.length && <EmptyState><h2>No resources found.</h2><button className="text-button" onClick={() => setQuery('')}>Clear search</button></EmptyState>}
+        </>
     );
 };
-
-window.ForStudentsTabContent = () => (
-    <section className="space-y-5">
-        <RecommendationsSection />
-    </section>
-);

@@ -30,7 +30,7 @@ window.TSI_Data.news = [
 window.TSI_Data.publications = [
     // Keep NeurIPS and ICML papers at the top of the archive.
     {
-        id: "[C9]",
+        id: "[C16]",
         title: "HoTS: Homophily-Aware Temperature Scaling for Graph Neural Network Calibration",
         authors: [
             { name: "In Woo Tae" },
@@ -45,7 +45,7 @@ window.TSI_Data.publications = [
         topics: ["Graph Neural Networks", "Deep Learning"]
     },
     { 
-        id: "[C8]", 
+        id: "[C15]",
         title: "Evaluating LLMs in Finance Requires Explicit Bias Consideration", 
         authors: [ 
             { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, 
@@ -64,7 +64,7 @@ window.TSI_Data.publications = [
         topics: ["Large Language Models", "Finance", "Bias"] 
     },
     { 
-        id: "[C7]", 
+        id: "[C14]",
         title: "Signature-informed Transformer for Asset Allocation", 
         authors: [ 
             { name: "Yoontae Hwang", isHighlight: true }, 
@@ -78,7 +78,7 @@ window.TSI_Data.publications = [
         topics: ["Portfolio Theory", "Deep Learning"] 
     },
     {
-        id: "[C16]",
+        id: "[C13]",
         title: "AlphaLeak: What ‘Blind’ LLM Trading Benchmarks Still See",
         authors: [
             { name: "Minsuk Sung" },
@@ -94,7 +94,7 @@ window.TSI_Data.publications = [
         topics: ["Large Language Models", "Trading", "Finance"]
     },
     {
-        id: "[C15]",
+        id: "[C12]",
         title: "Semantic Credibility Cold-Start Priors for Novel Insurance Claim Codes with LLM Embeddings",
         authors: [
             { name: "Yejin Kim", href: "https://scholar.google.com/citations?user=RT2PhEsAAAAJ&hl=ko" },
@@ -107,7 +107,7 @@ window.TSI_Data.publications = [
         topics: ["Large Language Models", "Finance"]
     },
     {
-        id: "[C14]",
+        id: "[C11]",
         title: "CallRank: Isolating What Changed in Earnings-Call Q&A for Sector Ranking and Cost-Adjusted Alpha",
         authors: [
             { name: "Doohwi Cha" },
@@ -124,7 +124,7 @@ window.TSI_Data.publications = [
         topics: ["Natural Language Processing", "Trading", "Finance"]
     },
     {
-        id: "[C13]",
+        id: "[C10]",
         title: "Decision-Focused Learning of the Gerber Threshold",
         authors: [
             { name: "Juyeong Lee" },
@@ -140,7 +140,7 @@ window.TSI_Data.publications = [
         topics: ["Optimization", "Finance"]
     },
     {
-        id: "[C12]",
+        id: "[C9]",
         title: "SlipClock: A Conditional Displayed-Depth Cost Benchmark for Evaluating Financial AI Strategies in Crypto Futures",
         authors: [
             { name: "Seunghan Son" },
@@ -156,7 +156,7 @@ window.TSI_Data.publications = [
         topics: ["Trading", "Finance"]
     },
     {
-        id: "[C11]",
+        id: "[C8]",
         title: "Metropolitan Housing Signals for Treasury Duration Risk Management",
         authors: [
             { name: "Doohwi Cha" },
@@ -175,7 +175,7 @@ window.TSI_Data.publications = [
         topics: ["Household Finance", "Time-Series Analysis", "Finance"]
     },
     {
-        id: "[C10]",
+        id: "[C7]",
         title: "Neural Estimation of Irreversibility in Real and Simulated Limit Order Book Paths",
         authors: [
             { name: "Hyeonjun Yeo" },

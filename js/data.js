@@ -2,6 +2,7 @@ window.TSI_Data = {};
 
 window.TSI_Data.reviewStartYear = 2025;
 window.TSI_Data.news = [
+    { date: 'Oct 2026', category: 'Publication', text: 'Seven papers from TSI Lab accepted to ICAIF 2026.' },
     {
         date: 'Sep 2026',
         category: 'Academic service',
@@ -27,6 +28,7 @@ window.TSI_Data.news = [
 ];
  
 window.TSI_Data.publications = [
+    // Keep NeurIPS and ICML papers at the top of the archive.
     {
         id: "[C9]",
         title: "HoTS: Homophily-Aware Temperature Scaling for Graph Neural Network Calibration",
@@ -42,24 +44,6 @@ window.TSI_Data.publications = [
         ],
         topics: ["Graph Neural Networks", "Deep Learning"]
     },
-    {
-        id: "[J8]",
-        title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization",
-        authors: [
-            { name: "Yoontae Hwang", isHighlight: true },
-            { name: "Yaxuan Kong", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" },
-            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
-            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }
-        ],
-        venue: "Expert Systems with Applications, 2026 (Accepted)",
-        award: "Rising Scholar Award @the Korean Academic Society of Business Administration 2025",
-        links: [
-            { text: "paper", href: "https://www.sciencedirect.com/science/article/pii/S0957417426032938" },
-            { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }
-        ],
-        topics: ["Portfolio Theory", "Deep Learning"]
-    },
-    // 새로 추가된 ICML 2026 논문 1
     { 
         id: "[C8]", 
         title: "Evaluating LLMs in Finance Requires Explicit Bias Consideration", 
@@ -79,7 +63,6 @@ window.TSI_Data.publications = [
         links: [ { text: "paper", href: "https://arxiv.org/pdf/2602.14233v1" } ], 
         topics: ["Large Language Models", "Finance", "Bias"] 
     },
-    // 새로 추가된 ICML 2026 논문 2
     { 
         id: "[C7]", 
         title: "Signature-informed Transformer for Asset Allocation", 
@@ -94,7 +77,132 @@ window.TSI_Data.publications = [
         ], 
         topics: ["Portfolio Theory", "Deep Learning"] 
     },
-    // 기존 논문들
+    {
+        id: "[C16]",
+        title: "AlphaLeak: What ‘Blind’ LLM Trading Benchmarks Still See",
+        authors: [
+            { name: "Minsuk Sung" },
+            { name: "Doohwi Cha" },
+            { name: "Juyeong Lee" },
+            { name: "Minjae Lee" },
+            { name: "Donghwa Seo" },
+            { name: "Seunghan Son" },
+            { name: "Yoontae Hwang", isHighlight: true }
+        ],
+        venue: "ICAIF 2026 (Accepted)",
+        links: [],
+        topics: ["Large Language Models", "Trading", "Finance"]
+    },
+    {
+        id: "[C15]",
+        title: "Semantic Credibility Cold-Start Priors for Novel Insurance Claim Codes with LLM Embeddings",
+        authors: [
+            { name: "Yejin Kim", href: "https://scholar.google.com/citations?user=RT2PhEsAAAAJ&hl=ko" },
+            { name: "Junhyung Kim" },
+            { name: "Youngbin Lee", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" },
+            { name: "Yoontae Hwang", isHighlight: true }
+        ],
+        venue: "ICAIF 2026 (Accepted)",
+        links: [],
+        topics: ["Large Language Models", "Finance"]
+    },
+    {
+        id: "[C14]",
+        title: "CallRank: Isolating What Changed in Earnings-Call Q&A for Sector Ranking and Cost-Adjusted Alpha",
+        authors: [
+            { name: "Doohwi Cha" },
+            { name: "Minsuk Sung" },
+            { name: "Seunghan Son" },
+            { name: "Juyeong Lee" },
+            { name: "Donghwa Seo" },
+            { name: "Minjae Lee" },
+            { name: "Hyeonjun Yeo" },
+            { name: "Yoontae Hwang", isHighlight: true }
+        ],
+        venue: "ICAIF 2026 (Accepted)",
+        links: [],
+        topics: ["Natural Language Processing", "Trading", "Finance"]
+    },
+    {
+        id: "[C13]",
+        title: "Decision-Focused Learning of the Gerber Threshold",
+        authors: [
+            { name: "Juyeong Lee" },
+            { name: "Donghwa Seo" },
+            { name: "Minjae Lee" },
+            { name: "Seunghan Son" },
+            { name: "Minsuk Sung" },
+            { name: "Doohwi Cha" },
+            { name: "Yoontae Hwang", isHighlight: true }
+        ],
+        venue: "ICAIF 2026 (Accepted)",
+        links: [],
+        topics: ["Optimization", "Finance"]
+    },
+    {
+        id: "[C12]",
+        title: "SlipClock: A Conditional Displayed-Depth Cost Benchmark for Evaluating Financial AI Strategies in Crypto Futures",
+        authors: [
+            { name: "Seunghan Son" },
+            { name: "Doohwi Cha" },
+            { name: "Minjae Lee" },
+            { name: "Juyeong Lee" },
+            { name: "Minsuk Sung" },
+            { name: "Donghwa Seo" },
+            { name: "Yoontae Hwang", isHighlight: true }
+        ],
+        venue: "ICAIF 2026 (Accepted)",
+        links: [],
+        topics: ["Trading", "Finance"]
+    },
+    {
+        id: "[C11]",
+        title: "Metropolitan Housing Signals for Treasury Duration Risk Management",
+        authors: [
+            { name: "Doohwi Cha" },
+            { name: "Hyeonjun Yeo" },
+            { name: "Gyuil Jung" },
+            { name: "Jeongkyoo You" },
+            { name: "Minsuk Sung" },
+            { name: "Donghwa Seo" },
+            { name: "Minjae Lee" },
+            { name: "Seunghan Son" },
+            { name: "Juyeong Lee" },
+            { name: "Yoontae Hwang", isHighlight: true }
+        ],
+        venue: "ICAIF 2026 (Accepted)",
+        links: [],
+        topics: ["Household Finance", "Time-Series Analysis", "Finance"]
+    },
+    {
+        id: "[C10]",
+        title: "Neural Estimation of Irreversibility in Real and Simulated Limit Order Book Paths",
+        authors: [
+            { name: "Hyeonjun Yeo" },
+            { name: "Doohwi Cha" },
+            { name: "Yoontae Hwang", isHighlight: true }
+        ],
+        venue: "ICAIF 2026 (Accepted)",
+        links: [],
+        topics: ["Time-Series Analysis", "Trading", "Deep Learning"]
+    },
+    {
+        id: "[J8]",
+        title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization",
+        authors: [
+            { name: "Yoontae Hwang", isHighlight: true },
+            { name: "Yaxuan Kong", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" },
+            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
+            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }
+        ],
+        venue: "Expert Systems with Applications, 2026 (Accepted)",
+        award: "Rising Scholar Award @the Korean Academic Society of Business Administration 2025",
+        links: [
+            { text: "paper", href: "https://www.sciencedirect.com/science/article/pii/S0957417426032938" },
+            { text: "code", href: "https://github.com/Yoontae6719/Decision-informed-Neural-Networks-with-Large-Language-Model-Integration-for-Portfolio-Optimization/tree/main" }
+        ],
+        topics: ["Portfolio Theory", "Deep Learning"]
+    },
     { 
         id: "[C6]", 
         title: "Forecasting Future Language: Context Design for Mention Markets", 

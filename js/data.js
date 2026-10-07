@@ -87,7 +87,7 @@ window.TSI_Data.publications = [
             { name: "Juyeong Lee" },
             { name: "Seunghan Son" },
             { name: "Donghwa Seo" },
-            { name: "Yoontae Hwang", isHighlight: true }
+            { name: "Yoontae Hwang†", isHighlight: true }
         ],
         venue: "ICAIF 2026 (Accepted)",
         links: [],
@@ -103,7 +103,7 @@ window.TSI_Data.publications = [
             { name: "Minjae Lee" },
             { name: "Donghwa Seo" },
             { name: "Seunghan Son" },
-            { name: "Yoontae Hwang", isHighlight: true }
+            { name: "Yoontae Hwang†", isHighlight: true }
         ],
         venue: "ICAIF 2026 (Accepted, Oral)",
         links: [],
@@ -116,7 +116,7 @@ window.TSI_Data.publications = [
             { name: "Yejin Kim", href: "https://scholar.google.com/citations?user=RT2PhEsAAAAJ&hl=ko" },
             { name: "Junhyung Kim" },
             { name: "Youngbin Lee", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" },
-            { name: "Yoontae Hwang", isHighlight: true }
+            { name: "Yoontae Hwang†", isHighlight: true }
         ],
         venue: "ICAIF 2026 (Accepted)",
         links: [],
@@ -133,7 +133,7 @@ window.TSI_Data.publications = [
             { name: "Donghwa Seo" },
             { name: "Minjae Lee" },
             { name: "Hyeonjun Yeo" },
-            { name: "Yoontae Hwang", isHighlight: true }
+            { name: "Yoontae Hwang†", isHighlight: true }
         ],
         venue: "ICAIF 2026 (Accepted, Oral)",
         links: [],
@@ -149,7 +149,7 @@ window.TSI_Data.publications = [
             { name: "Seunghan Son" },
             { name: "Minsuk Sung" },
             { name: "Doohwi Cha" },
-            { name: "Yoontae Hwang", isHighlight: true }
+            { name: "Yoontae Hwang†", isHighlight: true }
         ],
         venue: "ICAIF 2026 (Accepted, Oral)",
         links: [],
@@ -165,7 +165,7 @@ window.TSI_Data.publications = [
             { name: "Juyeong Lee" },
             { name: "Minsuk Sung" },
             { name: "Donghwa Seo" },
-            { name: "Yoontae Hwang", isHighlight: true }
+            { name: "Yoontae Hwang†", isHighlight: true }
         ],
         venue: "ICAIF 2026 (Accepted)",
         links: [],
@@ -184,7 +184,7 @@ window.TSI_Data.publications = [
             { name: "Minjae Lee" },
             { name: "Seunghan Son" },
             { name: "Juyeong Lee" },
-            { name: "Yoontae Hwang", isHighlight: true }
+            { name: "Yoontae Hwang†", isHighlight: true }
         ],
         venue: "ICAIF 2026 (Accepted)",
         links: [],
@@ -196,7 +196,7 @@ window.TSI_Data.publications = [
         authors: [
             { name: "Hyeonjun Yeo" },
             { name: "Doohwi Cha" },
-            { name: "Yoontae Hwang", isHighlight: true }
+            { name: "Yoontae Hwang†", isHighlight: true }
         ],
         venue: "ICAIF 2026 (Accepted, Oral)",
         links: [],

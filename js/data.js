@@ -2,7 +2,7 @@ window.TSI_Data = {};
 
 window.TSI_Data.reviewStartYear = 2025;
 window.TSI_Data.news = [
-    { date: 'Oct 2026', category: 'Publication', text: 'Seven papers from TSI Lab accepted to ICAIF 2026.' },
+    { date: 'Oct 2026', category: 'Publication', text: 'Eight papers from TSI Lab accepted to ICAIF 2026, including four oral presentations.' },
     {
         date: 'Sep 2026',
         category: 'Academic service',
@@ -30,7 +30,7 @@ window.TSI_Data.news = [
 window.TSI_Data.publications = [
     // Keep NeurIPS and ICML papers at the top of the archive.
     {
-        id: "[C16]",
+        id: "[C17]",
         title: "HoTS: Homophily-Aware Temperature Scaling for Graph Neural Network Calibration",
         authors: [
             { name: "In Woo Tae" },
@@ -45,7 +45,7 @@ window.TSI_Data.publications = [
         topics: ["Graph Neural Networks", "Deep Learning"]
     },
     { 
-        id: "[C15]",
+        id: "[C16]",
         title: "Evaluating LLMs in Finance Requires Explicit Bias Consideration", 
         authors: [ 
             { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, 
@@ -64,7 +64,7 @@ window.TSI_Data.publications = [
         topics: ["Large Language Models", "Finance", "Bias"] 
     },
     { 
-        id: "[C14]",
+        id: "[C15]",
         title: "Signature-informed Transformer for Asset Allocation", 
         authors: [ 
             { name: "Yoontae Hwang", isHighlight: true }, 
@@ -78,6 +78,22 @@ window.TSI_Data.publications = [
         topics: ["Portfolio Theory", "Deep Learning"] 
     },
     {
+        id: "[C14]",
+        title: "The Division of Research: Information Access and Independent-Book Capacity in LLM Investment Teams",
+        authors: [
+            { name: "Doohwi Cha" },
+            { name: "Minjae Lee" },
+            { name: "Minsuk Sung" },
+            { name: "Juyeong Lee" },
+            { name: "Seunghan Son" },
+            { name: "Donghwa Seo" },
+            { name: "Yoontae Hwang", isHighlight: true }
+        ],
+        venue: "ICAIF 2026 (Accepted)",
+        links: [],
+        topics: ["Large Language Models", "Portfolio Theory", "Finance"]
+    },
+    {
         id: "[C13]",
         title: "AlphaLeak: What ‘Blind’ LLM Trading Benchmarks Still See",
         authors: [
@@ -89,7 +105,7 @@ window.TSI_Data.publications = [
             { name: "Seunghan Son" },
             { name: "Yoontae Hwang", isHighlight: true }
         ],
-        venue: "ICAIF 2026 (Accepted)",
+        venue: "ICAIF 2026 (Accepted, Oral)",
         links: [],
         topics: ["Large Language Models", "Trading", "Finance"]
     },
@@ -119,7 +135,7 @@ window.TSI_Data.publications = [
             { name: "Hyeonjun Yeo" },
             { name: "Yoontae Hwang", isHighlight: true }
         ],
-        venue: "ICAIF 2026 (Accepted)",
+        venue: "ICAIF 2026 (Accepted, Oral)",
         links: [],
         topics: ["Natural Language Processing", "Trading", "Finance"]
     },
@@ -135,7 +151,7 @@ window.TSI_Data.publications = [
             { name: "Doohwi Cha" },
             { name: "Yoontae Hwang", isHighlight: true }
         ],
-        venue: "ICAIF 2026 (Accepted)",
+        venue: "ICAIF 2026 (Accepted, Oral)",
         links: [],
         topics: ["Optimization", "Finance"]
     },
@@ -182,7 +198,7 @@ window.TSI_Data.publications = [
             { name: "Doohwi Cha" },
             { name: "Yoontae Hwang", isHighlight: true }
         ],
-        venue: "ICAIF 2026 (Accepted)",
+        venue: "ICAIF 2026 (Accepted, Oral)",
         links: [],
         topics: ["Time-Series Analysis", "Trading", "Deep Learning"]
     },

@@ -1,6 +1,6 @@
 const selectedHomePapers = [
-    { id: '[C16]', venue: "NeurIPS'26" },
-    { id: '[C14]', venue: "ICML'26", extraLinks: [{ text: 'seminar@KIC', href: 'ppt/KIC.pdf' }] },
+    { id: '[C17]', venue: "NeurIPS'26" },
+    { id: '[C15]', venue: "ICML'26", extraLinks: [{ text: 'seminar@KIC', href: 'ppt/KIC.pdf' }] },
     { id: '[C3]', venue: "AAAI'25" },
     { id: '[J8]', venue: "ESWA'26" },
 ];

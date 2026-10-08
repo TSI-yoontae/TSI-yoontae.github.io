@@ -54,18 +54,33 @@ const PublicationVenue = ({ paper, className = 'publication-venue' }) => {
 const AuthorList = ({ authors }) => {
     const [expanded, setExpanded] = React.useState(false);
     const visibleAuthors = expanded ? authors : authors.slice(0, 8);
+    // Number the full author list so expanding it never changes existing markers.
+    const affiliations = [...new Set(authors.flatMap(author => author.affiliations || []))];
+    const visibleAffiliations = new Set(visibleAuthors.flatMap(author => author.affiliations || []));
     return (
-        <div className="author-list">
-            {visibleAuthors.map((author, index) => (
-                <React.Fragment key={author.name + index}>
-                    {author.href ? <a href={author.href} target="_blank" rel="noopener noreferrer" className={author.isHighlight ? 'author-highlight' : ''}>{author.name}</a>
-                        : <span className={author.isHighlight ? 'author-highlight' : ''}>{author.name}</span>}
-                    {index < visibleAuthors.length - 1 && ', '}
-                </React.Fragment>
-            ))}
-            {authors.length > 8 && <button className="inline-button" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}>
-                {expanded ? 'Show less' : '+' + (authors.length - 8) + ' more'}
-            </button>}
+        <div className="author-block">
+            <div className="author-list">
+                {visibleAuthors.map((author, index) => (
+                    <React.Fragment key={author.name + index}>
+                        <span className="author-name">
+                            {author.href ? <a href={author.href} target="_blank" rel="noopener noreferrer" className={author.isHighlight ? 'author-highlight' : ''}>{author.name}</a>
+                                : <span className={author.isHighlight ? 'author-highlight' : ''}>{author.name}</span>}
+                            {author.affiliations?.length > 0 && <sup className="author-affiliation-mark" title={author.affiliations.join('; ')} aria-label={'Affiliations: ' + author.affiliations.join('; ')}>
+                                {author.affiliations.map(name => affiliations.indexOf(name) + 1).join(',')}
+                            </sup>}
+                        </span>
+                        {index < visibleAuthors.length - 1 && ', '}
+                    </React.Fragment>
+                ))}
+                {authors.length > 8 && <button className="inline-button" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}>
+                    {expanded ? 'Show less' : '+' + (authors.length - 8) + ' more'}
+                </button>}
+            </div>
+            {affiliations.length > 0 && <ul className="author-affiliations" aria-label="Author affiliations">
+                {affiliations.map((name, index) => visibleAffiliations.has(name) && <li key={name}>
+                    <sup>{index + 1}</sup><span>{name}</span>
+                </li>)}
+            </ul>}
         </div>
     );
 };
@@ -107,7 +122,7 @@ window.PublicationsTabContent = ({ initialQuery = '' }) => {
     const years = [...new Set(allPapers.map(getPublicationYear))].filter(Boolean).sort((a, b) => b - a);
     const filtered = allPapers.filter(paper => {
         const haystack = normalizePublicationText([paper.id, paper.title, paper.venue, paper.award, ...getPublicationMetrics(paper).map(item => item.label),
-            ...(paper.topics || []), ...(paper.authors || []).map(author => author.name)].join(' '));
+            ...(paper.topics || []), ...(paper.authors || []).flatMap(author => [author.name, ...(author.affiliations || [])])].join(' '));
         const matchesType = type === 'all' || type === paper.sourceType
             || (paper.sourceType === 'publication' && getPublicationKind(paper.id).toLowerCase() === type);
         return matchesType && (year === 'all' || getPublicationYear(paper) === Number(year)) && haystack.includes(normalizePublicationText(query));
@@ -123,7 +138,7 @@ window.PublicationsTabContent = ({ initialQuery = '' }) => {
                     <label className="search-field">
                         <span className="sr-only">Search publications</span>
                         <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4 4" /></svg>
-                        <input type="search" placeholder="Search title, author, venue, or topic…" value={query} onChange={event => setQuery(event.target.value)} />
+                        <input type="search" placeholder="Search title, author, institution, venue, or topic…" value={query} onChange={event => setQuery(event.target.value)} />
                     </label>
                     <label className="year-select"><span className="sr-only">Publication year</span><select value={year} onChange={event => setYear(event.target.value)}><option value="all">All years</option>{years.map(item => <option key={item} value={item}>{item}</option>)}</select></label>
                     <button className="text-button" onClick={reset}>Reset</button>

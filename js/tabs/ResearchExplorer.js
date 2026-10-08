@@ -46,7 +46,7 @@ window.ResearchExplorerTabContent = () => {
     const filtered = papers.filter(paper => (!activeTopics || (paper.topics || []).some(label => activeTopics.includes(label)))
         && (!year || getPublicationYear(paper) === year)
         && (scope === 'All' || (scope === 'Published' ? paper.status !== 'Working paper' : paper.status === 'Working paper'))
-        && normalizePublicationText([paper.title, paper.venue, ...getPublicationMetrics(paper).map(item => item.label), ...(paper.authors || []).map(author => author.name), ...(paper.topics || [])].join(' ')).includes(normalizePublicationText(query)));
+        && normalizePublicationText([paper.title, paper.venue, ...getPublicationMetrics(paper).map(item => item.label), ...(paper.authors || []).flatMap(author => [author.name, ...(author.affiliations || [])]), ...(paper.topics || [])].join(' ')).includes(normalizePublicationText(query)));
     const selected = filtered.find(paper => paper.title === selectedTitle) || filtered[0];
     // A code repository alone is not a public manuscript; unlinked drafts stay text-only.
     const canShowFigure = selected && (selected.status !== 'Working paper' || selected.links?.some(link => link.text.toLowerCase() === 'paper'));
@@ -68,7 +68,7 @@ window.ResearchExplorerTabContent = () => {
             <section className="research-desk" aria-label="Interactive research archive" hidden={view !== 'papers'}>
                 <div className="desk-toolbar">
                     <span className="desk-label"><span className="terminal-dot" /> TSI / RESEARCH</span>
-                    <label className="desk-search"><span aria-hidden="true">⌕</span><span className="sr-only">Search research explorer</span><input type="search" placeholder="Search title, author, or keyword" value={query} onChange={event => setQuery(event.target.value)} /></label>
+                    <label className="desk-search"><span aria-hidden="true">⌕</span><span className="sr-only">Search research explorer</span><input type="search" placeholder="Search papers, authors, or institutions" value={query} onChange={event => setQuery(event.target.value)} /></label>
                     <button className="desk-reset" onClick={reset}>Reset filters</button>
                 </div>
                 <div className="desk-controls">
@@ -98,7 +98,7 @@ window.ResearchExplorerTabContent = () => {
                             <p className="document-status">{selected.status} <span>{selected.id}</span></p>
                             <h2>{selected.title}</h2>
                             <p className="sr-only" role="status">Selected paper: {selected.title}</p>
-                            <AuthorList authors={selected.authors || []} />
+                            <AuthorList key={selected.title} authors={selected.authors || []} />
                             <PublicationVenue paper={selected} className="document-venue" />
                             {selected.award && <p className="publication-award">{selected.award}</p>}
                             <ResearchFigure key={selected.title} figure={figure} title={selected.title} />

@@ -27,6 +27,52 @@ window.TSI_Data.news = [
     { date: 'Sep 2025', category: 'Lab milestone', text: 'Time Series Intelligence Lab launches at Pusan National University.' },
 ];
  
+// Verified venue statistics. Reference years are displayed separately from paper years.
+// Sources, denominators, and unavailable metrics are documented in README.md.
+window.TSI_Data.conferenceRankings = {
+    NeurIPS: { rank: 'A*', source: 'https://portal.core.edu.au/conf-ranks/?search=NeurIPS&by=all&source=all&sort=atitle&page=1' },
+    ICML: { rank: 'A*', source: 'https://portal.core.edu.au/conf-ranks/?search=ICML&by=all&source=all&sort=atitle&page=1' },
+    ACL: { rank: 'A*', source: 'https://portal.core.edu.au/conf-ranks/196/' },
+    AAAI: { rank: 'A*', source: 'https://portal.core.edu.au/conf-ranks/?search=AAAI&by=all&source=all&sort=atitle&page=1' },
+    KDD: { rank: 'A*', source: 'https://portal.core.edu.au/conf-ranks/26/' },
+};
+window.TSI_Data.venueMetrics = {
+    'neurips-2026': {
+        conference: 'NeurIPS',
+        acceptance: { rate: 24.52, year: 2025, source: 'https://blog.neurips.cc/2025/09/30/reflections-on-the-2025-review-process-from-the-program-committee-chairs/' },
+    },
+    'icml-2026-position': {
+        conference: 'ICML',
+        acceptance: { rate: 100 * 215 / 742, year: 2026, source: 'https://www.linkedin.com/posts/icmlconf_decision-notifications-are-being-released-activity-7455685189479055361-PXq3' },
+    },
+    'icml-2026-main': {
+        conference: 'ICML',
+        acceptance: { rate: 100 * 6552 / 24661, year: 2026, source: 'https://media.icml.cc/Conferences/ICML2026/ICML2026_Fact_Sheet.pdf' },
+    },
+    'icaif-2025': {
+        acceptance: { rate: 100 * 113 / 349, year: 2025, source: 'https://www.linkedin.com/posts/6estates_icaif2025-aiinfinance-financialai-activity-7402715238133125120-fZu5' },
+        oral: { selected: 54, accepted: 113, year: 2025, source: 'https://icaif25.org/overview/' },
+    },
+    'acl-2025': {
+        conference: 'ACL',
+        acceptance: { rate: 20.3, year: 2025, source: 'https://aclanthology.org/2025.acl-long.0.pdf' },
+    },
+    'aaai-2025': {
+        conference: 'AAAI',
+        acceptance: { rate: 23.4, year: 2025, source: 'https://aaai.org/wp-content/uploads/2025/06/Sponsorship-Infographic-v2.pdf' },
+    },
+    'kdd-2024': {
+        conference: 'KDD',
+        acceptance: { rate: 100 * 411 / 2046, year: 2024, source: 'https://dbjapan.dbsj.org/archives/list/dbjapan@dbsj.org/thread/WLM3OFAMFXYZDJZM2ZSEXMHAOUPHNAOH/' },
+    },
+    'icaif-2023': {
+        acceptance: { rate: 100 * 79 / 200, year: 2023, source: 'https://note.com/japan_d2/n/n6e06bf3a07c2' },
+    },
+    'quantitative-finance': {
+        acceptance: { rate: 23, year: 2025, source: 'https://www.tandfonline.com/action/journalInformation?journalCode=rquf20&show=instructions' },
+    },
+};
+
 window.TSI_Data.publications = [
     // Keep NeurIPS and ICML papers at the top of the archive.
     {
@@ -37,7 +83,8 @@ window.TSI_Data.publications = [
             { name: "Yoontae Hwang†", isHighlight: true },
             { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }
         ],
-        venue: "NeurIPS'26 (Accepted), Top-tier AI Conference; CORE A*",
+        venue: "NeurIPS 2026 · Main Track · Accepted",
+        metricsKey: 'neurips-2026',
         links: [
             { text: "paper", href: "https://openreview.net/forum?id=woxrGUwgJ3" },
             { text: "arXiv", href: "https://arxiv.org/abs/2609.32426" }
@@ -59,7 +106,8 @@ window.TSI_Data.publications = [
             { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
             { name: "Stefan Zohren†", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }
         ], 
-        venue: "ICML '26 (Position Track), Acceptance rate 26%, Top-tier AI Confernece",
+        venue: "ICML 2026 · Position Track",
+        metricsKey: 'icml-2026-position',
         links: [ { text: "paper", href: "https://arxiv.org/pdf/2602.14233v1" } ], 
         topics: ["Large Language Models", "Finance", "Bias"] 
     },
@@ -70,7 +118,8 @@ window.TSI_Data.publications = [
             { name: "Yoontae Hwang", isHighlight: true }, 
             { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }
         ], 
-        venue: "ICML '26 (Main Track), Acceptance rate 26%, Top-tier AI Confernece",  
+        venue: "ICML 2026 · Main Track",
+        metricsKey: 'icml-2026-main',
         links: [ 
             { text: "paper", href: "https://arxiv.org/abs/2510.03129" }, 
             { text: "code", href: "https://github.com/Yoontae6719/Signature-Informed-Transformer-For-Asset-Allocation" } 
@@ -89,7 +138,8 @@ window.TSI_Data.publications = [
             { name: "Donghwa Seo" },
             { name: "Yoontae Hwang†", isHighlight: true }
         ],
-        venue: "ICAIF 2026 (Accepted)",
+        venue: "ICAIF 2026 · Main Track · Accepted",
+        metricsKey: 'icaif-2025',
         links: [],
         topics: ["Large Language Models", "Portfolio Theory", "Finance"]
     },
@@ -105,7 +155,9 @@ window.TSI_Data.publications = [
             { name: "Seunghan Son" },
             { name: "Yoontae Hwang†", isHighlight: true }
         ],
-        venue: "ICAIF 2026 (Accepted, Oral)",
+        venue: "ICAIF 2026 · Main Track · Accepted",
+        metricsKey: 'icaif-2025',
+        presentation: 'Oral',
         links: [],
         topics: ["Large Language Models", "Trading", "Finance"]
     },
@@ -118,7 +170,8 @@ window.TSI_Data.publications = [
             { name: "Youngbin Lee", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" },
             { name: "Yoontae Hwang†", isHighlight: true }
         ],
-        venue: "ICAIF 2026 (Accepted)",
+        venue: "ICAIF 2026 · Main Track · Accepted",
+        metricsKey: 'icaif-2025',
         links: [],
         topics: ["Large Language Models", "Finance"]
     },
@@ -135,7 +188,9 @@ window.TSI_Data.publications = [
             { name: "Hyeonjun Yeo" },
             { name: "Yoontae Hwang†", isHighlight: true }
         ],
-        venue: "ICAIF 2026 (Accepted, Oral)",
+        venue: "ICAIF 2026 · Main Track · Accepted",
+        metricsKey: 'icaif-2025',
+        presentation: 'Oral',
         links: [],
         topics: ["Natural Language Processing", "Trading", "Finance"]
     },
@@ -151,7 +206,9 @@ window.TSI_Data.publications = [
             { name: "Doohwi Cha" },
             { name: "Yoontae Hwang†", isHighlight: true }
         ],
-        venue: "ICAIF 2026 (Accepted, Oral)",
+        venue: "ICAIF 2026 · Main Track · Accepted",
+        metricsKey: 'icaif-2025',
+        presentation: 'Oral',
         links: [],
         topics: ["Optimization", "Finance"]
     },
@@ -167,7 +224,8 @@ window.TSI_Data.publications = [
             { name: "Donghwa Seo" },
             { name: "Yoontae Hwang†", isHighlight: true }
         ],
-        venue: "ICAIF 2026 (Accepted)",
+        venue: "ICAIF 2026 · Main Track · Accepted",
+        metricsKey: 'icaif-2025',
         links: [],
         topics: ["Trading", "Finance"]
     },
@@ -186,7 +244,8 @@ window.TSI_Data.publications = [
             { name: "Juyeong Lee" },
             { name: "Yoontae Hwang†", isHighlight: true }
         ],
-        venue: "ICAIF 2026 (Accepted)",
+        venue: "ICAIF 2026 · Main Track · Accepted",
+        metricsKey: 'icaif-2025',
         links: [],
         topics: ["Household Finance", "Time-Series Analysis", "Finance"]
     },
@@ -198,7 +257,9 @@ window.TSI_Data.publications = [
             { name: "Doohwi Cha" },
             { name: "Yoontae Hwang†", isHighlight: true }
         ],
-        venue: "ICAIF 2026 (Accepted, Oral)",
+        venue: "ICAIF 2026 · Main Track · Accepted",
+        metricsKey: 'icaif-2025',
+        presentation: 'Oral',
         links: [],
         topics: ["Time-Series Analysis", "Trading", "Deep Learning"]
     },
@@ -211,7 +272,7 @@ window.TSI_Data.publications = [
             { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
             { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }
         ],
-        venue: "Expert Systems with Applications, 2026 (Accepted)",
+        venue: "Expert Systems with Applications · 2026 · Accepted",
         award: "Rising Scholar Award @the Korean Academic Society of Business Administration 2025",
         links: [
             { text: "paper", href: "https://www.sciencedirect.com/science/article/pii/S0957417426032938" },
@@ -234,7 +295,7 @@ window.TSI_Data.publications = [
             { name: "Raffi Khatchadourian" },
             { name: "Chanyeol Choi" }
         ], 
-        venue: "ICLR 2026 Workshop (Accepted), Submitted to another venue", 
+        venue: "ICLR 2026 · Workshop · Accepted; submitted to another venue",
         links: [ { text: "paper", href: "https://arxiv.org/pdf/2602.21229" } ], 
         topics: ["Natural Language Processing", "Finance"] 
     },
@@ -248,7 +309,7 @@ window.TSI_Data.publications = [
             { name: "Yoontae Hwang", isHighlight: true }, 
             { name: "Deok-Young Lee" } 
         ], 
-        venue: "Journal of Applied Physics, 2026, Acceptance rate 35%", 
+        venue: "Journal of Applied Physics · 2026",
         links: [ { text: "paper", href: "https://arxiv.org/abs/2601.08716v1" } ], 
         topics: ["AI in Science"] 
     },
@@ -265,7 +326,7 @@ window.TSI_Data.publications = [
             { name: "Woo Chang Kim", href: "https://scholar.google.co.kr/citations?user=7NmBs1kAAAAJ&hl=en" }, 
             { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" } 
         ], 
-        venue: "The Journal of Portfolio Management, 2025", 
+        venue: "The Journal of Portfolio Management · 2025",
         links: [{ text: "paper", href: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5593850" }], 
         topics: ["Portfolio Theory", "Deep Learning", "Survey"] 
     },
@@ -280,7 +341,8 @@ window.TSI_Data.publications = [
             { name: "Roel Oomen" }, 
             { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" } 
         ], 
-        venue: "ICAIF'25 (Main Track), Acceptance rate 27%", 
+        venue: "ICAIF 2025 · Main Track",
+        metricsKey: 'icaif-2025',
         award: "Oxford & Deutsche Bank Project", 
         links: [ 
             { text: "paper", href: "https://arxiv.org/abs/2510.20699" }, 
@@ -301,7 +363,8 @@ window.TSI_Data.publications = [
             { name: "Ming Jin", href: "https://scholar.google.com/citations?user=I2xvKaIAAAAJ&hl=en" }, 
             { name: "Qingsong Wen", href: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" } 
         ], 
-        venue: "ACL'25 (Main Track), Acceptance rate 23%, Main Track, Top-tier AI Confernece", 
+        venue: "ACL 2025 · Main Track",
+        metricsKey: 'acl-2025',
         links: [ 
             { text: "paper", href: "https://arxiv.org/abs/2503.01875" }, 
             { text: "Hugging Face", href: "https://huggingface.co/Time-MQA" } 
@@ -315,7 +378,8 @@ window.TSI_Data.publications = [
             { name: "Yoontae Hwang", isHighlight: true }, 
             { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } 
         ], 
-        venue: "AAAI'25 (Main Track), Acceptance rate 24%, Top-tier AI Confernece", 
+        venue: "AAAI 2025 · Main Track",
+        metricsKey: 'aaai-2025',
         links: [ 
             { text: "paper", href: "https://arxiv.org/abs/2412.12864" }, 
             { text: "code", href: "https://github.com/Yoontae6719/Geodesic-Flow-Kernels-for-Semi-Supervised-Learning-on-Mixed-Variable-Tabular-Dataset" }, 
@@ -333,7 +397,8 @@ window.TSI_Data.publications = [
             { name: "Junghye Lee", href: "https://d3mlab.snu.ac.kr/members/principal-investigator" }, 
             { name: "Seulki Lee", href: "https://scholar.google.com/citations?hl=en&user=qhI7uVMAAAAJ" } 
         ], 
-        venue: "KDD'24 (Main Track), Acceptance rate 20%, Top-tier AI Confernece", 
+        venue: "KDD 2024 · Research Track",
+        metricsKey: 'kdd-2024',
         award: "Best Poster Award, @UNIST AI Tech Workshop 2024", 
         links: [ 
             { text: "paper", href: "https://arxiv.org/abs/2406.01833" }, 
@@ -352,9 +417,9 @@ window.TSI_Data.publications = [
             { name: "Joohwan Hong", href: "https://www.notion.so/unist-felab/Joohwan-Hong-Ph-D-a93266780e6a407a866e8b7ec7d47129" }, 
             { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } 
         ], 
-        venue: "ICAIF'23 (Main Track; Oral Paper Top 5%), Acceptance rate 21%", 
-        award: "Oral Presentation", 
-        awardColor: "red", 
+        venue: "ICAIF 2023 · Main Track",
+        metricsKey: 'icaif-2023',
+        presentation: 'Oral',
         links: [ 
             { text: "paper", href: "https://dl.acm.org/doi/10.1145/3604237.3626888" }, 
             { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, 
@@ -372,7 +437,7 @@ window.TSI_Data.publications = [
             { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, 
             { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" } 
         ], 
-        venue: "Finance Research Letters (FRL), 2023, Acceptance rate 28%", 
+        venue: "Finance Research Letters (FRL) · 2023",
         links: [{ text: "paper", href: "https://www.sciencedirect.com/science/article/abs/pii/S1544612324005117" }], 
         topics: ["Trading", "Deep Learning"] 
     },
@@ -384,7 +449,7 @@ window.TSI_Data.publications = [
             { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, 
             { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" } 
         ], 
-        venue: "Annals of Operations Research (ANOR), 2023, Acceptance rate 23%", 
+        venue: "Annals of Operations Research (ANOR) · 2023",
         links: [{ text: "paper", href: "https://link.springer.com/article/10.1007/s10479-022-04900-3" }], 
         topics: ["Household Finance", "Deep Learning"] 
     },
@@ -399,7 +464,8 @@ window.TSI_Data.publications = [
             { name: "Junghye Lee", href: "https://d3mlab.snu.ac.kr/members/principal-investigator" }, 
             { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } 
         ], 
-        venue: "Quantitative Finance (QF), 2023, Acceptance rate 23%", 
+        venue: "Quantitative Finance (QF) · 2023",
+        metricsKey: 'quantitative-finance',
         award: "Commendation Award, @Commissioner of Statistics Korea 2020", 
         links: [{ text: "paper", href: "https://www.tandfonline.com/doi/full/10.1080/14697688.2023.2254335" }], 
         topics: ["Household Finance", "Deep Learning"] 
@@ -413,7 +479,7 @@ window.TSI_Data.publications = [
             { name: "Dong-Young Lim", href: "https://sites.google.com/view/dlim/group?authuser=0" }, 
             { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } 
         ], 
-        venue: "Finance Research Letters (FRL), 2023, Acceptance rate 28%", 
+        venue: "Finance Research Letters (FRL) · 2023",
         links: [ 
             { text: "paper", href: "https://www.sciencedirect.com/science/article/abs/pii/S1544612323006578" }, 
             { text: "code", href: "https://github.com/Yoontae6719/Stop-loss-adjusted-labels" } 
@@ -424,7 +490,7 @@ window.TSI_Data.publications = [
         id: "[J1]", 
         title: "A Study on the Estimation of Apartment Price Index: Focused on the Machine Learning Algorithm", 
         authors: [{ name: "Yoontae Hwang", isHighlight: true }], 
-        venue: "Journal of Money & Finance (KMFA), 2019, Acceptance rate 45.71%, Domestic journal (South Korea)", 
+        venue: "Journal of Money & Finance (KMFA) · 2019 · South Korea",
         links: [{ text: "paper", href: "https://kiss.kstudy.com/Detail/Ar?key=3707638" }], 
         topics: ["Household Finance", "Time-Series Analysis", "Deep Learning"] 
     }
@@ -477,13 +543,13 @@ window.TSI_Data.workingPapers = [
         authors: [ 
             { name: "Yoontae Hwang", isHighlight: true } 
         ], 
-        venue: "Optimization journal, Acceptance rate 15%", 
+        venue: "Optimization journal",
         links: [ { text: "paper", href: "https://arxiv.org/abs/2605.21409" }, { text: "code", href: "https://github.com/TSI-yoontae/Portfolio-Preference-Elicitation-in-Institutional-Crossing-Markets" }, ],
         topics: ["Portfolio Theory", "Optimization"] 
     },
-    { id: "[S]", title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2024.12, Acceptance rate 23%", award: "Best Paper Award @the Korean Academic Society of Business Administration 2024", links: [ { text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
-    { id: "[S]", title: "LLM-Enhanced Black-Litterman Portfolio Optimization", authors: [ { name: "Youngbin Lee*", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" }, { name: "Yejin Kim*", href: "https://scholar.google.com/citations?user=RT2PhEsAAAAJ&hl=ko" }, { name: "Juhyeong Kim" }, { name: "Suin Kim" }, { name: "Yoontae Hwang†", isHighlight: true },  { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } ], venue: "Finance Journal, 2024.12, Acceptance rate 23%", links: [ { text: "paper", href: "https://arxiv.org/abs/2504.14345" }, { text: "code", href: "https://github.com/youngandbin/LLM-BLM" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
-    { id: "[W]", title: "Decision by Supervised Learning", authors: [ { name: "Juhyeong Kim" }, { name: "Sungyoon Cho" }, { name: "Youngbin Lee" }, { name: "Yejin Kim" }, { name: "Yongmin Choi" },   { name: "Yoontae Hwang†", isHighlight: true },  { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } ], venue: "Finance Journal, 2026.02, Acceptance rate 23%", links: [ { text: "paper", href: "https://arxiv.org/abs/2503.13544" }, { text: "code", href: "https://github.com/DSLwDE/DSLwDE" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
+    { id: "[S]", title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2024.12", award: "Best Paper Award @the Korean Academic Society of Business Administration 2024", links: [ { text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
+    { id: "[S]", title: "LLM-Enhanced Black-Litterman Portfolio Optimization", authors: [ { name: "Youngbin Lee*", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" }, { name: "Yejin Kim*", href: "https://scholar.google.com/citations?user=RT2PhEsAAAAJ&hl=ko" }, { name: "Juhyeong Kim" }, { name: "Suin Kim" }, { name: "Yoontae Hwang†", isHighlight: true },  { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } ], venue: "Finance Journal, 2024.12", links: [ { text: "paper", href: "https://arxiv.org/abs/2504.14345" }, { text: "code", href: "https://github.com/youngandbin/LLM-BLM" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
+    { id: "[W]", title: "Decision by Supervised Learning", authors: [ { name: "Juhyeong Kim" }, { name: "Sungyoon Cho" }, { name: "Youngbin Lee" }, { name: "Yejin Kim" }, { name: "Yongmin Choi" },   { name: "Yoontae Hwang†", isHighlight: true },  { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } ], venue: "Finance Journal, 2026.02", links: [ { text: "paper", href: "https://arxiv.org/abs/2503.13544" }, { text: "code", href: "https://github.com/DSLwDE/DSLwDE" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
     { 
         id: "[S]", 
         title: "NavFormer: IGRF Forecasting in Moving Coordinate Frames", 
@@ -495,7 +561,7 @@ window.TSI_Data.workingPapers = [
             { name: "Daham Kim", href: "https://www.linkedin.com/in/daham-kim/" },
             { name: "Deok-Young Lee" } 
         ], 
-        venue: "Submitted to Top AI Confernece", 
+        venue: "Submitted to Top AI Confernece",
         links: [ { text: "paper", href: "https://arxiv.org/pdf/2601.18800" } ], 
         topics: ["Time-Series Analysis", "AI in Science"]  
     },
@@ -521,59 +587,20 @@ window.TSI_Data.membersData = [
             { title: "Commendation Award", year: 2020, organization: "Commissioner of Statistics Korea" },
         ]
     },
-    { 
-        name: "TBD", koreanName: "미정", status: "PhD Student", 
-        email: "tbd@pusan.ac.kr", bio: "Joining in Fall 2025.", 
-        interests: ["Foundation Models", "Asset Pricing"], links: {} 
-    },
-    { 
-        name: "Donghyun Yoon", koreanName: "윤동현", status: "MS Student", 
-        email: "", bio: "Master Thesis Track.", 
-        interests: ["Agent", "Art"], links: {} 
-    },
-    { 
-        name: "Seunghyun Yang", koreanName: "양승현", status: "MS Student", 
-        email: "", bio: "Master Thesis Track.", 
-        interests: ["LLM", "Sports"], links: {} 
-    },
-    { 
-        name: "Jaeyoon Pyeon", koreanName: "편재윤", status: "MS Student", 
-        email: "", bio: "Master Thesis Track.", 
-        interests: ["AI", "Finance"], links: {} 
-    },
-    { 
-        name: "Seunggil Jeong", koreanName: "정승길", status: "MS Student", 
-        email: "", bio: "Master Thesis Track.", 
-        interests: ["AI", "Time Series"], links: {} 
-    },
-    { 
-        name: "Taehwan Kim", koreanName: "김태환", status: "MS Student", 
-        email: "", bio: "Master Thesis Track.", 
-        interests: ["AI", "Audio"], links: {} 
-    },
-    { 
-        name: "Yeonju Kim", koreanName: "김연주", status: "MS Student", 
-        email: "", bio: "Master Thesis Track.", 
-        interests: ["AI", "Time Series"], links: {} 
-    },
-    { 
-        name: "Jiseok Kang", koreanName: "강지석", status: "MS Student", 
-        email: "", bio: "MS Student.", 
-        interests: ["AI", "Finance"], links: {} 
-    },
-    { 
-        name: "Hyeongcheol Kim", koreanName: "김형철", status: "MS Student", 
-        email: "", bio: "Master Thesis Track.", 
-        interests: ["AI", "Finance"], links: {} 
-    },
-    { 
-        name: "Jisoo Park", koreanName: "박지수", status: "MS Student", 
-        email: "", bio: "Master Thesis Track.", 
-        interests: ["AI", "Finance"], links: {} 
-    },
-    { 
-        name: "Suhye Park", koreanName: "박수혜", status: "MS Student", 
-        email: "", bio: "Master Thesis Track.", 
-        interests: ["AI", "Finance"], links: {} 
-    },
+    { name: "정은기", status: "PhD Student" },
+    { name: "윤동현", status: "MS Student" },
+    { name: "양승현", status: "MS Student" },
+    { name: "편재윤", status: "MS Student" },
+    { name: "정승길", status: "MS Student" },
+    { name: "김태환", status: "MS Student" },
+    { name: "김연주", status: "MS Student" },
+    { name: "강지석", status: "MS Student" },
+    { name: "김형철", status: "MS Student" },
+    { name: "박지수", status: "MS Student" },
+    { name: "박수혜", status: "MS Student" },
+    { name: "박은지", status: "MS Student" },
+    { name: "이종혁", status: "MS Student" },
+    { name: "이승후", status: "MS Student" },
+    { name: "서민걸", status: "MS Student" },
+    { name: "백승민", status: "MS Student" },
 ];

@@ -62,6 +62,7 @@ window.ResearchExplorerTabContent = () => {
             <PageIntro title="Research Explorer">
                 <div className="filter-group" role="group" aria-label="Research Explorer view">
                     <FilterButton active={view === 'papers'} onClick={() => setView('papers')}>Papers</FilterButton>
+                    <FilterButton active={view === 'network'} onClick={() => setView('network')}>Network</FilterButton>
                     <FilterButton active={view === 'terminal'} onClick={() => setView('terminal')}>TSI / Terminal</FilterButton>
                 </div>
             </PageIntro>
@@ -109,6 +110,7 @@ window.ResearchExplorerTabContent = () => {
                     </section>
                 </div>
             </section>
+            <div hidden={view !== 'network'}><ResearchNetwork papers={papers} onOpenPaper={paper => { reset(); setSelectedTitle(paper.title); setView('papers'); }} /></div>
             {view === 'terminal' && <div className="explorer-terminal"><ResearchTerminal /></div>}
         </>
     );

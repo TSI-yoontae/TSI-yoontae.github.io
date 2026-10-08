@@ -1,8 +1,8 @@
 const PrincipalInvestigatorCard = ({ member }) => (
     <article className="pi-profile">
-        <div className="pi-portrait"><img src={member.image} alt={member.name} width="360" height="440" /><p className="eyebrow">Principal Investigator</p></div>
+        <div className="pi-portrait"><img src={member.image} alt={member.koreanName} width="360" height="440" /><p className="eyebrow" lang="ko">연구책임자</p></div>
         <div className="pi-copy">
-            <h2>{member.name}<span lang="ko">{member.koreanName}</span></h2>
+            <h2 lang="ko">{member.koreanName}</h2>
             <ResourceLinks links={[
                 ...(member.links?.scholar ? [{ text: 'Google Scholar', href: member.links.scholar }] : []),
                 ...(member.links?.linkedin ? [{ text: 'LinkedIn', href: member.links.linkedin }] : []),
@@ -20,17 +20,14 @@ const PrincipalInvestigatorCard = ({ member }) => (
 );
 
 const StudentSection = ({ title, members }) => {
-    const namedMembers = members.filter(member => member.name !== 'TBD');
+    const namedMembers = members.filter(member => member.name !== 'TBD')
+        .sort((a, b) => a.name.localeCompare(b.name, 'ko'));
     return (
-        <section className="content-section">
-            <SectionHeading title={title}>{namedMembers.length > 0 && <span className="count-label">{namedMembers.length} members</span>}</SectionHeading>
-            {namedMembers.length ? <div className="member-grid">{namedMembers.map(member => (
-                <article className="member-card" key={member.name}>
-                    <div><h3>{member.name}</h3>{member.koreanName && <p lang="ko" className="member-korean">{member.koreanName}</p>}
-                        {member.interests?.length > 0 && <p className="member-interests">{member.interests.join(' · ')}</p>}
-                    </div>
-                </article>
-            ))}</div> : <p className="muted">To be announced.</p>}
+        <section className="content-section" lang="ko">
+            <SectionHeading title={title}>{namedMembers.length > 0 && <span className="count-label">{namedMembers.length}명</span>}</SectionHeading>
+            {namedMembers.length ? <ul className="student-list">{namedMembers.map(member => (
+                <li key={member.name}>{member.name}</li>
+            ))}</ul> : <p className="muted">등록된 학생이 없습니다.</p>}
         </section>
     );
 };
@@ -41,8 +38,8 @@ window.MembersTabContent = () => {
         <>
             <PageIntro title="Members" />
             {members.filter(member => member.status === 'Principal Investigator').map(member => <PrincipalInvestigatorCard key={member.name} member={member} />)}
-            <StudentSection title="PhD students" members={members.filter(member => member.status === 'PhD Student')} />
-            <StudentSection title="MS students" members={members.filter(member => ['MS Student', 'Master Thesis Track'].includes(member.status))} />
+            <StudentSection title="박사과정" members={members.filter(member => member.status === 'PhD Student')} />
+            <StudentSection title="석사과정" members={members.filter(member => ['MS Student', 'Master Thesis Track'].includes(member.status))} />
             <div className="inline-callout"><a className="text-link" href="#vacant">Read about joining the lab <ArrowIcon /></a></div>
         </>
     );

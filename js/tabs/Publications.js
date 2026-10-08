@@ -14,6 +14,43 @@ const getPublicationKind = (id = '') => {
     return { C: 'Conference', J: 'Journal', S: 'Submitted', W: 'Work in Progress' }[prefix] || 'Paper';
 };
 
+const getPublicationMetrics = paper => {
+    const metrics = window.TSI_Data.venueMetrics?.[paper.metricsKey] || {};
+    const ranking = window.TSI_Data.conferenceRankings?.[metrics.conference];
+    const metricYear = year => year + (year === getPublicationYear(paper) ? '' : ' reference');
+    const items = [];
+    if (ranking) items.push({ label: 'CORE ' + ranking.rank, href: ranking.source, title: 'CORE / ICORE conference ranking' });
+    if (metrics.acceptance) {
+        const { rate, year, source } = metrics.acceptance;
+        items.push({ label: 'Acceptance rate ' + rate.toFixed(1) + '% (' + metricYear(year) + ')', href: source });
+    }
+    if (paper.presentation) items.push({ label: paper.presentation, emphasis: true });
+    // Oral selection uses accepted papers as its denominator, not submissions.
+    // A prior year's share is a reference, never the current paper's rank.
+    if (paper.presentation === 'Oral' && metrics.oral) {
+        const { selected, accepted, year, source } = metrics.oral;
+        items.push({
+            label: 'Oral selection: ' + (100 * selected / accepted).toFixed(1) + '% of accepted papers (' + metricYear(year) + ')',
+            href: source,
+            title: selected + ' oral presentations / ' + accepted + ' accepted papers in ' + year,
+        });
+    }
+    return items;
+};
+
+const PublicationVenue = ({ paper, className = 'publication-venue' }) => {
+    const metrics = getPublicationMetrics(paper);
+    return <>
+        {paper.venue && <p className={className}>{paper.venue}</p>}
+        {metrics.length > 0 && <ul className="publication-metrics" aria-label="Venue statistics and presentation">
+            {metrics.map(item => <li key={item.label}>
+                {item.href ? <a href={item.href} title={item.title} target="_blank" rel="noopener noreferrer">{item.label}</a>
+                    : item.emphasis ? <strong>{item.label}</strong> : item.label}
+            </li>)}
+        </ul>}
+    </>;
+};
+
 const AuthorList = ({ authors }) => {
     const [expanded, setExpanded] = React.useState(false);
     const visibleAuthors = expanded ? authors : authors.slice(0, 8);
@@ -42,7 +79,7 @@ const PublicationEntry = ({ paper }) => {
             <div className="publication-body">
                 <h3>{paper.title}</h3>
                 {(paper.authors || []).length > 0 && <AuthorList authors={paper.authors} />}
-                {paper.venue && <p className="publication-venue">{paper.venue}</p>}
+                <PublicationVenue paper={paper} />
                 {paper.award && <p className="publication-award"><span aria-hidden="true">↗</span> {paper.award}</p>}
                 <ResourceLinks links={paper.links} />
             </div>
@@ -69,7 +106,7 @@ window.PublicationsTabContent = ({ initialQuery = '' }) => {
     const [year, setYear] = React.useState('all');
     const years = [...new Set(allPapers.map(getPublicationYear))].filter(Boolean).sort((a, b) => b - a);
     const filtered = allPapers.filter(paper => {
-        const haystack = normalizePublicationText([paper.id, paper.title, paper.venue, paper.award,
+        const haystack = normalizePublicationText([paper.id, paper.title, paper.venue, paper.award, ...getPublicationMetrics(paper).map(item => item.label),
             ...(paper.topics || []), ...(paper.authors || []).map(author => author.name)].join(' '));
         const matchesType = type === 'all' || type === paper.sourceType
             || (paper.sourceType === 'publication' && getPublicationKind(paper.id).toLowerCase() === type);

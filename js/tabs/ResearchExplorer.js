@@ -46,7 +46,7 @@ window.ResearchExplorerTabContent = () => {
     const filtered = papers.filter(paper => (!activeTopics || (paper.topics || []).some(label => activeTopics.includes(label)))
         && (!year || getPublicationYear(paper) === year)
         && (scope === 'All' || (scope === 'Published' ? paper.status !== 'Working paper' : paper.status === 'Working paper'))
-        && normalizePublicationText([paper.title, paper.venue, ...(paper.authors || []).map(author => author.name), ...(paper.topics || [])].join(' ')).includes(normalizePublicationText(query)));
+        && normalizePublicationText([paper.title, paper.venue, ...getPublicationMetrics(paper).map(item => item.label), ...(paper.authors || []).map(author => author.name), ...(paper.topics || [])].join(' ')).includes(normalizePublicationText(query)));
     const selected = filtered.find(paper => paper.title === selectedTitle) || filtered[0];
     // A code repository alone is not a public manuscript; unlinked drafts stay text-only.
     const canShowFigure = selected && (selected.status !== 'Working paper' || selected.links?.some(link => link.text.toLowerCase() === 'paper'));
@@ -99,7 +99,7 @@ window.ResearchExplorerTabContent = () => {
                             <h2>{selected.title}</h2>
                             <p className="sr-only" role="status">Selected paper: {selected.title}</p>
                             <AuthorList authors={selected.authors || []} />
-                            <p className="document-venue">{selected.venue}</p>
+                            <PublicationVenue paper={selected} className="document-venue" />
                             {selected.award && <p className="publication-award">{selected.award}</p>}
                             <ResearchFigure key={selected.title} figure={figure} title={selected.title} />
                             {(selected.links || []).length ? <ResourceLinks links={selected.links} /> : <p className="fine-print">Manuscript link to be added.</p>}

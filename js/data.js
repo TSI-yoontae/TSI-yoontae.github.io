@@ -79,9 +79,9 @@ window.TSI_Data.publications = [
         id: "[C17]",
         title: "HoTS: Homophily-Aware Temperature Scaling for Graph Neural Network Calibration",
         authors: [
-            { name: "In Woo Tae" },
-            { name: "Yoontae Hwang†", isHighlight: true },
-            { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }
+            { name: "In Woo Tae", affiliations: ["UNIST"] },
+            { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] },
+            { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko", affiliations: ["UNIST", "LinqAlpha"] }
         ],
         venue: "NeurIPS 2026 · Main Track · Accepted",
         metricsKey: 'neurips-2026',
@@ -95,16 +95,16 @@ window.TSI_Data.publications = [
         id: "[C16]",
         title: "Evaluating LLMs in Finance Requires Explicit Bias Consideration", 
         authors: [ 
-            { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, 
-            { name: "Hoyoung Lee*" }, 
-            { name: "Yoontae Hwang*", isHighlight: true }, 
-            { name: "Alejandro Lopez-Lira" }, 
-            { name: "Bradford Levy" },
-            { name: "Dhagash Mehta" },
-            { name: "Qingsong Wen", href: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" },
-            { name: "Chanyeol Choi" },
-            { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
-            { name: "Stefan Zohren†", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }
+            { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en", affiliations: ["University of Oxford"] },
+            { name: "Hoyoung Lee*", affiliations: ["UNIST"] },
+            { name: "Yoontae Hwang*", isHighlight: true, affiliations: ["Pusan National University"] },
+            { name: "Alejandro Lopez-Lira", affiliations: ["University of Florida"] },
+            { name: "Bradford Levy", affiliations: ["University of Chicago Booth School of Business"] },
+            { name: "Dhagash Mehta", affiliations: ["BlackRock"] },
+            { name: "Qingsong Wen", href: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en", affiliations: ["Squirrel Ai Learning", "University of Oxford"] },
+            { name: "Chanyeol Choi", affiliations: ["LinqAlpha"] },
+            { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko", affiliations: ["UNIST"] },
+            { name: "Stefan Zohren†", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en", affiliations: ["University of Oxford"] }
         ], 
         venue: "ICML 2026 · Position Track",
         metricsKey: 'icml-2026-position',
@@ -115,8 +115,8 @@ window.TSI_Data.publications = [
         id: "[C15]",
         title: "Signature-informed Transformer for Asset Allocation", 
         authors: [ 
-            { name: "Yoontae Hwang", isHighlight: true }, 
-            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }
+            { name: "Yoontae Hwang", isHighlight: true, affiliations: ["Pusan National University"] },
+            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en", affiliations: ["University of Oxford"] }
         ], 
         venue: "ICML 2026 · Main Track",
         metricsKey: 'icml-2026-main',
@@ -130,13 +130,13 @@ window.TSI_Data.publications = [
         id: "[C14]",
         title: "The Division of Research: Information Access and Independent-Book Capacity in LLM Investment Teams",
         authors: [
-            { name: "Doohwi Cha" },
-            { name: "Minjae Lee" },
-            { name: "Minsuk Sung" },
-            { name: "Juyeong Lee" },
-            { name: "Seunghan Son" },
-            { name: "Donghwa Seo" },
-            { name: "Yoontae Hwang†", isHighlight: true }
+            { name: "Doohwi Cha", affiliations: ["Mirae Asset Securities"] },
+            { name: "Minjae Lee", affiliations: ["Independent Researcher"] },
+            { name: "Minsuk Sung", affiliations: ["Korea University"] },
+            { name: "Juyeong Lee", affiliations: ["EY Consulting"] },
+            { name: "Seunghan Son", affiliations: ["Independent Researcher"] },
+            { name: "Donghwa Seo", affiliations: ["DS Investment & Securities"] },
+            { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
         metricsKey: 'icaif-2025',
@@ -147,13 +147,13 @@ window.TSI_Data.publications = [
         id: "[C13]",
         title: "AlphaLeak: What ‘Blind’ LLM Trading Benchmarks Still See",
         authors: [
-            { name: "Minsuk Sung" },
-            { name: "Doohwi Cha" },
-            { name: "Juyeong Lee" },
-            { name: "Minjae Lee" },
-            { name: "Donghwa Seo" },
-            { name: "Seunghan Son" },
-            { name: "Yoontae Hwang†", isHighlight: true }
+            { name: "Minsuk Sung", affiliations: ["Korea University"] },
+            { name: "Doohwi Cha", affiliations: ["Mirae Asset Securities"] },
+            { name: "Juyeong Lee", affiliations: ["EY Consulting"] },
+            { name: "Minjae Lee", affiliations: ["Independent Researcher"] },
+            { name: "Donghwa Seo", affiliations: ["DS Investment & Securities"] },
+            { name: "Seunghan Son", affiliations: ["Independent Researcher"] },
+            { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
         metricsKey: 'icaif-2025',
@@ -165,10 +165,10 @@ window.TSI_Data.publications = [
         id: "[C12]",
         title: "Semantic Credibility Cold-Start Priors for Novel Insurance Claim Codes with LLM Embeddings",
         authors: [
-            { name: "Yejin Kim", href: "https://scholar.google.com/citations?user=RT2PhEsAAAAJ&hl=ko" },
-            { name: "Junhyung Kim" },
-            { name: "Youngbin Lee", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" },
-            { name: "Yoontae Hwang†", isHighlight: true }
+            { name: "Yejin Kim", href: "https://scholar.google.com/citations?user=RT2PhEsAAAAJ&hl=ko", affiliations: ["Meritz Fire & Marine Insurance"] },
+            { name: "Junhyung Kim", affiliations: ["Meritz Fire & Marine Insurance"] },
+            { name: "Youngbin Lee", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko", affiliations: ["Elice"] },
+            { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
         metricsKey: 'icaif-2025',
@@ -179,14 +179,14 @@ window.TSI_Data.publications = [
         id: "[C11]",
         title: "CallRank: Isolating What Changed in Earnings-Call Q&A for Sector Ranking and Cost-Adjusted Alpha",
         authors: [
-            { name: "Doohwi Cha" },
-            { name: "Minsuk Sung" },
-            { name: "Seunghan Son" },
-            { name: "Juyeong Lee" },
-            { name: "Donghwa Seo" },
-            { name: "Minjae Lee" },
-            { name: "Hyeonjun Yeo" },
-            { name: "Yoontae Hwang†", isHighlight: true }
+            { name: "Doohwi Cha", affiliations: ["Mirae Asset Securities"] },
+            { name: "Minsuk Sung", affiliations: ["Korea University"] },
+            { name: "Seunghan Son", affiliations: ["Independent Researcher"] },
+            { name: "Juyeong Lee", affiliations: ["EY Consulting"] },
+            { name: "Donghwa Seo", affiliations: ["DS Investment & Securities"] },
+            { name: "Minjae Lee", affiliations: ["Independent Researcher"] },
+            { name: "Hyeonjun Yeo", affiliations: ["Seoul National University"] },
+            { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
         metricsKey: 'icaif-2025',
@@ -198,13 +198,13 @@ window.TSI_Data.publications = [
         id: "[C10]",
         title: "Decision-Focused Learning of the Gerber Threshold",
         authors: [
-            { name: "Juyeong Lee" },
-            { name: "Donghwa Seo" },
-            { name: "Minjae Lee" },
-            { name: "Seunghan Son" },
-            { name: "Minsuk Sung" },
-            { name: "Doohwi Cha" },
-            { name: "Yoontae Hwang†", isHighlight: true }
+            { name: "Juyeong Lee", affiliations: ["EY Consulting"] },
+            { name: "Donghwa Seo", affiliations: ["DS Investment & Securities"] },
+            { name: "Minjae Lee", affiliations: ["Independent Researcher"] },
+            { name: "Seunghan Son", affiliations: ["Independent Researcher"] },
+            { name: "Minsuk Sung", affiliations: ["Korea University"] },
+            { name: "Doohwi Cha", affiliations: ["Mirae Asset Securities"] },
+            { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
         metricsKey: 'icaif-2025',
@@ -216,13 +216,13 @@ window.TSI_Data.publications = [
         id: "[C9]",
         title: "SlipClock: A Conditional Displayed-Depth Cost Benchmark for Evaluating Financial AI Strategies in Crypto Futures",
         authors: [
-            { name: "Seunghan Son" },
-            { name: "Doohwi Cha" },
-            { name: "Minjae Lee" },
-            { name: "Juyeong Lee" },
-            { name: "Minsuk Sung" },
-            { name: "Donghwa Seo" },
-            { name: "Yoontae Hwang†", isHighlight: true }
+            { name: "Seunghan Son", affiliations: ["Independent Researcher"] },
+            { name: "Doohwi Cha", affiliations: ["Mirae Asset Securities"] },
+            { name: "Minjae Lee", affiliations: ["Independent Researcher"] },
+            { name: "Juyeong Lee", affiliations: ["EY Consulting"] },
+            { name: "Minsuk Sung", affiliations: ["Korea University"] },
+            { name: "Donghwa Seo", affiliations: ["DS Investment & Securities"] },
+            { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
         metricsKey: 'icaif-2025',
@@ -233,16 +233,16 @@ window.TSI_Data.publications = [
         id: "[C8]",
         title: "Metropolitan Housing Signals for Treasury Duration Risk Management",
         authors: [
-            { name: "Doohwi Cha" },
-            { name: "Hyeonjun Yeo" },
-            { name: "Gyuil Jung" },
-            { name: "Jeongkyoo You" },
-            { name: "Minsuk Sung" },
-            { name: "Donghwa Seo" },
-            { name: "Minjae Lee" },
-            { name: "Seunghan Son" },
-            { name: "Juyeong Lee" },
-            { name: "Yoontae Hwang†", isHighlight: true }
+            { name: "Doohwi Cha", affiliations: ["Mirae Asset Securities"] },
+            { name: "Hyeonjun Yeo", affiliations: ["Seoul National University"] },
+            { name: "Gyuil Jung", affiliations: ["Mirae Asset Securities"] },
+            { name: "Jeongkyoo You", affiliations: ["Mirae Asset Securities"] },
+            { name: "Minsuk Sung", affiliations: ["Korea University"] },
+            { name: "Donghwa Seo", affiliations: ["DS Investment & Securities"] },
+            { name: "Minjae Lee", affiliations: ["Independent Researcher"] },
+            { name: "Seunghan Son", affiliations: ["Independent Researcher"] },
+            { name: "Juyeong Lee", affiliations: ["EY Consulting"] },
+            { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
         metricsKey: 'icaif-2025',
@@ -253,9 +253,9 @@ window.TSI_Data.publications = [
         id: "[C7]",
         title: "Neural Estimation of Irreversibility in Real and Simulated Limit Order Book Paths",
         authors: [
-            { name: "Hyeonjun Yeo" },
-            { name: "Doohwi Cha" },
-            { name: "Yoontae Hwang†", isHighlight: true }
+            { name: "Hyeonjun Yeo", affiliations: ["Seoul National University"] },
+            { name: "Doohwi Cha", affiliations: ["Mirae Asset Securities"] },
+            { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
         metricsKey: 'icaif-2025',
@@ -267,10 +267,10 @@ window.TSI_Data.publications = [
         id: "[J8]",
         title: "Decision-informed Neural Networks with Large Language Model Integration for Portfolio Optimization",
         authors: [
-            { name: "Yoontae Hwang", isHighlight: true },
-            { name: "Yaxuan Kong", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" },
-            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" },
-            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }
+            { name: "Yoontae Hwang", isHighlight: true, affiliations: ["Pusan National University"] },
+            { name: "Yaxuan Kong", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en", affiliations: ["University of Oxford"] },
+            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en", affiliations: ["University of Oxford"] },
+            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko", affiliations: ["UNIST", "LinqAlpha"] }
         ],
         venue: "Expert Systems with Applications · 2026 · Accepted",
         award: "Rising Scholar Award @the Korean Academic Society of Business Administration 2025",
@@ -284,16 +284,16 @@ window.TSI_Data.publications = [
         id: "[C6]", 
         title: "Forecasting Future Language: Context Design for Mention Markets", 
         authors: [ 
-            { name: "Sumin Kim" }, 
-            { name: "Jihoon Kwon" }, 
-            { name: "Yoon Kim" }, 
-            { name: "Ahn Wonbin" }, 
-            { name: "Alejandro Lopez-Lira" },
-            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" },
-            { name: "Yoontae Hwang", isHighlight: true },
-            { name: "Jaewon Lee" },
-            { name: "Raffi Khatchadourian" },
-            { name: "Chanyeol Choi" }
+            { name: "Sumin Kim", affiliations: ["LinqAlpha"] },
+            { name: "Jihoon Kwon", affiliations: ["LinqAlpha"] },
+            { name: "Yoon Kim", affiliations: ["Massachusetts Institute of Technology"] },
+            { name: "Ahn Wonbin", affiliations: ["LG AI Research"] },
+            { name: "Alejandro Lopez-Lira", affiliations: ["University of Florida"] },
+            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko", affiliations: ["UNIST"] },
+            { name: "Yoontae Hwang", isHighlight: true, affiliations: ["Pusan National University"] },
+            { name: "Jaewon Lee", affiliations: ["Seoul National University"] },
+            { name: "Raffi Khatchadourian", affiliations: ["IBM"] },
+            { name: "Chanyeol Choi", affiliations: ["LinqAlpha"] }
         ], 
         venue: "ICLR 2026 · Workshop · Accepted; submitted to another venue",
         links: [ { text: "paper", href: "https://arxiv.org/pdf/2602.21229" } ], 
@@ -303,11 +303,11 @@ window.TSI_Data.publications = [
         id: "[J7]", 
         title: "Portable Single-Beam Atomic Total-Field Magnetometer for Stand-off Magnetic Sensing", 
         authors: [ 
-            { name: "Heonsik Lee" }, 
-            { name: "Hyunbeen Lee" }, 
-            { name: "Minseok Choi" }, 
-            { name: "Yoontae Hwang", isHighlight: true }, 
-            { name: "Deok-Young Lee" } 
+            { name: "Heonsik Lee", affiliations: ["OAQ Co. Ltd."] },
+            { name: "Hyunbeen Lee", affiliations: ["OAQ Co. Ltd."] },
+            { name: "Minseok Choi", affiliations: ["OAQ Co. Ltd.", "KAIST"] },
+            { name: "Yoontae Hwang", isHighlight: true, affiliations: ["Pusan National University"] },
+            { name: "Deok-Young Lee", affiliations: ["OAQ Co. Ltd.", "KAIST", "Arrakis Technologies Corp."] }
         ], 
         venue: "Journal of Applied Physics · 2026",
         links: [ { text: "paper", href: "https://arxiv.org/abs/2601.08716v1" } ], 
@@ -317,14 +317,14 @@ window.TSI_Data.publications = [
         id: "[J6]", 
         title: "Deep Learning in Asset Management: Architectures, Applications, and Challenges", 
         authors: [ 
-            { name: "Yoontae Hwang", isHighlight: true }, 
-            { name: "Youngbin Lee", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" }, 
-            { name: "Junhyeong Lee", href: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" }, 
-            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, 
-            { name: "Jang Ho Kim", href: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" }, 
-            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=en" }, 
-            { name: "Woo Chang Kim", href: "https://scholar.google.co.kr/citations?user=7NmBs1kAAAAJ&hl=en" }, 
-            { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" } 
+            { name: "Yoontae Hwang", isHighlight: true, affiliations: ["Pusan National University"] },
+            { name: "Youngbin Lee", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko", affiliations: ["Elice"] },
+            { name: "Junhyeong Lee", href: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb", affiliations: ["UNIST"] },
+            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en", affiliations: ["University of Oxford"] },
+            { name: "Jang Ho Kim", href: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ", affiliations: ["Korea University"] },
+            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=en", affiliations: ["UNIST"] },
+            { name: "Woo Chang Kim", href: "https://scholar.google.co.kr/citations?user=7NmBs1kAAAAJ&hl=en", affiliations: ["KAIST"] },
+            { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en", affiliations: ["Johns Hopkins University"] }
         ], 
         venue: "The Journal of Portfolio Management · 2025",
         links: [{ text: "paper", href: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5593850" }], 
@@ -334,12 +334,12 @@ window.TSI_Data.publications = [
         id: "[C5]", 
         title: "Fusing Narrative Semantics for Financial Volatility Forecasting", 
         authors: [ 
-            { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, 
-            { name: "Yoontae Hwang*", isHighlight: true }, 
-            { name: "Marcus Kaiser" }, 
-            { name: "Chris Vryonides" }, 
-            { name: "Roel Oomen" }, 
-            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" } 
+            { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en", affiliations: ["University of Oxford"] },
+            { name: "Yoontae Hwang*", isHighlight: true, affiliations: ["Pusan National University"] },
+            { name: "Marcus Kaiser", affiliations: ["Deutsche Bank AG"] },
+            { name: "Chris Vryonides", affiliations: ["Deutsche Bank AG"] },
+            { name: "Roel Oomen", affiliations: ["Deutsche Bank AG"] },
+            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en", affiliations: ["University of Oxford"] }
         ], 
         venue: "ICAIF 2025 · Main Track",
         metricsKey: 'icaif-2025',
@@ -354,14 +354,14 @@ window.TSI_Data.publications = [
         id: "[C4]", 
         title: "Time-MQA: Time Series Multi-Task Question Answering with Context Enhancement", 
         authors: [ 
-            { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en" }, 
-            { name: "Yiyuan Yang*", href: "https://scholar.google.co.kr/citations?user=FUuGvZIAAAAJ&hl=en" }, 
-            { name: "Yoontae Hwang", isHighlight: true }, 
-            { name: "Wenjie Du", href: "https://scholar.google.com/citations?user=j9qvUg0AAAAJ&hl=en" }, 
-            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, 
-            { name: "Zhangyang Wang", href: "https://scholar.google.com/citations?user=pxFyKAIAAAAJ&hl=en" }, 
-            { name: "Ming Jin", href: "https://scholar.google.com/citations?user=I2xvKaIAAAAJ&hl=en" }, 
-            { name: "Qingsong Wen", href: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en" } 
+            { name: "Yaxuan Kong*", href: "https://scholar.google.com/citations?user=NWq7sGMAAAAJ&hl=en", affiliations: ["University of Oxford"] },
+            { name: "Yiyuan Yang*", href: "https://scholar.google.co.kr/citations?user=FUuGvZIAAAAJ&hl=en", affiliations: ["University of Oxford", "PyPOTS Research"] },
+            { name: "Yoontae Hwang", isHighlight: true, affiliations: ["University of Oxford"] },
+            { name: "Wenjie Du", href: "https://scholar.google.com/citations?user=j9qvUg0AAAAJ&hl=en", affiliations: ["PyPOTS Research"] },
+            { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en", affiliations: ["University of Oxford"] },
+            { name: "Zhangyang Wang", href: "https://scholar.google.com/citations?user=pxFyKAIAAAAJ&hl=en", affiliations: ["University of Texas at Austin"] },
+            { name: "Ming Jin", href: "https://scholar.google.com/citations?user=I2xvKaIAAAAJ&hl=en", affiliations: ["Griffith University"] },
+            { name: "Qingsong Wen", href: "https://scholar.google.com/citations?user=vjPJvwYAAAAJ&hl=en", affiliations: ["University of Oxford", "Squirrel Ai Learning"] }
         ], 
         venue: "ACL 2025 · Main Track",
         metricsKey: 'acl-2025',
@@ -375,8 +375,8 @@ window.TSI_Data.publications = [
         id: "[C3]", 
         title: "Geodesic Flow Kernels for Semi-Supervised Learning on Mixed-Variable Tabular Dataset", 
         authors: [ 
-            { name: "Yoontae Hwang", isHighlight: true }, 
-            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } 
+            { name: "Yoontae Hwang", isHighlight: true, affiliations: ["University of Oxford"] },
+            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko", affiliations: ["UNIST"] }
         ], 
         venue: "AAAI 2025 · Main Track",
         metricsKey: 'aaai-2025',
@@ -391,11 +391,11 @@ window.TSI_Data.publications = [
         id: "[C2]", 
         title: "CAFO: Feature-Centric Explanation on Time Series Classification", 
         authors: [ 
-            { name: "Jaeho Kim", href: "https://sites.google.com/view/jaeho-kim" }, 
-            { name: "Seok-ju Hahn", href: "https://vaseline555.github.io/" }, 
-            { name: "Yoontae Hwang", isHighlight: true }, 
-            { name: "Junghye Lee", href: "https://d3mlab.snu.ac.kr/members/principal-investigator" }, 
-            { name: "Seulki Lee", href: "https://scholar.google.com/citations?hl=en&user=qhI7uVMAAAAJ" } 
+            { name: "Jaeho Kim", href: "https://sites.google.com/view/jaeho-kim", affiliations: ["UNIST"] },
+            { name: "Seok-ju Hahn", href: "https://vaseline555.github.io/", affiliations: ["UNIST"] },
+            { name: "Yoontae Hwang", isHighlight: true, affiliations: ["UNIST"] },
+            { name: "Junghye Lee", href: "https://d3mlab.snu.ac.kr/members/principal-investigator", affiliations: ["Seoul National University"] },
+            { name: "Seulki Lee", href: "https://scholar.google.com/citations?hl=en&user=qhI7uVMAAAAJ", affiliations: ["UNIST"] }
         ], 
         venue: "KDD 2024 · Research Track",
         metricsKey: 'kdd-2024',
@@ -410,12 +410,12 @@ window.TSI_Data.publications = [
         id: "[C1]", 
         title: "SimStock : Representation Model for Stock Similarities", 
         authors: [ 
-            { name: "Yoontae Hwang", isHighlight: true }, 
-            { name: "Junhyeong Lee", href: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb" }, 
-            { name: "Daham Kim", href: "https://www.linkedin.com/in/daham-kim/" }, 
-            { name: "Seunghwan Noh" }, 
-            { name: "Joohwan Hong", href: "https://www.notion.so/unist-felab/Joohwan-Hong-Ph-D-a93266780e6a407a866e8b7ec7d47129" }, 
-            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } 
+            { name: "Yoontae Hwang", isHighlight: true, affiliations: ["UNIST"] },
+            { name: "Junhyeong Lee", href: "https://www.notion.so/unist-felab/Junhyeong-Lee-f6429c27e45d44ad84222b5232f7d1cb", affiliations: ["UNIST"] },
+            { name: "Daham Kim", href: "https://www.linkedin.com/in/daham-kim/", affiliations: ["Cornell University"] },
+            { name: "Seunghwan Noh", affiliations: ["UNIST"] },
+            { name: "Joohwan Hong", href: "https://www.notion.so/unist-felab/Joohwan-Hong-Ph-D-a93266780e6a407a866e8b7ec7d47129", affiliations: ["UNIST"] },
+            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko", affiliations: ["UNIST"] }
         ], 
         venue: "ICAIF 2023 · Main Track",
         metricsKey: 'icaif-2023',
@@ -431,11 +431,11 @@ window.TSI_Data.publications = [
         id: "[J5]", 
         title: "Heterogeneous Trading Behaviors of Individual Investors", 
         authors: [ 
-            { name: "Yoontae Hwang", isHighlight: true }, 
-            { name: "Junpyo Park", href: "https://www.notion.so/unist-felab/Junpyo-Park-187b74eaaae847a98175664018bebea8" }, 
-            { name: "Jang Ho Kim", href: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ" }, 
-            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, 
-            { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" } 
+            { name: "Yoontae Hwang", isHighlight: true, affiliations: ["UNIST"] },
+            { name: "Junpyo Park", href: "https://www.notion.so/unist-felab/Junpyo-Park-187b74eaaae847a98175664018bebea8", affiliations: ["UNIST"] },
+            { name: "Jang Ho Kim", href: "https://scholar.google.co.kr/citations?hl=ko&authuser=1&user=uTiqWBMAAAAJ", affiliations: ["Korea University"] },
+            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko", affiliations: ["UNIST"] },
+            { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en", affiliations: ["Johns Hopkins University"] }
         ], 
         venue: "Finance Research Letters (FRL) · 2023",
         links: [{ text: "paper", href: "https://www.sciencedirect.com/science/article/abs/pii/S1544612324005117" }], 
@@ -445,9 +445,9 @@ window.TSI_Data.publications = [
         id: "[J4]", 
         title: "Identifying household finance heterogeneity via deep clustering", 
         authors: [ 
-            { name: "Yoontae Hwang", isHighlight: true }, 
-            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, 
-            { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en" } 
+            { name: "Yoontae Hwang", isHighlight: true, affiliations: ["UNIST"] },
+            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko", affiliations: ["UNIST"] },
+            { name: "Frank J Fabozzi", href: "https://scholar.google.com/citations?user=tqXS4IMAAAAJ&hl=en", affiliations: ["EDHEC Business School"] }
         ], 
         venue: "Annals of Operations Research (ANOR) · 2023",
         links: [{ text: "paper", href: "https://link.springer.com/article/10.1007/s10479-022-04900-3" }], 
@@ -457,12 +457,12 @@ window.TSI_Data.publications = [
         id: "[J3]", 
         title: "Household Financial Health: A Machine Learning Approach for Data-Driven Diagnosis and Prescription", 
         authors: [ 
-            { name: "Kyeongbin Kim*", href: "https://www.linkedin.com/in/kimkyle95/" }, 
-            { name: "Yoontae Hwang*", isHighlight: true, isUnderlined: false }, 
-            { name: "Dongcheol Lim", href: "https://www.linkedin.com/in/dongclim0613/" }, 
-            { name: "Suhyeon Kim", href: "https://www.linkedin.com/in/sh-kim1026/" }, 
-            { name: "Junghye Lee", href: "https://d3mlab.snu.ac.kr/members/principal-investigator" }, 
-            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } 
+            { name: "Kyeongbin Kim*", href: "https://www.linkedin.com/in/kimkyle95/", affiliations: ["UNIST"] },
+            { name: "Yoontae Hwang*", isHighlight: true, isUnderlined: false, affiliations: ["UNIST"] },
+            { name: "Dongcheol Lim", href: "https://www.linkedin.com/in/dongclim0613/", affiliations: ["Seoul National University"] },
+            { name: "Suhyeon Kim", href: "https://www.linkedin.com/in/sh-kim1026/", affiliations: ["Kyungpook National University"] },
+            { name: "Junghye Lee", href: "https://d3mlab.snu.ac.kr/members/principal-investigator", affiliations: ["Seoul National University"] },
+            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko", affiliations: ["UNIST"] }
         ], 
         venue: "Quantitative Finance (QF) · 2023",
         metricsKey: 'quantitative-finance',
@@ -474,10 +474,10 @@ window.TSI_Data.publications = [
         id: "[J2]", 
         title: "Stop-loss adjusted labels for machine learning-based trading of risky assets", 
         authors: [ 
-            { name: "Yoontae Hwang", isHighlight: true }, 
-            { name: "Junpyo Park", href: "https://www.notion.so/unist-felab/Junpyo-Park-187b74eaaae847a98175664018bebea8" }, 
-            { name: "Dong-Young Lim", href: "https://sites.google.com/view/dlim/group?authuser=0" }, 
-            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } 
+            { name: "Yoontae Hwang", isHighlight: true, affiliations: ["UNIST"] },
+            { name: "Junpyo Park", href: "https://www.notion.so/unist-felab/Junpyo-Park-187b74eaaae847a98175664018bebea8", affiliations: ["UNIST"] },
+            { name: "Dong-Young Lim", href: "https://sites.google.com/view/dlim/group?authuser=0", affiliations: ["UNIST"] },
+            { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko", affiliations: ["UNIST"] }
         ], 
         venue: "Finance Research Letters (FRL) · 2023",
         links: [ 
@@ -489,7 +489,7 @@ window.TSI_Data.publications = [
     { 
         id: "[J1]", 
         title: "A Study on the Estimation of Apartment Price Index: Focused on the Machine Learning Algorithm", 
-        authors: [{ name: "Yoontae Hwang", isHighlight: true }], 
+        authors: [{ name: "Yoontae Hwang", isHighlight: true, affiliations: ["Sangmyung University"] }],
         venue: "Journal of Money & Finance (KMFA) · 2019 · South Korea",
         links: [{ text: "paper", href: "https://kiss.kstudy.com/Detail/Ar?key=3707638" }], 
         topics: ["Household Finance", "Time-Series Analysis", "Deep Learning"] 
@@ -541,25 +541,25 @@ window.TSI_Data.workingPapers = [
         id: "[S]", 
         title: "Portfolio Preference Elicitation in Institutional Crossing Markets", 
         authors: [ 
-            { name: "Yoontae Hwang", isHighlight: true } 
+            { name: "Yoontae Hwang", isHighlight: true, affiliations: ["Pusan National University"] }
         ], 
         venue: "Optimization journal",
         links: [ { text: "paper", href: "https://arxiv.org/abs/2605.21409" }, { text: "code", href: "https://github.com/TSI-yoontae/Portfolio-Preference-Elicitation-in-Institutional-Crossing-Markets" }, ],
         topics: ["Portfolio Theory", "Optimization"] 
     },
-    { id: "[S]", title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", authors: [ { name: "Yoontae Hwang", isHighlight: true }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en" }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" }, ], venue: "Finance Journal, 2024.12", award: "Best Paper Award @the Korean Academic Society of Business Administration 2024", links: [ { text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
-    { id: "[S]", title: "LLM-Enhanced Black-Litterman Portfolio Optimization", authors: [ { name: "Youngbin Lee*", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko" }, { name: "Yejin Kim*", href: "https://scholar.google.com/citations?user=RT2PhEsAAAAJ&hl=ko" }, { name: "Juhyeong Kim" }, { name: "Suin Kim" }, { name: "Yoontae Hwang†", isHighlight: true },  { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } ], venue: "Finance Journal, 2024.12", links: [ { text: "paper", href: "https://arxiv.org/abs/2504.14345" }, { text: "code", href: "https://github.com/youngandbin/LLM-BLM" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
-    { id: "[W]", title: "Decision by Supervised Learning", authors: [ { name: "Juhyeong Kim" }, { name: "Sungyoon Cho" }, { name: "Youngbin Lee" }, { name: "Yejin Kim" }, { name: "Yongmin Choi" },   { name: "Yoontae Hwang†", isHighlight: true },  { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko" } ], venue: "Finance Journal, 2026.02", links: [ { text: "paper", href: "https://arxiv.org/abs/2503.13544" }, { text: "code", href: "https://github.com/DSLwDE/DSLwDE" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
+    { id: "[S]", title: "Temporal Representation Learning for Stock Similarities and Its Applications in Investment Management", authors: [ { name: "Yoontae Hwang", isHighlight: true, affiliations: ["UNIST"] }, { name: "Stefan Zohren", href: "https://scholar.google.co.uk/citations?user=mtNQD-8AAAAJ&hl=en", affiliations: ["University of Oxford"] }, { name: "Yongjae Lee", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko", affiliations: ["UNIST"] }, ], venue: "Finance Journal, 2024.12", award: "Best Paper Award @the Korean Academic Society of Business Administration 2024", links: [ { text: "paper", href: "https://arxiv.org/abs/2407.13751" }, { text: "code", href: "https://github.com/Yoontae6719/SimStock-Representation-Model-for-Stock-Similarities" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
+    { id: "[S]", title: "LLM-Enhanced Black-Litterman Portfolio Optimization", authors: [ { name: "Youngbin Lee*", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko", affiliations: ["Elice", "AI Quant Lab, MODULABS"] }, { name: "Yejin Kim*", href: "https://scholar.google.com/citations?user=RT2PhEsAAAAJ&hl=ko", affiliations: ["Meritz Fire & Marine Insurance", "AI Quant Lab, MODULABS"] }, { name: "Juhyeong Kim", affiliations: ["Mirae Asset Global Investments", "AI Quant Lab, MODULABS"] }, { name: "Suin Kim", affiliations: ["Elice"] }, { name: "Yoontae Hwang†", isHighlight: true },  { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko", affiliations: ["UNIST"] } ], venue: "Finance Journal, 2024.12", links: [ { text: "paper", href: "https://arxiv.org/abs/2504.14345" }, { text: "code", href: "https://github.com/youngandbin/LLM-BLM" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
+    { id: "[W]", title: "Decision by Supervised Learning", authors: [ { name: "Juhyeong Kim", affiliations: ["Mirae Asset Global Investments", "AI Quant Lab, MODULABS"] }, { name: "Sungyoon Cho" }, { name: "Youngbin Lee", affiliations: ["Elice", "AI Quant Lab, MODULABS"] }, { name: "Yejin Kim", affiliations: ["Meritz Fire & Marine Insurance", "AI Quant Lab, MODULABS"] }, { name: "Yongmin Choi" },   { name: "Yoontae Hwang†", isHighlight: true },  { name: "Yongjae Lee†", href: "https://scholar.google.co.kr/citations?user=dAMXPRcAAAAJ&hl=ko", affiliations: ["UNIST"] } ], venue: "Finance Journal, 2026.02", links: [ { text: "paper", href: "https://arxiv.org/abs/2503.13544" }, { text: "code", href: "https://github.com/DSLwDE/DSLwDE" }, ], topics: ["Trading", "Portfolio Theory", "Deep Learning"] },
     { 
         id: "[S]", 
         title: "NavFormer: IGRF Forecasting in Moving Coordinate Frames", 
         authors: [ 
-            { name: "Yoontae Hwang", isHighlight: true }, 
-            { name: "Dongwoo Lee" },
-            { name: "Minseok Choi" },
-            { name: "Yong Sup Ihn" },
-            { name: "Daham Kim", href: "https://www.linkedin.com/in/daham-kim/" },
-            { name: "Deok-Young Lee" } 
+            { name: "Yoontae Hwang", isHighlight: true, affiliations: ["Pusan National University", "OAQ Co. Ltd.", "Arrakis Technologies Corp."] },
+            { name: "Dongwoo Lee", affiliations: ["KAIST"] },
+            { name: "Minseok Choi", affiliations: ["OAQ Co. Ltd.", "Arrakis Technologies Corp.", "KAIST"] },
+            { name: "Yong Sup Ihn", affiliations: ["Agency for Defense Development"] },
+            { name: "Daham Kim", href: "https://www.linkedin.com/in/daham-kim/", affiliations: ["OAQ Co. Ltd.", "Arrakis Technologies Corp."] },
+            { name: "Deok-Young Lee", affiliations: ["OAQ Co. Ltd.", "Arrakis Technologies Corp.", "KAIST"] }
         ], 
         venue: "Submitted to Top AI Confernece",
         links: [ { text: "paper", href: "https://arxiv.org/pdf/2601.18800" } ], 

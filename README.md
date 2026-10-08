@@ -14,7 +14,7 @@ Use `npm run dev` to build and start a local preview at http://127.0.0.1:8765. A
 ## Where content lives
 
 - `js/data.js`: news, publications, working papers, and member information.
-- `js/tabs/Publications.js`: shared venue/metric rendering, used by Publications, Research Explorer, and Year in Review.
+- `js/tabs/Publications.js`: shared author/affiliation and venue/metric rendering, used by Publications, Research Explorer, and Year in Review.
 - `js/tabs/Project.js`: funding/project records and project display.
 - `js/tabs/Home.js`: research directions and selected papers, including seminar links.
 - `js/tabs/Teaching.js`: courses and teaching materials.
@@ -50,6 +50,37 @@ Conference rankings use the consistent label `CORE A*`, with links to the CORE/I
 Oral selection is measured **among accepted papers**, not among submissions. The [ICAIF 2025 program](https://icaif25.org/overview/) has 18 oral sessions with three papers each: 54 / 113 = 47.8%. The four confirmed ICAIF 2026 Oral papers show this explicitly as a **2025 reference**, not a claimed 2026 percentile. Replace the reference when verified 2026 totals are available. Do not assign Oral status to the 2025 lab paper simply because its venue has Oral statistics.
 
 SimStock's Oral presentation is confirmed by the [2023 conference agenda](https://ai-finance.org/wp-content/uploads/2023/11/icaif-23-agenda_updated-28nov2023.pdf). Its previous `Top 5%` claim had no supporting source. The attendee report's oral count conflicts with the official agenda, so no selection percentage is displayed for this paper. Unverified journal rates and rates attached to unnamed working-paper venues were removed; no rate is inferred from journal impact rankings or review duration. Sources were not found for the other journals or the unnamed ICLR workshop.
+
+## Author affiliations
+
+Checked on 2026-10-08. Each author can have an `affiliations` array in `js/data.js`. Store affiliations per paper, as recorded in its manuscript or publisher record, rather than assigning a person's present institution to every paper. The interface numbers institutions in first-author occurrence order, deduplicates shared institutions, and keeps those numbers stable when expanding the author list. Institutions are searchable in Publications and Research Explorer. Existing author order, names, contribution markers, and corresponding-author markers are preserved.
+
+Institution names are shortened consistently where appropriate (UNIST, KAIST); department names, postal addresses, and emails are omitted. Sources used for the published and accepted papers:
+
+| Paper | Affiliation source |
+| --- | --- |
+| C17 · HoTS | [arXiv v1, title page](https://arxiv.org/pdf/2609.32426v1) |
+| C16 · Evaluating LLMs in Finance | [arXiv v1, author footnote](https://arxiv.org/pdf/2602.14233v1) |
+| C15 · Signature-informed Transformer | [arXiv v3, title page](https://arxiv.org/pdf/2510.03129v3) |
+| C14–C7 · ICAIF 2026 | The site owner's supplied ICAIF 2026 poster lists the affiliations for the seven original papers. C14 uses the same authors' institutions from that 2026 roster; it was not included on the poster. |
+| J8 · Decision-informed Neural Networks | [Final publisher record, expanded author information](https://www.sciencedirect.com/science/article/abs/pii/S0957417426032938); this supersedes the older preprint affiliation. |
+| C6 · Forecasting Future Language | [arXiv v2, title page](https://arxiv.org/pdf/2602.21229v2); map the existing website authors only. The manuscript's Wonbin Ahn corresponds to the site's Ahn Wonbin. |
+| J7 · Portable Single-Beam Magnetometer | [arXiv v1, title page](https://arxiv.org/pdf/2601.08716v1) |
+| J6 · Deep Learning in Asset Management | [SSRN manuscript](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5593850), supplied by the site owner. |
+| C5 · Fusing Narrative Semantics | [arXiv v1, title page](https://arxiv.org/pdf/2510.20699v1) |
+| C4 · Time-MQA | [arXiv v2, title page](https://arxiv.org/pdf/2503.01875v2) |
+| C3 · Geodesic Flow Kernels | [arXiv v2, title page](https://arxiv.org/pdf/2412.12864v2) |
+| C2 · CAFO | [arXiv v2, title page](https://arxiv.org/pdf/2406.01833v2) |
+| C1 · SimStock | [ACM paper](https://doi.org/10.1145/3604237.3626888), available in the owner's paper archive; also confirmed by the [official accepted-paper list](https://ai-finance.org/icaif-23-accepted-papers/). |
+| J5 · Heterogeneous Trading Behaviors | [Published paper](https://www.sciencedirect.com/science/article/abs/pii/S1544612324005117), supplied by the site owner. |
+| J4 · Identifying household finance heterogeneity | [Publisher's author and affiliation section](https://link.springer.com/article/10.1007/s10479-022-04900-3) |
+| J3 · Household Financial Health | [Published paper](https://doi.org/10.1080/14697688.2023.2254335), title page in the owner's paper archive. |
+| J2 · Stop-loss adjusted labels | [Published paper](https://www.sciencedirect.com/science/article/abs/pii/S1544612323006578), supplied by the site owner. |
+| J1 · Apartment Price Index | [Published paper](https://doi.org/10.21023/JMF.33.3.3), first-page author footnote in the journal issue: Sangmyung University. |
+
+Working-paper sources: [Portfolio Preference Elicitation](https://arxiv.org/pdf/2605.21409v1), [Temporal Representation Learning v1](https://arxiv.org/pdf/2407.13751v1), [LLM-Enhanced Black-Litterman v2](https://arxiv.org/pdf/2504.14345v2), [Decision by Supervised Learning v7](https://arxiv.org/pdf/2503.13544v7), and [NavFormer v2](https://arxiv.org/pdf/2601.18800v2). For NavFormer, retain all verified joint institutions for each existing website author.
+
+Unverified affiliations stay absent rather than being inferred from another paper: the four working papers without public manuscripts; Yoontae Hwang in LLM-Enhanced Black-Litterman and Decision by Supervised Learning (not on those public preprint author lists); and Sungyoon Cho / Yongmin Choi in Decision by Supervised Learning (the preprint spells the former Sungyoon Choi and gives only a location for the latter). The owner has been asked for the current manuscript affiliations. Do not automatically replace the website's author roster with a preprint roster.
 
 ## Interface
 

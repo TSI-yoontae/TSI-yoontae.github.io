@@ -98,10 +98,10 @@ window.ResearchExplorerTabContent = () => {
                             <p className="document-status">{selected.status} <span>{selected.id}</span></p>
                             <h2>{selected.title}</h2>
                             <p className="sr-only" role="status">Selected paper: {selected.title}</p>
-                            <AuthorList key={selected.title} authors={selected.authors || []} />
+                            <AuthorList key={'authors-' + selected.title} authors={selected.authors || []} />
                             <PublicationVenue paper={selected} className="document-venue" />
                             {selected.award && <p className="publication-award">{selected.award}</p>}
-                            <ResearchFigure key={selected.title} figure={figure} title={selected.title} />
+                            <ResearchFigure key={'figure-' + selected.title} figure={figure} title={selected.title} />
                             {(selected.links || []).length ? <ResourceLinks links={selected.links} /> : <p className="fine-print">Manuscript link to be added.</p>}
                             {(selected.topics || []).length > 0 && <div className="document-topics"><h3>Research topics</h3><div>{selected.topics.map(label => <button key={label} onClick={() => { reset(); setQuery(label); }}>{label} <span aria-hidden="true">↗</span></button>)}</div></div>}
                             {related.length > 0 && <div className="related-papers"><h3>Related papers</h3>{related.map(paper => <button key={paper.title} onClick={() => openRelated(paper)}><span>{paper.title}</span><ArrowIcon /></button>)}</div>}

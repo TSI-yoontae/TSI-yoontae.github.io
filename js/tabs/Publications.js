@@ -28,10 +28,9 @@ const getPublicationMetrics = paper => {
     // Oral selectivity uses all submissions from the same year as its denominator.
     // A prior year's share remains explicitly labeled as a reference.
     if (paper.presentation === 'Oral' && metrics.oral) {
-        const { selected, submitted, year, source } = metrics.oral;
+        const { selected, submitted, year } = metrics.oral;
         items.push({
             label: 'Top ' + (100 * selected / submitted).toFixed(1) + '% of submissions (' + metricYear(year) + ')',
-            href: source,
             title: selected + ' oral presentations / ' + submitted + ' submitted papers in ' + year,
         });
     }
@@ -43,7 +42,7 @@ const PublicationVenue = ({ paper, className = 'publication-venue' }) => {
     return <>
         {paper.venue && <p className={className}>{paper.venue}</p>}
         {metrics.length > 0 && <ul className="publication-metrics" aria-label="Venue statistics and presentation">
-            {metrics.map(item => <li key={item.label}>
+            {metrics.map(item => <li key={item.label} title={item.title}>
                 {item.href ? <a href={item.href} title={item.title} target="_blank" rel="noopener noreferrer">{item.label}</a>
                     : item.emphasis ? <strong>{item.label}</strong> : item.label}
             </li>)}

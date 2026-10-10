@@ -25,14 +25,14 @@ const getPublicationMetrics = paper => {
         items.push({ label: 'Acceptance rate ' + rate.toFixed(1) + '% (' + metricYear(year) + ')', href: source });
     }
     if (paper.presentation) items.push({ label: paper.presentation, emphasis: true });
-    // Oral selection uses accepted papers as its denominator, not submissions.
-    // A prior year's share is a reference, never the current paper's rank.
+    // Oral selectivity uses all submissions from the same year as its denominator.
+    // A prior year's share remains explicitly labeled as a reference.
     if (paper.presentation === 'Oral' && metrics.oral) {
-        const { selected, accepted, year, source } = metrics.oral;
+        const { selected, submitted, year, source } = metrics.oral;
         items.push({
-            label: 'Oral selection: ' + (100 * selected / accepted).toFixed(1) + '% of accepted papers (' + metricYear(year) + ')',
+            label: 'Top ' + (100 * selected / submitted).toFixed(1) + '% of submissions (' + metricYear(year) + ')',
             href: source,
-            title: selected + ' oral presentations / ' + accepted + ' accepted papers in ' + year,
+            title: selected + ' oral presentations / ' + submitted + ' submitted papers in ' + year,
         });
     }
     return items;

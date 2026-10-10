@@ -51,7 +51,7 @@ window.TSI_Data.venueMetrics = {
     },
     'icaif-2025': {
         acceptance: { rate: 100 * 113 / 349, year: 2025, source: 'https://www.linkedin.com/posts/6estates_icaif2025-aiinfinance-financialai-activity-7402715238133125120-fZu5' },
-        oral: { selected: 54, accepted: 113, year: 2025, source: 'https://icaif25.org/overview/' },
+        oral: { selected: 54, submitted: 349, year: 2025, source: 'https://icaif25.org/overview/' },
     },
     'acl-2025': {
         conference: 'ACL',

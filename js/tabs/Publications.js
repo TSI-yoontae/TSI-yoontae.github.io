@@ -21,8 +21,8 @@ const getPublicationMetrics = paper => {
     const items = [];
     if (ranking) items.push({ label: 'CORE ' + ranking.rank, href: ranking.source, title: 'CORE / ICORE conference ranking' });
     if (metrics.acceptance) {
-        const { rate, year, source } = metrics.acceptance;
-        items.push({ label: 'Acceptance rate ' + rate.toFixed(1) + '% (' + metricYear(year) + ')', href: source });
+        const { rate, year } = metrics.acceptance;
+        items.push({ label: 'Acceptance rate ' + rate.toFixed(1) + '% (' + metricYear(year) + ')' });
     }
     if (paper.presentation) items.push({ label: paper.presentation, emphasis: true });
     // Oral selectivity uses all submissions from the same year as its denominator.

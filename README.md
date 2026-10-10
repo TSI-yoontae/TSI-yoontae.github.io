@@ -31,7 +31,7 @@ The annual record begins in 2025. Conference papers exclude workshops; journals 
 
 ## Publication statistics
 
-Checked on 2026-10-08. Keep venue names, paper years, and tracks in `venue`; attach a `metricsKey` for statistics and `presentation: 'Oral'` only when the paper's presentation status is confirmed. `venueMetrics` stores source years independently of paper years. The UI rounds percentages to one decimal place, links each statistic to its source, and explicitly marks statistics from another year as a reference. Reference statistics must not change paper years, ordering, annual totals, or presentation status.
+Checked on 2026-10-08. Keep venue names, paper years, and tracks in `venue`; attach a `metricsKey` for statistics and `presentation: 'Oral'` only when the paper's presentation status is confirmed. `venueMetrics` stores source years independently of paper years. The UI rounds percentages to one decimal place, displays acceptance rates as plain text, links rankings and Oral selectivity to their sources, and explicitly marks statistics from another year as a reference. Acceptance-rate sources remain in the data and documentation. Reference statistics must not change paper years, ordering, annual totals, or presentation status.
 
 Conference rankings use the consistent label `CORE A*`, with links to the CORE/ICORE database. NeurIPS, ICML, ACL, AAAI, and KDD have verified A* entries. ICAIF has no listed rank; a workshop does not inherit the parent conference's rank or acceptance rate. These conference rankings do not apply to journals.
 

@@ -5,7 +5,7 @@ const MemberName = ({ member }) => <span className="roster-name">
 
 const PrincipalInvestigatorCard = ({ member }) => (
     <article className="pi-profile">
-        <div className="pi-portrait"><img src={member.image} alt={member.koreanName} width="360" height="440" /><p className="eyebrow" lang="ko">연구책임자</p></div>
+        <div className="pi-portrait"><img src={member.image} alt={member.koreanName} width="360" height="440" /></div>
         <div className="pi-copy">
             <h2 lang="ko">{member.koreanName} <span className="pi-english" lang="en">({member.englishName})</span></h2>
             <ResourceLinks links={[

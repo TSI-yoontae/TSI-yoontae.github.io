@@ -83,7 +83,7 @@ window.HomeTabContent = () => {
     const projects = (data.projects || []).filter(project => getProjectActiveYears(project, year).includes(year));
     const organizers = data.news.filter(item => item.organizing && item.date.includes(String(year)));
     return (
-        <>
+        <div className="home-page">
             <section className="home-masthead">
                 <div><p className="eyebrow">Pusan National University · Graduate School of Data Science</p><h1 id="page-title" tabIndex="-1">Time Series Intelligence Lab</h1>
                     <div className="masthead-links"><span>Principal Investigator: Yoontae Hwang</span><a href="mailto:yoontae.hwang@pusan.ac.kr">yoontae.hwang@pusan.ac.kr <ArrowIcon diagonal /></a></div>
@@ -96,6 +96,6 @@ window.HomeTabContent = () => {
             <div className="home-columns">
                 <div className="home-primary"><NewsSection /><HomeResearchTopics /><SelectedPapersSection /></div>
             </div>
-        </>
+        </div>
     );
 };

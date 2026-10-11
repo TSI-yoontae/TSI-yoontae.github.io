@@ -14,12 +14,12 @@ const PrincipalInvestigatorCard = ({ member }) => (
                 ...(member.email ? [{ text: 'Email', href: 'mailto:' + member.email }] : []),
             ]} />
             <p className="pi-bio">{member.bio}</p>
-            {member.awards?.length > 0 && <details className="disclosure">
-                <summary>Awards and positions<span aria-hidden="true" className="disclosure-symbol">+</span></summary>
+            {member.awards?.length > 0 && <section className="pi-positions" aria-labelledby="pi-positions-title">
+                <h3 id="pi-positions-title">Awards and positions</h3>
                 <ul className="awards-list">{[...member.awards].sort((a, b) => b.year - a.year).map(award =>
                     <li key={award.title}><span className="mono">{award.year}</span><div><strong>{award.title}</strong><p>{award.organization}</p></div></li>
                 )}</ul>
-            </details>}
+            </section>}
         </div>
     </article>
 );

@@ -12,20 +12,19 @@ const researchDirections = [
 ];
 
 const HomeResearchTopics = () => {
-    const [active, setActive] = React.useState('finance');
     return (
         <section className="home-research">
             <SectionHeading title="Research areas" />
             <div className="home-topics">{researchDirections.map((topic, index) =>
-                <div className="home-topic" key={topic.id}>
-                    <button aria-expanded={active === topic.id} aria-controls={'topic-' + topic.id} onClick={() => setActive(active === topic.id ? '' : topic.id)}>
-                        <span className="mono">0{index + 1}</span><strong>{topic.label}</strong><span aria-hidden="true">{active === topic.id ? '−' : '+'}</span>
-                    </button>
-                    <div id={'topic-' + topic.id} hidden={active !== topic.id}>
+                <section className="home-topic" key={topic.id} aria-labelledby={'topic-title-' + topic.id}>
+                    <h3 className="home-topic-heading" id={'topic-title-' + topic.id}>
+                        <span className="mono" aria-hidden="true">0{index + 1}</span>{topic.label}
+                    </h3>
+                    <div className="home-topic-content">
                         <p>{topic.description}</p><ul>{topic.items.map(item => <li key={item}>{item}</li>)}</ul>
                         <a className="text-link" href={'#publications?q=' + encodeURIComponent(topic.query)}>Related papers <ArrowIcon /></a>
                     </div>
-                </div>
+                </section>
             )}</div>
             <a className="explorer-launch" href="#research-explorer">
                 <span className="explorer-launch-label"><span className="terminal-dot" /> Interactive archive</span>
@@ -38,18 +37,19 @@ const HomeResearchTopics = () => {
 
 const NewsSection = () => {
     const news = window.TSI_Data.news || [];
+    const recentNewsCount = 8;
     const [expanded, setExpanded] = React.useState(false);
     return (
         <section className="news-section">
             <SectionHeading title="Latest updates"><a className="text-link" href="#year-in-review">Year in Review <ArrowIcon /></a></SectionHeading>
             <div className="news-columns" aria-hidden="true"><span>Date</span><span>Category</span><span>Update</span></div>
-            <div id="news-list" className="news-list">{(expanded ? news : news.slice(0, 6)).map(item =>
+            <div id="news-list" className="news-list">{(expanded ? news : news.slice(0, recentNewsCount)).map(item =>
                 <article className="news-item" key={item.text}>
                     <span className="news-date mono">{item.date}</span>
                     <span className="news-category">{item.category}</span>
                     <p>{item.link ? <a href={item.link} target="_blank" rel="noopener noreferrer"><span>{item.text}</span><ArrowIcon diagonal /></a> : item.text}</p>
                 </article>)}</div>
-            {news.length > 6 && <button className="text-button news-toggle" aria-expanded={expanded} aria-controls="news-list" onClick={() => setExpanded(!expanded)}>
+            {news.length > recentNewsCount && <button className="text-button news-toggle" aria-expanded={expanded} aria-controls="news-list" onClick={() => setExpanded(!expanded)}>
                 {expanded ? 'Show recent updates' : 'All ' + news.length + ' updates'} <span aria-hidden="true">{expanded ? '−' : '+'}</span>
             </button>}
         </section>

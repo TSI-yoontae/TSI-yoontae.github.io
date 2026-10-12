@@ -1105,7 +1105,9 @@ input::placeholder{color:#626262}
 .publication-metrics a:hover{color:var(--ink);text-decoration-color:currentColor}
 .publication-metrics strong{color:var(--ink);font-weight:650}
 .publication-award{color:var(--muted);font-size:13px}
-.pi-profile{background:var(--white);border-color:var(--line);border-top:3px solid var(--panel-dark);padding:24px}
+.pi-profile{grid-template-columns:clamp(220px,28vw,320px) minmax(0,1fr);gap:32px;background:var(--white);border-color:var(--line);border-top:3px solid var(--panel-dark);padding:24px}
+.pi-portrait{width:100%;max-width:none}
+.pi-portrait img{height:auto;aspect-ratio:4/5}
 .pi-bio{color:var(--muted);line-height:1.8}
 .pi-positions{margin-top:18px;background:var(--soft);border:1px solid var(--line);padding:0 14px}
 .pi-positions>h3{padding:13px 0;margin:0;font-size:14px;font-weight:600;line-height:1.5;color:var(--ink)}
@@ -1115,6 +1117,10 @@ input::placeholder{color:#626262}
 .member-card h3{color:var(--ink)}
 .members-roster{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--panel-dark);margin-top:22px}
 .pi-copy h2 .pi-english{display:inline-block;margin:0 0 0 6px;font-size:18px;font-weight:400;color:var(--muted);letter-spacing:-.01em;white-space:nowrap}
+@media(max-width:680px){
+    .pi-profile{grid-template-columns:1fr;gap:24px}
+    .pi-portrait{max-width:320px;justify-self:center}
+}
 .roster-section{display:grid;grid-template-columns:135px minmax(0,1fr);gap:24px;padding:18px 20px}
 .roster-section+.roster-section{border-top:1px solid var(--line)}
 .roster-section>h2{font-size:14px;font-weight:600;line-height:32px;margin:0;color:var(--ink)}

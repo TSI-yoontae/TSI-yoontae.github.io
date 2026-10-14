@@ -1,6 +1,6 @@
 const vacantProfileCopy = {
     en: {
-        title: 'Preferred Profile (Updated September 2026)',
+        title: 'Preferred Profile (Updated October 2026)',
         introduction: 'We are looking for students with solid mathematics and programming skills. Demonstrated excellence or active participation in data-science competitions such as Dacon or Kaggle is highly valued. Achievements from the majority of domestic competitions and awards in South Korea are not considered.',
         policyTitle: 'Lab Admission & Graduation Policy',
         policies: [
@@ -27,13 +27,14 @@ const vacantProfileCopy = {
         ],
         statusTitle: 'Current Status: All Regular Recruitment Closed',
         closedText: 'Recruitment for the Ph.D., MS-Ph.D. integrated, M.S., and internship programs is currently closed.',
-        exceptionText: 'However, exceptionally motivated applicants may still be considered on a case-by-case basis if they demonstrate strong preparation and a clear commitment to producing high-impact research.',
+        exceptionText: 'Exceptional consideration is limited to a small number of applicants with outstanding academic performance and demonstrated research ability. An accepted or published paper at a top-tier AI conference is required.',
+        exceptionFundingText: 'Applicants who meet these criteria may receive additional research funding from the lab. Application emails from applicants who do not meet these criteria will not receive a reply.',
         doctoralStatus: 'Ph.D. / Integrated: Closed',
         mastersStatus: 'M.S. / Internships: Closed',
-        exceptionStatus: 'Exceptional Applicants May Be Considered',
+        exceptionStatus: 'Limited Review for Qualified Applicants',
     },
     ko: {
-        title: '지원자 요건 및 안내 (2026년 9월 수정)',
+        title: '지원자 요건 및 안내 (2026년 10월 수정)',
         introduction: '수학과 프로그래밍 기초가 탄탄한 학생을 찾습니다. Dacon, Kaggle 등 데이터사이언스 경진대회의 참여 경험과 성과를 중요하게 평가합니다. 그 외 대부분의 국내 대회 수상 실적은 평가에 반영하지 않습니다.',
         policyTitle: '연구실 합류 및 졸업 기준',
         policies: [
@@ -60,10 +61,11 @@ const vacantProfileCopy = {
         ],
         statusTitle: '모집 현황: 모든 정규 모집 마감',
         closedText: '현재 박사, 석박사통합, 석사 및 인턴 과정의 정규 모집은 마감되었습니다.',
-        exceptionText: '다만, 연구 준비가 충분하고 우수한 연구 성과를 내고자 하는 의지가 뚜렷한 지원자는 예외적으로 검토할 수 있습니다.',
+        exceptionText: '예외 검토는 학업 성적과 연구 역량이 뛰어난 소수의 지원자로 한정합니다. 최상위 AI 학회에 게재되었거나 게재가 확정된 논문 실적이 필수입니다.',
+        exceptionFundingText: '해당 요건을 충족한 학생에게는 연구실 내 추가 연구비를 지원할 수 있습니다. 요건을 충족하지 않는 지원자의 지원 메일에는 회신하지 않습니다.',
         doctoralStatus: '박사 / 석박사통합: 마감',
         mastersStatus: '석사 / 인턴: 마감',
-        exceptionStatus: '예외적 개별 검토 가능',
+        exceptionStatus: '요건 충족자에 한해 예외 검토',
     },
 };
 
@@ -83,7 +85,7 @@ const VacantPreferredProfileSection = () => {
                 <p className="profile-introduction">{copy.introduction}</p>
                 <div className="recruitment-status">
                     <p className="eyebrow">{language === 'ko' ? '모집 안내' : 'Recruitment update'}</p>
-                    <h3>{copy.statusTitle}</h3><p>{copy.closedText}</p><p>{copy.exceptionText}</p>
+                    <h3>{copy.statusTitle}</h3><p>{copy.closedText}</p><p>{copy.exceptionText}</p><p>{copy.exceptionFundingText}</p>
                     <div className="status-tags"><span>{copy.doctoralStatus}</span><span>{copy.mastersStatus}</span><span>{copy.exceptionStatus}</span></div>
                 </div>
                 <h3 className="policy-heading">{copy.policyTitle}</h3>

@@ -6,8 +6,7 @@ const ArrowIcon = ({ diagonal = false }) => (
 
 const LabMark = () => (
     <svg aria-hidden="true" width="34" height="34" viewBox="0 0 40 40" fill="none">
-        <rect width="40" height="40" rx="11" fill="currentColor" />
-        <g stroke="#f3f3f3" strokeWidth="1.8" strokeLinecap="round">
+        <g stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
             <path d="M7 20c4-17 8 17 13 0s9 17 13 0" />
             <path d="M7 27c4-17 8 17 13 0s9 17 13 0M7 13c4-17 8 17 13 0s9 17 13 0" opacity=".45" />
         </g>

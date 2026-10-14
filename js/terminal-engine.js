@@ -2,15 +2,48 @@
    Everything here is synthetic data generated in the browser. */
 (function (root) {
   'use strict';
-  var COL = {
-    amber: '#E8DCC5', ice: '#B7C3BE', violet: '#C4B7AA', mint: '#9DAB9F', slate: '#85857B',
-    text: '#F7F3E9', text2: '#D4CFC4', text3: '#BCB6AB', ink: '#292824',
-    grid: 'rgba(240,232,218,0.10)', panel: 'rgba(41,40,36,0.97)', panelLine: 'rgba(240,232,218,0.22)'
+  var DEFAULT_COL = {
+    amber: '#d6e2ee', ice: '#95afc8', violet: '#768ea8', mint: '#b9c9d7', slate: '#647c93',
+    text: '#ffffff', text2: '#c1cdd9', text3: '#b9c9d7', ink: '#071a2e'
   };
+  var COL = paletteWithAlpha(Object.assign({}, DEFAULT_COL));
   var MONO = '"Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
   var STEP = { forecast: 220, allocate: 220, book: 150 };
 
   function rgba(hex, a) { var n = parseInt(hex.slice(1), 16); return 'rgba(' + (n >> 16 & 255) + ',' + (n >> 8 & 255) + ',' + (n & 255) + ',' + a + ')'; }
+  function paletteWithAlpha(palette) {
+    palette.grid = rgba(palette.text2, 0.12);
+    palette.panel = rgba(palette.ink, 0.97);
+    palette.panelLine = rgba(palette.text2, 0.22);
+    palette.cursorLine = rgba(palette.text, 0.3);
+    palette.cursorSurface = rgba(palette.text, 0.1);
+    palette.stackDivider = rgba(palette.ink, 0.85);
+    palette.referenceLine = rgba(palette.text, 0.22);
+    palette.hoverLine = rgba(palette.text, 0.35);
+    palette.track = rgba(palette.text, 0.08);
+    return palette;
+  }
+  function readPalette(canvas) {
+    // Resolve the shared hex-color tokens once per engine, never during animation.
+    var style = null;
+    try { if (root.getComputedStyle) style = root.getComputedStyle(canvas); } catch (error) { /* Use the default palette. */ }
+    function token(name, fallback) {
+      var value = style ? style.getPropertyValue(name).trim() : '';
+      if (/^#[0-9a-f]{3}$/i.test(value)) value = '#' + value.slice(1).split('').map(function (digit) { return digit + digit; }).join('');
+      return /^#[0-9a-f]{6}$/i.test(value) ? value : fallback;
+    }
+    return paletteWithAlpha({
+      amber: token('--tsi-chart-1', DEFAULT_COL.amber),
+      ice: token('--tsi-chart-2', DEFAULT_COL.ice),
+      violet: token('--tsi-chart-3', DEFAULT_COL.violet),
+      mint: token('--tsi-chart-4', DEFAULT_COL.mint),
+      slate: token('--tsi-chart-5', DEFAULT_COL.slate),
+      text: token('--tsi-on-dark', token('--tsi-white', DEFAULT_COL.text)),
+      text2: token('--tsi-on-dark-muted', DEFAULT_COL.text2),
+      text3: token('--tsi-chart-4', DEFAULT_COL.text3),
+      ink: token('--tsi-navy', DEFAULT_COL.ink)
+    });
+  }
   function clamp(x, a, b) { return Math.max(a, Math.min(b, x)); }
   function lerp(a, b, t) { return a + (b - a) * t; }
   function ease(t) { t = clamp(t, 0, 1); return 1 - Math.pow(1 - t, 3); }
@@ -384,14 +417,14 @@
 
     if (fa > 0) {
       ctx.globalAlpha = baseA * fa;
-      ctx.setLineDash([3, 3]); ctx.strokeStyle = 'rgba(255,255,255,0.3)'; ctx.lineWidth = 1;
+      ctx.setLineDash([3, 3]); ctx.strokeStyle = COL.cursorLine; ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(Math.round(xo) + 0.5, y0); ctx.lineTo(Math.round(xo) + 0.5, y1); ctx.stroke(); ctx.setLineDash([]);
       var ph = (S.now % 1600) / 1600;
       ctx.beginPath(); ctx.arc(xo, yo, 4 + ph * 13, 0, Math.PI * 2); ctx.strokeStyle = rgba(COL.amber, 0.55 * (1 - ph)); ctx.lineWidth = 1.5; ctx.stroke();
       ctx.beginPath(); ctx.arc(xo, yo, 4.2, 0, Math.PI * 2); ctx.fillStyle = COL.amber; ctx.fill();
       ctx.beginPath(); ctx.arc(xo, yo, 1.7, 0, Math.PI * 2); ctx.fillStyle = COL.ink; ctx.fill();
       chip(ctx, xo, y1 + 15, 't', COL.amber, COL.ink, 'center');
-      chip(ctx, xo, y0 + 4, S.pointer.active ? 'ORIGIN' : 'NOW', 'rgba(255,255,255,0.1)', COL.text, 'center');
+      chip(ctx, xo, y0 + 4, S.pointer.active ? 'ORIGIN' : 'NOW', COL.cursorSurface, COL.text, 'center');
       var rows = narrow ? [
         ['P50  h=' + Hh, p50.toFixed(2)],
         ['80% BAND', band(Hh, -Z80).toFixed(1) + '–' + band(Hh, Z80).toFixed(1)],
@@ -465,9 +498,9 @@
       for (i = L - 1; i >= first; i--) ctx.lineTo(xAt(i), yS(cum[i][k]));
       ctx.closePath(); ctx.fillStyle = rgba(A.COLORS[k], k === 4 ? 0.7 : 0.6); ctx.fill();
     }
-    ctx.strokeStyle = 'rgba(10,11,14,0.85)'; ctx.lineWidth = 1;
+    ctx.strokeStyle = COL.stackDivider; ctx.lineWidth = 1;
     for (k = 1; k < A.N; k++) { ctx.beginPath(); for (i = first; i < L; i++) ctx.lineTo(xAt(i), yS(cum[i][k])); ctx.stroke(); }
-    ctx.setLineDash([2, 3]); ctx.strokeStyle = 'rgba(255,255,255,0.22)';
+    ctx.setLineDash([2, 3]); ctx.strokeStyle = COL.referenceLine;
     for (i = first; i < L; i++) if (hist[i].rebal) { x = Math.round(xAt(i)) + 0.5; ctx.beginPath(); ctx.moveTo(x, botY0); ctx.lineTo(x, botY1); ctx.stroke(); }
     ctx.setLineDash([]);
 
@@ -485,7 +518,7 @@
     var at = hov == null ? newest : hov;
     if (hov != null) {
       x = Math.round(xAt(hov)) + 0.5;
-      ctx.strokeStyle = 'rgba(255,255,255,0.35)'; ctx.setLineDash([3, 3]);
+      ctx.strokeStyle = COL.hoverLine; ctx.setLineDash([3, 3]);
       ctx.beginPath(); ctx.moveTo(x, topY0); ctx.lineTo(x, botY1); ctx.stroke(); ctx.setLineDash([]);
       ctx.beginPath(); ctx.arc(x, yW(hist[hov].v), 4, 0, Math.PI * 2); ctx.fillStyle = COL.amber; ctx.fill();
       ctx.beginPath(); ctx.arc(x, yW(hist[hov].b), 3.2, 0, Math.PI * 2); ctx.fillStyle = COL.text2; ctx.fill();
@@ -593,9 +626,9 @@
     }
     ctx.restore();
 
-    ctx.setLineDash([3, 3]); ctx.strokeStyle = 'rgba(255,255,255,0.3)'; ctx.lineWidth = 1;
+    ctx.setLineDash([3, 3]); ctx.strokeStyle = COL.cursorLine; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(Math.round(midX) + 0.5, dY0 + 14); ctx.lineTo(Math.round(midX) + 0.5, y1); ctx.stroke(); ctx.setLineDash([]);
-    chip(ctx, midX, dY0 + 4, 'MID ' + ((m + 0.5) * tick).toFixed(2), 'rgba(255,255,255,0.1)', COL.text, 'center');
+    chip(ctx, midX, dY0 + 4, 'MID ' + ((m + 0.5) * tick).toFixed(2), COL.cursorSurface, COL.text, 'center');
 
     ctx.font = '400 10.5px ' + MONO; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
     var every = narrow ? (W < 350 ? 8 : 5) : 6;
@@ -613,7 +646,7 @@
         var price = isBid ? (m - lv) * tick : (m + 1 + lv) * tick;
         var depth = isBid ? cumB[lv] : cumA[lv];
         var cy = yD(depth);
-        ctx.setLineDash([3, 3]); ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+        ctx.setLineDash([3, 3]); ctx.strokeStyle = COL.hoverLine;
         ctx.beginPath(); ctx.moveTo(Math.round(cx) + 0.5, dY0); ctx.lineTo(Math.round(cx) + 0.5, y1); ctx.stroke();
         ctx.beginPath(); ctx.moveTo(x0, Math.round(cy) + 0.5); ctx.lineTo(x1, Math.round(cy) + 0.5); ctx.stroke(); ctx.setLineDash([]);
         ctx.beginPath(); ctx.arc(cx, cy, 4, 0, Math.PI * 2); ctx.fillStyle = isBid ? COL.amber : COL.ice; ctx.fill();
@@ -633,7 +666,7 @@
     var hw = narrow ? 186 : 246, hx = x0 + 10, hy = y0 + 22;
     var hh = hud(ctx, hx, hy, hw, 'ORDER BOOK', 'L1–L' + LV, rows);
     var gy = narrow ? 82 : hy + hh - 7, gx0 = narrow ? 14 : hx + 12, gw = narrow ? W - 28 : hw - 24;
-    ctx.fillStyle = 'rgba(255,255,255,0.08)'; ctx.fillRect(gx0, gy, gw, 3);
+    ctx.fillStyle = COL.track; ctx.fillRect(gx0, gy, gw, 3);
     var gm = gx0 + gw / 2, gl = gw / 2 * Math.min(1, Math.abs(I) * 2);
     ctx.fillStyle = I >= 0 ? COL.amber : COL.ice;
     if (I >= 0) ctx.fillRect(gm - gl, gy, gl, 3); else ctx.fillRect(gm, gy, gl, 3);
@@ -661,6 +694,7 @@
     opts = opts || {};
     var ctx = canvas.getContext('2d');
     if (!ctx) return null;
+    COL = readPalette(canvas);
     var paused = !!opts.paused || !!opts.reducedMotion;
     var S = {
       ctx: ctx, W: 0, H: 0, dpr: 1, mode: opts.mode || 'forecast', phase: 0, acc: 0, now: 0, dt: 16.7,

@@ -13,7 +13,7 @@ window.TSI_Data.news = [
     },
     { date: 'Sep 2026', category: 'Publication', text: "One paper (Graph Neural Network) accepted to NeurIPS'26 (Top Tier AI Conference; CORE A*)." },
     { date: 'Sep 2026', category: 'Publication', text: "One paper accepted to Expert systems with applications(6/109; Top 5.5%)." },
-    { date: 'Aug 2026', category: 'Research funding', text: "한국연구재단(NRF) 글로컬R&D 사업 선정, 3년간 최대 6억 원 연구비 확보" },
+    { date: 'Aug 2026', category: 'Research funding', text: "한국연구재단(NRF) 글로컬R&D 사업 선정: University of Oxford와 Limit Order Book (LOB)을 위한 파운데이션모델 개발, 3년간 최대 6억 원 연구비 확보" },
     { date: 'Jun 2026', category: 'Publication', text: "One paper accepted to Journal of Applied Physics." },
     { date: 'May 2026', category: 'Recognition', text: "Yoontae Hwang recognized as a Gold Reviewer (Top Reviewer) for ICML'26." },
     { date: 'May 2026', category: 'Publication', text: "Two Financial AI papers accepted to ICML'26 (Top Tier AI Confernece; CORE A*)." },
@@ -582,7 +582,7 @@ window.TSI_Data.membersData = [
         bio: `I am an Assistant Professor at the Graduate School of Data Science, Pusan National University, South Korea, starting from September 2025. Prior to this, I worked as a Postdoctoral Researcher at the University of Oxford under the Sejong Science Fellowship, collaborating with Professor Stefan Zohren. I received my Ph.D. in Industrial Engineering from UNIST in 2024, where I was advised by Professor Yongjae Lee. Guided by the belief that “Research is meaningful only when its insights leave the lab and change the world,” our laboratory not only submits its findings to the most prestigious journals and conferences but also pursues research capable of driving substantial real-world impact.`, 
         links: { scholar: "https://scholar.google.co.kr/citations?user=sdbNclwAAAAJ&hl", linkedin: "https://www.linkedin.com/in/yoontae" },
         awards: [
-            { title: "Advisor (Oct. 2026–Present)", year: 2026, organization: "FinHorizons Foundation" },
+            { title: "Advisor (Oct. 2026–Present)", year: 2026, organization: "FinHorizons Foundation (UK)" },
             { title: "Advisor (Industry Position; until Feb. 2026)", year: 2026, organization: "OAQ" },
             { title: "Rising Scholar Award", year: 2025, organization: "Korean Academic Society of Business Administration" },
             { title: "Best Paper Award", year: 2024, organization: "Korean Academic Society of Business Administration" },

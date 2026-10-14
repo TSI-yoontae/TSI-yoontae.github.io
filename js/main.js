@@ -58,7 +58,7 @@ const App = () => {
                         <LabMark /><span>TSI Lab<span className="brand-caption">Time Series Intelligence</span></span>
                     </a>
                     <span className="university-label">Pusan National University<br /><span>Graduate School of Data Science</span></span>
-                    <a className="header-contact text-link" href="mailto:yoontae.hwang@pusan.ac.kr">Get in touch <ArrowIcon diagonal /></a>
+                    <a className="header-contact text-link" href="mailto:yoontae.hwang@pusan.ac.kr">Research collaboration <ArrowIcon diagonal /></a>
                     <button ref={menuRef} className="menu-button" aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => setMenuOpen(!menuOpen)}>
                         {menuOpen ? 'Close' : 'Menu'}<span aria-hidden="true">{menuOpen ? '−' : '+'}</span>
                     </button>
@@ -71,7 +71,7 @@ const App = () => {
                 </nav>
             </header>
             <main id="main-content" ref={mainRef} tabIndex="-1" className="site-main">
-                <div key={location.tab} className="page-enter">{content[location.tab]}</div>
+                <div key={location.tab} className="page-enter" data-page={location.tab}>{content[location.tab]}</div>
             </main>
             <footer className="site-footer">
                 <div className="footer-top">

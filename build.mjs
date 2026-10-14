@@ -6,7 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
-const files = ['js/data.js', 'js/figures.js', 'js/shared.js', 'js/terminal-engine.js', 'js/ResearchTerminal.js', 'js/tabs/Home.js', 'js/tabs/Members.js',
+const files = ['js/data.js', 'js/figures.js', 'js/shared.js', 'js/terminal-engine.js', 'js/ResearchTerminal.js', 'js/home-news.js', 'js/HeroField.js', 'js/tabs/Home.js', 'js/tabs/Members.js',
   'js/tabs/Publications.js', 'js/tabs/Teaching.js', 'js/tabs/Project.js',
   'js/tabs/ForStudents.js', 'js/tabs/Vacant.js', 'js/tabs/YearInReview.js', 'js/tabs/ResearchExplorer.js', 'js/main.js'];
 const source = await Promise.all(files.map(file => readFile(path.join(root, file), 'utf8')));
@@ -24,7 +24,7 @@ await build({
   legalComments: 'inline',
 });
 let html = await readFile(path.join(root, 'index.html'), 'utf8');
-for (const asset of ['site.bundle.js', 'styles.css']) {
+for (const asset of ['site.bundle.js', 'styles.css', 'design.css', 'concept-sections.css']) {
   const bytes = await readFile(path.join(root, asset));
   const hash = createHash('sha256').update(bytes).digest('hex').slice(0, 12);
   html = html.replace(new RegExp(asset.replaceAll('.', '\\.') + '(?:\\?v=[a-zA-Z0-9-]+)?', 'g'), asset + '?v=' + hash);

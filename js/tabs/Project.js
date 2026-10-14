@@ -8,11 +8,13 @@ window.TSI_Data.projects = [
         period: '2026.10 - Present',
     },
     {
-        title: '글로컬 R&D (with University of Oxford)',
+        title: 'Limit Order Book (LOB)을 위한 파운데이션모델 개발 (with University of Oxford)',
         year: 2026,
         role: '연구책임자',
         organization: 'National Research Foundation of Korea (NRF)',
         funding: '600,000,000 KRW',
+        fundingMaximum: true,
+        fundingYears: 3,
         period: '2026.09 - Present',
     },
     {
@@ -70,18 +72,28 @@ const getProjectStatus = (project, now = new Date()) => {
     return 'Ongoing';
 };
 
-const ProjectEntry = ({ project, showStatus = false }) => (
-    <article className="project-entry">
-        <div className="project-year"><span className="mono">{project.year}</span>{showStatus && <span className={'project-status status-' + getProjectStatus(project).toLowerCase()}>{getProjectStatus(project)}</span>}</div>
-        <div className="project-body"><h3 lang={/[가-힣]/.test(project.title) ? 'ko' : undefined}>{project.title}</h3><p className="project-organization">{project.organization}</p>
-            <dl className="project-details">
-                {project.role && <div><dt>Role</dt><dd lang="ko">{project.role}</dd></div>}
-                <div><dt>Period</dt><dd>{project.period}</dd></div>
-            </dl>
+const ProjectEntry = ({ project, showStatus = false }) => {
+    const status = getProjectStatus(project);
+    const [start, end] = project.period.split(' - ');
+    const collaboration = project.title.match(/\s*\(with (.+)\)$/);
+    const title = collaboration ? project.title.slice(0, collaboration.index) : project.title;
+    return <article className="project-entry">
+        <div className="project-timing">
+            <p className="project-period"><span>{start}</span><span>— {end}</span></p>
+            {showStatus && <span className={'project-status status-' + status.toLowerCase()}>{status}</span>}
         </div>
-        {project.funding && <div className="project-funding"><strong>{project.funding.replace(' KRW', '')}</strong><span>KRW</span></div>}
-    </article>
-);
+        <div className="project-body">
+            <h3 lang={/[가-힣]/.test(title) ? 'ko' : undefined}>{title}</h3>
+            {collaboration && <p className="project-collaboration">with {collaboration[1]}</p>}
+            <p className="project-organization">{project.organization}</p>
+            {project.role && <p className="project-role" lang="ko">{project.role}</p>}
+        </div>
+        {project.funding && <div className="project-funding">
+            <div className="project-amount"><span className="project-currency">KRW</span><strong>{project.funding.replace(' KRW', '')}</strong></div>
+            {project.fundingMaximum && <span className="project-funding-note">Maximum{project.fundingYears ? ' · ' + project.fundingYears + ' years' : ''}</span>}
+        </div>}
+    </article>;
+};
 
 window.ProjectTabContent = () => {
     const projects = window.TSI_Data.projects || [];
@@ -89,12 +101,13 @@ window.ProjectTabContent = () => {
     const filtered = projects.filter(project => status === 'All' || getProjectStatus(project) === status);
     return (
         <>
-            <PageIntro title="Funded Projects" />
-            <div className="section-heading">
-                <div className="filter-group" role="group" aria-label="Project status">{['All', 'Ongoing', 'Upcoming', 'Completed'].map(item =>
+            <PageIntro title="Research projects" />
+            <div className="project-toolbar">
+                <div className="filter-group" role="group" aria-label="Project status">{['All', 'Ongoing', 'Upcoming', 'Completed'].filter(item => item !== 'Upcoming' || projects.some(project => getProjectStatus(project) === item)).map(item =>
                     <FilterButton key={item} active={item === status} onClick={() => setStatus(item)}>{item}</FilterButton>)}</div>
                 <p className="count-label" role="status">{filtered.length} {filtered.length === 1 ? 'project' : 'projects'}</p>
             </div>
+            <div className="project-column-headings" aria-hidden="true"><span>Period</span><span>Research project</span><span>Funding</span></div>
             <div className="project-list">{filtered.map(project => <ProjectEntry key={project.title} project={project} showStatus />)}</div>
             {!filtered.length && <EmptyState>No projects are listed in this category.</EmptyState>}
         </>

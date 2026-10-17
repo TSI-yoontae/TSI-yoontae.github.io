@@ -7,7 +7,7 @@ const homeNewsPresentation = [
     },
     {
         title: 'Eight papers accepted at ICAIF 2026',
-        detail: 'Four papers selected for oral presentation.',
+        detail: 'Acceptance rate: 22%. Four papers selected for oral presentation (top ~1.3% of all submissions).',
     },
     {
         title: 'FinFM workshop at AAAI 2027',

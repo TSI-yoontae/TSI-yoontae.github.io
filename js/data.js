@@ -3,7 +3,7 @@ window.TSI_Data = {};
 window.TSI_Data.reviewStartYear = 2025;
 window.TSI_Data.news = [
     { date: 'Oct 2026', category: 'Recognition', text: "Yoontae Hwang selected as a Top Reviewer for NeurIPS'26." },
-    { date: 'Oct 2026', category: 'Publication', text: 'Eight papers from TSI Lab accepted to ICAIF 2026, including four oral presentations.' },
+    { date: 'Oct 2026', category: 'Publication', text: 'Eight papers from TSI Lab accepted to ICAIF 2026 (acceptance rate: 22%), including four oral presentations (top ~1.3% of all submissions).' },
     {
         date: 'Sep 2026',
         category: 'Academic service',

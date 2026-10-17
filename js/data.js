@@ -50,6 +50,10 @@ window.TSI_Data.venueMetrics = {
         conference: 'ICML',
         acceptance: { rate: 100 * 6552 / 24661, year: 2026, source: 'https://media.icml.cc/Conferences/ICML2026/ICML2026_Fact_Sheet.pdf' },
     },
+    'icaif-2026': {
+        acceptance: { rate: 22, year: 2026, sourceNote: 'Reported by the site owner on 2026-10-18.' },
+        oral: { selected: 60, accepted: 1000, approximate: true, year: 2026, sourceNote: 'The site owner reported approximately 1,000 accepted papers and 60 oral presentations on 2026-10-18. The share of all submissions is estimated using the 22% acceptance rate.' },
+    },
     'icaif-2025': {
         acceptance: { rate: 100 * 113 / 349, year: 2025, source: 'https://www.linkedin.com/posts/6estates_icaif2025-aiinfinance-financialai-activity-7402715238133125120-fZu5' },
         oral: { selected: 54, submitted: 349, year: 2025, source: 'https://icaif25.org/overview/' },
@@ -140,7 +144,7 @@ window.TSI_Data.publications = [
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
-        metricsKey: 'icaif-2025',
+        metricsKey: 'icaif-2026',
         links: [],
         topics: ["Large Language Models", "Portfolio Theory", "Finance"]
     },
@@ -157,7 +161,7 @@ window.TSI_Data.publications = [
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
-        metricsKey: 'icaif-2025',
+        metricsKey: 'icaif-2026',
         presentation: 'Oral',
         links: [],
         topics: ["Large Language Models", "Trading", "Finance"]
@@ -172,7 +176,7 @@ window.TSI_Data.publications = [
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
-        metricsKey: 'icaif-2025',
+        metricsKey: 'icaif-2026',
         links: [],
         topics: ["Large Language Models", "Finance"]
     },
@@ -190,7 +194,7 @@ window.TSI_Data.publications = [
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
-        metricsKey: 'icaif-2025',
+        metricsKey: 'icaif-2026',
         presentation: 'Oral',
         links: [],
         topics: ["Natural Language Processing", "Trading", "Finance"]
@@ -208,7 +212,7 @@ window.TSI_Data.publications = [
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
-        metricsKey: 'icaif-2025',
+        metricsKey: 'icaif-2026',
         presentation: 'Oral',
         links: [],
         topics: ["Optimization", "Finance"]
@@ -226,7 +230,7 @@ window.TSI_Data.publications = [
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
-        metricsKey: 'icaif-2025',
+        metricsKey: 'icaif-2026',
         links: [],
         topics: ["Trading", "Finance"]
     },
@@ -246,7 +250,7 @@ window.TSI_Data.publications = [
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
-        metricsKey: 'icaif-2025',
+        metricsKey: 'icaif-2026',
         links: [],
         topics: ["Household Finance", "Time-Series Analysis", "Finance"]
     },
@@ -259,7 +263,7 @@ window.TSI_Data.publications = [
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
         venue: "ICAIF 2026 · Main Track · Accepted",
-        metricsKey: 'icaif-2025',
+        metricsKey: 'icaif-2026',
         presentation: 'Oral',
         links: [],
         topics: ["Time-Series Analysis", "Trading", "Deep Learning"]

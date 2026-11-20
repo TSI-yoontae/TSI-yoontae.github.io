@@ -1,12 +1,23 @@
 const navigation = [
-    ['home', 'Home'], ['publications', 'Publications'], ['research-explorer', 'Research Explorer'],
-    ['project', 'Projects'], ['members', 'Members'], ['news', 'News'], ['teaching', 'Teaching'],
-    ['for-students', 'For Students'], ['vacant', 'Admissions'], ['year-in-review', 'Year in Review'],
+    ['home', 'Home'], ['publications', 'Publications'], ['project', 'Projects'],
+    ['members', 'Members'], ['news', 'News'], ['for-students', 'For Students'], ['year-in-review', 'Year in Review'],
 ];
+
+const legacyRoutes = new Map([
+    ['vacant', ['for-students', 'admissions']],
+    ['teaching', ['for-students', 'teaching']],
+    ['research-explorer', ['publications']],
+]);
 
 const readLocation = () => {
     const [candidate, query = ''] = window.location.hash.slice(1).split('?');
-    return { tab: navigation.some(([id]) => id === candidate) ? candidate : 'home', query: new URLSearchParams(query).get('q') || '' };
+    const [route, legacySection] = legacyRoutes.get(candidate) || [candidate];
+    const params = new URLSearchParams(query);
+    return {
+        tab: navigation.some(([id]) => id === route) ? route : 'home',
+        query: params.get('q') || '',
+        studentSection: legacySection || params.get('section'),
+    };
 };
 
 const App = () => {
@@ -41,12 +52,9 @@ const App = () => {
         home: <window.HomeTabContent />,
         members: <window.MembersTabContent />,
         publications: <window.PublicationsTabContent key={location.query} initialQuery={location.query} />,
-        'research-explorer': <window.ResearchExplorerTabContent />,
         project: <window.ProjectTabContent />,
         news: <window.NewsTabContent />,
-        teaching: <window.TeachingTabContent />,
-        'for-students': <window.ForStudentsTabContent />,
-        vacant: <window.VacantPositionsTabContent />,
+        'for-students': <window.ForStudentsTabContent section={location.studentSection} />,
         'year-in-review': <window.YearInReviewTabContent />,
     };
 
@@ -73,7 +81,7 @@ const App = () => {
                     <div><a className="brand" href="#home">TSI Lab</a><p>Time Series Intelligence Lab<br />Pusan National University · Busan, South Korea</p></div>
                     <div className="footer-contact"><p>Research collaboration</p><a href="mailto:yoontae.hwang@pusan.ac.kr">yoontae.hwang@pusan.ac.kr</a></div>
                 </div>
-                <div className="footer-bottom"><span>© {new Date().getFullYear()} TSI Lab</span><div><a href="#publications">Research</a><a href="#vacant">Prospective students</a><a href="#year-in-review">Year in Review</a></div></div>
+                <div className="footer-bottom"><span>© {new Date().getFullYear()} TSI Lab</span><div><a href="#publications">Research</a><a href="#for-students?section=admissions">Prospective students</a><a href="#year-in-review">Year in Review</a></div></div>
             </footer>
         </>
     );

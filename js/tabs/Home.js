@@ -24,14 +24,6 @@ const HomeIntro = () => <section className="lab-intro" aria-labelledby="page-tit
     </div>
 </section>;
 
-const HomeVisualization = () => {
-    const [open, setOpen] = React.useState(false);
-    return <details className="home-visualization" onToggle={event => setOpen(event.currentTarget.open)}>
-        <summary>Time-series visualization</summary>
-        {open && <HeroField />}
-    </details>;
-};
-
 const getHomeResearchRecord = (year) => {
     const papers = window.TSI_Data.publications.filter(paper => getPublicationYear(paper) === year
         && (getPublicationKind(paper.id) === 'Journal'
@@ -90,7 +82,6 @@ const HomeResearchTopics = () => <section className="concept-research">
         <ul>{topic.items.map(item => <li key={item}>{item}</li>)}</ul>
         <a className="research-topic-link" href={'#publications?q=' + encodeURIComponent(topic.query)}>Related papers</a>
     </article>)}</div>
-    <HomeVisualization />
 </section>;
 
 const SelectedPapersSection = () => {

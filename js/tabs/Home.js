@@ -20,7 +20,6 @@ const HomeIntro = () => <section className="lab-intro" aria-labelledby="page-tit
     <div className="lab-intro-links">
         <span>Led by <a href="#members">Yoontae Hwang</a></span>
         <a href="#publications">Publications</a>
-        <a href="#research-explorer">Research Explorer</a>
     </div>
 </section>;
 
@@ -76,7 +75,7 @@ const NewsSection = () => {
 };
 
 const HomeResearchTopics = () => <section className="concept-research">
-    <ConceptSectionHeading title="Research areas"><a href="#research-explorer">Explore the work</a></ConceptSectionHeading>
+    <ConceptSectionHeading title="Research areas" />
     <div className="research-lines">{researchDirections.map(topic => <article className="research-line" key={topic.id}>
         <h3>{topic.label}</h3><div className="research-line-description"><p>{topic.description}</p></div>
         <ul>{topic.items.map(item => <li key={item}>{item}</li>)}</ul>
@@ -111,5 +110,5 @@ const HomeProjects = () => <section className="concept-collaboration">
 
 window.HomeTabContent = () => <div className="home-page concept-home">
     <HomeIntro /><NewsSection /><SelectedPapersSection /><HomeResearchTopics /><HomeProjects /><ConceptEvidence />
-    <aside className="concept-students"><div><h2>Prospective students</h2><p>Regular recruitment is currently closed. Please review the lab guidelines before contacting the advisor.</p></div><a href="#vacant">Lab guidelines</a></aside>
+    <aside className="concept-students"><div><h2>Prospective students</h2><p>Regular recruitment is currently closed. Please review the lab guidelines before contacting the advisor.</p></div><a href="#for-students?section=admissions">Lab guidelines</a></aside>
 </div>;

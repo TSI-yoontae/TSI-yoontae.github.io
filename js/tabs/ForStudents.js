@@ -8,13 +8,12 @@ const studentRecommendations = [
         { category: 'Useful website', items: [{ text: "Paper Copilot: Whether the score received at the AI conference is relatively good or bad", href: 'https://papercopilot.com/' }, { text: "Cite.GG: Find recent papers that reference the paper you're reading", href: 'https://cite.gg/#/' }, { text: 'AI Conference Deadline: Countdowns to top CV/NLP/ML/Robotics/AI conference deadlines', href: 'https://huggingface.co/spaces/huggingface/ai-deadlines' }, { text: 'Operation Research (Top publication): Google Scholar Metrics', href: 'https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_operationsresearch' }, { text: 'Data Mining & Analysis (Top publication): Google Scholar Metrics', href: 'https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_datamininganalysis' }, { text: 'Artificial Inteligence (Top publication): Google Scholar Metrics', href: 'https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=eng_artificialintelligence' }, { text: 'Finance (Top publication): Google Scholar Metrics', href: 'https://scholar.google.com/citations?view_op=top_venues&hl=en&vq=bus_finance' }] },
     ];
 
-window.ForStudentsTabContent = () => {
+const StudentReadingList = () => {
     const [query, setQuery] = React.useState('');
     const normalized = query.trim().toLowerCase();
     const groups = studentRecommendations.map(group => ({ ...group, items: group.items.filter(item => (group.category + ' ' + item.text).toLowerCase().includes(normalized)) })).filter(group => group.items.length);
     return (
         <>
-            <PageIntro title="For Students" />
             <label className="search-field reading-search"><span className="sr-only">Search reading list</span><input type="search" placeholder="Find a book, author, or topic…" value={query} onChange={event => setQuery(event.target.value)} /><span aria-hidden="true">⌕</span></label>
             <p className="fine-print" role="status">{groups.reduce((sum, group) => sum + group.items.length, 0)} reading resources · {groups.length} {groups.length === 1 ? 'topic' : 'topics'}</p>
             <div className="reading-list">{groups.map((group, index) =>
@@ -24,6 +23,26 @@ window.ForStudentsTabContent = () => {
                         : <span className="unlinked-resource">{item.text}<span className="fine-print">Link to be added</span></span>}</li>)}</ul>
                 </details>)}</div>
             {!groups.length && <EmptyState><h2>No resources found.</h2><button className="text-button" onClick={() => setQuery('')}>Clear search</button></EmptyState>}
+        </>
+    );
+};
+
+window.ForStudentsTabContent = ({ section }) => {
+    const sections = [
+        { id: 'reading', label: 'Reading list', href: '#for-students', Content: StudentReadingList },
+        { id: 'admissions', label: 'Admissions', href: '#for-students?section=admissions', Content: AdmissionsSection },
+        { id: 'teaching', label: 'Teaching', href: '#for-students?section=teaching', Content: TeachingSection },
+    ];
+    const active = sections.find(item => item.id === section) || sections[0];
+    const { Content } = active;
+
+    return (
+        <>
+            <PageIntro title="For Students" />
+            <nav className="student-nav" aria-label="For Students sections">
+                {sections.map(item => <a key={item.id} href={item.href} aria-current={item === active ? 'page' : undefined}>{item.label}</a>)}
+            </nav>
+            <div className="student-section" data-student-section={active.id}><Content /></div>
         </>
     );
 };

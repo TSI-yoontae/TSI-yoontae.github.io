@@ -44,7 +44,7 @@ window.MembersTabContent = () => {
                 <StudentSection title="박사과정" members={members.filter(member => member.status === 'PhD Student')} />
                 <StudentSection title="석사과정" members={members.filter(member => ['MS Student', 'Master Thesis Track'].includes(member.status))} />
             </div>
-            <div className="roster-footer"><a className="text-link" href="#vacant">Joining the lab <ArrowIcon /></a></div>
+            <div className="roster-footer"><a className="text-link" href="#for-students?section=admissions">Joining the lab <ArrowIcon /></a></div>
         </>
     );
 };

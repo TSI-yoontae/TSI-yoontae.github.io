@@ -99,9 +99,8 @@ const VacantPreferredProfileSection = () => {
     );
 };
 
-window.VacantPositionsTabContent = () => (
+const AdmissionsSection = () => (
     <>
-        <PageIntro title="Vacant Positions" />
         <section className="philosophy-banner">
             <p className="eyebrow">Research philosophy</p>
             <blockquote>“Research is meaningful only when its insights leave the lab and change the world.”</blockquote>

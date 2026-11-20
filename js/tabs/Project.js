@@ -1,5 +1,13 @@
 window.TSI_Data.projects = [
     {
+        title: '주식시장의 순환적 가격반응과 정보효율성',
+        year: 2026,
+        role: '연구책임자',
+        organization: '한국거래소 (KRX)',
+        funding: '5,000,000 KRW',
+        period: '2026.11.10 - 2027.11.05',
+    },
+    {
         title: '2026학년도 신진교수 지원사업',
         year: 2026,
         role: '연구책임자',
@@ -65,10 +73,10 @@ window.TSI_Data.projects = [
 const getProjectStatus = (project, now = new Date()) => {
     const dates = (project.period || '').match(/\d{4}\.\d{2}(?:\.\d{2})?/g) || [];
     if (!dates.length) return 'Ongoing';
-    const month = date => Number(date.slice(0, 4)) * 12 + Number(date.slice(5, 7));
-    const currentMonth = now.getFullYear() * 12 + now.getMonth() + 1;
-    if (month(dates[0]) > currentMonth) return 'Upcoming';
-    if (!/present|ongoing/i.test(project.period) && dates[1] && month(dates[1]) < currentMonth) return 'Completed';
+    const today = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Seoul' }).format(now).replaceAll('-', '.');
+    const [start, end] = dates;
+    if (start > today.slice(0, start.length)) return 'Upcoming';
+    if (!/present|ongoing/i.test(project.period) && end && end < today.slice(0, end.length)) return 'Completed';
     return 'Ongoing';
 };
 
@@ -85,7 +93,7 @@ const ProjectEntry = ({ project, showStatus = false }) => {
         <div className="project-body">
             <h3 lang={/[가-힣]/.test(title) ? 'ko' : undefined}>{title}</h3>
             {collaboration && <p className="project-collaboration">with {collaboration[1]}</p>}
-            <p className="project-organization">{project.organization}</p>
+            <p className="project-organization" lang={/^[가-힣]/.test(project.organization) ? 'ko' : undefined}>{project.organization}</p>
             {project.role && <p className="project-role" lang="ko">{project.role}</p>}
         </div>
         {project.funding && <div className="project-funding">

@@ -1,32 +1,6 @@
 window.TSI_Data = {};
 
 window.TSI_Data.reviewStartYear = 2025;
-window.TSI_Data.news = [
-    { date: 'Oct 2026', category: 'Recognition', text: "Yoontae Hwang selected as a Top Reviewer for NeurIPS'26." },
-    { date: 'Oct 2026', category: 'Publication', text: 'Eight papers from TSI Lab accepted to ICAIF 2026 (acceptance rate: 22%), including four oral presentations (top ~1.3% of all submissions).' },
-    {
-        date: 'Sep 2026',
-        category: 'Academic service',
-        text: "Yoontae Hwang will serve as an organizer of the workshop \"FinFM: Foundation Models and Generative AI for Finance\" at AAAI'27.",
-        link: 'https://finfm.finhorizons.org/',
-        organizing: { title: 'FinFM: Foundation Models and Generative AI for Finance', venue: "AAAI'27", role: 'Organizer' },
-    },
-    { date: 'Sep 2026', category: 'Publication', text: "One paper (Graph Neural Network) accepted to NeurIPS'26 (Top Tier AI Conference; CORE A*)." },
-    { date: 'Sep 2026', category: 'Publication', text: "One paper accepted to Expert systems with applications(6/109; Top 5.5%)." },
-    { date: 'Aug 2026', category: 'Research funding', text: "한국연구재단(NRF) 글로컬R&D 사업 선정: University of Oxford와 Limit Order Book (LOB)을 위한 파운데이션모델 개발, 3년간 최대 6억 원 연구비 확보" },
-    { date: 'Jun 2026', category: 'Publication', text: "One paper accepted to Journal of Applied Physics." },
-    { date: 'May 2026', category: 'Recognition', text: "Yoontae Hwang recognized as a Gold Reviewer (Top Reviewer) for ICML'26." },
-    { date: 'May 2026', category: 'Publication', text: "Two Financial AI papers accepted to ICML'26 (Top Tier AI Confernece; CORE A*)." },
-    {
-        date: 'Dec 2025',
-        category: 'Academic service',
-        text: 'TSI Lab will host the Workshop on Rethinking Financial Time-Series at ICAIF-25.',
-        link: 'https://icaif-25-rtfs.github.io/',
-        organizing: { title: 'Workshop on Rethinking Financial Time-Series (RTFS)', venue: "ICAIF'25", role: 'Organizer' },
-    },
-    { date: 'Dec 2025', category: 'Recognition', text: 'Selected for the Rising Scholar Award by the Korean Academic Society of Business Administration.' },
-    { date: 'Sep 2025', category: 'Lab milestone', text: 'Time Series Intelligence Lab launches at Pusan National University.' },
-];
  
 // Verified venue statistics. Reference years are displayed separately from paper years.
 // Sources, denominators, and unavailable metrics are documented in README.md.
@@ -51,8 +25,12 @@ window.TSI_Data.venueMetrics = {
         acceptance: { rate: 100 * 6552 / 24661, year: 2026, source: 'https://media.icml.cc/Conferences/ICML2026/ICML2026_Fact_Sheet.pdf' },
     },
     'icaif-2026': {
-        acceptance: { rate: 22, year: 2026, sourceNote: 'Reported by the site owner on 2026-10-18.' },
-        oral: { selected: 60, accepted: 1000, approximate: true, year: 2026, sourceNote: 'The site owner reported approximately 1,000 accepted papers and 60 oral presentations on 2026-10-18. The share of all submissions is estimated using the 22% acceptance rate.' },
+        acceptance: { rate: 22, approximate: true, year: 2026, source: 'https://icaif2026.org/index.html' },
+        oral: {
+            selected: 52, submitted: 1019, year: 2026,
+            source: 'https://icaif2026.org/accepted-papers/',
+            submissionSource: 'https://ca.linkedin.com/in/sebastian-jaimungal-0353585',
+        },
     },
     'icaif-2025': {
         acceptance: { rate: 100 * 113 / 349, year: 2025, source: 'https://www.linkedin.com/posts/6estates_icaif2025-aiinfinance-financialai-activity-7402715238133125120-fZu5' },
@@ -143,9 +121,9 @@ window.TSI_Data.publications = [
             { name: "Donghwa Seo", affiliations: ["DS Investment & Securities"] },
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
-        venue: "ICAIF 2026 · Main Track · Accepted",
+        venue: "ICAIF 2026 · Main Track",
         metricsKey: 'icaif-2026',
-        links: [],
+        links: [{ text: "ACM", href: "https://doi.org/10.1145/3858063.3858812" }],
         topics: ["Large Language Models", "Portfolio Theory", "Finance"]
     },
     {
@@ -160,24 +138,24 @@ window.TSI_Data.publications = [
             { name: "Seunghan Son", affiliations: ["Independent Researcher"] },
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
-        venue: "ICAIF 2026 · Main Track · Accepted",
+        venue: "ICAIF 2026 · Main Track",
         metricsKey: 'icaif-2026',
         presentation: 'Oral',
-        links: [],
+        links: [{ text: "ACM", href: "https://doi.org/10.1145/3858063.3858725" }],
         topics: ["Large Language Models", "Trading", "Finance"]
     },
     {
         id: "[C12]",
-        title: "Semantic Credibility Cold-Start Priors for Novel Insurance Claim Codes with LLM Embeddings",
+        title: "Semantic Credibility: Cold-Start Priors for Novel Insurance Claim Codes with LLM Embeddings",
         authors: [
             { name: "Yejin Kim", href: "https://scholar.google.com/citations?user=RT2PhEsAAAAJ&hl=ko", affiliations: ["Meritz Fire & Marine Insurance"] },
-            { name: "Junhyung Kim", affiliations: ["Meritz Fire & Marine Insurance"] },
+            { name: "Joonhyung Kim", affiliations: ["Meritz Fire & Marine Insurance"] },
             { name: "Youngbin Lee", href: "https://scholar.google.com/citations?user=iPgVqcEAAAAJ&hl=ko", affiliations: ["Elice"] },
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
-        venue: "ICAIF 2026 · Main Track · Accepted",
+        venue: "ICAIF 2026 · Main Track",
         metricsKey: 'icaif-2026',
-        links: [],
+        links: [{ text: "ACM", href: "https://doi.org/10.1145/3858063.3858799" }],
         topics: ["Large Language Models", "Finance"]
     },
     {
@@ -193,10 +171,10 @@ window.TSI_Data.publications = [
             { name: "Hyeonjun Yeo", affiliations: ["Seoul National University"] },
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
-        venue: "ICAIF 2026 · Main Track · Accepted",
+        venue: "ICAIF 2026 · Main Track",
         metricsKey: 'icaif-2026',
         presentation: 'Oral',
-        links: [],
+        links: [{ text: "ACM", href: "https://doi.org/10.1145/3858063.3858800" }],
         topics: ["Natural Language Processing", "Trading", "Finance"]
     },
     {
@@ -211,10 +189,10 @@ window.TSI_Data.publications = [
             { name: "Doohwi Cha", affiliations: ["Mirae Asset Securities"] },
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
-        venue: "ICAIF 2026 · Main Track · Accepted",
+        venue: "ICAIF 2026 · Main Track",
         metricsKey: 'icaif-2026',
         presentation: 'Oral',
-        links: [],
+        links: [{ text: "ACM", href: "https://doi.org/10.1145/3858063.3858807" }],
         topics: ["Optimization", "Finance"]
     },
     {
@@ -229,9 +207,9 @@ window.TSI_Data.publications = [
             { name: "Donghwa Seo", affiliations: ["DS Investment & Securities"] },
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
-        venue: "ICAIF 2026 · Main Track · Accepted",
+        venue: "ICAIF 2026 · Main Track",
         metricsKey: 'icaif-2026',
-        links: [],
+        links: [{ text: "ACM", href: "https://doi.org/10.1145/3858063.3858813" }],
         topics: ["Trading", "Finance"]
     },
     {
@@ -249,9 +227,9 @@ window.TSI_Data.publications = [
             { name: "Juyeong Lee", affiliations: ["EY Consulting"] },
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
-        venue: "ICAIF 2026 · Main Track · Accepted",
+        venue: "ICAIF 2026 · Main Track",
         metricsKey: 'icaif-2026',
-        links: [],
+        links: [{ text: "ACM", href: "https://doi.org/10.1145/3858063.3858827" }],
         topics: ["Household Finance", "Time-Series Analysis", "Finance"]
     },
     {
@@ -262,10 +240,10 @@ window.TSI_Data.publications = [
             { name: "Doohwi Cha", affiliations: ["Mirae Asset Securities"] },
             { name: "Yoontae Hwang†", isHighlight: true, affiliations: ["Pusan National University"] }
         ],
-        venue: "ICAIF 2026 · Main Track · Accepted",
+        venue: "ICAIF 2026 · Main Track",
         metricsKey: 'icaif-2026',
         presentation: 'Oral',
-        links: [],
+        links: [{ text: "ACM", href: "https://doi.org/10.1145/3858063.3858900" }, { text: "arXiv", href: "https://arxiv.org/abs/2610.16151" }],
         topics: ["Time-Series Analysis", "Trading", "Deep Learning"]
     },
     {
@@ -350,7 +328,8 @@ window.TSI_Data.publications = [
         metricsKey: 'icaif-2025',
         award: "Oxford & Deutsche Bank Project", 
         links: [ 
-            { text: "paper", href: "https://arxiv.org/abs/2510.20699" }, 
+            { text: "ACM", href: "https://doi.org/10.1145/3768292.3771256" },
+            { text: "arXiv", href: "https://arxiv.org/abs/2510.20699" },
             { text: "code", href: "https://github.com/Yoontae6719/M2VN-Multi-Modal-Learning-Network-for-Volatility-Forecasting" } 
         ], 
         topics: ["Time-Series Analysis", "Deep Learning"] 

@@ -55,29 +55,23 @@ const App = () => {
             <a className="skip-link" href="#main-content" onClick={event => { event.preventDefault(); mainRef.current?.focus(); }}>Skip to content</a>
             <header className="site-header">
                 <div className="header-inner">
-                    <a className="brand" href="#home" aria-label="TSI Lab home">
-                        <LabMark /><span>TSI Lab<span className="brand-caption">Time Series Intelligence</span></span>
-                    </a>
-                    <span className="university-label">Pusan National University<br /><span>Graduate School of Data Science</span></span>
-                    <a className="header-contact text-link" href="mailto:yoontae.hwang@pusan.ac.kr">Research collaboration <ArrowIcon diagonal /></a>
-                    <button ref={menuRef} className="menu-button" aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => setMenuOpen(!menuOpen)}>
+                    <a className="brand" href="#home" aria-label="TSI Lab home">TSI Lab</a>
+                    <button type="button" ref={menuRef} className="menu-button" aria-expanded={menuOpen} aria-controls="main-navigation" onClick={() => setMenuOpen(!menuOpen)}>
                         {menuOpen ? 'Close' : 'Menu'}<span aria-hidden="true">{menuOpen ? '−' : '+'}</span>
                     </button>
-                </div>
-                <nav id="main-navigation" aria-label="Main navigation" className={'main-nav' + (menuOpen ? ' is-open' : '')}>
-                    <div className="nav-inner">
+                    <nav id="main-navigation" aria-label="Main navigation" className={'main-nav' + (menuOpen ? ' is-open' : '')}>
                         {navigation.map(([id, label]) => <a key={id} href={'#' + id} aria-current={location.tab === id ? 'page' : undefined}
                             onClick={() => setMenuOpen(false)}>{label}</a>)}
-                    </div>
-                </nav>
+                    </nav>
+                </div>
             </header>
             <main id="main-content" ref={mainRef} tabIndex="-1" className="site-main">
                 <div key={location.tab} className="page-enter" data-page={location.tab}>{content[location.tab]}</div>
             </main>
             <footer className="site-footer">
                 <div className="footer-top">
-                    <div><a className="brand" href="#home"><LabMark /><span>TSI Lab</span></a><p>Time Series Intelligence Lab<br />Pusan National University · Busan, South Korea</p></div>
-                    <div className="footer-contact"><p className="eyebrow">Contact</p><a className="text-link" href="mailto:yoontae.hwang@pusan.ac.kr">yoontae.hwang@pusan.ac.kr <ArrowIcon diagonal /></a></div>
+                    <div><a className="brand" href="#home">TSI Lab</a><p>Time Series Intelligence Lab<br />Pusan National University · Busan, South Korea</p></div>
+                    <div className="footer-contact"><p>Research collaboration</p><a href="mailto:yoontae.hwang@pusan.ac.kr">yoontae.hwang@pusan.ac.kr</a></div>
                 </div>
                 <div className="footer-bottom"><span>© {new Date().getFullYear()} TSI Lab</span><div><a href="#publications">Research</a><a href="#vacant">Prospective students</a><a href="#year-in-review">Year in Review</a></div></div>
             </footer>

@@ -2,7 +2,8 @@ const HeroField = () => {
     const hostRef = React.useRef(null);
     const canvasRef = React.useRef(null);
     const controlsRef = React.useRef(null);
-    const [paused, setPaused] = React.useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    const [motionPreference] = React.useState(() => window.matchMedia?.('(prefers-reduced-motion: reduce)'));
+    const [paused, setPaused] = React.useState(() => motionPreference?.matches ?? false);
     const [available, setAvailable] = React.useState(true);
 
     React.useEffect(() => {
@@ -14,7 +15,6 @@ const HeroField = () => {
             return;
         }
 
-        const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
         const frameInterval = 1000 / 30;
         let width = 0;
         let height = 0;
@@ -22,29 +22,25 @@ const HeroField = () => {
         let frame = 0;
         let lastDraw = 0;
         let phase = 0;
-        let stopped = paused;
-        let inView = true;
+        let stopped = motionPreference?.matches ?? false;
+        let inView = false;
         let disposed = false;
         const pointer = { x: 0, y: 0, targetX: 0, targetY: 0 };
 
-        // A folded surface, not a chart: depth is carried by strand spacing and light.
-        const pointAt = (u, v, time) => {
-            const bend = Math.sin(u * 2.25 + time) * .31;
+        const pointAt = (u, v, projection) => {
+            const bend = Math.sin(u * 2.25 + phase) * .31;
             const fold = Math.exp(-Math.pow((u + .05) * 1.45, 2));
             const x = u * 1.42 + v * .17;
-            const y = v * .61 + bend + Math.sin(v * 2.3 + u * 1.6 + time * .32) * fold * .22;
-            const z = Math.cos(u * 1.8 + time * .7) * .29 + Math.sin(v * 2.1 + u * .85) * .24;
-            const turn = -.13 + pointer.x * .035;
-            const tilt = -.22 + pointer.y * .025;
-            const turnedX = x * Math.cos(turn) + z * Math.sin(turn);
-            const turnedZ = -x * Math.sin(turn) + z * Math.cos(turn);
-            const liftedY = y * Math.cos(tilt) - turnedZ * Math.sin(tilt);
-            const depth = y * Math.sin(tilt) + turnedZ * Math.cos(tilt);
+            const y = v * .61 + bend + Math.sin(v * 2.3 + u * 1.6 + phase * .32) * fold * .22;
+            const z = Math.cos(u * 1.8 + phase * .7) * .29 + Math.sin(v * 2.1 + u * .85) * .24;
+            const turnedX = x * projection.turnCos + z * projection.turnSin;
+            const turnedZ = -x * projection.turnSin + z * projection.turnCos;
+            const liftedY = y * projection.tiltCos - turnedZ * projection.tiltSin;
+            const depth = y * projection.tiltSin + turnedZ * projection.tiltCos;
             const perspective = 1 / (1 + depth * .13);
             return {
                 x: width * (.5 + turnedX * perspective * .307),
                 y: height * (.46 + liftedY * perspective * .34),
-                depth,
             };
         };
 
@@ -54,6 +50,13 @@ const HeroField = () => {
             context.clearRect(0, 0, width, height);
             context.lineCap = 'round';
             context.lineJoin = 'round';
+
+            const turn = -.13 + pointer.x * .13;
+            const tilt = -.22 + pointer.y * .09;
+            const projection = {
+                turnCos: Math.cos(turn), turnSin: Math.sin(turn),
+                tiltCos: Math.cos(tilt), tiltSin: Math.sin(tilt),
+            };
 
             // The brightest edge is deliberately narrow; the navy remains dominant.
             const rows = width < 400 ? 31 : 43;
@@ -73,7 +76,7 @@ const HeroField = () => {
                 context.beginPath();
                 for (let step = 0; step <= steps; step += 1) {
                     const u = -1 + (step / steps) * 2;
-                    const point = pointAt(u, v, phase);
+                    const point = pointAt(u, v, projection);
                     if (step === 0) context.moveTo(point.x, point.y);
                     else context.lineTo(point.x, point.y);
                 }
@@ -88,7 +91,7 @@ const HeroField = () => {
                 context.strokeStyle = `rgba(193,204,218,${edgeFade * .075})`;
                 context.beginPath();
                 for (let step = 0; step <= 30; step += 1) {
-                    const point = pointAt(u, -1 + step / 15, phase);
+                    const point = pointAt(u, -1 + step / 15, projection);
                     if (!step) context.moveTo(point.x, point.y);
                     else context.lineTo(point.x, point.y);
                 }
@@ -99,7 +102,7 @@ const HeroField = () => {
             for (let i = 0; i < 26; i += 1) {
                 const u = -.83 + (i / 25) * 1.66;
                 const v = Math.sin(i * 2.399) * .88;
-                const point = pointAt(u, v, phase);
+                const point = pointAt(u, v, projection);
                 const light = Math.sin(Math.PI * (i + 1) / 27) * .35;
                 context.fillStyle = `rgba(235,240,247,${light})`;
                 context.beginPath();
@@ -119,9 +122,9 @@ const HeroField = () => {
             if (!canAnimate()) { lastDraw = 0; return; }
             const elapsed = lastDraw ? now - lastDraw : frameInterval;
             if (elapsed >= frameInterval) {
-                phase += Math.min(elapsed, 80) * .000065;
-                pointer.x += (pointer.targetX - pointer.x) * .045;
-                pointer.y += (pointer.targetY - pointer.y) * .045;
+                phase += Math.min(elapsed, 80) * .00034;
+                pointer.x += (pointer.targetX - pointer.x) * .09;
+                pointer.y += (pointer.targetY - pointer.y) * .09;
                 draw();
                 lastDraw = now;
             }
@@ -131,18 +134,28 @@ const HeroField = () => {
             if (!canAnimate()) stopLoop();
             else if (!frame) frame = window.requestAnimationFrame(tick);
         };
+        const isOnScreen = bounds => bounds.bottom > 0 && bounds.right > 0
+            && bounds.top < window.innerHeight && bounds.left < window.innerWidth;
+        const updateViewport = () => {
+            inView = isOnScreen(host.getBoundingClientRect());
+            syncLoop();
+        };
         const resize = () => {
             const bounds = host.getBoundingClientRect();
-            width = Math.max(0, bounds.width);
-            height = Math.max(0, bounds.height);
-            ratio = Math.min(window.devicePixelRatio || 1, 1.5);
-            canvas.width = Math.max(1, Math.round(width * ratio));
-            canvas.height = Math.max(1, Math.round(height * ratio));
-            draw();
+            const nextRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+            if (bounds.width !== width || bounds.height !== height || nextRatio !== ratio) {
+                width = bounds.width;
+                height = bounds.height;
+                ratio = nextRatio;
+                canvas.width = Math.max(1, Math.round(width * ratio));
+                canvas.height = Math.max(1, Math.round(height * ratio));
+                draw();
+            }
+            inView = isOnScreen(bounds);
             syncLoop();
         };
         const pointerMove = event => {
-            if (stopped || motionPreference.matches || event.pointerType === 'touch') return;
+            if (stopped || motionPreference?.matches || event.pointerType === 'touch') return;
             const bounds = canvas.getBoundingClientRect();
             if (!bounds.width || !bounds.height) return;
             pointer.targetX = Math.max(-1, Math.min(1, (event.clientX - bounds.left) / bounds.width * 2 - 1));
@@ -151,11 +164,11 @@ const HeroField = () => {
         const pointerLeave = () => { pointer.targetX = 0; pointer.targetY = 0; };
         const preferenceChange = event => { if (event.matches) setPaused(true); };
         const visibilityChange = () => syncLoop();
-        const intersection = new IntersectionObserver(entries => {
-            inView = entries[0]?.isIntersecting || false;
+        const intersection = typeof window.IntersectionObserver === 'function' ? new window.IntersectionObserver(([entry]) => {
+            inView = entry.isIntersecting;
             syncLoop();
-        }, { threshold: 0 });
-        const sizing = new ResizeObserver(resize);
+        }) : null;
+        const sizing = typeof window.ResizeObserver === 'function' ? new window.ResizeObserver(resize) : null;
 
         controlsRef.current = {
             setPaused(value) {
@@ -167,31 +180,35 @@ const HeroField = () => {
         canvas.addEventListener('pointermove', pointerMove, { passive: true });
         canvas.addEventListener('pointerleave', pointerLeave);
         document.addEventListener('visibilitychange', visibilityChange);
-        motionPreference.addEventListener('change', preferenceChange);
-        intersection.observe(host);
-        sizing.observe(host);
+        window.addEventListener('resize', resize);
+        if (intersection) intersection.observe(host);
+        else window.addEventListener('scroll', updateViewport, { passive: true });
+        sizing?.observe(host);
+        if (motionPreference?.addEventListener) motionPreference.addEventListener('change', preferenceChange);
+        else motionPreference?.addListener?.(preferenceChange);
         resize();
 
         return () => {
             disposed = true;
             stopLoop();
-            intersection.disconnect();
-            sizing.disconnect();
+            intersection?.disconnect();
+            sizing?.disconnect();
             canvas.removeEventListener('pointermove', pointerMove);
             canvas.removeEventListener('pointerleave', pointerLeave);
             document.removeEventListener('visibilitychange', visibilityChange);
-            motionPreference.removeEventListener('change', preferenceChange);
+            window.removeEventListener('resize', resize);
+            if (!intersection) window.removeEventListener('scroll', updateViewport);
+            if (motionPreference?.removeEventListener) motionPreference.removeEventListener('change', preferenceChange);
+            else motionPreference?.removeListener?.(preferenceChange);
             controlsRef.current = null;
         };
-    }, []);
+    }, [motionPreference]);
 
     React.useEffect(() => { controlsRef.current?.setPaused(paused); }, [paused]);
 
-    return <div className="hero-field" ref={hostRef} style={{ position: 'relative' }}>
-        <canvas ref={canvasRef} aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', display: 'block' }} />
+    return <div className="hero-field" ref={hostRef}>
+        <canvas ref={canvasRef} aria-hidden="true" />
         <button type="button" className="hero-motion-toggle" disabled={!available}
-            style={{ position: 'absolute', right: 12, bottom: 12, zIndex: 1 }}
-            aria-label={paused ? 'Play background motion' : 'Pause background motion'}
             onClick={() => setPaused(value => !value)}>
             {available ? (paused ? 'Play motion' : 'Pause motion') : 'Motion unavailable'}
         </button>

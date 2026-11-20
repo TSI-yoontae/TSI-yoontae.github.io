@@ -1,7 +1,7 @@
 const navigation = [
-    ['home', 'Home'], ['members', 'Members'], ['publications', 'Publications'], ['research-explorer', 'Research Explorer'],
-    ['project', 'Projects'], ['teaching', 'Teaching'], ['for-students', 'For Students'],
-    ['vacant', 'Vacant Positions'], ['year-in-review', 'Year in Review'],
+    ['home', 'Home'], ['publications', 'Publications'], ['research-explorer', 'Research Explorer'],
+    ['project', 'Projects'], ['members', 'Members'], ['news', 'News'], ['teaching', 'Teaching'],
+    ['for-students', 'For Students'], ['vacant', 'Admissions'], ['year-in-review', 'Year in Review'],
 ];
 
 const readLocation = () => {
@@ -43,6 +43,7 @@ const App = () => {
         publications: <window.PublicationsTabContent key={location.query} initialQuery={location.query} />,
         'research-explorer': <window.ResearchExplorerTabContent />,
         project: <window.ProjectTabContent />,
+        news: <window.NewsTabContent />,
         teaching: <window.TeachingTabContent />,
         'for-students': <window.ForStudentsTabContent />,
         vacant: <window.VacantPositionsTabContent />,

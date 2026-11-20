@@ -13,21 +13,24 @@ const researchDirections = [
 
 const ConceptSectionHeading = ({ title, children }) => <div className="concept-section-heading"><h2>{title}</h2>{children}</div>;
 
-const ConceptHero = () => <section className="concept-hero">
-    <div className="concept-hero-inner">
-        <div className="concept-hero-copy">
-            <p className="concept-eyebrow">Pusan National University</p>
-            <h1 id="page-title" tabIndex="-1">Time Series Intelligence Lab</h1>
-            <p className="concept-hero-description">We develop machine learning methods for financial time series and study how they inform decisions in markets.</p>
-            <div className="hero-links">
-                <a className="hero-research-link" href="#publications">Publications</a>
-                <a className="hero-research-link" href="#research-explorer">Research Explorer</a>
-            </div>
-        </div>
-        <HeroField />
-        <div className="hero-bottom-line"><span>Graduate School of Data Science</span><a href="#members">Led by Yoontae Hwang <ArrowIcon diagonal /></a></div>
+const HomeIntro = () => <section className="lab-intro" aria-labelledby="page-title">
+    <p className="lab-affiliation">Pusan National University · Graduate School of Data Science</p>
+    <h1 id="page-title" tabIndex="-1">Time Series Intelligence Lab</h1>
+    <p className="lab-description">We develop machine learning methods for financial time series and study how they inform decisions in markets.</p>
+    <div className="lab-intro-links">
+        <span>Led by <a href="#members">Yoontae Hwang</a></span>
+        <a href="#publications">Publications</a>
+        <a href="#research-explorer">Research Explorer</a>
     </div>
 </section>;
+
+const HomeVisualization = () => {
+    const [open, setOpen] = React.useState(false);
+    return <details className="home-visualization" onToggle={event => setOpen(event.currentTarget.open)}>
+        <summary>Time-series visualization</summary>
+        {open && <HeroField />}
+    </details>;
+};
 
 const getHomeResearchRecord = (year) => {
     const papers = window.TSI_Data.publications.filter(paper => getPublicationYear(paper) === year
@@ -46,13 +49,13 @@ const getHomeResearchRecord = (year) => {
 const ConceptEvidence = () => {
     const record = getHomeResearchRecord(2026);
     return <section className="research-record" aria-labelledby="record-title">
-        <h2 id="record-title" className="record-label"><span>{record.year}</span><span>Research record</span></h2>
+        <h2 id="record-title" className="record-label">{record.year} Research record</h2>
         <div className="record-metric record-papers">
-            <a className="record-total" href="#year-in-review"><span>Publications</span><strong>{record.papers.length}<ArrowIcon diagonal /></strong></a>
+            <a className="record-total" href="#year-in-review"><strong>{record.papers.length}</strong> publications</a>
             <p className="record-breakdown">{record.venues.map(venue => <span key={venue.name} title={venue.fullName || venue.name}>{venue.name} × {venue.count}</span>)}</p>
         </div>
         <div className="record-metric record-funding">
-            <a className="record-total" href="#project"><span>Total funding{record.maximum && ' (maximum)'}</span><strong>₩{record.funding / 1_000_000}M<ArrowIcon diagonal /></strong></a>
+            <a className="record-total" href="#project"><strong>₩{record.funding / 1_000_000}M</strong> total funding{record.maximum && ' (maximum)'}</a>
             <p className="record-breakdown">{record.projects.length} disclosed project budgets · Full project periods</p>
         </div>
     </section>;
@@ -81,12 +84,13 @@ const NewsSection = () => {
 };
 
 const HomeResearchTopics = () => <section className="concept-research">
-    <ConceptSectionHeading title="Research areas"><a href="#research-explorer">Explore the work <ArrowIcon diagonal /></a></ConceptSectionHeading>
+    <ConceptSectionHeading title="Research areas"><a href="#research-explorer">Explore the work</a></ConceptSectionHeading>
     <div className="research-lines">{researchDirections.map(topic => <article className="research-line" key={topic.id}>
         <h3>{topic.label}</h3><div className="research-line-description"><p>{topic.description}</p></div>
         <ul>{topic.items.map(item => <li key={item}>{item}</li>)}</ul>
-        <a className="research-topic-link" href={'#publications?q=' + encodeURIComponent(topic.query)}>Related papers <ArrowIcon /></a>
+        <a className="research-topic-link" href={'#publications?q=' + encodeURIComponent(topic.query)}>Related papers</a>
     </article>)}</div>
+    <HomeVisualization />
 </section>;
 
 const SelectedPapersSection = () => {
@@ -95,11 +99,14 @@ const SelectedPapersSection = () => {
         return paper && { ...paper, selectedVenue: selection.venue, links: [...paper.links, ...(selection.extraLinks || [])] };
     }).filter(Boolean);
     return <section className="concept-publications">
-        <ConceptSectionHeading title="Selected publications"><a href="#publications">Full archive <ArrowIcon diagonal /></a></ConceptSectionHeading>
+        <ConceptSectionHeading title="Selected publications"><a href="#publications">All publications</a></ConceptSectionHeading>
         <div className="selected-research-list">{papers.map(paper => <article key={paper.id} className="selected-research">
             <span>{paper.selectedVenue}</span>
-            <h3><a href={paper.links[0].href} target="_blank" rel="noopener noreferrer">{paper.title}</a></h3>
-            <ResourceLinks links={paper.links} />
+            <div>
+                <h3><a href={paper.links[0].href} target="_blank" rel="noopener noreferrer">{paper.title}</a></h3>
+                <p>{paper.authors.map(author => author.name).join(', ')}</p>
+                {paper.links.length > 1 && <ResourceLinks links={paper.links.slice(1)} />}
+            </div>
         </article>)}</div>
     </section>;
 };
@@ -112,6 +119,6 @@ const HomeProjects = () => <section className="concept-collaboration">
 </section>;
 
 window.HomeTabContent = () => <div className="home-page concept-home">
-    <ConceptHero /><NewsSection /><SelectedPapersSection /><HomeResearchTopics /><HomeProjects /><ConceptEvidence />
-    <aside className="concept-students"><div><h2>Prospective students</h2><p>Regular recruitment is currently closed. Please review the lab guidelines before contacting the advisor.</p></div><a href="#vacant">Lab guidelines <ArrowIcon /></a></aside>
+    <HomeIntro /><NewsSection /><SelectedPapersSection /><HomeResearchTopics /><HomeProjects /><ConceptEvidence />
+    <aside className="concept-students"><div><h2>Prospective students</h2><p>Regular recruitment is currently closed. Please review the lab guidelines before contacting the advisor.</p></div><a href="#vacant">Lab guidelines</a></aside>
 </div>;

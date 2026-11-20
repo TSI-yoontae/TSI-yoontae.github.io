@@ -13,14 +13,14 @@ window.YearInReviewTabContent = () => {
     const data = window.TSI_Data || {};
     const publications = (data.publications || []).filter(paper => getPublicationKind(paper.id) === 'Journal'
         || (getPublicationKind(paper.id) === 'Conference' && !/\bworkshops?\b/i.test(paper.venue || '')));
-    const currentYear = new Date().getFullYear();
+    const currentYear = Number(new Intl.DateTimeFormat('en', { year: 'numeric', timeZone: 'Asia/Seoul' }).format(new Date()));
     const projects = (data.projects || []).map(project => ({ ...project, activeYears: getProjectActiveYears(project, currentYear) }));
     const organizingActivities = (data.news || []).filter(item => item.organizing).map(item => ({
         ...item.organizing, year: Number((item.date || '').match(/\b\d{4}\b/)?.[0]), link: item.link,
     }));
     const years = [...new Set([...publications.map(getPublicationYear), ...projects.flatMap(project => project.activeYears), ...organizingActivities.map(activity => activity.year)])]
-        .filter(year => Number.isInteger(year) && year >= (data.reviewStartYear || currentYear)).sort((a, b) => b - a);
-    const [selectedYear, setSelectedYear] = React.useState(() => years.find(year => year <= currentYear) || years[0] || currentYear);
+        .filter(year => Number.isInteger(year) && year >= (data.reviewStartYear || currentYear) && year <= currentYear).sort((a, b) => b - a);
+    const [selectedYear, setSelectedYear] = React.useState(() => years[0] || currentYear);
     const papers = publications.filter(paper => getPublicationYear(paper) === selectedYear);
     const conferencePapers = papers.filter(paper => getPublicationKind(paper.id) === 'Conference');
     const journalPapers = papers.filter(paper => getPublicationKind(paper.id) === 'Journal');

@@ -15,20 +15,18 @@ Use `npm run dev` to build and start a local preview at http://127.0.0.1:8765. A
 
 - `js/data.js`: publications, working papers, and member information.
 - `js/home-news.js`: lab announcements and external news coverage.
-- `js/tabs/Publications.js`: shared author/affiliation and venue/metric rendering, used by Publications, Research Explorer, and Year in Review.
+- `js/tabs/Publications.js`: shared author, affiliation, and venue rendering for Publications and Year in Review.
 - `js/tabs/Project.js`: funding/project records and project display.
 - `js/tabs/Home.js`: research directions and selected papers, including seminar links.
 - `js/tabs/Teaching.js`: courses and teaching materials.
-- `js/tabs/ForStudents.js`: books and research resources.
+- `js/tabs/ForStudents.js`: student section navigation, books, and research resources.
 - `js/tabs/Vacant.js`: admission policies and English/Korean profile copy.
-- `js/tabs/ResearchExplorer.js`: research filters, independently scrollable paper list/details, and an accessible figure enlargement dialog.
-- `js/figures.js`: representative figure metadata keyed by exact paper title. Store images in `figures/` and record their original source in `figures/README.md`.
 - `js/tabs/YearInReview.js`: annual views derived from the shared records.
 - `js/shared.js`, `js/main.js`, and `styles.css`: shared components, navigation, and responsive styling.
 
 ## Annual review rules
 
-The annual record begins in 2025. Conference papers exclude workshops; journals are counted separately. A project is included whenever its period overlaps the selected year, including participating researcher roles. Funding amounts represent the full project period, not an annual total. Organizer roles use the announcement year in the news record and link to the workshop website.
+The annual record begins in 2025 and displays years through the current year in Seoul. Conference papers exclude workshops; journals are counted separately. A project is included whenever its period overlaps the selected year, including participating researcher roles. Funding amounts represent the full project period, not an annual total. Organizer roles use the announcement year in the news record and link to the workshop website.
 
 ## Publication statistics
 
@@ -55,7 +53,7 @@ SimStock's Oral presentation is confirmed by the [2023 conference agenda](https:
 
 ## Author affiliations
 
-Checked on 2026-10-08. Each author can have an `affiliations` array in `js/data.js`. Store affiliations per paper, as recorded in its manuscript or publisher record, rather than assigning a person's present institution to every paper. The interface numbers institutions in first-author occurrence order, deduplicates shared institutions, and keeps those numbers stable when expanding the author list. Institutions are searchable in Publications and Research Explorer. Existing author order, names, contribution markers, and corresponding-author markers are preserved.
+Checked on 2026-10-08. Each author can have an `affiliations` array in `js/data.js`. Store affiliations per paper, as recorded in its manuscript or publisher record, rather than assigning a person's present institution to every paper. The interface numbers institutions in first-author occurrence order, deduplicates shared institutions, and keeps those numbers stable when expanding the author list. Institutions are searchable in Publications. Existing author order, names, contribution markers, and corresponding-author markers are preserved.
 
 Institution names are shortened consistently where appropriate (UNIST, KAIST); department names, postal addresses, and emails are omitted. Sources used for the published and accepted papers:
 
@@ -86,10 +84,10 @@ Unverified affiliations stay absent rather than being inferred from another pape
 
 ## Interface
 
-The site preserves hash routes, including `#publications`, `#vacant`, and `#year-in-review`. Research-direction links can prefill publication searches with `#publications?q=Portfolio`. The responsive menu, filters, disclosures, and language controls support keyboard access; animation respects reduced-motion preferences. React is bundled locally, so no runtime Babel or Tailwind CDN is required.
+For Students contains the Reading list, Admissions, and Teaching. The legacy `#vacant` and `#teaching` URLs open the corresponding sections. The legacy `#research-explorer` URL opens Publications. Research-direction links can prefill publication searches with `#publications?q=Portfolio`. The responsive menu, filters, disclosures, and language controls support keyboard access. React is bundled locally.
 
-Research Explorer shows verified paper figures or clearly attributed author research illustrations. It omits figures and placeholders for working papers without a public manuscript link, even when a code repository is available. Members use Korean names followed by English names in parentheses. Students have a compact roster, alphabetized by Korean name within each program, without research-interest labels or portraits. The PI retains the existing portrait without a role caption, full visible biography, resource links, and an always-visible awards/positions list. Existing English spellings were restored from the previous site records; the six newly added members' spellings were approved by the owner on 2026-10-08. Page headings omit promotional subtitles.
+Members use Korean names followed by English names in parentheses. Students have a compact roster, alphabetized by Korean name within each program, without research-interest labels or portraits. The PI retains the existing portrait without a role caption, full visible biography, resource links, and an always-visible awards/positions list. Existing English spellings were restored from the previous site records; the six newly added members' spellings were approved by the owner on 2026-10-08. Page headings omit promotional subtitles.
 
-The home page links directly to the publication archive and Research Explorer. Five recent lab announcements appear first, with the full list available via a disclosure. External coverage has its own `#news` route.
+The home page links directly to the publication archive. Five recent lab announcements appear first, with the full list available via a disclosure. External coverage has its own `#news` route.
 
-Research Explorer provides Papers and TSI / Terminal views; switching views preserves the paper filters and selection. Its terminal adapts the Forecast, Allocate, and Order book canvas simulations from the HTML reference supplied by the site owner in September 2026. `js/terminal-engine.js` contains the simulations and drawing code; `js/ResearchTerminal.js` provides React lifecycle management, keyboard tabs, and playback controls. All terminal chart data is synthetic and generated locally. Animation pauses outside the viewport or in a hidden tab, starts paused when reduced motion is preferred, and can be paused manually. Arrow keys inspect the chart, and Enter resamples a forecast. The terminal runs only while its view is open. No live market feed or external script is used.
+The repository retains the previous Explorer and Terminal source files and figure assets for reference. The Terminal used synthetic data for its Forecast, Allocate, and Order book simulations. Figure sources are listed in `figures/README.md`.

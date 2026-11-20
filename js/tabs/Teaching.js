@@ -18,9 +18,8 @@ const labCourses = [
 
     ];
 
-window.TeachingTabContent = () => (
+const TeachingSection = () => (
     <>
-        <PageIntro title="Teaching" />
         <div className="course-grid">
             {labCourses.map((course, index) => (
                 <article className="course-card" key={course.title}>

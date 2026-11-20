@@ -21,21 +21,17 @@ const getPublicationMetrics = paper => {
     const items = [];
     if (ranking) items.push({ label: 'CORE ' + ranking.rank, href: ranking.source, title: 'CORE / ICORE conference ranking' });
     if (metrics.acceptance) {
-        const { rate, year } = metrics.acceptance;
-        items.push({ label: 'Acceptance rate ' + rate.toFixed(1) + '% (' + metricYear(year) + ')' });
+        const { rate, year, approximate } = metrics.acceptance;
+        items.push({ label: 'Acceptance rate ' + (approximate ? '~' + rate : rate.toFixed(1)) + '% (' + metricYear(year) + ')' });
     }
     if (paper.presentation) items.push({ label: paper.presentation, emphasis: true });
     // Oral selectivity uses all submissions from the same year as its denominator.
     // A prior year's share remains explicitly labeled as a reference.
     if (paper.presentation === 'Oral' && metrics.oral) {
-        const { selected, submitted, accepted, approximate, year } = metrics.oral;
-        const rate = submitted ? 100 * selected / submitted
-            : accepted && metrics.acceptance?.year === year ? selected / accepted * metrics.acceptance.rate : null;
-        if (Number.isFinite(rate)) items.push({
-            label: 'Top ' + (approximate ? '~' : '') + rate.toFixed(1) + '% of submissions (' + metricYear(year) + ')',
-            title: submitted ? selected + ' oral presentations / ' + submitted + ' submitted papers in ' + year
-                : selected + ' oral presentations / ' + (approximate ? 'approximately ' : '') + accepted.toLocaleString('en-US')
-                    + ' accepted papers × ' + metrics.acceptance.rate + '% acceptance rate in ' + year + '. Estimated share of all submissions.',
+        const { selected, submitted, year } = metrics.oral;
+        if (submitted > 0) items.push({
+            label: 'Oral selection rate ' + (100 * selected / submitted).toFixed(1) + '% (' + metricYear(year) + ')',
+            title: selected + ' oral presentations / ' + submitted.toLocaleString('en-US') + ' submissions in ' + year,
         });
     }
     return items;

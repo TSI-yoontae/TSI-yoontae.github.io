@@ -20,7 +20,7 @@ window.YearInReviewTabContent = () => {
     }));
     const years = [...new Set([...publications.map(getPublicationYear), ...projects.flatMap(project => project.activeYears), ...organizingActivities.map(activity => activity.year)])]
         .filter(year => Number.isInteger(year) && year >= (data.reviewStartYear || currentYear)).sort((a, b) => b - a);
-    const [selectedYear, setSelectedYear] = React.useState(() => years[0] || currentYear);
+    const [selectedYear, setSelectedYear] = React.useState(() => years.find(year => year <= currentYear) || years[0] || currentYear);
     const papers = publications.filter(paper => getPublicationYear(paper) === selectedYear);
     const conferencePapers = papers.filter(paper => getPublicationKind(paper.id) === 'Conference');
     const journalPapers = papers.filter(paper => getPublicationKind(paper.id) === 'Journal');
@@ -34,7 +34,7 @@ window.YearInReviewTabContent = () => {
             </PageIntro>
             <div id="annual-record">
                 <section className="review-overview" aria-label={selectedYear + ' overview'}>
-                    <div className="review-year"><h2>{selectedYear}</h2><span className="eyebrow">{selectedYear === currentYear ? 'Year to date' : 'A year in perspective'}</span></div>
+                    <div className="review-year"><h2>{selectedYear}</h2>{selectedYear === currentYear && <span className="eyebrow">Year to date</span>}</div>
                     <div className="review-metrics">
                         <YearReviewMetric label="Accepted / published papers" value={papers.length} />
                         <YearReviewMetric label="Conference papers" value={conferencePapers.length} />

@@ -17,9 +17,12 @@ const ConceptHero = () => <section className="concept-hero">
     <div className="concept-hero-inner">
         <div className="concept-hero-copy">
             <p className="concept-eyebrow">Pusan National University</p>
-            <h1 id="page-title" tabIndex="-1">Time Series<br />Intelligence Lab<span>.</span></h1>
-            <p className="concept-hero-description">Machine learning for financial markets.<br />Time-series models for decisions under uncertainty.</p>
-            <a href="#research-explorer" className="hero-research-link">Explore our research <ArrowIcon /></a>
+            <h1 id="page-title" tabIndex="-1">Time Series Intelligence Lab</h1>
+            <p className="concept-hero-description">We develop machine learning methods for financial time series and study how they inform decisions in markets.</p>
+            <div className="hero-links">
+                <a className="hero-research-link" href="#publications">Publications</a>
+                <a className="hero-research-link" href="#research-explorer">Research Explorer</a>
+            </div>
         </div>
         <HeroField />
         <div className="hero-bottom-line"><span>Graduate School of Data Science</span><a href="#members">Led by Yoontae Hwang <ArrowIcon diagonal /></a></div>
@@ -57,25 +60,23 @@ const ConceptEvidence = () => {
 
 const NewsSection = () => {
     const [expanded, setExpanded] = React.useState(false);
-    const news = window.TSI_Data.news.map((item, index) => ({ ...item, ...homeNewsPresentation[index], index }));
-    const featured = news.filter(item => item.index === 1 || item.index === 3);
-    const regular = (expanded ? news : news.slice(0, 8)).filter(item => item.index !== 1 && item.index !== 3);
+    const news = window.TSI_Data.news;
+    const visibleNews = expanded ? news : news.slice(0, 5);
     return <section className="concept-news">
-        <ConceptSectionHeading title="Latest updates"><a href="#year-in-review">Year in Review <ArrowIcon diagonal /></a></ConceptSectionHeading>
-        <div className="news-editorial" id="news-list">
-            <div className="news-features">{featured.map(item => <article className="news-feature" key={item.index}>
-                <div className="news-meta"><span className="news-stamp">{item.date}</span><span>{item.index === 1 ? 'ICAIF 2026' : 'NeurIPS 2026'}</span></div>
-                <h3>{item.title}</h3>
-                {item.detail && <p>{item.detail}</p>}
-                <a href={item.index === 1 ? '#publications?q=ICAIF%202026' : '#publications?q=HoTS'}>View research <ArrowIcon /></a>
-            </article>)}</div>
-            <div className="news-briefs">{regular.map(item => <article className="news-brief" key={item.index}>
-                <div className="news-meta"><span className="news-stamp">{item.date}</span><span className="news-kind">{item.category}</span></div>
-                <h3>{item.link ? <a href={item.link} target="_blank" rel="noopener noreferrer">{item.title}<ArrowIcon diagonal /></a> : item.title}</h3>
-                {item.detail && <p lang={/[가-힣]/.test(item.detail) ? 'ko' : undefined}>{item.detail}</p>}
-            </article>)}</div>
-        </div>
-        <button type="button" className="news-archive-toggle" aria-expanded={expanded} aria-controls="news-list" onClick={() => setExpanded(!expanded)}>{expanded ? 'Show recent updates' : 'All ' + news.length + ' updates'}<span aria-hidden="true">{expanded ? '−' : '+'}</span></button>
+        <ConceptSectionHeading title="Latest updates"><a href="#news">News coverage</a></ConceptSectionHeading>
+        <ul className="update-list" id="lab-updates">
+            {visibleNews.map(item => <li className="update-entry" key={item.title}>
+                <div className="update-meta"><NewsDate date={item.date} /><span>{item.category}</span></div>
+                <div>
+                    <h3>{item.link ? <a href={item.link}>{item.title}</a> : item.title}</h3>
+                    {item.detail && <p className="update-detail" lang={/^[가-힣]/.test(item.detail) ? 'ko' : undefined}>{item.detail}</p>}
+                    {item.source && <a className="update-source" href={item.source}>Conference results</a>}
+                </div>
+            </li>)}
+        </ul>
+        <button type="button" className="news-archive-toggle" aria-expanded={expanded} aria-controls="lab-updates" onClick={() => setExpanded(!expanded)}>
+            {expanded ? 'Show fewer updates' : 'Show all updates'}<span aria-hidden="true">{expanded ? '−' : '+'}</span>
+        </button>
     </section>;
 };
 
@@ -103,24 +104,14 @@ const SelectedPapersSection = () => {
     </section>;
 };
 
-const ConceptCollaboration = () => <section className="concept-collaboration">
-    <ConceptSectionHeading title="Research projects"><a href="#project">All projects <ArrowIcon diagonal /></a></ConceptSectionHeading>
-    <div className="collaboration-layout">
-        <div className="collaboration-note">
-            <p className="concept-eyebrow">Research collaboration</p>
-            <h3>Work with<br />TSI Lab.</h3>
-            <p>Discuss research in financial time-series modeling, portfolio decisions, and language-model evaluation.</p>
-            <a href="mailto:yoontae.hwang@pusan.ac.kr?subject=Research%20collaboration%20with%20TSI%20Lab">Contact the lab <ArrowIcon diagonal /></a>
-        </div>
-        <div className="collaboration-projects">
-            <article><span>NRF · Glocal R&D</span><h3 lang="ko">Limit Order Book (LOB)을 위한 파운데이션모델 개발 <span lang="en">(with University of Oxford)</span></h3><p>Principal Investigator · Up to KRW 600M over 3 years</p><time>2026.09—Present</time></article>
-            <article><span lang="ko">한국금융학회</span><h3 lang="ko">기업 공시자료의 한계가치에 관한 연구</h3><p lang="ko">연구책임자 · 기업 공시자료가 제공하는 정보의 가치 연구</p><time>2026.09—Present</time></article>
-            <article><span>NRF · National University of Singapore</span><h3 lang="ko">글로벌데이터리더양성사업</h3><p lang="ko">참여연구원(세부책임)</p><time>2026.09—Present</time></article>
-        </div>
+const HomeProjects = () => <section className="concept-collaboration">
+    <ConceptSectionHeading title="Research projects"><a href="#project">All projects</a></ConceptSectionHeading>
+    <div className="project-list">
+        {window.TSI_Data.projects.slice(0, 3).map(project => <ProjectEntry key={project.title} project={project} />)}
     </div>
 </section>;
 
 window.HomeTabContent = () => <div className="home-page concept-home">
-    <ConceptHero /><ConceptEvidence /><NewsSection /><HomeResearchTopics /><SelectedPapersSection /><ConceptCollaboration />
+    <ConceptHero /><NewsSection /><SelectedPapersSection /><HomeResearchTopics /><HomeProjects /><ConceptEvidence />
     <aside className="concept-students"><div><h2>Prospective students</h2><p>Regular recruitment is currently closed. Please review the lab guidelines before contacting the advisor.</p></div><a href="#vacant">Lab guidelines <ArrowIcon /></a></aside>
 </div>;

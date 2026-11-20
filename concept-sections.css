@@ -135,17 +135,17 @@
 .page-enter[data-page="research-explorer"] .terminal-actions button { color: var(--tsi-on-dark); border-color: var(--tsi-on-dark-muted); border-radius: 3px; }
 
 /* Teaching and reference reading. */
-.page-enter[data-page="teaching"] .course-grid { gap: 20px; }
-.page-enter[data-page="teaching"] .course-card { border: 0; border-top: 1px solid var(--concept-line); border-radius: 0; background: transparent; }
-.page-enter[data-page="teaching"] .course-meta { background: transparent; border: 0; padding: 10px 0 0; font-size: 14px; }
-.page-enter[data-page="teaching"] .course-meta > .mono { color: var(--concept-accent); }
-.page-enter[data-page="teaching"] .course-card h2 { font: 400 23px/1.35 var(--lab-serif); padding: 10px 0 14px; }
-.page-enter[data-page="teaching"] .course-materials { margin: 0 0 14px; }
-.page-enter[data-page="teaching"] .course-materials summary { font-size: 14px; }
-.page-enter[data-page="teaching"] .course-materials li a { padding: 10px 0; font-size: 14px; }
-.page-enter[data-page="teaching"] .course-materials li a:hover { color: var(--concept-accent); }
-.page-enter[data-page="teaching"] .file-type { color: var(--concept-muted); font-size: 12px; }
-.page-enter[data-page="teaching"] .course-no-materials { padding: 0 0 16px; font-size: 14px; }
+.student-section[data-student-section="teaching"] .course-grid { gap: 20px; }
+.student-section[data-student-section="teaching"] .course-card { border: 0; border-top: 1px solid var(--concept-line); border-radius: 0; background: transparent; }
+.student-section[data-student-section="teaching"] .course-meta { background: transparent; border: 0; padding: 10px 0 0; font-size: 14px; }
+.student-section[data-student-section="teaching"] .course-meta > .mono { color: var(--concept-accent); }
+.student-section[data-student-section="teaching"] .course-card h2 { font: 400 23px/1.35 var(--lab-serif); padding: 10px 0 14px; }
+.student-section[data-student-section="teaching"] .course-materials { margin: 0 0 14px; }
+.student-section[data-student-section="teaching"] .course-materials summary { font-size: 14px; }
+.student-section[data-student-section="teaching"] .course-materials li a { padding: 10px 0; font-size: 14px; }
+.student-section[data-student-section="teaching"] .course-materials li a:hover { color: var(--concept-accent); }
+.student-section[data-student-section="teaching"] .file-type { color: var(--concept-muted); font-size: 12px; }
+.student-section[data-student-section="teaching"] .course-no-materials { padding: 0 0 16px; font-size: 14px; }
 .page-enter[data-page="for-students"] .reading-search { background: var(--concept-paper); border: 1px solid var(--tsi-line-strong); }
 .page-enter[data-page="for-students"] .reading-list { border: 0; border-block: 1px solid var(--concept-line); border-radius: 0; }
 .page-enter[data-page="for-students"] .reading-group summary { background: var(--concept-paper); padding: 18px 12px; }
@@ -158,33 +158,33 @@
 .page-enter[data-page="for-students"] .reading-group li a:hover { color: var(--concept-accent); }
 
 /* Prospective researchers: restrained policy typography with visible language controls. */
-.page-enter[data-page="vacant"] .philosophy-banner { border: 0; border-block: 1px solid var(--concept-line); border-radius: 0; background: transparent; }
-.page-enter[data-page="vacant"] .philosophy-banner > .eyebrow { background: transparent; color: var(--concept-accent); padding: 15px 0 0; font-size: 12px; }
-.page-enter[data-page="vacant"] .philosophy-banner blockquote { padding: 12px 0 20px; font: 400 clamp(22px,2.3vw,29px)/1.5 var(--lab-serif); max-width: 68ch; }
-.page-enter[data-page="vacant"] .values-grid { background: transparent; border-top-color: var(--concept-line); }
-.page-enter[data-page="vacant"] .values-grid > div { padding: 16px 20px; }
-.page-enter[data-page="vacant"] .values-grid > :first-child { padding-inline-start: 0; }
-.page-enter[data-page="vacant"] .values-grid > :last-child { padding-inline-end: 0; }
-.page-enter[data-page="vacant"] .values-grid h3 { font-size: 14px; font-weight: 600; }
-.page-enter[data-page="vacant"] .values-grid p { font-size: 14px; line-height: 1.65; }
-.page-enter[data-page="vacant"] .profile-section > .section-heading { padding: 0 0 13px; }
-.page-enter[data-page="vacant"] .profile-section .section-heading .eyebrow { font-size: 12px; color: var(--concept-muted); margin-bottom: 5px; }
-.page-enter[data-page="vacant"] .profile-introduction { padding: 16px 0; line-height: 1.75; font-size: 15px; }
-.page-enter[data-page="vacant"] .recruitment-status { background: var(--tsi-surface); border: 0; border-left: 2px solid var(--concept-accent); border-radius: 0; margin: 8px 0 24px; padding: 17px 20px; }
-.page-enter[data-page="vacant"] .recruitment-status h3 { font-size: 19px; font-weight: 600; }
-.page-enter[data-page="vacant"] .recruitment-status p:not(.eyebrow) { font-size: 14px; line-height: 1.8; }
-.page-enter[data-page="vacant"] .status-tags span { background: transparent; border-color: var(--tsi-line); border-radius: 3px; font-size: 11px; padding: 4px 8px; }
-.page-enter[data-page="vacant"] .policy-heading { margin: 24px 0 12px; font: 400 22px/1.35 var(--lab-serif); }
-.page-enter[data-page="vacant"] .policy-list { margin: 0 0 23px; border: 0; border-top: 1px solid var(--concept-line); }
-.page-enter[data-page="vacant"] .policy-item { border: 0; border-bottom: 1px solid var(--concept-line); padding: 20px 0; gap: 16px; }
-.page-enter[data-page="vacant"] .policy-item > .mono { background: transparent; border: 0; color: var(--concept-accent); text-align: left; width: auto; font-size: 12px; }
-.page-enter[data-page="vacant"] .policy-item h4 { font-size: 16px; font-weight: 550; }
-.page-enter[data-page="vacant"] .policy-item p { font-size: 14px; line-height: 1.85; }
-.page-enter[data-page="vacant"] .policy-essential { background: transparent; border-radius: 0; }
-.page-enter[data-page="vacant"] .venue-list { border: 0; border-bottom: 1px solid var(--concept-line); background: transparent; }
-.page-enter[data-page="vacant"] .venue-list h3 { background: var(--tsi-surface); font-size: 13px; color: var(--concept-ink); }
-.page-enter[data-page="vacant"] .venue-list p { font-size: 14px; }
-.page-enter[data-page="vacant"] .content-section > .fine-print { margin: 14px 0 0; font-size: 12px; }
+.student-section[data-student-section="admissions"] .philosophy-banner { border: 0; border-block: 1px solid var(--concept-line); border-radius: 0; background: transparent; }
+.student-section[data-student-section="admissions"] .philosophy-banner > .eyebrow { background: transparent; color: var(--concept-accent); padding: 15px 0 0; font-size: 12px; }
+.student-section[data-student-section="admissions"] .philosophy-banner blockquote { padding: 12px 0 20px; font: 400 clamp(22px,2.3vw,29px)/1.5 var(--lab-serif); max-width: 68ch; }
+.student-section[data-student-section="admissions"] .values-grid { background: transparent; border-top-color: var(--concept-line); }
+.student-section[data-student-section="admissions"] .values-grid > div { padding: 16px 20px; }
+.student-section[data-student-section="admissions"] .values-grid > :first-child { padding-inline-start: 0; }
+.student-section[data-student-section="admissions"] .values-grid > :last-child { padding-inline-end: 0; }
+.student-section[data-student-section="admissions"] .values-grid h3 { font-size: 14px; font-weight: 600; }
+.student-section[data-student-section="admissions"] .values-grid p { font-size: 14px; line-height: 1.65; }
+.student-section[data-student-section="admissions"] .profile-section > .section-heading { padding: 0 0 13px; }
+.student-section[data-student-section="admissions"] .profile-section .section-heading .eyebrow { font-size: 12px; color: var(--concept-muted); margin-bottom: 5px; }
+.student-section[data-student-section="admissions"] .profile-introduction { padding: 16px 0; line-height: 1.75; font-size: 15px; }
+.student-section[data-student-section="admissions"] .recruitment-status { background: var(--tsi-surface); border: 0; border-left: 2px solid var(--concept-accent); border-radius: 0; margin: 8px 0 24px; padding: 17px 20px; }
+.student-section[data-student-section="admissions"] .recruitment-status h3 { font-size: 19px; font-weight: 600; }
+.student-section[data-student-section="admissions"] .recruitment-status p:not(.eyebrow) { font-size: 14px; line-height: 1.8; }
+.student-section[data-student-section="admissions"] .status-tags span { background: transparent; border-color: var(--tsi-line); border-radius: 3px; font-size: 11px; padding: 4px 8px; }
+.student-section[data-student-section="admissions"] .policy-heading { margin: 24px 0 12px; font: 400 22px/1.35 var(--lab-serif); }
+.student-section[data-student-section="admissions"] .policy-list { margin: 0 0 23px; border: 0; border-top: 1px solid var(--concept-line); }
+.student-section[data-student-section="admissions"] .policy-item { border: 0; border-bottom: 1px solid var(--concept-line); padding: 20px 0; gap: 16px; }
+.student-section[data-student-section="admissions"] .policy-item > .mono { background: transparent; border: 0; color: var(--concept-accent); text-align: left; width: auto; font-size: 12px; }
+.student-section[data-student-section="admissions"] .policy-item h4 { font-size: 16px; font-weight: 550; }
+.student-section[data-student-section="admissions"] .policy-item p { font-size: 14px; line-height: 1.85; }
+.student-section[data-student-section="admissions"] .policy-essential { background: transparent; border-radius: 0; }
+.student-section[data-student-section="admissions"] .venue-list { border: 0; border-bottom: 1px solid var(--concept-line); background: transparent; }
+.student-section[data-student-section="admissions"] .venue-list h3 { background: var(--tsi-surface); font-size: 13px; color: var(--concept-ink); }
+.student-section[data-student-section="admissions"] .venue-list p { font-size: 14px; }
+.student-section[data-student-section="admissions"] .content-section > .fine-print { margin: 14px 0 0; font-size: 12px; }
 
 @media (max-width: 980px) {
     .page-enter[data-page="members"] .pi-profile { grid-template-columns: 260px minmax(0,1fr); gap: 26px; }
@@ -203,7 +203,7 @@
     .page-enter[data-page="research-explorer"] .desk-layout { grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); }
     .page-enter[data-page="research-explorer"] .desk-document { padding: 19px; }
     .page-enter[data-page="research-explorer"] .desk-document h2 { font-size: 21px; }
-    .page-enter[data-page="vacant"] .values-grid > div { padding-inline: 0; }
+    .student-section[data-student-section="admissions"] .values-grid > div { padding-inline: 0; }
 }
 @media (max-width: 540px) {
     .page-enter[data-page]:not([data-page="home"]) .page-intro { padding: 25px 0 22px; gap: 20px; flex-direction: column; }
@@ -229,12 +229,12 @@
     .page-enter[data-page="research-explorer"] .desk-paper-list { height: 270px; }
     .page-enter[data-page="research-explorer"] .desk-document { padding: 20px 17px; }
     .page-enter[data-page="research-explorer"] .desk-document h2 { font-size: 22px; }
-    .page-enter[data-page="teaching"] .course-card h2 { font-size: 22px; }
+    .student-section[data-student-section="teaching"] .course-card h2 { font-size: 22px; }
     .page-enter[data-page="for-students"] .reading-group summary { padding: 17px 8px; gap: 12px; }
     .page-enter[data-page="for-students"] .reading-group summary h2 { font-size: 19px; }
     .page-enter[data-page="for-students"] :is(.reading-group li a,.unlinked-resource) { padding: 14px 8px; }
-    .page-enter[data-page="vacant"] .recruitment-status { padding: 15px 17px; }
-    .page-enter[data-page="vacant"] .policy-item { gap: 11px; grid-template-columns: 26px minmax(0,1fr); }
+    .student-section[data-student-section="admissions"] .recruitment-status { padding: 15px 17px; }
+    .student-section[data-student-section="admissions"] .policy-item { gap: 11px; grid-template-columns: 26px minmax(0,1fr); }
 }
 
 /* Project archive */
@@ -309,9 +309,9 @@
 .page-enter[data-page]:not([data-page="home"]) .filter-button:hover { background:var(--tsi-surface); color:var(--tsi-ink); }
 .page-enter[data-page]:not([data-page="home"]) .filter-button.is-active { background:transparent; color:var(--tsi-ink); border-bottom-color:var(--tsi-accent); font-weight:600; }
 .page-enter[data-page]:not([data-page="home"]) :is(.year-switcher,.language-switcher) { background:transparent; border:0; border-bottom:1px solid var(--tsi-line); border-radius:0; padding:0; }
-.page-enter[data-page="teaching"] .course-meta { color:var(--tsi-muted); }
-.page-enter[data-page="teaching"] .course-materials summary { color:var(--tsi-body); }
-.page-enter[data-page="teaching"] .course-materials li a,
+.student-section[data-student-section="teaching"] .course-meta { color:var(--tsi-muted); }
+.student-section[data-student-section="teaching"] .course-materials summary { color:var(--tsi-body); }
+.student-section[data-student-section="teaching"] .course-materials li a,
 .page-enter[data-page="for-students"] .reading-group li a,
 .page-enter[data-page="research-explorer"] :is(.research-figure figcaption a,.figure-dialog-caption a) {
     color:var(--tsi-accent);
@@ -319,15 +319,15 @@
     text-decoration-color:color-mix(in srgb,currentColor 55%,transparent);
     text-underline-offset:.2em;
 }
-.page-enter[data-page="teaching"] .course-materials li a:hover { background:var(--tsi-surface); color:var(--tsi-accent); }
+.student-section[data-student-section="teaching"] .course-materials li a:hover { background:var(--tsi-surface); color:var(--tsi-accent); }
 .page-enter[data-page="for-students"] .reading-group summary>.mono { color:var(--tsi-muted); }
 .page-enter[data-page="for-students"] .reading-group summary .disclosure-symbol { color:var(--tsi-accent); }
 .page-enter[data-page="for-students"] .reading-group[open]>summary { background:var(--tsi-surface); }
 .page-enter[data-page="for-students"] .unlinked-resource { color:var(--tsi-body); }
 .page-enter[data-page="for-students"] .reading-group li a:hover { background:var(--tsi-surface); color:var(--tsi-accent); }
-.page-enter[data-page="vacant"] .philosophy-banner blockquote { color:var(--tsi-ink); }
-.page-enter[data-page="vacant"] .recruitment-status p:not(.eyebrow) { color:var(--tsi-body); }
-.page-enter[data-page="vacant"] :is(.status-tags span,.values-grid p) { color:var(--tsi-muted); }
+.student-section[data-student-section="admissions"] .philosophy-banner blockquote { color:var(--tsi-ink); }
+.student-section[data-student-section="admissions"] .recruitment-status p:not(.eyebrow) { color:var(--tsi-body); }
+.student-section[data-student-section="admissions"] :is(.status-tags span,.values-grid p) { color:var(--tsi-muted); }
 .page-enter[data-page="research-explorer"] :is(.related-papers button,.desk-empty button,.research-figure figcaption a,.figure-dialog-caption a) { color:var(--tsi-accent); }
 .page-enter[data-page="research-explorer"] .related-papers button:hover { background:var(--tsi-surface); color:var(--tsi-accent); }
 .page-enter[data-page="research-explorer"] .research-figure figcaption strong { color:var(--tsi-ink); }

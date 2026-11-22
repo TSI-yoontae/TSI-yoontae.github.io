@@ -50,6 +50,17 @@ const PublicationVenue = ({ paper, className = 'publication-venue' }) => {
     </>;
 };
 
+const publicationPrincipal = window.TSI_Data.membersData?.find(member => member.status === 'Principal Investigator');
+
+const PublicationAuthorName = ({ author, link = true }) => {
+    const isPrincipal = author.name.replace(/[*†]+$/, '').trim() === publicationPrincipal?.englishName;
+    const className = isPrincipal ? 'author-highlight' : undefined;
+    const href = link && (author.href || (isPrincipal && publicationPrincipal.links?.scholar));
+    return href
+        ? <a href={href} target="_blank" rel="noopener noreferrer" className={className}>{author.name}</a>
+        : <span className={className}>{author.name}</span>;
+};
+
 const AuthorList = ({ authors }) => {
     const [expanded, setExpanded] = React.useState(false);
     const visibleAuthors = expanded ? authors : authors.slice(0, 8);
@@ -62,8 +73,7 @@ const AuthorList = ({ authors }) => {
                 {visibleAuthors.map((author, index) => (
                     <React.Fragment key={author.name + index}>
                         <span className="author-name">
-                            {author.href ? <a href={author.href} target="_blank" rel="noopener noreferrer" className={author.isHighlight ? 'author-highlight' : ''}>{author.name}</a>
-                                : <span className={author.isHighlight ? 'author-highlight' : ''}>{author.name}</span>}
+                            <PublicationAuthorName author={author} />
                             {author.affiliations?.length > 0 && <sup className="author-affiliation-mark" title={author.affiliations.join('; ')} aria-label={'Affiliations: ' + author.affiliations.join('; ')}>
                                 {author.affiliations.map(name => affiliations.indexOf(name) + 1).join(',')}
                             </sup>}

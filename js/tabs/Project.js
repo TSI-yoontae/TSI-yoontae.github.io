@@ -1,6 +1,6 @@
 window.TSI_Data.projects = [
     {
-        title: '주식시장의 순환적 가격반응과 정보효율성',
+        title: '주식시장의 순환적 가격반응과 정보효율성에 관한 연구',
         year: 2026,
         role: '연구책임자',
         organization: '한국거래소 (KRX)',

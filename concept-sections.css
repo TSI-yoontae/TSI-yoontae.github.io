@@ -42,9 +42,10 @@
 .page-enter[data-page]:not([data-page="home"]) .kind-label { border: 0; background: transparent; padding: 0; font-size: 11px; }
 .page-enter[data-page]:not([data-page="home"]) .publication-body { padding: 19px 0 20px 7px; }
 .page-enter[data-page]:not([data-page="home"]) .publication-body h3 { font: 400 21px/1.35 var(--lab-serif); letter-spacing: -.02em; margin-bottom: 7px; }
-.page-enter[data-page]:not([data-page="home"]) .author-list { color: var(--concept-muted); font-size: 14px; line-height: 1.75; }
+.page-enter[data-page]:not([data-page="home"]) .author-list { color: var(--lab-coauthor); font-size: 14px; line-height: 1.75; }
+.page-enter[data-page]:not([data-page="home"]) .author-list .author-name > a { color: var(--lab-coauthor); }
 .page-enter[data-page]:not([data-page="home"]) .author-affiliations { color: var(--concept-muted); font-size: 13px; line-height: 1.75; margin-top: 3px; gap: 1px 14px; }
-.page-enter[data-page]:not([data-page="home"]) .author-highlight { color: var(--concept-accent); font-weight: 700; }
+.page-enter[data-page]:not([data-page="home"]) .author-list .author-name > .author-highlight { color: var(--lab-author-highlight); font-weight: 700; }
 .page-enter[data-page]:not([data-page="home"]) .publication-venue { font-size: 14px; color: var(--concept-ink); font-weight: 550; margin-top: 10px; }
 .page-enter[data-page]:not([data-page="home"]) .publication-metrics { font-size: 13px; line-height: 1.8; margin-top: 4px; }
 .page-enter[data-page]:not([data-page="home"]) .publication-metrics strong { color: var(--concept-accent); font-weight: 650; }
@@ -300,7 +301,7 @@
 /* Shared surface and control rules close the remaining legacy-color gaps. */
 .page-enter[data-page]:not([data-page="home"]) :is(h1,h2,h3,h4,h5,h6) { color:var(--tsi-ink); }
 .page-enter[data-page]:not([data-page="home"]) :is(.fine-print,.count-label,.section-description,.eyebrow,.intro-stats span,.organizing-meta,.file-type) { color:var(--tsi-muted); }
-.page-enter[data-page]:not([data-page="home"]) :is(.author-list,.pi-bio,.profile-introduction,.policy-item p,.values-grid p,.venue-list p,.course-no-materials) { color:var(--tsi-body); }
+.page-enter[data-page]:not([data-page="home"]) :is(.pi-bio,.profile-introduction,.policy-item p,.values-grid p,.venue-list p,.course-no-materials) { color:var(--tsi-body); }
 .page-enter[data-page]:not([data-page="home"]) :is(input,select) { color:var(--tsi-ink); background:var(--tsi-white); border-color:var(--tsi-line-strong); }
 .page-enter[data-page]:not([data-page="home"]) input::placeholder { color:var(--tsi-muted); opacity:1; }
 .page-enter[data-page]:not([data-page="home"]) .button-dark { background:var(--tsi-navy); color:var(--tsi-on-dark); border-color:var(--tsi-navy); }

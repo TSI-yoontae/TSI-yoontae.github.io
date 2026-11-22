@@ -3,7 +3,7 @@ window.TSI_Data.news = [
         date: '2026-11',
         category: 'Funding',
         title: 'Korea Exchange research grant awarded',
-        detail: '주식시장의 순환적 가격반응과 정보효율성',
+        detail: '주식시장의 순환적 가격반응과 정보효율성에 관한 연구',
         link: '#project',
     },
     {

@@ -7,7 +7,13 @@ const selectedHomePapers = [
 
 const researchDirections = [
     { id: 'finance', label: 'AI in Finance', query: 'Portfolio', description: 'Connecting financial forecasts with investment decisions through machine learning.', items: ['Portfolio optimization', 'Financial modeling', 'Goal-based wealth management', 'Time series for finance'] },
-    { id: 'market', label: 'Market Intelligence', query: 'Market', description: 'Studying how information, market structure, and participant behavior shape decisions.', items: ['Prediction markets & optimal betting', 'Dark pools & limit order books', 'Sports science'] },
+    {
+        id: 'market',
+        label: 'Market Intelligence',
+        query: 'Limit Order Book',
+        description: 'We focus on limit order books (LOBs) to study how orders and trades shape short-term prices.',
+        items: ['Limit order book modeling', 'Order flow, liquidity, and dark pools', 'Prediction markets and optimal betting', 'Sports science'],
+    },
     { id: 'agents', label: 'AI Agents', query: 'LLM', description: 'Autonomous systems for scientific discovery, collaborative reasoning, and verifiable results.', items: ['Scientific Discovery Agents', 'Multi-agent Coordination', 'Agent Evaluation & Reliability'] },
 ];
 
@@ -94,7 +100,11 @@ const SelectedPapersSection = () => {
             <span>{paper.selectedVenue}</span>
             <div>
                 <h3><a href={paper.links[0].href} target="_blank" rel="noopener noreferrer">{paper.title}</a></h3>
-                <p>{paper.authors.map(author => author.name).join(', ')}</p>
+                <p className="selected-authors">{paper.authors.map((author, index) => (
+                    <React.Fragment key={author.name + index}>
+                        {index > 0 && ', '}<PublicationAuthorName author={author} link={false} />
+                    </React.Fragment>
+                ))}</p>
                 {paper.links.length > 1 && <ResourceLinks links={paper.links.slice(1)} />}
             </div>
         </article>)}</div>

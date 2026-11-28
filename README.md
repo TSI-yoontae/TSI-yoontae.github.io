@@ -88,6 +88,6 @@ For Students contains the Reading list, Admissions, and Teaching. The legacy `#v
 
 Members use Korean names followed by English names in parentheses. Students have a compact roster, alphabetized by Korean name within each program, without research-interest labels or portraits. The PI retains the existing portrait without a role caption, full visible biography, resource links, and an always-visible awards/positions list. Existing English spellings were restored from the previous site records; the six newly added members' spellings were approved by the owner on 2026-10-08. Page headings omit promotional subtitles.
 
-The home page links directly to the publication archive. Five recent lab announcements appear first, with the full list available via a disclosure. External coverage has its own `#news` route.
+The home page links directly to the publication archive. Latest updates groups lab announcements into Publication, Funding, and News. Each tab shows the five newest entries, with a disclosure for older entries when available. Press coverage has its own `#news` route.
 
 The repository retains the previous Explorer and Terminal source files and figure assets for reference. The Terminal used synthetic data for its Forecast, Allocate, and Order book simulations. Figure sources are listed in `figures/README.md`.

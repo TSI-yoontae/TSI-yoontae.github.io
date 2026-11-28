@@ -191,6 +191,31 @@ html { scroll-padding-top: 16px; }
     margin: 0;
     border-top: 1px solid var(--lab-rule);
 }
+.updates-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 24px;
+    border-bottom: 1px solid var(--lab-rule);
+}
+.updates-tabs button {
+    min-height: 44px;
+    padding: 0;
+    margin-bottom: -1px;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    background: transparent;
+    color: var(--lab-muted);
+    font: 500 .875rem/1.5 var(--lab-sans);
+    cursor: pointer;
+}
+.updates-tabs button:hover { color: var(--lab-link); }
+.updates-tabs button[aria-selected="true"] {
+    color: var(--lab-link);
+    border-bottom-color: var(--lab-link);
+    font-weight: 600;
+}
+.updates-panel .update-list { border-top: 0; }
+.updates-empty { padding-block: 16px; color: var(--lab-muted); }
 .update-entry, .selected-research, .press-entry {
     display: grid;
     grid-template-columns: 7.5rem minmax(0, 1fr);

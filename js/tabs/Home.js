@@ -58,15 +58,25 @@ const ConceptEvidence = () => {
     </section>;
 };
 
-const NewsSection = () => {
+const updateTabs = [
+    { id: 'publication', label: 'Publication' },
+    { id: 'funding', label: 'Funding' },
+    { id: 'news', label: 'News' },
+];
+
+const getUpdateTab = category => category === 'Publications' ? 'publication' : category === 'Funding' ? 'funding' : 'news';
+
+const UpdatesPanel = ({ tabId, updates, selected }) => {
     const [expanded, setExpanded] = React.useState(false);
-    const news = window.TSI_Data.news;
-    const visibleNews = expanded ? news : news.slice(0, 5);
-    return <section className="concept-news">
-        <ConceptSectionHeading title="Latest updates"><a href="#news">News coverage</a></ConceptSectionHeading>
-        <ul className="update-list" id="lab-updates">
-            {visibleNews.map(item => <li className="update-entry" key={item.title}>
-                <div className="update-meta"><NewsDate date={item.date} /><span>{item.category}</span></div>
+    const visibleUpdates = expanded ? updates : updates.slice(0, 5);
+    const listId = 'lab-updates-' + tabId;
+
+    return <div className="updates-panel" id={'updates-panel-' + tabId} role="tabpanel"
+        aria-labelledby={'updates-tab-' + tabId} tabIndex={0} hidden={!selected}>
+        {!updates.length && <p className="updates-empty">No updates in this category yet.</p>}
+        <ul className="update-list" id={listId}>
+            {visibleUpdates.map(item => <li className="update-entry" key={item.title}>
+                <div className="update-meta"><NewsDate date={item.date} />{tabId === 'news' && <span>{item.category}</span>}</div>
                 <div>
                     <h3>{item.link ? <a href={item.link}>{item.title}</a> : item.title}</h3>
                     {item.detail && <p className="update-detail" lang={/^[가-힣]/.test(item.detail) ? 'ko' : undefined}>{item.detail}</p>}
@@ -74,9 +84,36 @@ const NewsSection = () => {
                 </div>
             </li>)}
         </ul>
-        <button type="button" className="news-archive-toggle" aria-expanded={expanded} aria-controls="lab-updates" onClick={() => setExpanded(!expanded)}>
-            {expanded ? 'Show fewer updates' : 'Show all updates'}<span aria-hidden="true">{expanded ? '−' : '+'}</span>
-        </button>
+        {updates.length > 5 && <button type="button" className="news-archive-toggle" aria-expanded={expanded} aria-controls={listId}
+            onClick={() => setExpanded(value => !value)}>
+            {expanded ? 'Show fewer updates' : 'Show older updates'}<span aria-hidden="true">{expanded ? '−' : '+'}</span>
+        </button>}
+    </div>;
+};
+
+const NewsSection = () => {
+    const [selected, setSelected] = React.useState(updateTabs[0].id);
+    const sortedUpdates = [...window.TSI_Data.news].sort((a, b) => b.date.localeCompare(a.date));
+
+    const selectByKey = (event, index) => {
+        const count = updateTabs.length;
+        const next = { ArrowLeft: (index + count - 1) % count, ArrowRight: (index + 1) % count, Home: 0, End: count - 1 }[event.key];
+        if (!Number.isInteger(next)) return;
+        event.preventDefault();
+        const tabId = updateTabs[next].id;
+        setSelected(tabId);
+        document.getElementById('updates-tab-' + tabId)?.focus();
+    };
+
+    return <section className="concept-news">
+        <ConceptSectionHeading title="Latest updates"><a href="#news">Press coverage</a></ConceptSectionHeading>
+        <div className="updates-tabs" role="tablist" aria-label="Latest updates categories">
+            {updateTabs.map((tab, index) => <button key={tab.id} type="button" role="tab" id={'updates-tab-' + tab.id}
+                aria-selected={tab.id === selected} aria-controls={'updates-panel-' + tab.id} tabIndex={tab.id === selected ? 0 : -1}
+                onClick={() => setSelected(tab.id)} onKeyDown={event => selectByKey(event, index)}>{tab.label}</button>)}
+        </div>
+        {updateTabs.map(tab => <UpdatesPanel key={tab.id} tabId={tab.id} selected={tab.id === selected}
+            updates={sortedUpdates.filter(item => getUpdateTab(item.category) === tab.id)} />)}
     </section>;
 };
 
